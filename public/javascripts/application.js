@@ -5,7 +5,7 @@ $(function(){
       var content = $('#' + assoc + '_fields_template').html();
       var regexp  = new RegExp('new_' + assoc, 'g');
       var new_id  = new Date().getTime();
-      $(this).parent().before(content.replace(regexp, new_id));
+      $(this).after().before(content.replace(regexp, new_id));
       return false;
     });
     $('form a.remove_child').live('click', function() {
@@ -91,18 +91,20 @@ $(function(){
             }else{
               image = '/images/open.png'
             }
-            $("#deterioration_info").html(
-              '<div id="deterioration_info" style="float:rigth; border:solid 2px #999;border-radius: 5px; padding: 5px; margin-right:20px">' +
+            var template =
+            '<div id="deterioration_info" style="border:solid 2px #999;border-radius: 5px; padding: 5px; margin-right:20px">' +
               '<span style="float:right"><img src="' + image +'"></span>'+
               '<strong> Deterioration #'+ deterioration.deterioration.id +'</strong>' +
               '<span style="margin-left: 50px;"> <strong>Category:</strong>  '+ deterioration.deterioration.category +'</span>'+
               '<div class="clear"></div>'+
               '<span style="float:left;width:15%;"> <strong> Description: </strong></span>'+
-              '<span style="float:left;margin-left: 10px;min-height:103px">'+
+              '<span style="float:left;margin-left: 10px;min-height:120px">'+
                  deterioration.deterioration.description +
-              '</span><div class="clear"></div>');
+              '</span><div class="clear"></div>'
+            $("#deterioration_info").html(template);
            }else{
-            $("#deterioration_info").html('<div id="deterioration_info" style="float:rigth; border:solid 2px #999;border-radius: 5px; padding: 5px; margin-right: 20px; text-align:center;min-height:130px"><p><img src="/images/open.png" ></p><p> <strong style="margin:10px">Select a deterioration</strong></p></div>');
+            var missing_det = '<div id="deterioration_info" style="float:rigth; border:solid 2px #999;border-radius: 5px; padding: 5px; margin-right: 20px; text-align:center;min-height:145px"><p><img src="/images/open.png" ></p><p> <strong style="margin:10px">Select a deterioration</strong></p></div>'
+            $("#deterioration_info").html(missing_det);
            }
           })
         })
@@ -111,6 +113,6 @@ $(function(){
   });
 function hideFlash() {
   var flash_div = $(".flash");
-  setTimeout(function() { flash_div.fadeOut(2000, function() { flash_div.html(""); flash_div.hide(); })}, 3000);
+  setTimeout(function() { flash_div.slideUp(2000, function() { flash_div.html(""); flash_div.hide(); })}, 3000);
 }
 

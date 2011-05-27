@@ -14,27 +14,15 @@ class Report < ActiveRecord::Base
   def closed?
     self.status == "Closed"
   end
+
   def has_dates?
     self.start_date.nil? && self.end_date.nil?
-  end
-
-  def css_advise
-    return if self.start_date.nil? || self.end_date.nil?
-    remaining = (self.end_date.day - Time.now.day)
-    css_class = nil
-    if remaining <= 0
-      css_class = "alert"
-    elsif 0 < remaining && remaining < 3
-      css_class = "info"
-    elsif remaining >= 3
-      css_class = "check"
-    end
-    return css_class
   end
 
   def close
     self.update_attributes!(:status => "Closed")
   end
+
   def open
     self.update_attributes!(:status => "open")
   end

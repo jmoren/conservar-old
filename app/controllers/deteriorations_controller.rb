@@ -8,6 +8,9 @@ class DeteriorationsController < ApplicationController
    def open
     @deterioration = Deterioration.find(params[:id])
     @deterioration.update_attributes(:fixed => false)
+    if @deterioration.report.closed?
+      @deterioration.report.open
+    end
     redirect_to @deterioration.report, :notice => "Successfully opened deterioration."
   end
   def close
@@ -17,8 +20,10 @@ class DeteriorationsController < ApplicationController
   end
 
   def get_deterioration
-    @deterioration = Deterioration.find(params[:det_id]) if !params[:det_id].blank?
-    @report = @deterioration.report
+    unless params[:det_id].blank?
+      @deterioration = Deterioration.find(params[:det_id])
+      @report = @deterioration.report
+    end
     respond_with(@deterioration)
   end
 

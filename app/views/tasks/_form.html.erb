@@ -18,7 +18,7 @@
           <span style="float:left;width:15%;">
             <strong> Description: </strong>
           </span>
-          <span style="float:left;margin-left: 10px;min-height:103px">
+          <span style="float:left;margin-left: 10px;min-height:120px">
             <%= @deterioration.description %>
           </span>
           <div class="clear"></div>
@@ -26,7 +26,7 @@
       </div>
     <% end %>
     <%= f.label :deterioration_id %>
-    <%= collection_select :task, :deterioration_id, @report.deteriorations, :id, :category,:prompt => true, :selected => @deterioration.id %>
+    <%= collection_select :task, :deterioration_id, @report.deteriorations, :id, :category,:prompt => true, :selected => @deterioration ? @deterioration.id : nil  %>
   </p>
   <div style="border:solid 2px #999;border-radius: 5px;width: 25%;margin-left:20px;">
     <div style="font-size: 15px;font-weight:bold;text-align:center"> Report <%= @report.code %></div>
@@ -50,22 +50,28 @@
     <%= f.text_area :description %>
   </p>
   <div id="deterioration_table">
-    <span id="add_field">
-      <%= add_child_link "Add material",  :tools %>
-    </span>
-  </div>
-  <p>
+    <div style="margin-left:13px; background: #ccc;padding: 4px;width:95%;border-radius: 3px">
+      <div style="font-weight:bold;width:190px;float:left">Category</div>
+      <div style="font-weight:bold;widht:250px;float:left">Description</div>
+          <div class="clear"></div>
+    </div>
+
     <%= f.fields_for :tools do |build| %>
       <%= render :partial => 'tool', :locals => { :f => build } %>
     <% end %>
+    <p>
+      <div id="add_field"  style="margin-left:0px;">
+        <%= add_child_link "Add Tool",  :tools %>
+      </div>
+    </p>
     <div>
       <%= new_child_fields_template(f, :tools, :object => @task.tools.build) %>
     </diV>
-  </p>
-  <p>
+  </div>
   <p>
     <%= f.submit :disable_with => "Pleas wait..." %>
     or
     <%= link_to ' Cancel', @report , :id => "cancel_link" %>
   </p>
 <% end %>
+

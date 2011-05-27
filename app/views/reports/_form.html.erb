@@ -15,18 +15,18 @@
     <%= f.text_field :status %>
   </p>
   <div id="deterioration_table">
-    <h3  style="margin: 10px;"> Deterioration Table </h3>
-    <div style="margin:15px;">
-      <div style="font-weight:bold;width:160px;float:left">Category</div>
+    <div style="margin-left:13px; background: #ccc;padding: 4px;width:95%;border-radius: 3px">
+      <div style="font-weight:bold;width:140px;float:left">Category</div>
       <div style="font-weight:bold;width:225px;float:left">Place</div>
       <div style="font-weight:bold;widht:250px;float:left">Description</div>
+      <div class="clear"></div>
     </div>
     <div class="clear"></div>
     <%= f.fields_for :deteriorations do |build| %>
       <%= render :partial => 'deterioration', :locals => { :f => build } %>
     <% end %>
     <p>
-      <div id="add_field"  style="margin: 10px;">
+      <div id="add_field"  style="margin: 0px;">
         <%= add_child_link "Add field",  :deteriorations %>
       </div>
     </p>
@@ -34,6 +34,7 @@
       <%= new_child_fields_template(f, :deteriorations, :object => @report.deteriorations.build) %>
     </diV>
   </div>
+  <div class="clear"></div>
   <p>
     <span class="title"><%= f.label :comments %></span>
     <%= f.text_area :comments %>
@@ -44,3 +45,4 @@
   </p>
   <p><%= f.submit :disable_with => "Please wait..." %></p>
 <% end %>
+

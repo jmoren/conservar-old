@@ -1,27 +1,12 @@
 <% title "Report #{@report.code}" %>
 <div id="report">
-<% unless (@report.closed? || @report.has_dates? )%>
-  <p>
-    <div class="<%= @report.css_advise %>">
-      <span class="ui-icon ui-icon-<%= @report.css_advise %>" style="float:left; margin: 2px 3px 2px 0;"> </span>
-      <span style="float: left">
-        <strong> Status: </strong><%= @report.status %>
-      </span>
-      <span style="float:right">
-        Remaining time: <strong><%= @report.end_date.day == Time.now.day ? "0" : (distance_of_time_in_words(Time.now, @report.end_date,:include_seconds => true)) %></strong>
-        <small> ( <%=l  @report.start_date,:format => :long %> - <%=l @report.end_date,:format => :long %> )</small>
-      </span>
-      <div class="clear"></div>
-    </div>
-  </p>
-<% else %>
-<strong> Status: </strong><%= @report.status %>
-<% end %>
+
+<p><%= report_status(@report)%></p>
 <div id="report_buttons">
   <% unless @report.deteriorations.empty? %>
     <span class="new_task button"> <%= link_to " new task", new_report_task_path(@report) %></span>
   <% end %>
-  <% if @report.can_close? || @report.closed? %>
+  <% if @report.can_close?%>
     <% if !@report.closed? %>
       <span class="close_report button"><%= link_to "close report",close_report_path(@report), :method => :post %></span>
     <% else %>
@@ -81,3 +66,4 @@
   <%= link_to "View All", reports_path %>
 </p>
 </div>
+
