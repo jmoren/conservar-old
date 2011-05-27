@@ -1,0 +1,9 @@
+one:
+  report_id: 1
+  deterioration_id: 1
+  description: MyText
+
+two:
+  report_id: 1
+  deterioration_id: 1
+  description: MyText

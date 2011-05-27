@@ -1,0 +1,239 @@
+body {
+  background-color: #4B7399;
+  font-family: Ubuntu;
+  font-size: 14px;
+}
+
+a img {
+  border: none;
+}
+
+a {
+  color: #0000FF;
+}
+
+.clear {
+  clear: both;
+  height: 0;
+  overflow: hidden;
+}
+
+#container {
+  width: 75%;
+  margin: 0 auto;
+  background-color: #FFF;
+  padding: 20px 40px;
+  border: solid 1px black;
+  margin-top: 20px;
+}
+
+#flash_notice, #flash_error, #flash_alert {
+  padding: 5px 8px;
+  margin: 10px 0;
+}
+
+#flash_notice {
+  background-color: #CFC;
+  border: solid 1px #6C6;
+}
+.check {
+  background-color: #CFC;
+  border: solid 1px #6C6;
+  padding: 5px 8px;
+}
+.alert{
+  background-color: #FCC;
+  border: solid 1px #C66;
+  padding: 5px 8px;
+}
+.info {
+  background-color: #F7F37C;
+  border: solid 1px #FAF452;
+  padding: 5px 8px;
+}
+
+#flash_error, #flash_alert {
+  background-color: #FCC;
+  border: solid 1px #C66;
+}
+
+.fieldWithErrors {
+  display: inline;
+}
+
+.error_messages {
+  width: 400px;
+  border: 2px solid #CF0000;
+  padding: 0px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  font-size: 12px;
+}
+
+.error_messages h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 10px;
+  font-size: 12px;
+  margin: 0;
+  background-color: #c00;
+  color: #fff;
+}
+
+.error_messages p {
+  margin: 8px 10px;
+}
+
+.error_messages ul {
+  margin: 0;
+}
+.deterioration_message{
+  background-color: #f9f9f9;
+  border: solid 1px #999;
+  padding: 5px;
+  margin: 3px;
+  text-align: center;
+
+}
+#report .text_area {
+  padding: 5px;
+}
+#table_deterioration{
+  border-collapse: collapse;
+  width: 100%;
+  border: solid #ccc 1px;
+}
+#table_deterioration tr th{
+  color: #000;
+  line-height: 1.7em;
+  padding-left: 10px;
+  background: #26456D;
+  color: #fff;
+  text-align:left;
+}
+#table_deterioration tr{
+  line-height: .7em;
+}
+#table_deterioration td{
+  width: 200px;
+  border-left: solid 1px #ccc;
+  padding-left: 10px;
+}
+#table_deterioration td.last{
+  width: 50px;
+  padding-left: 5px;
+}
+#table_deterioration td.tasks{
+  width: 40px;
+  text-align: center;
+  padding: 0 10px;
+}
+
+#table_deterioration td.button a{
+  margin-left: 15px;
+  font-size: 10px;
+  border-bottom: none;
+}
+#table_deterioration td.button{
+  width: 50px;
+}
+#report .button a{
+  margin-left: 10px;
+  font-size: 10px;
+
+}
+#deterioration .button{
+  margin-left: 10px;
+  font-size: 10px;
+}
+.remove_deterioration a{
+  font-size: 10px;
+}
+.remove_tool a{
+  font-size: 10px;
+}
+#add_field a{
+  font-size: 12px;
+}
+#table_deterioration td.open{
+  width: 50px;
+  background: url(/images/open.png) no-repeat 40% 50%;
+}
+#table_deterioration td.closed{
+  width: 50px;
+  background: url(/images/closed.png) no-repeat 40% 50%;
+}
+form{
+  width: 90%;
+  margin: auto;
+  border: solid 5px #666;
+  border-radius: 10px;
+  padding: 10px;
+}
+form textarea{
+  margin: 15px;
+  width: 95%;
+  border: solid 1px #999;
+  border-radius: 5px;
+  max-height: 200px;
+  padding: 3px;
+}
+ form input{
+  margin: 15px;
+  padding: 3px;
+  border: solid 1px #999;
+}
+form label{
+  margin-left: 20px;
+}
+form .fields textarea{
+  margin: 15px;
+  border: solid 1px #999;
+  border-radius: 5px;
+  max-height: 200px;
+  padding: 3px;
+}
+ form .fields input{
+  margin: 0;
+  padding: 3px;
+  border: solid 1px #999;
+}
+ form .fields{
+  margin: 0 10px;
+  padding: 3px;
+  }
+form #cancel_link{
+  color: #666;
+  font-size: 12px;
+  margin: 0 10px;
+  font-weight: bold;
+}
+#deterioration_table {
+
+
+}
+#report_buttons{
+  float: right;
+  margin: 0 0 10px 0;
+
+}
+#deterioration{
+  margin: 10px;
+  border: solid #999 2px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+#deterioration #tasks h2{
+  background: #666;
+  color: #fff;
+  padding: 3px;
+  border: solid 1px #666;
+  border-radius: 3px;
+
+}
+#deterioration .tasks{
+  margin: 10px;
+}
+

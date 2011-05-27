@@ -1,0 +1,71 @@
+<%= form_for [@report,@task] do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <% if @task.new_record? && params[:det_id].nil? %>
+      <div id="deterioration_info" style="float:right;width: 70%"></div>
+    <% else %>
+      <div id="deterioration_info" style="float:right;width: 70%">
+        <div id="deterioration_info" style="float:rigth; border:solid 2px #999;border-radius: 5px; padding: 5px; margin-right:20px">
+          <span style="float:right">
+            <%=@deterioration.fixed ? (image_tag('closed.png')) : (image_tag('open.png')) %>
+          </span>
+          <strong> Deterioration #<%= @deterioration.id %></strong>
+          <span style="margin-left: 50px;">
+            <strong>Category:</strong>
+            <%= @deterioration.category %>
+          </span>
+          <div class="clear"></div>
+          <span style="float:left;width:15%;">
+            <strong> Description: </strong>
+          </span>
+          <span style="float:left;margin-left: 10px;min-height:103px">
+            <%= @deterioration.description %>
+          </span>
+          <div class="clear"></div>
+        </div>
+      </div>
+    <% end %>
+    <%= f.label :deterioration_id %>
+    <%= collection_select :task, :deterioration_id, @report.deteriorations, :id, :category,:prompt => true, :selected => @deterioration.id %>
+  </p>
+  <div style="border:solid 2px #999;border-radius: 5px;width: 25%;margin-left:20px;">
+    <div style="font-size: 15px;font-weight:bold;text-align:center"> Report <%= @report.code %></div>
+    <p>
+      <label>Status: </label>
+      <strong><%= @report.status %></strong>
+      <br>
+      <label>Tasks: </label>
+      <strong><%= @report.tasks.size %></strong>
+      <br>
+      <label>Open deteriorations: </label>
+      <strong><%= @report.deteriorations.where(:fixed => false).size %></strong>
+      <br>
+      <label>Object: </label>
+      <strong>Aca va el code</strong>
+    </p>
+  </div>
+  <div class="clear"></div>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <div id="deterioration_table">
+    <span id="add_field">
+      <%= add_child_link "Add material",  :tools %>
+    </span>
+  </div>
+  <p>
+    <%= f.fields_for :tools do |build| %>
+      <%= render :partial => 'tool', :locals => { :f => build } %>
+    <% end %>
+    <div>
+      <%= new_child_fields_template(f, :tools, :object => @task.tools.build) %>
+    </diV>
+  </p>
+  <p>
+  <p>
+    <%= f.submit :disable_with => "Pleas wait..." %>
+    or
+    <%= link_to ' Cancel', @report , :id => "cancel_link" %>
+  </p>
+<% end %>

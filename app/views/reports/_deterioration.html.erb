@@ -1,0 +1,8 @@
+<div class="fields">
+  <%= f.text_field :category,:size => 20 %>
+  <%= f.text_field :place,:size => 30 %>
+  <%= f.text_field :description,:size => 60, :class => "last" %>
+  <span class="remove_deterioration">
+    <%= remove_child_link "remove", f %>
+  </span>
+</div>

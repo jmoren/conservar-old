@@ -1,0 +1,83 @@
+<% title "Report #{@report.code}" %>
+<div id="report">
+<% unless (@report.closed? || @report.has_dates? )%>
+  <p>
+    <div class="<%= @report.css_advise %>">
+      <span class="ui-icon ui-icon-<%= @report.css_advise %>" style="float:left; margin: 2px 3px 2px 0;"> </span>
+      <span style="float: left">
+        <strong> Status: </strong><%= @report.status %>
+      </span>
+      <span style="float:right">
+        Remaining time: <strong><%= @report.end_date.day == Time.now.day ? "0" : (distance_of_time_in_words(Time.now, @report.end_date,:include_seconds => true)) %></strong>
+        <small> ( <%=l  @report.start_date,:format => :long %> - <%=l @report.end_date,:format => :long %> )</small>
+      </span>
+      <div class="clear"></div>
+    </div>
+  </p>
+<% else %>
+<strong> Status: </strong><%= @report.status %>
+<% end %>
+<div id="report_buttons">
+  <% unless @report.deteriorations.empty? %>
+    <span class="new_task button"> <%= link_to " new task", new_report_task_path(@report) %></span>
+  <% end %>
+  <% if @report.can_close? || @report.closed? %>
+    <% if !@report.closed? %>
+      <span class="close_report button"><%= link_to "close report",close_report_path(@report), :method => :post %></span>
+    <% else %>
+      <span class="close_report button"><%= link_to "open report",open_report_path(@report), :method => :post %></span>
+    <% end %>
+  <% end %>
+  <span class="pdf button"><%= link_to "pdf" %></span>
+</div>
+<div class="clear"></div>
+<% unless @report.deteriorations.empty? %>
+  <table id="table_deterioration">
+    <tr>
+      <th> Status</th>
+      <th> Category </th>
+      <th> Place </th>
+      <th> Description </th>
+      <th> Tasks # </th>
+      <th> Actions </th>
+    </tr>
+    <% @report.deteriorations.each do |deterioration| %>
+      <tr id="deterioration_<%= deterioration.id%>" >
+        <td class="<%= deterioration.fixed ? 'closed' : 'open' %>"></td>
+        <td><%= deterioration.category %></td>
+        <td><%= deterioration.place %></td>
+        <td><%= simple_format truncate(deterioration.description, :lenght => 30) %></td>
+        <td class="tasks"><%= link_to deterioration.tasks.size, report_deterioration_path(@report,deterioration) %></td>
+        <% if deterioration.fixed %>
+          <td class="open_task button"><%= link_to "open",open_deterioration_path(deterioration), :method => "post", :class =>"ui-icon-locked"  %></td>
+        <% else %>
+          <td class="close_task button"><%= link_to "close",close_deterioration_path(deterioration), :method => "post", :class =>"ui-icon-unlocked"  %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <div class="deterioration_message">
+    <h3>No deteriorations where founded </h3>
+  </div>
+<% end %>
+
+<p>
+  <span style="float:left; width: 11%;padding: 3px;"><strong>Comments: </strong></span>
+  <span style="float:left;width:87%;background: #f1f1f1;border: solid 1px #ccc; padding: 3px;min-height:50px;border-radius: 5px;">
+    <%= @report.comments %>  </span>
+</p>
+<div class="clear"></div>
+<p>
+  <span style="float:left; width: 11%;padding: 3px;"><strong>Treatment: </strong></span>
+  <span style="float:left;width:87%;background: #f1f1f1;border: solid 1px #ccc;padding: 3px;min-height:50px;border-radius: 5px;">
+    <%= @report.treatment%>
+  </span>
+</p>
+<div class="clear"></div>
+<p>
+  <%= link_to "Edit", edit_report_path(@report) %> |
+  <%= link_to "Destroy", @report, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", reports_path %>
+</p>
+</div>

@@ -1,0 +1,46 @@
+<%= form_for @report do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <span class="title"><%= f.label :code %></span>
+    <%= f.text_field :code %>
+  </p>
+  <p>
+    <%= f.label :start_date, "Start on"%>
+    <%= f.text_field :start_date %>
+    <%= f.label :end_date, "to"%>
+    <%= f.text_field :end_date %>
+  <p>
+  <p>
+    <%= f.label :status %>
+    <%= f.text_field :status %>
+  </p>
+  <div id="deterioration_table">
+    <h3  style="margin: 10px;"> Deterioration Table </h3>
+    <div style="margin:15px;">
+      <div style="font-weight:bold;width:160px;float:left">Category</div>
+      <div style="font-weight:bold;width:225px;float:left">Place</div>
+      <div style="font-weight:bold;widht:250px;float:left">Description</div>
+    </div>
+    <div class="clear"></div>
+    <%= f.fields_for :deteriorations do |build| %>
+      <%= render :partial => 'deterioration', :locals => { :f => build } %>
+    <% end %>
+    <p>
+      <div id="add_field"  style="margin: 10px;">
+        <%= add_child_link "Add field",  :deteriorations %>
+      </div>
+    </p>
+    <div>
+      <%= new_child_fields_template(f, :deteriorations, :object => @report.deteriorations.build) %>
+    </diV>
+  </div>
+  <p>
+    <span class="title"><%= f.label :comments %></span>
+    <%= f.text_area :comments %>
+  </p>
+  <p>
+    <span class="title"><%= f.label :treatment %></span>
+    <%= f.text_area :treatment %>
+  </p>
+  <p><%= f.submit :disable_with => "Please wait..." %></p>
+<% end %>

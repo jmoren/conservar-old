@@ -1,0 +1,20 @@
+<% title "Task" %>
+
+<p>
+  <strong>Report:</strong>
+  <%= @task.report_id %>
+</p>
+<p>
+  <strong>Deterioration:</strong>
+  <%= @task.deterioration_id %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%= @task.description %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_task_path(@task) %> |
+  <%= link_to "Destroy", @task, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", tasks_path %>
+</p>

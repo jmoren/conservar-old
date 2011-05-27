@@ -1,0 +1,65 @@
+<% title "Deterioration" %>
+
+<div id="deterioration">
+  <span class="det_back button"><%= link_to 'Back to Report', @report  %></span>
+  <span class="new_task button"> <%= link_to "add task", new_report_task_path(@report,:det_id => @deterioration) %></span>
+  <p>
+    <div class="det_info" style="margin: 0 10px;">
+      <div>
+        <span style="float:left; margin: 1px 6px 0 0;"><strong>Status</strong></span>
+        <span style="float:left"><%= @deterioration.fixed ? (image_tag('closed.png') ): (image_tag('open.png')) %></span>
+      </div>
+      <div class="clear"></div>
+      <strong> Category: </strong><%= @deterioration.category %>
+      <p>
+        <strong> Description: </strong>
+        <br>
+        <p style="background: #f1f1f1;border: solid 1px #ccc;margin: 0 5px; padding: 3px;min-height:50px;border-radius: 5px;">
+          <%= @deterioration.description %>
+        </p>
+      </p>
+    </div>
+  </p>
+  <div id="tasks" style="margin: 0 10px;">
+    <% unless @deterioration.tasks.empty? %>
+      <h2  style="margin: 0 5px;"> Tasks </h2>
+      <% @deterioration.tasks.each_with_index do |task,n| %>
+        <div class="task" style="margin: 5px;">
+          <div>
+            <%= link_to "#", :onclick => "$('#task_#{task.id}').slideToggle()",:style =>"font-weight: bold;color:#26456D;text-decoration:none"  do %>
+              <span><%= n +1 %>- Task <%= task.id %> </span>
+              <small>(<%=l task.created_at, :format => :long %>)</small>
+            <% end %>
+            <span style="float:right;margin: 0;">
+              <%= link_to 'Edit', edit_report_task_path(@report,task), :class => "button edit_task"  %>
+              <%= link_to 'Delete', report_task_path(@report,task), :confirm => "Are you sure?", :method => :delete, :class => "button delete_task"  %>
+            </span>
+          </div>
+          <div style="display:none" id="task_<%= task.id %>">
+            <p>
+              <span style="float:left; width: 12%;padding: 3px;"><strong>Description: </strong></span>
+              <p style="float:left;width:85%;background: #f1f1f1;border: solid 1px #ccc;margin: 0 5px; padding: 3px;min-he ight:50px;border-radius: 5px;">
+                <%= task.description %>
+              </p>
+            </p>
+            <div class="clear"></div>
+            <p>
+              <span style="float:left; width: 12%;padding: 3px;"><strong>Tools: </strong></span>
+              <p style="float:left;width:85%;background: #f1f1f1;border: solid 1px #ccc;margin: 0 5px; padding: 3px;min-height:50px;border-radius: 5px;">
+                <% if task.tools.empty? %>
+                 No tools
+                <% else %>
+                  <% task.tools.each do |tool| %>
+                    <span> <%= tool.category %> : <%= tool.description %></span>
+                    <br>
+                  <% end %>
+                <% end %>
+              </p>
+            </p>
+          </div>
+          <div class="clear"></div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

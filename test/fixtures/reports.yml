@@ -1,0 +1,9 @@
+one:
+  code: MyString
+  comments: MyText
+  treatment: MyText
+
+two:
+  code: MyString
+  comments: MyText
+  treatment: MyText
