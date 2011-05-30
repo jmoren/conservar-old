@@ -1,8 +1,7 @@
 <div class="fields">
-  <%= f.text_field :category,:size => 22 %>
-  <%= f.text_field :description,:size => 70, :class => "last" %>
-  <span class="remove_deterioration">
+  <%= f.text_field :category,:size => 10 %>
+  <%= f.text_field :description,:size => 106, :class => "last" %>
+  <span class="button without_text delete">
     <%= remove_child_link "remove", f %>
   </span>
 </div>
-

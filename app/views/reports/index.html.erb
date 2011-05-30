@@ -2,15 +2,17 @@
 
 <table>
   <tr>
+    <th>Status</th>
     <th>Code</th>
     <th>Comments</th>
     <th>Treatment</th>
   </tr>
   <% for report in @reports %>
     <tr>
+      <td><%= report.closed? ? image_tag('closed-12.png') : image_tag('closed-12.png') %></td>
       <td><%= report.code %></td>
       <td><%= report.comments %></td>
-      <td><%= report.treatment %></td>
+      <td><%= truncate(report.treatment, :lenght => 40) %></td>
       <td><%= link_to "Show", report %></td>
       <td><%= link_to "Edit", edit_report_path(report) %></td>
       <td><%= link_to "Destroy", report, :confirm => 'Are you sure?', :method => :delete %></td>

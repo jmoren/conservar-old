@@ -18,68 +18,101 @@ $(function(){
     });
 
     // buttons
-    $('.remove_deterioration a').button({
-        icons: {
-            primary: "ui-icon-trash"
-        },
-        text: false
+    $('.button.with_text.new a ').button({
+      icons:{primary:'ui-icon-plus'}
     });
-    $('.button.edit_task').button({
-        icons: {
-            primary: "ui-icon-pencil"
-        }
+    $('.button.with_text.unlock a ').button({
+      icons:{primary:'ui-icon-unlocked'}
     });
-    $('.button.delete_task').button({
-        icons: {
-            primary: "ui-icon-trash"
-        }
-    });
-    $('.remove_tool a').button({
-        icons: {
-            primary: "ui-icon-trash"
-        },
-        text: false
-    });
-    $('#add_field a').button({
-        icons: {
-            primary: "ui-icon-circle-plus"
-        }
+    $('.button.with_text.lock a ').button({
+      icons:{primary:'ui-icon-locked'}
     });
 
-    $('.new_task.button a').button({
-        icons: {
-            primary: "ui-icon-plus"
-        }
-     });
-     $('.det_back.button a').button({
-        icons: {
-            primary: "ui-icon-arrowreturnthick-1-w"
-        }
-     });
-
-    $('.close_report.button a').button({
-        icons: {
-            primary: "ui-icon-check"
-        }
-     });
-    $('.pdf.button a').button({
-        icons: {
-            primary: "ui-icon-print"
-        }
-     });
-    $('.open_task.button a').button({
-        icons: {
-            primary: "ui-icon-locked"
-        }
+    $('.button.with_text.delete a ').button({
+      icons:{primary:'ui-icon-trash'}
     });
-    $('.close_task.button a').button({
+    $('.button.with_text.print a ').button({
+      icons:{primary:'ui-icon-print'}
+    });
+    $('.button.with_text.show a ').button({
+      icons:{primary:'ui-icon-search'}
+    });
+    $('.button.with_text.edit a ').button({
+      icons:{primary:'ui-icon-pencil'}
+    });
+    $('.button.with_text.back a ').button({
+      icons:{primary:'ui-icon-arrowreturn-1-w'}
+    });
+    $('.button.without_text.new a ').button({
       icons: {
-        primary: "ui-icon-unlocked"
-      }
+        primary: 'ui-icon-plus'
+      },
+      text: false
     });
+    $('.button.without_text.lock a ').button({
+      icons: {
+        primary: 'ui-icon-locked'
+      },
+      text: false
+    });
+    $('.button.without_text.unlock a ').button({
+      icons: {
+        primary: 'ui-icon-unlocked'
+      },
+      text: false
+    });
+
+    $('.button.without_text.delete a ').button({
+      icons: {
+        primary: 'ui-icon-trash'
+      },
+      text: false
+    });
+    $('.button.without_text.show a ').button({
+      icons: {
+        primary: 'ui-icon-search'
+      },
+      text: false
+    });
+
     // datepickers
-    $("#report_start_date" ).datepicker({dateFormat:"DD, d MM yy"});
-    $("#report_end_date").datepicker({dateFormat:'DD, d MM, yy' });
+    $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
+    var dates = $( "#report_start_date, #report_end_date" ).datepicker({
+			  //image calendar
+			  showOn: "button",
+  			buttonImage: "/images/calendar.gif",
+	  		buttonImageOnly: true,
+			  //dateFormat
+			  dateFormat:"d, MM yy",
+  			changeMonth: true,
+	  		onSelect: function( selectedDate ) {
+				var option = this.id == "report_start_date" ? "minDate" : "maxDate",
+					instance = $( this ).data( "datepicker" ),
+					date = $.datepicker.parseDate(
+						instance.settings.dateFormat ||
+						$.datepicker._defaults.dateFormat,
+						selectedDate, instance.settings );
+				dates.not( this ).datepicker( "option", option, date );
+			}
+		});
+    //$("#report_start_date" ).datepicker({
+    //    minDate: -2,
+    //    showOn: "button",
+		//	  buttonImage: "/images/calendar.gif",
+		//	  buttonImageOnly: true,
+		//	  dateFormat:"DD, d MM yy",
+		//	  showOtherMonths: true,
+  	//		selectOtherMonths: true
+		//	});
+    //$("#report_end_date").datepicker({
+    //   minDate: +1,
+    //    showOn: "button",
+		//	  buttonImage: "/images/calendar.gif",
+		//	  buttonImageOnly: true,
+		//	  dateFormat:"DD, d MM yy",
+		//	  showOtherMonths: true,
+  	//		selectOtherMonths: true
+		//	});
     // select deteriorations task form
     $(function(){
       //Update agent filter using the selected agency:
@@ -109,7 +142,7 @@ $(function(){
           })
         })
     });
-    hideFlash();
+    //hideFlash();
   });
 function hideFlash() {
   var flash_div = $(".flash");

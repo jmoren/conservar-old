@@ -11,8 +11,8 @@ gem 'kaminari'
 gem 'nifty-generators'
 gem 'client_side_validations'
 gem 'pdfkit', '0.4.6'
-gem 'carrierwave'
-gem 'rmagick'
+gem 'paperclip'
+gem 'rack-raw-upload'
 # Use unicorn as the web server
 # gem 'unicorn'
 

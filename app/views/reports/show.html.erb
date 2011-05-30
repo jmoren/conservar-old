@@ -1,46 +1,97 @@
+<%= javascript_include_tag "jquery.colorbox" %>
+<%= stylesheet_link_tag "colorbox" %>
+<script>
+$(function () {
+  $( "#tabs" ).tabs().find( ".ui-tabs-nav" ).sortable({ axis: "x" });
+
+    $(".place").editInPlace({
+      url: '/deteriorations/update_in_place',
+      saving_image: '/images/loading.gif',
+      params: 'field=place',
+      size: '20'
+    });
+    $(".category").editInPlace({
+      url: '/deteriorations/update_in_place',
+      saving_image: '/images/loading.gif',
+      params: 'field=category',
+      field_type: "select",
+  		select_options: "regular, malo, bueno",
+  		select_text: 'category'
+    }),
+    $(".description").editInPlace({
+      url: '/deteriorations/update_in_place',
+      saving_image: '/images/loading.gif',
+      params: 'field=description',
+      field_type: "textarea",
+  		textarea_rows: "3",
+	  	textarea_cols: "80"
+    });
+    $(".gallery").colorbox({transition:"elastic", width:"75%", height:"75%"});
+});
+</script>
 <% title "Report #{@report.code}" %>
 <div id="report">
-
+<div id="tabs">
+  <ul>
+		<li><a href="#report">Report</a></li>
+		<li><a href="#images">Images</a></li>
+		<li><a href="#information">Information</a></li>
+		<li><a href="#report_chart">Graph</a></li>
+	</ul>
+<div id="report">
 <p><%= report_status(@report)%></p>
-<div id="report_buttons">
+<span>
+    <%= statics_report(@report) %>
+</span>
+<span id="report_buttons">
   <% unless @report.deteriorations.empty? %>
-    <span class="new_task button"> <%= link_to " new task", new_report_task_path(@report) %></span>
+    <span class="button with_text new"> <%= link_to " new task", new_report_task_path(@report), :class => "ui-icon-plus" %></span>
   <% end %>
   <% if @report.can_close?%>
     <% if !@report.closed? %>
-      <span class="close_report button"><%= link_to "close report",close_report_path(@report), :method => :post %></span>
+      <span class="button with_text lock"><%= link_to "close report",close_report_path(@report), :method => :post, :class => "ui-icon-lock" %></span>
     <% else %>
-      <span class="close_report button"><%= link_to "open report",open_report_path(@report), :method => :post %></span>
+      <span class="button with_text unlock"><%= link_to "open report",open_report_path(@report), :method => :post %></span>
     <% end %>
   <% end %>
-  <span class="pdf button"><%= link_to "pdf" %></span>
-</div>
+  <span class="button with_text print"><%= link_to "pdf","#",:class => 'ui-icon-print' %></span>
+</span>
 <div class="clear"></div>
 <% unless @report.deteriorations.empty? %>
   <table id="table_deterioration">
     <tr>
-      <th> Status</th>
+      <th> </th>
       <th> Category </th>
       <th> Place </th>
       <th> Description </th>
-      <th> Tasks # </th>
-      <th> Actions </th>
+      <th> </th>
+      <th class="last"> </th>
     </tr>
     <% @report.deteriorations.each do |deterioration| %>
-      <tr id="deterioration_<%= deterioration.id%>" >
-        <td class="<%= deterioration.fixed ? 'closed' : 'open' %>"></td>
-        <td><%= deterioration.category %></td>
-        <td><%= deterioration.place %></td>
-        <td><%= simple_format truncate(deterioration.description, :lenght => 30) %></td>
+      <tr id="deterioration_<%= deterioration.id%>" class="on_the_sopt_fields">
+        <td class="<%= deterioration.fixed ? 'closed' : 'open' %> status"></td>
+        <td class="category" id="<%= deterioration.id%>"><%= deterioration.category %></td>
+        <td class="place" id="<%= deterioration.id%>"><%= deterioration.place %></td>
+        <td class="description" id="<%= deterioration.id%>"><%= simple_format truncate(deterioration.description,:length => 140)%></td>
         <td class="tasks"><%= link_to deterioration.tasks.size, report_deterioration_path(@report,deterioration) %></td>
-        <% if deterioration.fixed %>
-          <td class="open_task button"><%= link_to "open",open_deterioration_path(deterioration), :method => "post", :class =>"ui-icon-locked"  %></td>
-        <% else %>
-          <td class="close_task button"><%= link_to "close",close_deterioration_path(deterioration), :method => "post", :class =>"ui-icon-unlocked"  %></td>
-        <% end %>
+        <td class="actions">
+          <% if deterioration.fixed %>
+            <span class="button without_text unlock">
+              <%= link_to "open",open_deterioration_path(deterioration), :method => "post"%>
+            </span>
+          <% else %>
+            <span class="button without_text lock">
+              <%= link_to "close",close_deterioration_path(deterioration), :method => "post" %>
+            </span>
+          <% end %>
+          <span class="button without_text show">
+            <%= link_to 'Show', report_deterioration_path(@report,deterioration) %>
+          </span>
+        </td>
       </tr>
     <% end %>
   </table>
+
 <% else %>
   <div class="deterioration_message">
     <h3>No deteriorations where founded </h3>
@@ -48,22 +99,66 @@
 <% end %>
 
 <p>
-  <span style="float:left; width: 11%;padding: 3px;"><strong>Comments: </strong></span>
-  <span style="float:left;width:87%;background: #f1f1f1;border: solid 1px #ccc; padding: 3px;min-height:50px;border-radius: 5px;">
-    <%= @report.comments %>  </span>
+  <span><strong>Comments: </strong></span>
+    <%= simple_format @report.comments, :class => "text_area" %>
 </p>
 <div class="clear"></div>
 <p>
-  <span style="float:left; width: 11%;padding: 3px;"><strong>Treatment: </strong></span>
-  <span style="float:left;width:87%;background: #f1f1f1;border: solid 1px #ccc;padding: 3px;min-height:50px;border-radius: 5px;">
-    <%= @report.treatment%>
+  <span><strong>Treatment: </strong></span>
+  <%= simple_format @report.treatment, :class => "text_area"%>
+
+</p>
+<div class="clear"></div>
+<p>
+  <span class="button with_text edit">
+    <%= link_to "Edit", edit_report_path(@report) %>
+  </span>
+  <span class="button with_text delete">
+    <%= link_to "Destroy", @report, :confirm => 'Are you sure?', :method => :delete %>
+  </span>
+  <span class="button with_text show">
+    <%= link_to "View All", reports_path %>
   </span>
 </p>
-<div class="clear"></div>
-<p>
-  <%= link_to "Edit", edit_report_path(@report) %> |
-  <%= link_to "Destroy", @report, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", reports_path %>
-</p>
+</div>
+<div id="images">
+  <span class="button with_text new">
+   <%= link_to "Add Gallery", new_report_gallery_path(@report)%>
+  </span>
+  <p>
+    <% @report.galleries.each do |gallery| %>
+      <div>
+        <h3 style="background:#26456D;padding:3px;color:#fff;border: solid 1px #26456D; border-radius: 4px;"> Gallery #<%= gallery.id %></h3>
+        <strong> Description </strong>
+        <%= simple_format gallery.description, :class => "text_area" %>
+      </div>
+      <strong> Images (<%= gallery.photos.size%>) </strong>
+      <ul style="list-style:none;margin:5px 0 0 20px;padding:0">
+        <% gallery.photos.limit(10).each do |photo| %>
+          <li style="float:left;margin-right: 5px;">
+            <a href="<%=photo.image.url(:original) %>" title="<%= photo.description%>" rel="gallery_<%=photo.gallery.id%>" class="gallery" >
+              <%= image_tag(photo.image.url(:small))%>
+            </a>
+          </li>
+        <%end %>
+      </ul>
+      <div class="clear"></div>
+      <p>
+        <span class="button with_text show">
+          <%= link_to 'Show', gallery  %>
+        </span>
+        <span class="button with_text edit">
+          <%= link_to 'Edit', uploader_gallery_path(gallery)  %>
+        </span>
+      </p>
+   <% end %>
+</div>
+<div id="information">
+  Information!
+  </div>
+<div id="report_chart">
+  Algun grafico ira aca!
 </div>
 
+</div>
+</div>

@@ -1,3 +1,4 @@
+<div id="model_form">
 <%= form_for @report do |f| %>
   <%= f.error_messages %>
   <p>
@@ -5,10 +6,10 @@
     <%= f.text_field :code %>
   </p>
   <p>
-    <%= f.label :start_date, "Start on"%>
-    <%= f.text_field :start_date %>
+    <%= f.label :start_date, "Start on",  %>
+    <%= f.text_field :start_date, :value => @report.new_record? ? nil : @report.start_date.strftime('%d, %B %Y')  %>
     <%= f.label :end_date, "to"%>
-    <%= f.text_field :end_date %>
+    <%= f.text_field :end_date, :value => @report.new_record? ? nil : @report.end_date.strftime('%d, %B %Y')   %>
   <p>
   <p>
     <%= f.label :status %>
@@ -16,8 +17,8 @@
   </p>
   <div id="deterioration_table">
     <div style="margin-left:13px; background: #ccc;padding: 4px;width:95%;border-radius: 3px">
-      <div style="font-weight:bold;width:140px;float:left">Category</div>
-      <div style="font-weight:bold;width:225px;float:left">Place</div>
+      <div style="font-weight:bold;width:100px;float:left">Category</div>
+      <div style="font-weight:bold;width:190px;float:left">Place</div>
       <div style="font-weight:bold;widht:250px;float:left">Description</div>
       <div class="clear"></div>
     </div>
@@ -26,7 +27,7 @@
       <%= render :partial => 'deterioration', :locals => { :f => build } %>
     <% end %>
     <p>
-      <div id="add_field"  style="margin: 0px;">
+      <div id="add_field"  style="margin: 0px;" class="button with_text new">
         <%= add_child_link "Add field",  :deteriorations %>
       </div>
     </p>
@@ -45,4 +46,4 @@
   </p>
   <p><%= f.submit :disable_with => "Please wait..." %></p>
 <% end %>
-
+</div>

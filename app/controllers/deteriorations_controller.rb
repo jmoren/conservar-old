@@ -1,4 +1,5 @@
 class DeteriorationsController < ApplicationController
+
   respond_to :json, :html
   def show
     @report = Report.find(params[:report_id])
@@ -26,6 +27,11 @@ class DeteriorationsController < ApplicationController
     end
     respond_with(@deterioration)
   end
+  def update_in_place
+    @deterioration = Deterioration.find(params[:element_id])
+    @deterioration.update_attributes(params[:field] => params[:update_value])
+    render :text => @deterioration.send(params[:field])
 
+  end
 end
 

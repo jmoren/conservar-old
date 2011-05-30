@@ -1,3 +1,4 @@
+<div id="model_form">
 <%= form_for [@report,@task] do |f| %>
   <%= f.error_messages %>
   <p>
@@ -51,7 +52,7 @@
   </p>
   <div id="deterioration_table">
     <div style="margin-left:13px; background: #ccc;padding: 4px;width:95%;border-radius: 3px">
-      <div style="font-weight:bold;width:190px;float:left">Category</div>
+      <div style="font-weight:bold;width:100px;float:left">Category</div>
       <div style="font-weight:bold;widht:250px;float:left">Description</div>
           <div class="clear"></div>
     </div>
@@ -60,7 +61,7 @@
       <%= render :partial => 'tool', :locals => { :f => build } %>
     <% end %>
     <p>
-      <div id="add_field"  style="margin-left:0px;">
+      <div id="add_field"  style="margin-left:0px;" class="button with_text new">
         <%= add_child_link "Add Tool",  :tools %>
       </div>
     </p>
@@ -68,10 +69,13 @@
       <%= new_child_fields_template(f, :tools, :object => @task.tools.build) %>
     </diV>
   </div>
+  <div>
+    <%= check_box_tag :closed %>
+    <label> Close task? </label>
   <p>
     <%= f.submit :disable_with => "Pleas wait..." %>
     or
     <%= link_to ' Cancel', @report , :id => "cancel_link" %>
   </p>
 <% end %>
-
+</div>

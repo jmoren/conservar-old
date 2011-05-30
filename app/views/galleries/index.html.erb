@@ -1,0 +1,20 @@
+<% title "Galleries" %>
+
+<table>
+  <tr>
+    <th>Galleryable</th>
+    <th>Galleryable Type</th>
+    <th>Description</th>
+  </tr>
+  <% for gallery in @galleries %>
+    <tr>
+      <td><%= gallery.galleryable_id %></td>
+      <td><%= gallery.galleryable_type %></td>
+      <td><%= gallery.description %></td>
+      <td><%= link_to "Show", gallery %></td>
+      <td><%= link_to "Edit", edit_gallery_path(gallery) %></td>
+      <td><%= link_to "Destroy", gallery, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+

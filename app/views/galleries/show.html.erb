@@ -1,0 +1,32 @@
+<% title "Gallery" %>
+<%= javascript_include_tag 'jquery.colorbox'%>
+<%= stylesheet_link_tag "colorbox" %>
+<script>
+  $(function(){
+    $(".gallery").colorbox({transition:"elastic", width:"75%", height:"75%"});
+  });
+</script>
+<p>
+  <%= link_to @gallery.galleryable_type, @gallery.galleryable %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%= @gallery.description %>
+</p>
+<p>
+  <div> Images </div>
+  <ul style="list-style:none;">
+    <% @gallery.photos.each do |photo| %>
+      <li style="float:left;margin-left:5px;"> 
+        <a href="<%=photo.image.url(:original) %>" title="<%= photo.description%>" rel="gallery_<%=photo.gallery.id%>" class="gallery" ><%= image_tag(photo.image.url(:small))%>
+            </a>
+      </li>
+    <% end %>
+   </ul>
+   <div class="clear"></div>
+</p>
+<p>
+  <%= link_to "Edit", edit_gallery_path(@gallery) %> |
+  <%= link_to "Destroy", @gallery, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", galleries_path %>
+</p>

@@ -1,7 +1,7 @@
 body {
   background-color: #4B7399;
   font-family: Ubuntu;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 a img {
@@ -19,7 +19,7 @@ a {
 }
 
 #container {
-  width: 75%;
+  width: 90%;
   margin: 0 auto;
   background-color: #FFF;
   padding: 20px 40px;
@@ -36,7 +36,7 @@ a {
   background-color: #CFC;
   border: solid 1px #6C6;
 }
-.check {
+.circle-check {
   background-color: #CFC;
   border: solid 1px #6C6;
   padding: 5px 8px;
@@ -96,55 +96,82 @@ a {
   text-align: center;
 
 }
-#report .text_area {
-  padding: 5px;
+.text_area {
+  background: #f1f1f1;
+  border: solid 1px #ccc;
+  padding: 3px;
+  min-height:50px;
+  border-radius: 5px;
 }
-#table_deterioration{
+#report #table_deterioration{
   border-collapse: collapse;
   width: 100%;
   border: solid #ccc 1px;
 }
-#table_deterioration tr th{
+#report #table_deterioration tr th{
   color: #000;
-  line-height: 1.7em;
-  padding-left: 10px;
+  line-height: 2em;
+  padding-left: 5px;
   background: #26456D;
   color: #fff;
   text-align:left;
 }
-#table_deterioration tr{
+#report #table_deterioration tr{
+}
+#report #table_deterioration td{
+  border-left: solid 1px #ccc;
+  padding: 10px;
+}
+#report #table_deterioration td.tasks,#report #table_deterioration td.open,#report #table_deterioration td.closed {
+  width: 10px;
+  text-align:center;
+}
+
+#report #table_deterioration td.category{
+  width: 90px;
+}
+#report #table_deterioration td.description{
+
+}
+#report #table_deterioration td.place{
+  width: 170px;
+}
+
+#report #table_deterioration td.actions{
+  width: 60px;
+}
+#table_photos{
+  border-collapse: collapse;
+  width: 100%;
+  border: solid #ccc 1px;
+}
+#table_photos tr th{
+  color: #000;
+  line-height: 1.7em;
+  padding-left: 5px;
+  background: #26456D;
+  color: #fff;
+  text-align:left;
+}
+#table_photos tr{
   line-height: .7em;
 }
-#table_deterioration td{
-  width: 200px;
-  border-left: solid 1px #ccc;
-  padding-left: 10px;
+#table_photos td{
+  padding: 10px;
 }
-#table_deterioration td.last{
-  width: 50px;
-  padding-left: 5px;
+#table_photos td.image{
+  width: 100px;
 }
-#table_deterioration td.tasks{
-  width: 40px;
-  text-align: center;
-  padding: 0 10px;
-}
-
-#table_deterioration td.button a{
-  margin-left: 15px;
-  font-size: 10px;
-  border-bottom: none;
-}
-#table_deterioration td.button{
+#table_photos td.size{
   width: 50px;
 }
-#report .button a{
-  margin-left: 10px;
-  font-size: 10px;
-
+#table_photos td.name{
+  width: 80px;
 }
-#deterioration .button{
-  margin-left: 10px;
+#table_photos td.delete{
+  width: 50px;
+}
+.button{
   font-size: 10px;
 }
 .remove_deterioration a{
@@ -156,22 +183,26 @@ a {
 #add_field a{
   font-size: 12px;
 }
-#table_deterioration td.open{
-  width: 50px;
+
+#report #table_deterioration td.open{
+  width: 20px;
   background: url(/images/open.png) no-repeat 40% 50%;
 }
-#table_deterioration td.closed{
-  width: 50px;
+#report #table_deterioration td.closed{
+  width: 20px;
   background: url(/images/closed.png) no-repeat 40% 50%;
 }
-form{
+textarea,input[type="text"],select,input[type="checkbox"]{
+  border: solid 1px #ccc;
+}
+#model_form{
   width: 90%;
   margin: auto;
   border: solid 5px #666;
   border-radius: 10px;
   padding: 10px;
 }
-form textarea{
+#model_form textarea{
   margin: 15px;
   width: 95%;
   border: solid 1px #999;
@@ -179,44 +210,40 @@ form textarea{
   max-height: 200px;
   padding: 3px;
 }
- form input{
+#model_form input{
   margin: 15px;
   padding: 3px;
   border: solid 1px #999;
 }
-form label{
+#model_form label{
   margin-left: 20px;
 }
-form .fields textarea{
+#model_form .fields textarea{
   margin: 10px;
   border: solid 1px #999;
   border-radius: 5px;
   max-height: 200px;
   padding: 3px;
 }
- form .fields input{
+#model_form .fields input{
   margin: 0;
   padding: 3px;
   border: solid 1px #999;
 }
- form .fields{
+#model_form .fields{
   padding: 3px;
   margin-left: 10px;
   }
-form #cancel_link{
+#model_form #cancel_link{
   color: #666;
   font-size: 12px;
   margin: 0 10px;
   font-weight: bold;
 }
-#deterioration_table {
 
-
-}
-#report_buttons{
+#report #report_buttons{
   float: right;
   margin: 0 0 10px 0;
-
 }
 #deterioration{
   margin: 10px;
@@ -224,16 +251,23 @@ form #cancel_link{
   border-radius: 5px;
   padding: 5px;
 }
-
-#deterioration #tasks h2{
+#deterioration #tasks h3{
   background: #666;
   color: #fff;
   padding: 3px;
   border: solid 1px #666;
-  border-radius: 3px;
 
 }
-#deterioration .tasks{
+#tasks{
   margin: 10px;
+}
+#tasks .button{
+font-size: 10px;
+}
+#deterioration_task_table{
+  width: 70%;
+}
+#deterioration_task_table th{
+  text-align: left;
 }
 

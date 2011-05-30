@@ -1,8 +1,8 @@
 <% title "Deterioration" %>
 
 <div id="deterioration">
-  <span class="det_back button"><%= link_to 'Back to Report', @report  %></span>
-  <span class="new_task button"> <%= link_to "add task", new_report_task_path(@report,:det_id => @deterioration) %></span>
+  <span class="button with_text back"><%= link_to 'Back to Report', @report  %></span>
+  <span class="button with_text new"> <%= link_to "add task", new_report_task_path(@report,:det_id => @deterioration) %></span>
   <p>
     <div class="det_info" style="margin: 0 10px;">
       <div>
@@ -13,53 +13,52 @@
       <strong> Category: </strong><%= @deterioration.category %>
       <p>
         <strong> Description: </strong>
-        <br>
-        <p style="background: #f1f1f1;border: solid 1px #ccc;margin: 0 5px; padding: 3px;min-height:50px;border-radius: 5px;">
-          <%= @deterioration.description %>
-        </p>
+        <%= simple_format @deterioration.description, :class => "text_area" %>
       </p>
     </div>
   </p>
   <div id="tasks" style="margin: 0 10px;">
     <% unless @deterioration.tasks.empty? %>
-      <h2  style="margin: 0 5px;"> Tasks </h2>
-      <% @deterioration.tasks.each_with_index do |task,n| %>
-        <div class="task" style="margin: 5px;">
-          <div>
-            <%= link_to "#", :onclick => "$('#task_#{task.id}').slideToggle()",:style =>"font-weight: bold;color:#26456D;text-decoration:none"  do %>
-              <span><%= n +1 %>- Task <%= task.id %> </span>
-              <small>(<%=l task.created_at, :format => :long %>)</small>
-            <% end %>
-            <span style="float:right;margin: 0;">
-              <%= link_to 'Edit', edit_report_task_path(@report,task), :class => "button edit_task"  %>
-              <%= link_to 'Delete', report_task_path(@report,task), :confirm => "Are you sure?", :method => :delete, :class => "button delete_task"  %>
-            </span>
-          </div>
-          <div style="display:none" id="task_<%= task.id %>">
-            <p>
-              <span style="float:left; width: 12%;padding: 3px;"><strong>Description: </strong></span>
-              <p style="float:left;width:85%;background: #f1f1f1;border: solid 1px #ccc;margin: 0 5px; padding: 3px;min-he ight:50px;border-radius: 5px;">
+      <h3> Tasks </h3>
+      <table id="deterioration_task_table">
+        <tr>
+          <th> Status </th>
+          <th> Id </th>
+          <th> Created </th>
+          <th> Closed </th>
+        </tr>
+      <% @deterioration.tasks.each do |task| %>
+        <tr>
+            <td> <%= task.closed_at.nil? ? (image_tag('open-12.png',:title => "Open")) : (image_tag('closed-12.png',:title => "Closed")) %></td>
+            <td>Task <%= task.id %> </td>
+            <td><%=l task.created_at, :format => :long %></td>
+            <td><%=task.closed_at.nil? ? '---':(l task.closed_at, :format => :long) %></td>
+            <td>
+              <span class="button with_text edit"> <%= link_to 'Edit', edit_report_task_path(@report,task)  %></span>
+              <span class="button with_text delete"><%= link_to 'Delete', report_task_path(@report,task), :confirm => "Are you sure?", :method => :delete%> </span>
+              <span class="button with_text show"><%= link_to_function "Show", "$('tr#task_#{task.id}').slideToggle('slow')"%></span>
+            </td>
+          </tr>
+          <tr style="display:none" id="task_<%= task.id %>">
+            <td>
+              <span><strong>Description: </strong></span>
+              <p>
                 <%= task.description %>
               </p>
-            </p>
-            <div class="clear"></div>
-            <p>
-              <span style="float:left; width: 12%;padding: 3px;"><strong>Tools: </strong></span>
-              <p style="float:left;width:85%;background: #f1f1f1;border: solid 1px #ccc;margin: 0 5px; padding: 3px;min-height:50px;border-radius: 5px;">
+              <span><strong>Tools: </strong></span>
+              <p>
                 <% if task.tools.empty? %>
                  No tools
                 <% else %>
                   <% task.tools.each do |tool| %>
-                    <span> <%= tool.category %> : <%= tool.description %></span>
-                    <br>
+                    <div> <%= tool.category %> : <%= tool.description %></div>
                   <% end %>
                 <% end %>
               </p>
-            </p>
-          </div>
-          <div class="clear"></div>
-        </div>
-      <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
     <% end %>
   </div>
 </div>

@@ -1,0 +1,82 @@
+<%= javascript_include_tag 'fileuploader' %>
+<script>
+  $(document).ready(function(){
+    $("p.description").editInPlace({
+      url: '/galleries/update_in_place',
+      saving_image: '/images/loading.gif',
+      params: 'field=description',
+      field_type: "textarea",
+  		textarea_rows: "6",
+	  	textarea_cols: "129",
+	  	bg_out: '#f1f1f1'
+    });
+    var uploader = new qq.FileUploader({
+      element: document.getElementById("file-uploader"),
+      action: "/galleries/upload",
+      textButton: "Select File",
+      allowedExtensions: ['png','jpg'],
+      params: { id: "<%= params[:id] %>" }
+    });
+
+  });
+</script>
+<link href="/stylesheets/fileuploader.css" type="text/css" rel="stylesheet" media="screen">
+<h1>
+  <%= link_to  @gallery.galleryable_type, polymorphic_path([@gallery.galleryable]) %>
+  >
+  Gallery #<%= @gallery.id %>
+</h1>
+<p>
+  <h3>Description</h3>
+  <p class="description text_area" id="<%=@gallery.id%>">
+    <%= @gallery.description %>
+  <p>
+</p>
+<p>
+  <h2> Upload your photos </h2>
+  <small > Before submit any photo, remove spaces in the photo name if it has. After submit your photos, reload the page to see them above. Yoy can edit them or delete.</small>
+  <div id="file-uploader">
+    <noscript>
+      <p> Please enable JavaScript to use file uploader</p>
+    </noscript>
+  </div>
+<p>
+<p>
+  <div>
+    <% if @gallery.photos.empty? %>
+      <h3>
+        No photos
+      </h3>
+    <% else %>
+      <h2 style="float:left;"> Gallery photo </h2>
+      <div class="clear"></div>
+      <%= form_for @gallery do |f| %>
+        <div style="float:right;margin:5px 0 ">
+          <%= f.submit %>
+        </div>
+        <table id="table_photos">
+          <tr>
+            <th> Image </th>
+            <th> Description </th>
+            <th> Created at </th>
+            <th> Size </th>
+            <th> Delete </th>
+           </tr>
+           <%= f.fields_for :photos do |build| %>
+            <tr>
+              <td class="image"><%= image_tag(build.object.image.url(:small))%></td>
+              <td class="description"><%= build.text_area :description, :cols => 70, :rows => 4 %></td>
+              <td class="name"><%=build.object.created_at.strftime('%d, %B %Y') %></td>
+              <td class="size"><%= number_to_human_size(build.object.image_file_size)%></td>
+              <td class="delete"> <%= build.check_box :_destroy %> </td>
+            </tr>
+           <% end %>
+        </table>
+        <span style="float:right;margin-top:5px;">
+          <%= f.submit %>
+        </span>
+        <div class="clear"></div>
+      <% end %>
+    <% end %>
+  </div>
+</p>

@@ -1,5 +1,6 @@
 class Report < ActiveRecord::Base
   has_many :deteriorations
+  has_many :galleries, :as => :galleryable, :dependent => :destroy
   has_many :tasks
   accepts_nested_attributes_for :deteriorations, :allow_destroy => true, :reject_if => lambda { |attributes| attributes['place'].blank? || attributes['description'].blank? }
   attr_accessible :code, :comments, :treatment, :deteriorations_attributes, :start_date, :end_date, :status

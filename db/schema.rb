@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110525205823) do
+ActiveRecord::Schema.define(:version => 20110529233817) do
 
   create_table "deteriorations", :force => true do |t|
     t.integer  "report_id"
@@ -18,6 +18,25 @@ ActiveRecord::Schema.define(:version => 20110525205823) do
     t.text     "description"
     t.string   "category"
     t.boolean  "fixed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "galleries", :force => true do |t|
+    t.integer  "galleryable_id"
+    t.string   "galleryable_type"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "photos", :force => true do |t|
+    t.integer  "gallery_id"
+    t.text     "description"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -39,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20110525205823) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "closed_at"
   end
 
   create_table "tools", :force => true do |t|

@@ -23,6 +23,9 @@ class TasksController < ApplicationController
 
   def create
     @task = @report.tasks.new(params[:task])
+    if params[:closed]
+      @task.closed_at = Time.now
+    end
     if @task.save
       redirect_to report_deterioration_path(@task.report,@task.deterioration), :notice => "Successfully created task."
     else
@@ -37,6 +40,9 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
+    if params[:closed]
+      @task.closed_at = Time.now
+    end
     if @task.update_attributes(params[:task])
       redirect_to report_deterioration_path(@task.report,@task.deterioration), :notice  => "Successfully updated task."
     else

@@ -1,11 +1,12 @@
 class ReportsController < ApplicationController
-
+  respond_to :html, :json
   def index
     @reports = Report.all
   end
 
   def show
     @report = Report.find(params[:id])
+    respond_with(@report.deteriorations,:inlcude => :tasks)
   end
 
   def new
@@ -50,6 +51,8 @@ class ReportsController < ApplicationController
     @report.open
     redirect_to @report, :notice => "Successfully opened report."
   end
-
+  def report_to_json
+    @report = Report.find(params[:id])
+  end
 end
 
