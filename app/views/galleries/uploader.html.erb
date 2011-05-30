@@ -6,8 +6,8 @@
       saving_image: '/images/loading.gif',
       params: 'field=description',
       field_type: "textarea",
-  		textarea_rows: "6",
-	  	textarea_cols: "129",
+  		textarea_rows: "5",
+	  	textarea_cols: "136",
 	  	bg_out: '#f1f1f1'
     });
     var uploader = new qq.FileUploader({
@@ -21,11 +21,13 @@
   });
 </script>
 <link href="/stylesheets/fileuploader.css" type="text/css" rel="stylesheet" media="screen">
-<h1>
+<h4>
   <%= link_to  @gallery.galleryable_type, polymorphic_path([@gallery.galleryable]) %>
   >
-  Gallery #<%= @gallery.id %>
-</h1>
+  <%= link_to "Gallery #{@gallery.id}", @gallery %>
+  >
+  Uploader
+</h4>
 <p>
   <h3>Description</h3>
   <p class="description text_area" id="<%=@gallery.id%>">
@@ -33,8 +35,10 @@
   <p>
 </p>
 <p>
-  <h2> Upload your photos </h2>
-  <small > Before submit any photo, remove spaces in the photo name if it has. After submit your photos, reload the page to see them above. Yoy can edit them or delete.</small>
+  <div >
+    <h3> Upload your photos </h3>
+    <small > Before submit any photo, replace spaces in the photo name with undersocres if it has. After submit your photos, reload the page to see them above. Yoy can edit them or delete.</small>
+  </div>
   <div id="file-uploader">
     <noscript>
       <p> Please enable JavaScript to use file uploader</p>
@@ -80,3 +84,4 @@
     <% end %>
   </div>
 </p>
+

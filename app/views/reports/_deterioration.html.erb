@@ -1,8 +1,9 @@
 <div class="fields">
-  <%= f.text_field :category,:size => 10 %>
+  <%= f.select :det_category_id, DetCategory.all.collect{|c| [c.name,c.id]} %>
   <%= f.text_field :place,:size => 25 %>
   <%= f.text_field :description,:size => 74, :class => "last" %>
   <span class="button without_text delete">
     <%= remove_child_link "remove", f %>
   </span>
 </div>
+

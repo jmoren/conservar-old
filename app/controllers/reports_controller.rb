@@ -51,8 +51,11 @@ class ReportsController < ApplicationController
     @report.open
     redirect_to @report, :notice => "Successfully opened report."
   end
-  def report_to_json
+
+  def deteriorations_to_gantt
     @report = Report.find(params[:id])
+    @deteriorations = @report.deteriorations.collect(&:to_ghash)
+    respond_with(@deteriorations)
   end
 end
 

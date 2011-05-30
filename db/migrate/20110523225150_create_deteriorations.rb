@@ -4,7 +4,7 @@ class CreateDeteriorations < ActiveRecord::Migration
       t.integer :report_id
       t.string :place
       t.text :description
-      t.string :category
+      t.integer :det_category_id
       t.boolean :fixed
 
       t.timestamps

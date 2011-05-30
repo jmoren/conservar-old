@@ -10,7 +10,7 @@
         <span style="float:left"><%= @deterioration.fixed ? (image_tag('closed.png') ): (image_tag('open.png')) %></span>
       </div>
       <div class="clear"></div>
-      <strong> Category: </strong><%= @deterioration.category %>
+      <strong> Category: </strong><%= @deterioration.det_category.name %>
       <p>
         <strong> Description: </strong>
         <%= simple_format @deterioration.description, :class => "text_area" %>
@@ -26,6 +26,10 @@
           <th> Id </th>
           <th> Created </th>
           <th> Closed </th>
+          <th> Tools </th>
+          <th> Galleries </th>
+          <th> Actions </th>
+
         </tr>
       <% @deterioration.tasks.each do |task| %>
         <tr>
@@ -33,28 +37,12 @@
             <td>Task <%= task.id %> </td>
             <td><%=l task.created_at, :format => :long %></td>
             <td><%=task.closed_at.nil? ? '---':(l task.closed_at, :format => :long) %></td>
+            <td><%= task.tools.size %></td>
+            <td><%= task.galleries.size %></td>
             <td>
               <span class="button with_text edit"> <%= link_to 'Edit', edit_report_task_path(@report,task)  %></span>
               <span class="button with_text delete"><%= link_to 'Delete', report_task_path(@report,task), :confirm => "Are you sure?", :method => :delete%> </span>
-              <span class="button with_text show"><%= link_to_function "Show", "$('tr#task_#{task.id}').slideToggle('slow')"%></span>
-            </td>
-          </tr>
-          <tr style="display:none" id="task_<%= task.id %>">
-            <td>
-              <span><strong>Description: </strong></span>
-              <p>
-                <%= task.description %>
-              </p>
-              <span><strong>Tools: </strong></span>
-              <p>
-                <% if task.tools.empty? %>
-                 No tools
-                <% else %>
-                  <% task.tools.each do |tool| %>
-                    <div> <%= tool.category %> : <%= tool.description %></div>
-                  <% end %>
-                <% end %>
-              </p>
+              <span class="button with_text show"><%= link_to "Show", report_task_path(@report,task)%></span>
             </td>
           </tr>
         <% end %>
@@ -62,3 +50,4 @@
     <% end %>
   </div>
 </div>
+

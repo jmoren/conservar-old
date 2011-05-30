@@ -76,15 +76,14 @@ $(function(){
     });
 
     // datepickers
-    $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
     var dates = $( "#report_start_date, #report_end_date" ).datepicker({
-			  //image calendar
-			  showOn: "button",
+			minDate: -2,
+			//image calendar
+			showOn: "button",
   			buttonImage: "/images/calendar.gif",
 	  		buttonImageOnly: true,
 			  //dateFormat
 			  dateFormat:"d, MM yy",
-  			changeMonth: true,
 	  		onSelect: function( selectedDate ) {
 				var option = this.id == "report_start_date" ? "minDate" : "maxDate",
 					instance = $( this ).data( "datepicker" ),
@@ -117,9 +116,9 @@ $(function(){
     $(function(){
       //Update agent filter using the selected agency:
       $("select#task_deterioration_id").change(function(){
-        $.getJSON( "/deterioration",{det_id: $(this).val(), ajax: 'true'}, function(deterioration){
+        $.getJSON( "/deterioration",{det_id: $(this).val()}, function(deterioration){
           if (deterioration){
-            if (deterioration.deterioration.fixed){
+            if (deterioration.fixed){
               image = '/images/closed.png'
             }else{
               image = '/images/open.png'
@@ -127,12 +126,12 @@ $(function(){
             var template =
             '<div id="deterioration_info" style="border:solid 2px #999;border-radius: 5px; padding: 5px; margin-right:20px">' +
               '<span style="float:right"><img src="' + image +'"></span>'+
-              '<strong> Deterioration #'+ deterioration.deterioration.id +'</strong>' +
-              '<span style="margin-left: 50px;"> <strong>Category:</strong>  '+ deterioration.deterioration.category +'</span>'+
+              '<strong> Deterioration #'+ deterioration.id +'</strong>' +
+              '<span style="margin-left: 50px;"> <strong>Category:</strong>  '+ deterioration.category +'</span>'+
               '<div class="clear"></div>'+
               '<span style="float:left;width:15%;"> <strong> Description: </strong></span>'+
               '<span style="float:left;margin-left: 10px;min-height:120px">'+
-                 deterioration.deterioration.description +
+                 deterioration.description +
               '</span><div class="clear"></div>'
             $("#deterioration_info").html(template);
            }else{

@@ -24,13 +24,20 @@ class DeteriorationsController < ApplicationController
     unless params[:det_id].blank?
       @deterioration = Deterioration.find(params[:det_id])
       @report = @deterioration.report
+      @deterioration = @deterioration.to_custom_hash
     end
     respond_with(@deterioration)
   end
   def update_in_place
     @deterioration = Deterioration.find(params[:element_id])
-    @deterioration.update_attributes(params[:field] => params[:update_value])
-    render :text => @deterioration.send(params[:field])
+    if params[:field] == "det_category_id"
+      params[:update_value] = DetCategory.find_by_name(params[:update_value]).id
+      @deterioration.update_attributes(params[:field] => params[:update_value])
+      render :text => @deterioration.det_category.name
+    else
+      @deterioration.update_attributes(params[:field] => params[:update_value])
+      render :text => @deterioration.send(params[:field])
+    end
 
   end
 end

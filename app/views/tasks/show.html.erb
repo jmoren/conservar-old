@@ -1,20 +1,39 @@
 <% title "Task" %>
 
 <p>
-  <strong>Report:</strong>
-  <%= @task.report_id %>
+  <%= link_to "Report ##{@task.report_id}", report_path(@task.report) %>
+  >
+  <%= link_to "Deterioration ##{@task.deterioration_id}", report_deterioration_path(@task.report,@task.deterioration) %>
+  >
+  <strong>Task <%= @task.id %></strong>
 </p>
-<p>
-  <strong>Deterioration:</strong>
-  <%= @task.deterioration_id %>
-</p>
+
 <p>
   <strong>Description:</strong>
   <%= @task.description %>
 </p>
-
 <p>
-  <%= link_to "Edit", edit_task_path(@task) %> |
-  <%= link_to "Destroy", @task, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", tasks_path %>
+  <strong> Tools </strong>
+  <% @task.tools.each do |tool|%>
+    <p>
+      <p>
+        <strong> Id: </strong> <%= tool.id %>
+        <strong>Category:</strong>
+        <%= tool.category %>
+      </p>
+      <strong>Description:</strong>
+      <%= simple_format tool.description, :class=>"text_area"%>
+    </p>
+  <% end %>
+<p>
+  <strong> Galleries: </strong>
+  <br>
+  <% @task.galleries.each do |gallery|%>
+    <%= link_to "Gallery ##{gallery.id}", gallery  %>
+  <% end %>
+ </p>
+<p>
+  <span class="button with_text new"> <%= link_to 'New Gallery', new_task_gallery_path(@task)  %></span>
+  <span class="button with_text delete"><%= link_to "Destroy", @task, :confirm => 'Are you sure?', :method => :delete %></span>
 </p>
+

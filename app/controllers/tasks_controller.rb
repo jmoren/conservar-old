@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_filter :set_report
+  before_filter :set_report, :except => [:show]
 
   def set_report
     @report = Report.find(params[:report_id])

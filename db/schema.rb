@@ -10,13 +10,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110529233817) do
+ActiveRecord::Schema.define(:version => 20110530193339) do
+
+  create_table "det_categories", :force => true do |t|
+    t.string   "name"
+    t.text     "suggestion"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "deteriorations", :force => true do |t|
     t.integer  "report_id"
     t.string   "place"
     t.text     "description"
-    t.string   "category"
+    t.integer  "det_category_id"
     t.boolean  "fixed"
     t.datetime "created_at"
     t.datetime "updated_at"

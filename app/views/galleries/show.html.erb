@@ -8,6 +8,9 @@
 </script>
 <p>
   <%= link_to @gallery.galleryable_type, @gallery.galleryable %>
+  >
+  <strong>Gallery #<%= @gallery.id %></strong>
+
 </p>
 <p>
   <strong>Description:</strong>
@@ -17,7 +20,7 @@
   <div> Images </div>
   <ul style="list-style:none;">
     <% @gallery.photos.each do |photo| %>
-      <li style="float:left;margin-left:5px;"> 
+      <li style="float:left;margin-left:5px;">
         <a href="<%=photo.image.url(:original) %>" title="<%= photo.description%>" rel="gallery_<%=photo.gallery.id%>" class="gallery" ><%= image_tag(photo.image.url(:small))%>
             </a>
       </li>
@@ -27,6 +30,8 @@
 </p>
 <p>
   <%= link_to "Edit", edit_gallery_path(@gallery) %> |
+  <%= link_to 'Manage Images',uploader_gallery_path(@gallery)  %> |
   <%= link_to "Destroy", @gallery, :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All", galleries_path %>
 </p>
+

@@ -1,9 +1,11 @@
 Conservar::Application.routes.draw do
-  get '/deterioration' => "deteriorations#get_deterioration"
-  post 'deteriorations/:id/close' => "deteriorations#close", :as => "close_deterioration"
-  post 'deteriorations/:id/open' => "deteriorations#open", :as => "open_deterioration"
-  post 'deteriorations/update_in_place' => "deteriorations#update_in_place"
-  post 'galleries/update_in_place' => "galleries#update_in_place"
+  get  'reports/deteriorations_to_gantt' => "reports#deteriorations_to_gantt"
+  get  '/deterioration'                  => "deteriorations#get_deterioration"
+  post 'deteriorations/:id/close'        => "deteriorations#close", :as => "close_deterioration"
+  post 'deteriorations/:id/open'         => "deteriorations#open", :as => "open_deterioration"
+  post 'deteriorations/update_in_place'  => "deteriorations#update_in_place"
+  post 'galleries/update_in_place'       => "galleries#update_in_place"
+
   resources :galleries, :except => [:new, :create] do
     collection do
       post :upload
@@ -12,14 +14,13 @@ Conservar::Application.routes.draw do
       get :uploader
     end
   end
-
+  resources :tasks, :only =>[:show, :destroy] do
+    resources :galleries, :only => [:new, :create]
+  end
   resources :reports do
     resources :deteriorations, :only => [:show]
-    resources :galleries, :only => [:new, :create]
+    resources :galleries, :only => [:new, :create,:show]
     resources :tasks
-    collection do
-      put :update_attribute_on_the_spot
-    end
     member do
       post '/close' => "reports#close"
       post '/open' => "reports#open"

@@ -3,6 +3,8 @@ class GalleriesController < ApplicationController
   def parent
     if params[:report_id]
       return @parent = Report.find(params[:report_id])
+    elsif params[:task_id]
+      return @parent = Task.find(params[:task_id])
     end
   end
   def index

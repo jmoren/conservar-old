@@ -2,7 +2,9 @@
 <%= stylesheet_link_tag "colorbox" %>
 <script>
 $(function () {
-  $( "#tabs" ).tabs().find( ".ui-tabs-nav" ).sortable({ axis: "x" });
+    //var ganttData = $.getJSON( "deteriorations_to_gantt.json",{id: <%= @report.id %>});
+
+    $( "#tabs" ).tabs().find( ".ui-tabs-nav" ).sortable({ axis: "x" });
 
     $(".place").editInPlace({
       url: '/deteriorations/update_in_place',
@@ -10,12 +12,12 @@ $(function () {
       params: 'field=place',
       size: '20'
     });
-    $(".category").editInPlace({
+    $(".det_category_id").editInPlace({
       url: '/deteriorations/update_in_place',
       saving_image: '/images/loading.gif',
-      params: 'field=category',
+      params: 'field=det_category_id',
       field_type: "select",
-  		select_options: "regular, malo, bueno",
+  		select_options: '<%= DetCategory.all.collect{|c| [c.name]}.join(", ")%>',
   		select_text: 'category'
     }),
     $(".description").editInPlace({
@@ -24,8 +26,9 @@ $(function () {
       params: 'field=description',
       field_type: "textarea",
   		textarea_rows: "3",
-	  	textarea_cols: "80"
+	  	textarea_cols: "60"
     });
+
     $(".gallery").colorbox({transition:"elastic", width:"75%", height:"75%"});
 });
 </script>
@@ -39,6 +42,7 @@ $(function () {
 		<li><a href="#report_chart">Graph</a></li>
 	</ul>
 <div id="report">
+<%= hidden_field_tag :report_id, @report.id %>
 <p><%= report_status(@report)%></p>
 <span>
     <%= statics_report(@report) %>
@@ -64,13 +68,14 @@ $(function () {
       <th> Category </th>
       <th> Place </th>
       <th> Description </th>
+      <th> Tasks </th>
       <th> </th>
       <th class="last"> </th>
     </tr>
     <% @report.deteriorations.each do |deterioration| %>
       <tr id="deterioration_<%= deterioration.id%>" class="on_the_sopt_fields">
         <td class="<%= deterioration.fixed ? 'closed' : 'open' %> status"></td>
-        <td class="category" id="<%= deterioration.id%>"><%= deterioration.category %></td>
+        <td class="det_category_id" id="<%= deterioration.id%>"><%= deterioration.det_category.name %></td>
         <td class="place" id="<%= deterioration.id%>"><%= deterioration.place %></td>
         <td class="description" id="<%= deterioration.id%>"><%= simple_format truncate(deterioration.description,:length => 140)%></td>
         <td class="tasks"><%= link_to deterioration.tasks.size, report_deterioration_path(@report,deterioration) %></td>
@@ -157,8 +162,9 @@ $(function () {
   Information!
   </div>
 <div id="report_chart">
-  Algun grafico ira aca!
+  Graficos!
 </div>
 
 </div>
 </div>
+

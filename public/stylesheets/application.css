@@ -122,23 +122,27 @@ a {
   border-left: solid 1px #ccc;
   padding: 10px;
 }
-#report #table_deterioration td.tasks,#report #table_deterioration td.open,#report #table_deterioration td.closed {
-  width: 10px;
+#report #table_deterioration td.open,#report #table_deterioration td.closed {
+  width: 8%;
   text-align:center;
 }
+#report #table_deterioration td.tasks{
+    width: 8%;
+    text-align:center;
+}
+#report #table_deterioration td.det_category_id {
+    width: 10%;
 
-#report #table_deterioration td.category{
-  width: 90px;
 }
 #report #table_deterioration td.description{
-
+    width: 50%;
 }
 #report #table_deterioration td.place{
-  width: 170px;
+  width: 19%;
 }
 
 #report #table_deterioration td.actions{
-  width: 60px;
+  width: 7%;
 }
 #table_photos{
   border-collapse: collapse;
@@ -265,7 +269,7 @@ textarea,input[type="text"],select,input[type="checkbox"]{
 font-size: 10px;
 }
 #deterioration_task_table{
-  width: 70%;
+  width: 100%;
 }
 #deterioration_task_table th{
   text-align: left;
