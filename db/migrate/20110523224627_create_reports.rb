@@ -4,6 +4,7 @@ class CreateReports < ActiveRecord::Migration
       t.string :code
       t.text :comments
       t.text :treatment
+      t.integer :user_id
       t.timestamps
     end
   end
@@ -12,3 +13,4 @@ class CreateReports < ActiveRecord::Migration
     drop_table :reports
   end
 end
+

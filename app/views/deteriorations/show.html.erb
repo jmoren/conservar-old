@@ -25,6 +25,7 @@
           <th> Status </th>
           <th> Id </th>
           <th> Created </th>
+          <th> User </th>
           <th> Closed </th>
           <th> Tools </th>
           <th> Galleries </th>
@@ -36,6 +37,7 @@
             <td> <%= task.closed_at.nil? ? (image_tag('open-12.png',:title => "Open")) : (image_tag('closed-12.png',:title => "Closed")) %></td>
             <td>Task <%= task.id %> </td>
             <td><%=l task.created_at, :format => :long %></td>
+            <td><%= task.user.email %></td>
             <td><%=task.closed_at.nil? ? '---':(l task.closed_at, :format => :long) %></td>
             <td><%= task.tools.size %></td>
             <td><%= task.galleries.size %></td>

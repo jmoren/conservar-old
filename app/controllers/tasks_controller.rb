@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_filter :set_report, :except => [:show]
 
   def set_report
-    @report = Report.find(params[:report_id])
+    @report = Report.find_by_code(params[:report_id])
   end
   def index
     @tasks = Task.all
@@ -23,6 +23,7 @@ class TasksController < ApplicationController
 
   def create
     @task = @report.tasks.new(params[:task])
+    @task.user = current_user
     if params[:closed]
       @task.closed_at = Time.now
     end

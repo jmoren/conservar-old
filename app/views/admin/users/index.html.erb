@@ -1,0 +1,13 @@
+<h2> Usuarios </h2>
+<% @users.each do |user| %>
+  <div class="user">
+    <p>Nombre Completo: <%= user.full_name %></p>
+    <p>Rol: <%= user.role %></p>
+    <p>Estado: <%= user.enabled? ? "Habilitado" : "Deshabilitado" %></p>
+    <p>
+      <%= link_to 'editar', edit_admin_user_path(user)  %> |
+      <%= link_to 'Deshabilitar'  %>
+    </p>
+  </div>
+<% end %>
+

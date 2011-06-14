@@ -3,3 +3,5 @@ db/*.sqlite3
 log/*.log
 public/system/*
 tmp/
+test/**
+config/database.yml

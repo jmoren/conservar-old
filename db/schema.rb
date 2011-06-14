@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110530193339) do
+ActiveRecord::Schema.define(:version => 20110614033855) do
 
   create_table "det_categories", :force => true do |t|
     t.string   "name"
@@ -33,6 +33,32 @@ ActiveRecord::Schema.define(:version => 20110530193339) do
     t.integer  "galleryable_id"
     t.string   "galleryable_type"
     t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "histories", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "historyable_id"
+    t.string   "historyable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "history_changes", :force => true do |t|
+    t.integer  "history_id"
+    t.string   "field_change"
+    t.text     "content_change"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "observations", :force => true do |t|
+    t.integer  "report_id"
+    t.string   "category"
+    t.text     "body"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -52,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20110530193339) do
     t.string   "code"
     t.text     "comments"
     t.text     "treatment"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
@@ -59,10 +86,23 @@ ActiveRecord::Schema.define(:version => 20110530193339) do
     t.date     "end_date"
   end
 
+  create_table "slugs", :force => true do |t|
+    t.string   "name"
+    t.integer  "sluggable_id"
+    t.integer  "sequence",                     :default => 1, :null => false
+    t.string   "sluggable_type", :limit => 40
+    t.string   "scope"
+    t.datetime "created_at"
+  end
+
+  add_index "slugs", ["name", "sluggable_type", "sequence", "scope"], :name => "index_slugs_on_n_s_s_and_s", :unique => true
+  add_index "slugs", ["sluggable_id"], :name => "index_slugs_on_sluggable_id"
+
   create_table "tasks", :force => true do |t|
     t.integer  "report_id"
     t.integer  "deterioration_id"
     t.text     "description"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "closed_at"
@@ -74,6 +114,20 @@ ActiveRecord::Schema.define(:version => 20110530193339) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "username"
+    t.string   "email"
+    t.string   "password_hash"
+    t.string   "password_salt"
+    t.string   "name"
+    t.string   "lastname"
+    t.boolean  "enabled",       :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "role"
+    t.string   "cached_slug"
   end
 
 end

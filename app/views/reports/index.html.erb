@@ -6,6 +6,7 @@
     <th>Code</th>
     <th>Comments</th>
     <th>Treatment</th>
+    <th> User </th>
   </tr>
   <% for report in @reports %>
     <tr>
@@ -13,6 +14,7 @@
       <td><%= report.code %></td>
       <td><%= report.comments %></td>
       <td><%= truncate(report.treatment, :lenght => 40) %></td>
+      <td><%= report.user.email %></th>
       <td><%= link_to "Show", report %></td>
       <td><%= link_to "Edit", edit_report_path(report) %></td>
       <td><%= link_to "Destroy", report, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -21,3 +23,4 @@
 </table>
 
 <p><%= link_to "New Report", new_report_path %></p>
+

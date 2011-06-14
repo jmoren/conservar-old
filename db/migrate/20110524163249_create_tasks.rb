@@ -4,6 +4,7 @@ class CreateTasks < ActiveRecord::Migration
       t.integer :report_id
       t.integer :deterioration_id
       t.text :description
+      t.integer :user_id
       t.timestamps
     end
   end
@@ -12,3 +13,4 @@ class CreateTasks < ActiveRecord::Migration
     drop_table :tasks
   end
 end
+

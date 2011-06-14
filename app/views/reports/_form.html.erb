@@ -1,25 +1,42 @@
+<script>
+  $(function(){
+    $('#has_date').click(function(){
+      $('#dates').toggle();
+    });
+  })
+</script>
 <div id="model_form">
 <%= form_for @report do |f| %>
   <%= f.error_messages %>
   <p>
-    <span class="title"><%= f.label :code %></span>
-    <%= f.text_field :code %>
+    <label>
+      <strong> Creado por </strong>
+      <%= current_user.full_name %>
+    </label>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+  <p>
+    <label><strong>Has dates?</strong></label>
+    <% if !@report.has_dates? %>
+      <%= check_box_tag :has_date  %>
+    <% else %>
+      <%= check_box_tag :has_date, "#{@report.has_dates?}",:checked %>
+    <% end %>
+    <span id="dates" style="<%= @report.has_dates? ? '' : 'display:none' %>">
+      <%= f.label :start_date, "Start on",  %>
+      <%= f.text_field :start_date, :size => 10, :value => (@report.new_record? || @report.start_date.nil?) ? nil : @report.start_date.strftime('%d, %B %Y') %>
+      <%= f.label :end_date, "to"%>
+      <%= f.text_field :end_date, :size => 10 , :value => (@report.new_record? || @report.end_date.nil?) ? nil : @report.end_date.strftime('%d, %B %Y') %>
+    <span>
   </p>
   <p>
-    <%= f.label :start_date, "Start on",  %>
-    <%= f.text_field :start_date, :value => @report.new_record? ? nil : @report.start_date.strftime('%d, %B %Y')  %>
-    <%= f.label :end_date, "to"%>
-    <%= f.text_field :end_date, :value => @report.new_record? ? nil : @report.end_date.strftime('%d, %B %Y')   %>
-  <p>
-  <p>
     <%= f.label :status %>
-    <%= f.text_field :status %>
+    <%= f.select :status,ApplicationHelper::STATUS %>
   </p>
   <div id="deterioration_table">
     <div style="margin-left:13px; background: #ccc;padding: 4px;width:95%;border-radius: 3px">
-      <div style="font-weight:bold;width:100px;float:left">Category</div>
-      <div style="font-weight:bold;width:190px;float:left">Place</div>
-      <div style="font-weight:bold;widht:250px;float:left">Description</div>
+      <div style="font-weight:bold;width:90px;float:left"><%= Deterioration.human_attribute_name(:category)%></div>
+      <div style="font-weight:bold;width:220px;float:left"><%= Deterioration.human_attribute_name(:place)%></div>
+      <div style="font-weight:bold;widht:250px;float:left"><%= Deterioration.human_attribute_name(:description)%></div>
       <div class="clear"></div>
     </div>
     <div class="clear"></div>
@@ -47,3 +64,4 @@
   <p><%= f.submit :disable_with => "Please wait..." %></p>
 <% end %>
 </div>
+

@@ -76,42 +76,51 @@ $(function(){
     });
 
     // datepickers
-    var dates = $( "#report_start_date, #report_end_date" ).datepicker({
-			minDate: -2,
+    //var dates = $( "#report_start_date, #report_end_date" ).datepicker({
+		//	minDate: -2,
 			//image calendar
-			showOn: "button",
-  			buttonImage: "/images/calendar.gif",
-	  		buttonImageOnly: true,
+		//	showOn: "button",
+  	//		buttonImage: "/images/calendar.gif",
+	  //		buttonImageOnly: true,
 			  //dateFormat
-			  dateFormat:"d, MM yy",
-	  		onSelect: function( selectedDate ) {
-				var option = this.id == "report_start_date" ? "minDate" : "maxDate",
+		//	  dateFormat:"d, MM yy",
+	  //		onSelect: function( selectedDate ) {
+		//		var option = this.id == "report_start_date" ? "minDate" : "maxDate",
+		//			instance = $( this ).data( "datepicker" ),
+		//			date = $.datepicker.parseDate(
+		//				instance.settings.dateFormat ||
+		//				$.datepicker._defaults.dateFormat,
+		//			selectedDate, instance.settings );
+		//		dates.not( this ).datepicker( "option", option, date );
+		//	}
+		//});
+    $("#report_start_date" ).datepicker({
+        minDate: -2,
+        showOn: "button",
+			  buttonImage: "/images/calendar.gif",
+			  buttonImageOnly: true,
+			  dateFormat:"DD, d MM yy",
+			  showOtherMonths: true,
+  			selectOtherMonths: true
+			});
+    $("#report_end_date").datepicker({
+        minDate: +1,
+        showOn: "button",
+			  buttonImage: "/images/calendar.gif",
+			  buttonImageOnly: true,
+			  dateFormat:"DD, d MM yy",
+			  showOtherMonths: true,
+  			selectOtherMonths: true,
+  			onSelect: function( selectedDate ) {
+				  var option = this.id == "report_start_date" ? "minDate" : "maxDate",
 					instance = $( this ).data( "datepicker" ),
 					date = $.datepicker.parseDate(
 						instance.settings.dateFormat ||
 						$.datepicker._defaults.dateFormat,
-						selectedDate, instance.settings );
-				dates.not( this ).datepicker( "option", option, date );
-			}
-		});
-    //$("#report_start_date" ).datepicker({
-    //    minDate: -2,
-    //    showOn: "button",
-		//	  buttonImage: "/images/calendar.gif",
-		//	  buttonImageOnly: true,
-		//	  dateFormat:"DD, d MM yy",
-		//	  showOtherMonths: true,
-  	//		selectOtherMonths: true
-		//	});
-    //$("#report_end_date").datepicker({
-    //   minDate: +1,
-    //    showOn: "button",
-		//	  buttonImage: "/images/calendar.gif",
-		//	  buttonImageOnly: true,
-		//	  dateFormat:"DD, d MM yy",
-		//	  showOtherMonths: true,
-  	//		selectOtherMonths: true
-		//	});
+					  selectedDate, instance.settings );
+				  dates.not( this ).datepicker( "option", option, date );
+			  }
+			});
     // select deteriorations task form
     $(function(){
       //Update agent filter using the selected agency:

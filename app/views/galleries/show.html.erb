@@ -13,10 +13,13 @@
 
 </p>
 <p>
+  <p><small> Created by <strong><%= @gallery.user.email %></strong></small></p>
+  <br>
   <strong>Description:</strong>
   <%= @gallery.description %>
 </p>
 <p>
+  <% unless @gallery.photos.empty? %>
   <div> Images </div>
   <ul style="list-style:none;">
     <% @gallery.photos.each do |photo| %>
@@ -26,6 +29,9 @@
       </li>
     <% end %>
    </ul>
+   <% else %>
+   <h3> No images yet</h3>
+   <% end %>
    <div class="clear"></div>
 </p>
 <p>

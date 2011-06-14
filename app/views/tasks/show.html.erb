@@ -7,17 +7,19 @@
   >
   <strong>Task <%= @task.id %></strong>
 </p>
-
+  <p><small> Created by <strong><%= @task.user.email %></strong></small></p>
 <p>
   <strong>Description:</strong>
   <%= @task.description %>
 </p>
 <p>
-  <strong> Tools </strong>
+  <h2> Tools </h2>
   <% @task.tools.each do |tool|%>
-    <p>
+    <p style="border: 1px solid #ccc;margin: 2px">
       <p>
-        <strong> Id: </strong> <%= tool.id %>
+        <strong> Task # </strong> <%= tool.id %>
+      </p>
+      <p>
         <strong>Category:</strong>
         <%= tool.category %>
       </p>
@@ -34,6 +36,7 @@
  </p>
 <p>
   <span class="button with_text new"> <%= link_to 'New Gallery', new_task_gallery_path(@task)  %></span>
+  <span class="button with_text edit"> <%= link_to 'Edit', edit_report_task_path(@task.report,@task)  %></span>
   <span class="button with_text delete"><%= link_to "Destroy", @task, :confirm => 'Are you sure?', :method => :delete %></span>
 </p>
 

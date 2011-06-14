@@ -2,38 +2,28 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.7'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
+#db
 gem 'mysql2', '~> 0.2.1'
+
+#jquery plugins
 gem 'jquery-rails'
-gem 'kaminari'
-gem 'nifty-generators'
 gem 'client_side_validations'
+
+#pagination
+gem 'kaminari'
+
+#pdf
 gem 'pdfkit', '0.4.6'
+
+#images
 gem 'paperclip'
 gem 'rack-raw-upload'
-# Use unicorn as the web server
-# gem 'unicorn'
+#user access
+gem 'cancan'
+#nice things
+gem 'nifty-generators'
+gem 'breadcrumbs_on_rails'
+gem 'friendly_id'
 
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
-# gem 'ruby-debug'
-# gem 'ruby-debug19', :require => 'ruby-debug'
-
-# Bundle the extra gems:
-# gem 'bj'
-# gem 'nokogiri'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'aws-s3', :require => 'aws/s3'
-
-# Bundle gems for the local environment. Make sure to
-# put test-only gems in this group so their generators
-# and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end
 gem "mocha", :group => :test
-
+gem "bcrypt-ruby", :require => "bcrypt"

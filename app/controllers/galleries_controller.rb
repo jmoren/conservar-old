@@ -1,8 +1,8 @@
 class GalleriesController < ApplicationController
-
+  protect_from_forgery :except => [:upload]
   def parent
     if params[:report_id]
-      return @parent = Report.find(params[:report_id])
+      return @parent = Report.find_by_code(params[:report_id])
     elsif params[:task_id]
       return @parent = Task.find(params[:task_id])
     end
@@ -20,7 +20,9 @@ class GalleriesController < ApplicationController
   end
 
   def create
+
     @gallery = parent.galleries.new(params[:gallery])
+    @gallery.user = current_user
     if @gallery.save
       redirect_to uploader_gallery_path(@gallery), :notice => "Successfully created gallery."
     else
@@ -33,6 +35,7 @@ class GalleriesController < ApplicationController
   end
 
   def update
+
     @gallery = Gallery.find(params[:id])
     if @gallery.update_attributes(params[:gallery])
       redirect_to uploader_gallery_path(@gallery), :notice  => "Successfully updated gallery."
@@ -56,7 +59,7 @@ class GalleriesController < ApplicationController
     if @photo.save
       render :json => { :success => true }
     else
-      render :json => { :success => false, :error => 'There was an error. Please try again' }
+      render :text => { :success => false }
     end
   end
   def update_in_place

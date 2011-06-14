@@ -5,7 +5,7 @@ class ReportsController < ApplicationController
   end
 
   def show
-    @report = Report.find(params[:id])
+    @report = Report.find_by_code(params[:id])
     respond_with(@report.deteriorations,:inlcude => :tasks)
   end
 
@@ -16,6 +16,10 @@ class ReportsController < ApplicationController
   def create
     sleep 5
     @report = Report.new(params[:report])
+    @report.user = current_user
+    unless params.include?('has_date')
+      @report.start_date = @report.end_date = nil
+    end
     if @report.save
       redirect_to @report, :notice => "Successfully created report."
     else
@@ -24,12 +28,16 @@ class ReportsController < ApplicationController
   end
 
   def edit
-    @report = Report.find(params[:id])
+    @report = Report.find_by_code(params[:id])
   end
 
   def update
-    @report = Report.find(params[:id])
-    if @report.update_attributes(params[:report])
+    @report = Report.find_by_code(params[:id])
+    dates = {}
+    unless params.include?('has_date')
+      dates = { :start_date => nil, :end_date => nil }
+    end
+    if @report.update_attributes(params[:report].merge(dates) )
       redirect_to @report, :notice  => "Successfully updated report."
     else
       render :action => 'edit'
@@ -37,25 +45,25 @@ class ReportsController < ApplicationController
   end
 
   def destroy
-    @report = Report.find(params[:id])
+    @report = Report.find_by_code(params[:id])
     @report.destroy
     redirect_to reports_url, :notice => "Successfully destroyed report."
   end
   def close
-    @report = Report.find(params[:id])
+    @report = Report.find_by_code(params[:id])
     @report.close
     redirect_to @report, :notice => "Successfully closed report."
   end
   def open
-    @report = Report.find(params[:id])
+    @report = Report.find_by_code(params[:id])
     @report.open
     redirect_to @report, :notice => "Successfully opened report."
   end
 
-  def deteriorations_to_gantt
-    @report = Report.find(params[:id])
-    @deteriorations = @report.deteriorations.collect(&:to_ghash)
-    respond_with(@deteriorations)
-  end
+#  def deteriorations_to_gantt
+#    @report = Report.find(params[:id])
+#    @deteriorations = @report.deteriorations.collect(&:to_ghash)
+#    respond_with(@deteriorations)
+#  end
 end
 

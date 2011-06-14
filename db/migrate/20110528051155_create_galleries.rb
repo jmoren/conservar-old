@@ -4,6 +4,7 @@ class CreateGalleries < ActiveRecord::Migration
       t.integer :galleryable_id
       t.string :galleryable_type
       t.text :description
+      t.integer :user_id
       t.timestamps
     end
   end
@@ -12,3 +13,4 @@ class CreateGalleries < ActiveRecord::Migration
     drop_table :galleries
   end
 end
+
