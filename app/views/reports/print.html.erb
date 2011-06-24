@@ -1,0 +1,140 @@
+<%= stylesheet_link_tag 'application',:media => "print" %>
+<div id="header_pdf">
+  <div style="float:left;padding: 5px 0;width: 20%">
+    <%= image_tag(@institution.image.url(:small)) %>
+  </div>
+  <div style="float:left;width:70%;padding: 5px 0;text-align:center">
+    <h1>
+      <%= @institution.name %>
+    </h1>
+    <div>
+      <small>
+        <%= @institution.address %>
+        -
+        <%= @institution.city %>
+        -
+        <%= @institution.zip %>
+        <br>
+        <%= Institution.human_attribute_name(:phone)[0..2] %>:
+        <%= @institution.phone %>
+        -
+        <%= Institution.human_attribute_name(:email)%>:
+        <%= @institution.email %>
+
+      </small>
+    </div>
+  </div>
+<div class="clear"></div>
+</div>
+
+<h1 style="text-align:center">
+  <%= Report.model_name.human %>
+  <%= @report.code %>
+</h1>
+<div style="width:100%;margin:auto;">
+  <div style="float:left;width:49%">
+    <h2> Informacion General </h2>
+    <p>
+      <strong><%= Report.human_attribute_name(:user) %>:</strong>
+      <%= @report.user.full_name %>
+    </p>
+    <p>
+      <strong><%= Report.human_attribute_name(:created_at) %>:</strong>
+      <br>
+      <%=l @report.created_at, :format => :long %>
+    </p>
+    <% unless @report.start_date.nil? %>
+    <p>
+      <strong><%= Report.human_attribute_name(:start_date) %>:</strong>
+      <%=l @report.start_date, :format => :long %>
+    </p>
+    <% end %>
+    <% unless @report.end_date.nil? %>
+    <p>
+      <strong><%= Report.human_attribute_name(:end_date) %>:</strong>
+      <%=l @report.end_date, :format => :long %>
+    </p>
+    <% end %>
+  </div>
+  <div style="float:left;width:49%">
+    <h2> Estado del Reporte </h2>
+    <strong><%= Report.human_attribute_name(:status) %>: </strong>
+    <%= @report.status %>
+    <% if @report.closed? %>
+    <p>
+      <strong><%= Report.human_attribute_name(:closed_at) %>:</strong>
+      <%= l @report.updated_at, :format => :long %>
+    </p>
+    <% end %>
+    <p>
+      <%= deteriorations_complete(@report) %>
+    </p>
+    <p>
+      <%= hours_complete(@report) %>
+    </p>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<div>
+  <h2> Problemas encontrados:</h2>
+  <% unless @report.deteriorations.empty? %>
+    <% @report.deteriorations.each do |deterioration| %>
+      <div style="border: solid 2px #666;border-radius: 3px; padding: 5px;margin: 5px">
+        <div class="deterioration_header">
+          <div class="category">
+            <%= Deterioration.human_attribute_name(:category)%>: <%= deterioration.det_category.name %>
+          </div>
+          <div class="place" >
+          <%= Deterioration.human_attribute_name(:place)%>: <%= deterioration.place %>
+        </div>
+          <div class=" status"><%= Deterioration.human_attribute_name(:status)%>: <%= deterioration.fixed ? image_tag('closed-12.png') : image_tag('open-12.png') %></div>
+        </div>
+        <div class="clear"></div>
+        <br>
+        <div class="description">
+          <%= simple_format deterioration.description%>
+        </div>
+        <h3> Tareas </h3>
+        <% unless deterioration.tasks.empty? %>
+          <div class="tasks">
+            <% deterioration.tasks.each do |task| %>
+              <p>
+                <div>Horas: <%= task.hours %></div>
+                <div>Descripcion: <%= simple_format task.description %> </div>
+              </p>
+            <% end %>
+          </div>
+        <% else %>
+         <h4> No hay tareas </h4>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="deterioration_message">
+      <h3>No hay problemas anotados </h3>
+    </div>
+  <% end %>
+</div>
+<div>
+  <h2> Observaciones </h2>
+  <% unless @report.observations.empty? %>
+    <ol style="margin: 0 0 0 -20px">
+      <% @report.observations.each do |observation| %>
+        <li style="border: solid 1px #ccc; margin: 10px 5px; padding: 5px">
+          <div>
+            <%= Observation.human_attribute_name(:category)%> <strong><%= observation.category %></strong>
+          </div>
+          <div>
+            <%= simple_format observation.body %>
+          </div>
+          <small>
+            Agregado por <strong><%= observation.user.full_name %></strong>
+            el <strong><%= l observation.created_at, :format=> :long %></strong>
+          </small>
+        </li>
+      <% end %>
+    </ol>
+  <% end %>
+</div>
+

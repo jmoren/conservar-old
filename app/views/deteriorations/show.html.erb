@@ -1,52 +1,95 @@
-<% title "Deterioration" %>
+<% title "#{Deterioration.human_name} ##{@deterioration.id}" %>
+<script>
+  $(function(){
+    $(".task_row").hover(function(){
+          tip = $(this).find('.buttons');
+          tip.show(); //Show tooltip
+      }, function() {
+          tip.hide(); //Hide tooltip
+      });
+      $(".with_tooltip").hover(function(){
+          tip = $(this).find('.tooltip');
+          tip.show(); //Show tooltip
+      }, function() {
+          tip.hide(); //Hide tooltip
+      }).mousemove(function(e) {
+          var mousex = e.pageX + 20; //Get X coodrinates
+          var mousey = e.pageY + 20; //Get Y coordinates
+          var tipWidth = tip.width(); //Find width of tooltip
+          var tipHeight = tip.height(); //Find height of tooltip
+
+          //Distance of element from the right edge of viewport
+          var tipVisX = $(window).width() - (mousex + tipWidth);
+          //Distance of element from the bottom of viewport
+          var tipVisY = $(window).height() - (mousey + tipHeight);
+
+          if ( tipVisX < 20 ) { //If tooltip exceeds the X coordinate of viewport
+              mousex = e.pageX - tipWidth - 20;
+          } if ( tipVisY < 20 ) { //If tooltip exceeds the Y coordinate of viewport
+              mousey = e.pageY - tipHeight - 20;
+          }
+          //Absolute position the tooltip according to mouse position
+          tip.css({  top: mousey, left: mousex });
+      });
+    });
+</script>
 
 <div id="deterioration">
-  <span class="button with_text back"><%= link_to 'Back to Report', @report  %></span>
-  <span class="button with_text new"> <%= link_to "add task", new_report_task_path(@report,:det_id => @deterioration) %></span>
+  <span class="button with_text back"><%= link_to "#{Report.human_name} ##{@report.id}", @report  %></span>
   <p>
     <div class="det_info" style="margin: 0 10px;">
       <div>
-        <span style="float:left; margin: 1px 6px 0 0;"><strong>Status</strong></span>
-        <span style="float:left"><%= @deterioration.fixed ? (image_tag('closed.png') ): (image_tag('open.png')) %></span>
+        <span style="float:left; margin: 1px 6px 0 0;"><strong><%= Deterioration.human_attribute_name(:status) %></strong></span>
+        <span style="float:left"><%= @deterioration.fixed ? (image_tag('closed-12.png') ): (image_tag('open-12.png')) %></span>
       </div>
       <div class="clear"></div>
-      <strong> Category: </strong><%= @deterioration.det_category.name %>
+      <div class="with_tooltip">
+      <strong> <%= Deterioration.human_attribute_name(:category) %>: </strong><%= @deterioration.det_category.name %>
+      <span class="tooltip"><%= @deterioration.det_category.suggestion %></span>
+      </div>
       <p>
-        <strong> Description: </strong>
+        <strong> <%= Deterioration.human_attribute_name(:description) %>: </strong>
         <%= simple_format @deterioration.description, :class => "text_area" %>
       </p>
+      <p> <%= deterioration_hours(@deterioration) %></p>
     </div>
   </p>
-  <div id="tasks" style="margin: 0 10px;">
-    <% unless @deterioration.tasks.empty? %>
-      <h3> Tasks </h3>
-      <table id="deterioration_task_table">
-        <tr>
-          <th> Status </th>
-          <th> Id </th>
-          <th> Created </th>
-          <th> User </th>
-          <th> Closed </th>
-          <th> Tools </th>
-          <th> Galleries </th>
-          <th> Actions </th>
 
+  <div id="tasks" style="margin: 0 10px;">
+    <h2> <%= Deterioration.human_attribute_name(:tasks)%> </h2>
+      <p>
+        <span class="button with_text new"> <%= link_to t('helpers.links.add_task'), new_report_task_path(@report,:det_id => @deterioration) %></span>
+      </p>
+    <% unless @deterioration.tasks.empty? %>
+      <table id="table_tasks">
+        <tr class="table_header">
+          <td class="table_title short"> <%= Task.human_attribute_name(:status)%> </td>
+          <td class="table_title short"> <%= Task.human_attribute_name(:id)%></td>
+          <td class="table_title long"> <%= Task.human_attribute_name(:created_at)%> </td>
+          <td class="table_title long"> <%= Task.human_attribute_name(:user)%> </td>
+          <td class="table_title short"> <%= Task.human_attribute_name(:hours)%> </td>
+          <td class="table_title long"> <%= Task.human_attribute_name(:closed_at)%> </td>
+          <td class="table_title short"> <%= Task.human_attribute_name(:tools)%> </td>
+          <td class="table_title short"> <%= Task.human_attribute_name(:galleries)%> </td>
+          <td class="table_title buttons"></td>
         </tr>
+
       <% @deterioration.tasks.each do |task| %>
-        <tr>
-            <td> <%= task.closed_at.nil? ? (image_tag('open-12.png',:title => "Open")) : (image_tag('closed-12.png',:title => "Closed")) %></td>
-            <td>Task <%= task.id %> </td>
-            <td><%=l task.created_at, :format => :long %></td>
-            <td><%= task.user.email %></td>
-            <td><%=task.closed_at.nil? ? '---':(l task.closed_at, :format => :long) %></td>
-            <td><%= task.tools.size %></td>
-            <td><%= task.galleries.size %></td>
-            <td>
-              <span class="button with_text edit"> <%= link_to 'Edit', edit_report_task_path(@report,task)  %></span>
-              <span class="button with_text delete"><%= link_to 'Delete', report_task_path(@report,task), :confirm => "Are you sure?", :method => :delete%> </span>
-              <span class="button with_text show"><%= link_to "Show", report_task_path(@report,task)%></span>
-            </td>
-          </tr>
+        <tr class="task_row">
+          <td class="body_table short image"> <%= task.closed_at.nil? ? (image_tag('open-12.png',:title => "Open")) : (image_tag('closed-12.png',:title => "Cerrado")) %></td>
+          <td class="body_table short ">Task <%= task.id %> </td>
+          <td class="body_table long"><%=l task.created_at,:format => :short %></td>
+          <td class="body_table long"><%= task.user.full_name %></td>
+          <td class="body_table short"><%= task.hours %></td>
+          <td class="body_table long"><%=task.closed_at.nil? ? '---':(l task.closed_at, :format => :short) %></td>
+          <td class="body_table short"><%= task.tools.size %></td>
+          <td class="body_table short"><%= task.galleries.size %></td>
+          <td class="body_table buttons">
+            <span><%= link_to t('helpers.links.edit'), edit_report_task_path(@report,task)  %></span>
+            <span><%= link_to t('helpers.links.delete'), report_task_path(@report,task), :confirm => "Are you sure?", :method => :delete%> </span>
+            <span><%= link_to t('helpers.links.show'), report_task_path(@report,task)%></span>
+          </td>
+        </tr>
         <% end %>
       </table>
     <% end %>

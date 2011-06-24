@@ -1,8 +1,11 @@
 class DeteriorationsController < ApplicationController
+  before_filter :set_report, :only => [:show]
 
   respond_to :json, :html
-  def show
+  def set_report
     @report = Report.find_by_code(params[:report_id])
+  end
+  def show
     @deterioration = Deterioration.find(params[:id],:include => :tasks)
   end
 
@@ -16,8 +19,10 @@ class DeteriorationsController < ApplicationController
   end
   def close
     @deterioration = Deterioration.find(params[:id])
-    @deterioration.update_attributes(:fixed => true)
-    redirect_to @deterioration.report, :notice => "Successfully closed deterioration."
+    if @deterioration.update_attributes(:fixed => true)
+      @deterioration.tasks.update_all(:hours => 0.0)
+      redirect_to @deterioration.report, :notice => "Successfully closed deterioration."
+    end
   end
 
   def get_deterioration

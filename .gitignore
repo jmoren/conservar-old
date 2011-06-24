@@ -2,6 +2,9 @@
 db/*.sqlite3
 log/*.log
 public/system/*
+public/fotos/**
+fotos/**
 tmp/
 test/**
 config/database.yml
+

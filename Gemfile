@@ -22,8 +22,8 @@ gem 'rack-raw-upload'
 gem 'cancan'
 #nice things
 gem 'nifty-generators'
-gem 'breadcrumbs_on_rails'
 gem 'friendly_id'
 
 gem "mocha", :group => :test
 gem "bcrypt-ruby", :require => "bcrypt"
+

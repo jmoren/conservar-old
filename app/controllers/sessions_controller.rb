@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_filter :login_required, :except => [:destroy]
+  layout 'login'
   def new
   end
 
@@ -16,7 +17,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_url, :notice => "Ha salido del sistema"
+    redirect_to login_path, :notice => "Ha salido del sistema"
   end
 end
 

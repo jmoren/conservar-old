@@ -1,3 +1,40 @@
+@media print {
+  #header{
+    display: none;
+  }
+
+  #header_pdf {
+    text-align: center;
+    border-bottom: solid 1px #cccccc;
+    padding-bottom: 10px;
+  }
+  div.category{
+    width: 40%;
+    float: left;
+  }
+  div.deterioration_header{
+    font-size: 15px;
+    margin: 5px
+  }
+  div.description{
+      width: 97%;
+      margin: 5px;
+      background: #f1f1f1;
+      padding: 5px;
+      border: solid #ccc 1px;
+      border-radius: 5px
+  }
+  div.place{
+    width: 40%;
+    float: left;
+  }
+  div.status{
+    width: 10%;
+    float: right;
+  }
+
+
+}
 body {
   /*background-color: #4B7399;*/
   font-family: Ubuntu;
@@ -9,7 +46,12 @@ a img {
 }
 
 a {
-  color: #0000FF;
+  color: #666;
+  font-weight:bold;
+  text-decoration:none;
+}
+.cerrado {
+  padding: 5px;
 }
 
 .clear {
@@ -28,7 +70,7 @@ a {
 }
 #messages {
   width: 95%;
-	margin: 40px auto;
+	margin: 20px auto;
 	padding: 5px 10px;
 	border-bottom: solid 1px #ccc;
 }
@@ -104,7 +146,7 @@ nav ul li a:hover {
   border: solid 1px #C66;
 }
 
-.fieldWithErrors {
+.field_with_errors {
   display: inline;
 }
 
@@ -137,8 +179,10 @@ nav ul li a:hover {
 }
 label.message{
 color: #D00;
+display:block;
+font-size: 12px;
 font-weight:bold;
-margin-left: 10px;
+
 }
 .deterioration_message{
   background-color: #f9f9f9;
@@ -154,6 +198,7 @@ margin-left: 10px;
   padding: 3px;
   min-height:50px;
   border-radius: 5px;
+  width: 98%;
 }
 #report #table_deterioration{
   border-collapse: collapse;
@@ -200,11 +245,16 @@ margin-left: 10px;
   width: 100%;
   border: solid #ccc 1px;
 }
+#table_edit_photos{
+  margin: auto;
+  width: 100%;
+  }
 #table_photos tr th{
   color: #000;
   line-height: 1.7em;
-  padding-left: 5px;
+  padding: 0 10px;
   background: #26456D;
+  border: solid 1px #26456D;
   color: #fff;
   text-align:left;
 }
@@ -215,17 +265,29 @@ margin-left: 10px;
   padding: 10px;
 }
 #table_photos td.image{
-  width: 100px;
-}
-#table_photos td.size{
-  width: 50px;
-}
-#table_photos td.name{
   width: 80px;
+  text-align:center;
+}
+#table_photos td.description{
+  width: 250px;
+
+}
+
+#table_photos td.size{
+  width: 40px;
+}
+#table_photos td.date{
+  width: 120px;
 }
 #table_photos td.delete{
   width: 50px;
 }
+#table_photos td.delete{
+  width: 50px;
+  text-align:center;
+}
+
+
 .button{
   font-size: 10px;
 }
@@ -301,7 +363,7 @@ border: solid 1px #ccc;
 }
 
 #report #report_buttons{
-  float: right;
+  float: left;
   margin: 0 0 10px 0;
 }
 #deterioration{
@@ -310,23 +372,133 @@ border: solid 1px #ccc;
   border-radius: 5px;
   padding: 5px;
 }
-#deterioration #tasks h3{
-  background: #666;
-  color: #fff;
+#deterioration #tasks h2{
+  color: #333;
   padding: 3px;
-  border: solid 1px #666;
+  text-align:center;
+  margin: -5px 0;
+}
+#tasks tr.task_row{
+  line-height: 1.7em;
+}
+#tasks .table_header{
+  color: #fff;
+  font-weight: bold;
+  border: solid 1px #26456D;
+  background: #26456D;
+}
+#tasks .table_title{
+  margin: 10px 0px ;
+  padding: 5px;
+  }
+#tasks .body_table{
+  margin: 10px 5px;
+  padding: 5px;
+  }
+#tasks .long{
+  width: 140px;
+  }
+#tasks .short{
+  text-align: center;
+  width: 100px;
+  }
+#tasks .last{
+  padding-right: 10px;
+  }
+#tasks .image{
+  text-align: center;
+  }
+#tasks .buttons{
+  width: 150px;
+}
+#tasks tr.task_row td.buttons a{
+  color: #1d1d1d;
+}
+
+#tasks tr.task_row td.buttons span{
+  margin: 0 3px;
+  }
+#tasks tr.task_row td.buttons{
+    color: #1d1d1d;
+    width: 150px;
+    /*background:#f1f1f1; #1d1d1d;*/
+    display:none; /*--Hides by default--*/
+    /*position:absolute;
+    z-index:1000;*/
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.tooltip{
+    color: #fff;
+    width: 150px;
+    background:#1d1d1d;
+    display:none; /*--Hides by default--*/
+    position:absolute;
+    z-index:1000;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 5px;
 
 }
-#tasks{
-  margin: 10px;
+#table_tasks{
+  border-collapse: collapse;
+  }
+/* observations section */
+/*ol.observations {
+	margin: 0px 0;
+	background: #222; --Bg of the order numbers--
+	padding: 0 0 0 35px; --Distance between the order numbers--
+	border: 1px solid #111;
+	color: #f1f1f1;
 }
-#tasks .button{
-font-size: 10px;
+ol.observations li {
+	margin: 0;
+	padding: 0px;
+	font-size: 1.7em;
+	font-weight: bold;*/
+       /*--The bevel look is styled with various colors in the border properties below--
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #353535;
+	border-right: 1px solid #333;
+	border-left: 1px solid #151515;
+	background: #f1f1f1;
+	font-size:12px;
 }
-#deterioration_task_table{
-  width: 100%;
+li.observation .observation_header{
+  font-size: 13px;
+  background: #222;
+  color: #f1f1f1;
+  padding:  10px;
+  margin: 0;
+  }
+li.observation .observation_body{
+  font-size: 13px;
+  color: #222;
+  padding: 10px;
 }
-#deterioration_task_table th{
+li.observation .observation_footer{
+  font-size: 11px;
+  color: #222;
+  padding: 10px 5px;
+
+}*/
+.thumbs {
+  list-style:none;
+  padding: 5px;
+  }
+.thumbs li{
+  margin: 2px;
+  }
+.caption {
+  background: #ccc;
+  color: #222;
+  font-weight: bold;
+  width: 594px !important;
+  margin-top: -4px;
+  padding: 3px;
   text-align: left;
+
 }
 

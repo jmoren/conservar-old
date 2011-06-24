@@ -64,14 +64,14 @@ es-AR:
     abbr_day_names: [dom, lun, mar, mié, jue, vie, sáb]
     abbr_month_names: [~, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic]
     day_names: [domingo, lunes, martes, miércoles, jueves, viernes, sábado]
-    month_names: [~, enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre]
+    month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
     formats:
-      short: "%d de %b"
+      short: "%d de %B, %Y "
       default: "%d/%m/%Y"
       long: "%A, %d de %B de %Y"
   time:
     formats:
-      short: "%d de %b a las %H:%M hrs"
+      short: "%d de %B, %Y "
       default: "%a, %d de %b de %Y a las %H:%M:%S %Z"
       long: "%A, %d de %B de %Y a las %I:%M %p"
     am: "am"
@@ -102,8 +102,8 @@ es-AR:
         one: "1 minuto"
         other: "%{count} minutos"
       about_x_hours:
-        one: "hace 1 hora aprox."
-        other: "hace %{count} horas aprox."
+        one: "1 hora aprox."
+        other: "%{count} horas aprox."
       x_days:
         one: "1 día"
         other: "%{count} días"
@@ -131,9 +131,24 @@ es-AR:
       second: 'Segundos'
 
   helpers:
+    confirm_message: 'Esta seguro que quiere eliminarlo?'
     select:
       prompt: "Por favor selecciona"
-
+    links:
+      edit: 'Editar'
+      delete: 'Eliminar'
+      show: 'Ver'
+      back: 'Volver'
+      pdf: 'PDF'
+      close_report: 'Cerrar Reporte'
+      open_report: 'Abrir Reporte'
+      add_task: 'Crear Tarea'
+      add_gallery: 'Crear Galeria'
+      compare_gallery: 'Comparar imagenes'
+      add_observation: 'Crear Observacion'
+    text:
+      before_upload: 'Puedes seleccionar hasta 5 fotos a la vez para subir. Antes de eso, asegurate que los nombres de las fotos no contengan espacios ni caracteres raros (%,$,/, etc. Reemplazalos por guiones bajos o medios).'
+      add_zoom: 'Haz click en cada foto que quieras activar el zoom'
     submit:
       create: 'Crear %{model}'
       update: 'Actualizar %{model}'
@@ -168,7 +183,6 @@ es-AR:
         accepted: "debe ser aceptado"
         even: "debe ser un número par"
         odd: "debe ser un número non"
-
   activerecord:
     models:
       report: "Reporte"
@@ -176,17 +190,38 @@ es-AR:
       tool: 'Herramienta'
       deterioration: 'Deterioro'
       user: 'Usuario'
+      gallery: 'Galeria de imagenes'
+      photo: 'Foto'
+      image: 'Imagen'
+      observation: 'Observacion'
     attributes:
+      task:
+        closed_at: 'Cerrado'
+        hours: 'Horas'
+        tools: 'Materiales'
+        galleries: 'Imagenes'
+        user: 'Usuario'
+        created_at: 'Creado'
       report:
-        status: 'Estado'
         start_date: "Inicio"
         end_date: "Fin"
         comments: "Comentarios"
         treatment: "Tratamiento"
+        user: 'Usuario'
+        created_at: 'Creado'
+        information: 'Informacion adicional'
+        galleries: 'Imagenes'
+        graphics: 'Graficos'
+        status: 'Estado'
       deterioration:
         place: "Lugar"
         description: "Descripcion"
         category: "Categoria"
+        tasks: "Tareas"
+        user: 'Usuario'
+        created_at: 'Creado'
+        tasks: 'Tareas'
+        status: 'Estado'
       user:
         name: "Nombre"
         lastname: "Apellido"
@@ -195,6 +230,40 @@ es-AR:
         password_confirmation: "Confirmar contrasena"
         enabled: "Habilidado"
         username: "usuario"
+        created_at: 'Creado'
+      gallery:
+        description: "Descripcion"
+        user: 'Usuario'
+        created_at: 'Creado'
+        upload: 'Sube las fotos'
+        delete: 'Eliminar'
+        size: 'Tamano'
+        image: 'Imagen'
+        photos: 'Imagenes'
+      photo:
+        title: 'Titulo'
+        image: 'Imagen'
+        user: 'Usuario'
+        created_at: 'Creado'
+      det_category:
+        active: 'Activo'
+        suggestion: 'Sugerencia'
+        name: 'Nombre'
+      observation:
+        user: 'Usuario'
+        email: 'Email'
+        category: 'Categoria'
+        body: 'Observacion'
+        created_at: 'Creado'
+      institution:
+        name: 'Nombre'
+        address: 'Direccion'
+        city: 'Ciudad'
+        zip: 'C.P.'
+        country: 'Pais'
+        phone: 'Telefono'
+        email: 'Email'
+        image: 'Foto'
     errors:
       template:
         header:

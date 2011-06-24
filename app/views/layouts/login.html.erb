@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>conserv.ar</title>
+    <%= stylesheet_link_tag "application" %>
+    <link href="/stylesheets/jquery-ui-1.8.13.custom.css" type="text/css" rel ="stylesheet" media ="screen"/>
+    <%= javascript_include_tag :defaults,'rails.validations','jquery.editinplace','fileuploader' %>
+    <%= csrf_meta_tag %>
+    <%= yield(:head) %>
+  </head>
+  <body>
+    <header style="width:99%;margin: 0 auto -10px auto">
+      <%= link_to image_tag('logo.png'), root_url%>
+    </header>
+    <section id="messages">
+      <span style="float:left;font-weight:bold;font-size:20px">
+        <%= yield(:title) if show_title? %>
+      </span>
+      <div class="clear"></div>
+    </section>
+
+    <section style="width:95%;margin:auto">
+    <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}",:class => "flash" %>
+      <% end %>
+    </section>
+    <section id="content">
+      <%= yield %>
+    </section>
+    <section id="footer">
+    </section>
+  </body>
+</html>
+

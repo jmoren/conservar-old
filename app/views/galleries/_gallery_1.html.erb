@@ -1,0 +1,38 @@
+<script>
+$(function(){
+	$('#photo_gallery_1').bxGallery({
+		maxheight: 400,
+		maxweight: 400,
+		thumbwidth: 60,
+		thumbplacement: 'bottom',
+		thumbcontainer: 600
+	});
+	$('#photo_gallery_1 li img').click(function(){
+    alert("Se activo el zoom en esta foto id #" + $(this).attr('id'));
+    var id = $(this).attr('id');
+    $('#'+id).addpowerzoom({
+      defaultpower:3,
+      powerrange: [5, 5],
+      largeimage: $(this).attr('large'),
+      magnifiersize: [160, 160]
+    });
+  });
+});
+</script>
+<div style="text-align:left">
+  <%= simple_format truncate(@gallery.description,:length => 50) %>
+  <div>
+    <small style="float=left"> <%= t('helpers.text.add_zoom') %> </small>
+    <div style="text-align:right;float:right">
+      <%= link_to t('helpers.links.edit'), uploader_gallery_path(@gallery)  %> |
+      <%= link_to t('helpers.links.show'), @gallery %>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+<ul id="photo_gallery_1" style="margin:10px 0 0 -40px;list-style:none;">
+  <% @gallery.photos.each do |photo| %>
+    <li><%= image_tag(photo.image.url(:normal),:title=> photo.description || 'Probando', :id => "photo_gallery_1_#{photo.id}",:large => "#{photo.image.url(:original)}")%></li>
+  <% end %>
+</ul>
+

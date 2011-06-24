@@ -94,20 +94,21 @@ $(function(){
 		//		dates.not( this ).datepicker( "option", option, date );
 		//	}
 		//});
-    $("#report_start_date" ).datepicker({
+
+	  $("#report_start_date" ).datepicker({
         minDate: -2,
-        showOn: "button",
-			  buttonImage: "/images/calendar.gif",
-			  buttonImageOnly: true,
+        //showOn: "button",
+			  //buttonImage: "/images/calendar.gif",
+			  //buttonImageOnly: true,
 			  dateFormat:"DD, d MM yy",
 			  showOtherMonths: true,
   			selectOtherMonths: true
 			});
     $("#report_end_date").datepicker({
         minDate: +1,
-        showOn: "button",
-			  buttonImage: "/images/calendar.gif",
-			  buttonImageOnly: true,
+        //showOn: "button",
+			  //buttonImage: "/images/calendar.gif",
+			  //buttonImageOnly: true,
 			  dateFormat:"DD, d MM yy",
 			  showOtherMonths: true,
   			selectOtherMonths: true,
@@ -121,6 +122,26 @@ $(function(){
 				  dates.not( this ).datepicker( "option", option, date );
 			  }
 			});
+			$.datepicker.regional['es'] = {
+		    closeText: 'Cerrar',
+		    prevText: '&#x3c;Ant',
+		    nextText: 'Sig&#x3e;',
+		    currentText: 'Hoy',
+		    monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+		    'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+		    monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+		    'Jul','Ago','Sep','Oct','Nov','Dic'],
+		    dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+		    dayNamesShort: ['Dom','Lun','Mar','Mie','Juv','Vie','Sab'],
+		    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+		    weekHeader: 'Sm',
+		    dateFormat: 'dd/mm/yy',
+		    firstDay: 1,
+		    isRTL: false,
+		    showMonthAfterYear: false,
+		    yearSuffix: ''
+		  };
+	  $.datepicker.setDefaults($.datepicker.regional['es']);
     // select deteriorations task form
     $(function(){
       //Update agent filter using the selected agency:

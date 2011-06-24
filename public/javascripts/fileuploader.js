@@ -256,7 +256,7 @@ qq.FileUploaderBasic = function(o){
         params: {},
         button: null,
         multiple: true,
-        maxConnections: 3,
+        maxConnections: 5,
         text:null,
         textButton: null,
         textOr: null,
@@ -502,8 +502,8 @@ qq.FileUploader = function(o){
                 '<span class="qq-upload-file"></span>' +
                 '<span class="qq-upload-spinner"></span>' +
                 '<span class="qq-upload-size"></span>' +
-                '<a class="qq-upload-cancel" href="#">Cancel</a>' +
-                '<span class="qq-upload-failed-text">Failed</span>' +
+                '<a class="qq-upload-cancel" href="#">Cancelar</a>' +
+                '<span class="qq-upload-failed-text">Fallo</span>' +
             '</li>',
 
         classes: {

@@ -10,13 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110614033855) do
+ActiveRecord::Schema.define(:version => 20110620205304) do
 
   create_table "det_categories", :force => true do |t|
     t.string   "name"
     t.text     "suggestion"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "active",     :default => true
   end
 
   create_table "deteriorations", :force => true do |t|
@@ -27,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20110614033855) do
     t.boolean  "fixed"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "hours",           :default => 0.0
   end
 
   create_table "galleries", :force => true do |t|
@@ -50,6 +52,22 @@ ActiveRecord::Schema.define(:version => 20110614033855) do
     t.integer  "history_id"
     t.string   "field_change"
     t.text     "content_change"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "institutions", :force => true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "phone"
+    t.string   "city"
+    t.string   "country"
+    t.string   "email"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "zip"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -84,6 +102,8 @@ ActiveRecord::Schema.define(:version => 20110614033855) do
     t.string   "status"
     t.date     "start_date"
     t.date     "end_date"
+    t.float    "hours",      :default => 0.0
+    t.boolean  "archived"
   end
 
   create_table "slugs", :force => true do |t|
@@ -106,6 +126,7 @@ ActiveRecord::Schema.define(:version => 20110614033855) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "closed_at"
+    t.float    "hours",            :default => 0.0
   end
 
   create_table "tools", :force => true do |t|

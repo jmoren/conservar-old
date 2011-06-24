@@ -1,6 +1,6 @@
 <div id="model_form">
-<%= form_for [@report,@task] do |f| %>
-  <%= f.error_messages %>
+<%= form_for [@report,@task], :validate => true do |f| %>
+
   <p>
     <% if @task.new_record? && params[:det_id].nil? %>
       <div id="deterioration_info" style="float:right;width: 70%"></div>
@@ -70,8 +70,8 @@
     </diV>
   </div>
   <div>
-    <%= check_box_tag :closed %>
-    <label> Close task? </label>
+    <%= f.label :hours,"Horas estimadas:" %><%= f.text_field :hours, :size => 3 %>
+  </div>
   <p>
     <%= f.submit :disable_with => "Pleas wait..." %>
     or

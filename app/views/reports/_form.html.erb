@@ -22,10 +22,10 @@
       <%= check_box_tag :has_date, "#{@report.has_dates?}",:checked %>
     <% end %>
     <span id="dates" style="<%= @report.has_dates? ? '' : 'display:none' %>">
-      <%= f.label :start_date, "Start on",  %>
-      <%= f.text_field :start_date, :size => 10, :value => (@report.new_record? || @report.start_date.nil?) ? nil : @report.start_date.strftime('%d, %B %Y') %>
-      <%= f.label :end_date, "to"%>
-      <%= f.text_field :end_date, :size => 10 , :value => (@report.new_record? || @report.end_date.nil?) ? nil : @report.end_date.strftime('%d, %B %Y') %>
+      <%= f.label :start_date, "Comienza el",  %>
+      <%= f.text_field :start_date, :size => 20, :value => (@report.new_record? || @report.start_date.nil?) ? nil : (l @report.start_date, :format => '%A, %d %B %Y') %>
+      <%= f.label :end_date, "hasta"%>
+      <%= f.text_field :end_date, :size => 20 , :value => (@report.new_record? || @report.end_date.nil?) ? nil : (l @report.end_date, :format => '%A, %d %B %Y') %>
     <span>
   </p>
   <p>
@@ -44,7 +44,7 @@
       <%= render :partial => 'deterioration', :locals => { :f => build } %>
     <% end %>
     <p>
-      <div id="add_field"  style="margin: 0px;" class="button with_text new">
+      <div id="add_field"  style="margin: 5px;" class="button with_text new">
         <%= add_child_link "Add field",  :deteriorations %>
       </div>
     </p>

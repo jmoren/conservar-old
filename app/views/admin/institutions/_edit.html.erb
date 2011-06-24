@@ -1,0 +1,12 @@
+<%= form_for [:admin, @institution],:html => {:multipart => true }, :validate => true do |f| %>
+  <p>
+    <strong><%= f.label :image %></strong>
+    <br>
+    <%= f.file_field :image, :size => '10%' %>
+  </p>
+  <br>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+

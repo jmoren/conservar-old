@@ -1,6 +1,11 @@
 class TasksController < ApplicationController
-  before_filter :set_report, :except => [:show]
+  before_filter :set_report, :set_deterioration
 
+  def set_deterioration
+    if params[:deterioration_id]
+      @deterioration = Deterioration.find(params[:deterioration_id])
+    end
+  end
   def set_report
     @report = Report.find_by_code(params[:report_id])
   end
@@ -11,7 +16,6 @@ class TasksController < ApplicationController
   def show
     @task = Task.find(params[:id])
   end
-
   def new
     if params[:det_id]
       @deterioration = Deterioration.find(params[:det_id])
@@ -20,14 +24,14 @@ class TasksController < ApplicationController
       @task = @report.tasks.new
     end
   end
-
   def create
     @task = @report.tasks.new(params[:task])
     @task.user = current_user
-    if params[:closed]
-      @task.closed_at = Time.now
+    if params[:task][:hours].to_f > 0
+      @task.report.update_hours(params[:task][:hours].to_f)
     end
     if @task.save
+      @task.deterioration.update_hours(params[:task][:hours].to_f)
       redirect_to report_deterioration_path(@task.report,@task.deterioration), :notice => "Successfully created task."
     else
       render :action => 'new'
@@ -41,10 +45,8 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    if params[:closed]
-      @task.closed_at = Time.now
-    end
     if @task.update_attributes(params[:task])
+      @task.deterioration.update_status
       redirect_to report_deterioration_path(@task.report,@task.deterioration), :notice  => "Successfully updated task."
     else
       render :action => 'edit'

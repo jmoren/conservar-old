@@ -1,0 +1,143 @@
+<% title "Configuracion" %>
+<script>
+$(function(){
+  $(".category_link").hover(function(){
+        tip = $(this).find('.link');
+        tip.show(); //Show tooltip
+      }, function() {
+        tip.hide(); //Hide tooltip
+      }
+   );
+
+   $(".suggestion").editInPlace({
+      url: '/admin/det_categories/update_in_place',
+      saving_image: '/images/loading.gif',
+      params: 'field=suggestion',
+      field_type: "textarea",
+		  textarea_rows: "2",
+  	  textarea_cols: "60"
+    });
+    $(".phone").editInPlace({
+      url: '/admin/institutions/update_in_place',
+      saving_image: '/images/loading.gif',
+      params: 'field=phone',
+      size: '20'
+    });
+    $(".address").editInPlace({
+      url: '/admin/institutions/update_in_place',
+      saving_image: '/images/loading.gif',
+      params: 'field=address',
+      size: '20'
+    });
+  $(".email").editInPlace({
+      url: '/admin/institutions/update_in_place',
+      saving_image: '/images/loading.gif',
+      params: 'field=email',
+      size: '20'
+    });
+  $(".name").editInPlace({
+      url: '/admin/institutions/update_in_place',
+      saving_image: '/images/loading.gif',
+      params: 'field=name',
+      size: '20'
+    });
+  $(".zip").editInPlace({
+      url: '/admin/institutions/update_in_place',
+      saving_image: '/images/loading.gif',
+      params: 'field=zip',
+      size: '20'
+    });
+  $(".city").editInPlace({
+      url: '/admin/institutions/update_in_place',
+      saving_image: '/images/loading.gif',
+      params: 'field=city',
+      size: '20'
+    });
+  $('#edit_institution').click(function(){
+    $('#edit_institution_form').dialog({
+      modal:true,
+      closeOnEscape: true,
+      height: 220,
+      width: 350,
+      title: "Editar Institucion"
+    })
+  });
+});
+</script>
+<div id="categories" style="border-bottom: solid 2px #ccc;padding-bottom: 10px;">
+  <h2> Categorias </h2>
+  <div id="category_form" style="float:right;width:28%;margin-top: 0px;">
+    <div style="font-weight:bold;font-size:15px;color:#fff;background-color:#26456D;padding:2px 5px;"> Agregar nueva categoria </div>
+    <%= form_for [:admin,DetCategory.new],:validate => true, :remote => true, :html => { :style => "margin-left:30px" } do |f|%>
+      <p>
+        <%= f.label :name %>
+        <br />
+        <%= f.text_field :name %>
+      </p>
+      <p>
+        <label>Sugerencia de tratamiento</label>
+        <br />
+        <%= f.text_area :suggestion, :cols => 30, :rows => 5 %>
+      </p>
+      <%= f.submit "Crear" %> o <%= link_to_function 'Cancelar', "$('#new_det_category')[0].reset();$('label.message').html(' ')"  %>
+  <% end %>
+  </div>
+  <div style="width:70%;float:left;margin:auto">
+    <table id="categories_enable" style="width:99%;border-collapse:collapse;margin:0">
+      <tr style="text-align:left">
+        <th style="width:5%;color:#fff;font-weight:bold;background-color:#26456D;padding:3px;"></th>
+        <th style="width:20%;color:#fff;font-weight:bold;background-color:#26456D;padding:3px;"><%= DetCategory.human_attribute_name(:name)%></th>
+        <th style="width:60%;color:#fff;font-weight:bold;background-color:#26456D;padding:3px;"> <%= DetCategory.human_attribute_name(:suggestion)%></th>
+        <th style="width:10%;color:#fff;font-weight:bold;background-color:#26456D;padding:3px;"></th>
+      </tr>
+      <% @categories.each do |category| %>
+        <%= render :partial => "admin/det_categories/det_category", :locals => {:category => category} %>
+      <% end %>
+    </table>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<div id="institutions" style="border-bottom: solid 2px #ccc;padding-bottom: 10px;">
+  <h2> Institucion </h2>
+  <% unless Institution.all.size > 0 %>
+    <%= link_to 'Nueva Institucion', new_admin_institution_path  %>
+  <% else %>
+    <div style="float:left;margin:15px 10px;width:15%">
+      <p>
+       <%= image_tag @institution.image.url(:small) %>
+      </p>
+      <a href="#" id="edit_institution"> <%= t('helpers.links.edit') %></a>
+      <div id="edit_institution_form" style="display:none">
+        <%= render 'admin/institutions/edit' %>
+      </div>
+    </div>
+    <div style="float:left;margin:10px;width:60%">
+      <p style="font-size: 16px">
+        <strong><span> <%= Institution.human_attribute_name(:name) %>:</span></strong>
+        <span class="name" id="<%= @institution.id %>"><%= @institution.name %> </span>
+      </p>
+      <div style="width: 50%;float:left">
+        <h3> Direccion: </h3>
+        <p>
+          <div> <%= Institution.human_attribute_name(:address) %>: <span class="address" id="<%= @institution.id %>"><%= @institution.address %><span> </div>
+          <br>
+          <div><%= Institution.human_attribute_name(:city) %>: <span class="city" id="<%= @institution.id %>"><%= @institution.city %></span> </div>
+          <br>
+          <div><%= Institution.human_attribute_name(:zip) %>: <span class="zip" id="<%= @institution.id %>"><%= @institution.zip %></span>
+          </div>
+        </p>
+      </div>
+      <div style="width: 50%;float:left">
+        <h3> Contacto </h3>
+        <p>
+          <div> <%= Institution.human_attribute_name(:email) %>: <span class="email" id="<%= @institution.id %>"><%= @institution.email %> </span></div>
+          <br>
+          <div><%= Institution.human_attribute_name(:phone) %>: <span class="phone" id="<%= @institution.id %>"><%= @institution.phone %></span></div>
+        </p>
+      </div>
+    </div>
+  <% end %>
+  <div class="clear"></div>
+</div>
+

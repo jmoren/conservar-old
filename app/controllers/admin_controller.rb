@@ -4,5 +4,15 @@ class AdminController < ApplicationController
   def index
 
   end
+  def statistics
+
+  end
+
+  def configuration
+    @categories = DetCategory.all
+    @institution = Institution.first
+  end
+
+
 end
 

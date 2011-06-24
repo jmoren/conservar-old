@@ -1,10 +1,11 @@
 class GalleriesController < ApplicationController
   protect_from_forgery :except => [:upload]
+
   def parent
     if params[:report_id]
-      return @parent = Report.find_by_code(params[:report_id])
+      @parent = Report.find_by_code(params[:report_id])
     elsif params[:task_id]
-      return @parent = Task.find(params[:task_id])
+      @parent = Task.find(params[:task_id])
     end
   end
   def index
@@ -53,6 +54,7 @@ class GalleriesController < ApplicationController
   def uploader
     @gallery = Gallery.find(params[:id],:include => :photos)
   end
+
   def upload
     @gallery = Gallery.find(params[:id])
     @photo  = @gallery.photos.new(:image => params[:file])
@@ -62,11 +64,17 @@ class GalleriesController < ApplicationController
       render :text => { :success => false }
     end
   end
+
   def update_in_place
     @gallery = Gallery.find(params[:element_id])
     @gallery.update_attributes(params[:field] => params[:update_value])
     render :text => @gallery.send(params[:field])
-
+  end
+  def get_gallery_1
+    @gallery = Gallery.find(params[:gallery_1])
+  end
+  def get_gallery_2
+    @gallery = Gallery.find(params[:gallery_2])
   end
 end
 

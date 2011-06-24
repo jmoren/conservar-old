@@ -40,6 +40,7 @@ module Conservar
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
     config.middleware.use Rack::RawUpload, :paths => ['/galleries/upload']
+    config.middleware.use PDFKit::Middleware, :print_media_type => true
   end
 end
 

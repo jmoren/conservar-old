@@ -34,13 +34,16 @@ module ControllerAuthentication
       redirect_to login_url, :alert => "You must first log in or sign up before accessing this page."
     end
   end
+
   def login_required_and_admin
-    unless logged_in? && (current_user && current_user.admin?)
+    if !logged_in?
       store_target_location
       redirect_to login_url, :alert => "You must first log in and be admin before accessing this page."
+    elsif current_user && !current_user.admin?
+      redirect_to root_url, :alert => "No eres admin!"
     end
-
   end
+
   def redirect_to_target_or_default(default, *args)
     redirect_to(session[:return_to] || default, *args)
     session[:return_to] = nil

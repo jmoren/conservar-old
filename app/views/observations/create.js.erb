@@ -1,0 +1,3 @@
+$('ol.observations').append("<%= escape_javascript(render :partial => "observations/observation", :locals => {:observation => @observation})%>");
+$('#new_observation')[0].reset();
+

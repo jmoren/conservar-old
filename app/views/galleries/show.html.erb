@@ -3,7 +3,7 @@
 <%= stylesheet_link_tag "colorbox" %>
 <script>
   $(function(){
-    $(".gallery").colorbox({transition:"elastic", width:"75%", height:"75%"});
+    $(".gallery").colorbox({transition:"elastic"});
   });
 </script>
 <p>
@@ -24,7 +24,7 @@
   <ul style="list-style:none;">
     <% @gallery.photos.each do |photo| %>
       <li style="float:left;margin-left:5px;">
-        <a href="<%=photo.image.url(:original) %>" title="<%= photo.description%>" rel="gallery_<%=photo.gallery.id%>" class="gallery" ><%= image_tag(photo.image.url(:small))%>
+        <a href="<%=photo.image.url(:normal) %>" title="<%= truncate(photo.description, :length => 40) %>" rel="gallery_<%=photo.gallery.id%>" class="gallery" ><%= image_tag(photo.image.url(:small))%>
             </a>
       </li>
     <% end %>

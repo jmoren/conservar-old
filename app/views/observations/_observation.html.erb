@@ -1,0 +1,34 @@
+<li class="observation"  id="observation_<%=observation.id%>" style="width:75%;margin: 5px 0">
+  <script>
+    $(function(){
+      $(".observation_body").editInPlace({
+          url: '/observations/update_in_place',
+          saving_image: '/images/loading.gif',
+          params: 'field=body',
+          field_type: "textarea",
+      		textarea_rows: "3",
+	      	textarea_cols: "50",
+	      	bg_out: "#f1f1f1"
+      });
+    });
+ </script>
+  <div class="observation_header">
+    <%= Observation.human_attribute_name(:category)%> <strong><%= observation.category %></strong>
+  </div>
+  <div>
+    <p class="observation_body" style="background: #f1f1f1;border: solid 1px #ccc;padding: 5px;width:100%" id="<%= observation.id %>">
+    <%= observation.body %>
+  </div>
+  <div class="observation_footer" style="font-size:11px">
+    <div class="user_info" style="float:left;margin-bottom:10x;">
+      <%= Observation.human_attribute_name(:user)%>: <strong><%= observation.user.full_name %></strong>
+      -
+      <%= Observation.human_attribute_name(:created_at)%>: <strong><%= l observation.created_at, :format=> :short %></strong>
+    </div>
+    <div class="link_to_delete" style="float:right;margin-bottom:10x;">
+        <%= link_to t('helpers.links.delete'), observation, :confirm => t('helpers.confirm_message'), :method => :delete, :remote => true  %>
+    </div>
+  </div>
+  <div class="clear"></div>
+</li>
+

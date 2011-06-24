@@ -60,6 +60,14 @@ class ReportsController < ApplicationController
     redirect_to @report, :notice => "Successfully opened report."
   end
 
+  def compare_galleries
+    @report = Report.find_by_code(params[:id])
+    @galleries = @report.galleries
+  end
+  def print
+    @report = Report.find_by_code(params[:id])
+    @institution = Institution.first
+  end
 #  def deteriorations_to_gantt
 #    @report = Report.find(params[:id])
 #    @deteriorations = @report.deteriorations.collect(&:to_ghash)

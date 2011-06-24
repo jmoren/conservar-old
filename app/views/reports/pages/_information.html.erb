@@ -1,0 +1,14 @@
+<div id="report_observation_form" style="float:right;width:30%">
+  <h3 style="float:left;font-size:16px;margin:20px 0 10px 0 "> Nueva Observacion </h3>
+  <p>
+    <%= render 'observations/form' %>
+  </p>
+</div>
+<h3> Observaciones </h3>
+<ol class="observations" style="width:60%;float:left">
+  <% @report.observations.each do |observation| %>
+    <%= render :partial => "observations/observation", :locals => {:observation => observation } %>
+  <% end %>
+</ol>
+<div class="clear"></div>
+

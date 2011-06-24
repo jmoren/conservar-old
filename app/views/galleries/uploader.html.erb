@@ -7,42 +7,53 @@
       params: 'field=description',
       field_type: "textarea",
   		textarea_rows: "5",
-	  	textarea_cols: "136",
+	  	textarea_cols: "144",
 	  	bg_out: '#f1f1f1'
     });
+    $(".check_all").click(function() {
+      $(".delete_checkbox").attr("checked","checked");
+      return false;
+    });
+
+    $(".uncheck_all").click(function() {
+      $(".delete_checkbox").removeAttr("checked");
+      return false;
+    });
+
     var uploader = new qq.FileUploader({
       element: document.getElementById("file-uploader"),
       action: "/galleries/upload",
-      textButton: "Select File",
+      textButton: "Seleccion una foto",
       allowedExtensions: ['png','jpg'],
       params: { id: "<%= params[:id] %>"}
     });
+
 
   });
 </script>
 <link href="/stylesheets/fileuploader.css" type="text/css" rel="stylesheet" media="screen">
 <h4>
-  <%= link_to  @gallery.galleryable_type, polymorphic_path([@gallery.galleryable]) %>
+  <%= link_to  @gallery.galleryable_type.classify.constantize.model_name.human, polymorphic_path([@gallery.galleryable]) %>
   >
-  <%= link_to "Gallery #{@gallery.id}", @gallery %>
+  <%= link_to "#{Gallery.model_name.human} #{@gallery.id}", @gallery %>
   >
   Uploader
 </h4>
 <p>
-  <p><small>Created by <%= @gallery.user.email %></small></p>
-  <h3>Description</h3>
+  <p><small><%=Gallery.human_attribute_name(:created_at)%> <%= @gallery.user.full_name %></small></p>
+  <h3><%=Gallery.human_attribute_name(:description)%></h3>
   <p class="description text_area" id="<%=@gallery.id%>">
     <%= @gallery.description %>
   <p>
 </p>
 <p>
   <div >
-    <h3> Upload your photos </h3>
-    <small > Before submit any photo, replace spaces in the photo name with undersocres if it has. After submit your photos, reload the page to see them above. Yoy can edit them or delete.</small>
+    <h2> <%=Gallery.human_attribute_name(:upload)%> </h2>
+    <small > <%= t('helpers.text.before_upload')%></small>
   </div>
   <div id="file-uploader">
     <noscript>
-      <p> Please enable JavaScript to use file uploader</p>
+      <p> <%= t('helpers.text.enable_javascript')%></p>
     </noscript>
   </div>
 <p>
@@ -50,36 +61,44 @@
   <div>
     <% if @gallery.photos.empty? %>
       <h3>
-        No photos
+        No hay fotos todavia
       </h3>
     <% else %>
-      <h2 style="float:left;"> Gallery photo </h2>
+      <h2 style="float:left;"> <%= Gallery.model_name.human %> </h2>
       <div class="clear"></div>
-      <%= form_for @gallery do |f| %>
+      <%= form_for @gallery,:html =>{ :id=> "table_edit_photos" } do |f| %>
+        <div style="float:left;font-size:11px;color:#666;margin-top:15px;">
+          <a href="#" class="check_all">Marcar todas</a> /
+          <a href="#" class="uncheck_all">Desmarcar todas</a>
+        </div>
         <div style="float:right;margin:5px 0 ">
           <%= f.submit %>
         </div>
         <table id="table_photos">
           <tr>
-            <th> Image </th>
-            <th> Description </th>
-            <th> Created at </th>
-            <th> Size </th>
-            <th> Delete </th>
+            <th> <%=Gallery.human_attribute_name(:image)%> </th>
+            <th> <%=Gallery.human_attribute_name(:description)%> </th>
+            <th> <%=Gallery.human_attribute_name(:created_at)%></th>
+            <th> <%=Gallery.human_attribute_name(:size)%> </th>
+            <th> <%=Gallery.human_attribute_name(:delete)%> </th>
            </tr>
            <%= f.fields_for :photos do |build| %>
             <tr>
               <td class="image"><%= image_tag(build.object.image.url(:small))%></td>
-              <td class="description"><%= build.text_area :description, :cols => 70, :rows => 4 %></td>
-              <td class="name"><%=build.object.created_at.strftime('%d, %B %Y') %></td>
+              <td class="description"><%= build.text_area :description, :cols => 90, :rows => 4 %></td>
+              <td class="date"><%=l build.object.created_at, :format => :short %></td>
               <td class="size"><%= number_to_human_size(build.object.image_file_size)%></td>
-              <td class="delete"> <%= build.check_box :_destroy %> </td>
+              <td class="delete"> <%= build.check_box :_destroy, :class =>"delete_checkbox" %> </td>
             </tr>
            <% end %>
         </table>
-        <span style="float:right;margin-top:5px;">
+        <div style="float:right;margin-top:5px;">
           <%= f.submit %>
-        </span>
+        </div>
+        <div style="float:left;font-size:11px;color:#666;margin-top:15px;">
+          <a href="#" class="check_all">Marcar todas</a> /
+          <a href="#" class="uncheck_all">Desmarcar todas</a>
+        </div>
         <div class="clear"></div>
       <% end %>
     <% end %>

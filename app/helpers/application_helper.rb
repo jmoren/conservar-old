@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   ROLES = [['user','user'],['admin','admin']]
-  STATUS = [['abierto','abierto'],['cerrado','cerrado'],['reabierto','reabierto']]
+  STATUS = [['Abierto','Abierto'],['Cerrado','Cerrado'],['Reabierto','Reabierto']]
 
   def remove_child_link(name, f)
     f.hidden_field(:_destroy) + link_to(name, "#", :class => "remove_child")
@@ -23,10 +23,11 @@ module ApplicationHelper
   end
 
   def report_status(report)
-    if report.start_date.nil? && report.end_date.nil?
-      content_tag(:div,"Status: #{report.status.titleize}", :style => "float:left;")
+    if (report.start_date.nil? && report.end_date.nil?) || report.end_date.nil?
+      content_tag(:div,"#{Report.human_attribute_name(:status)}: #{report.status.titleize}", :style => "float:left;")+
+          content_tag(:div, nil, :class=>"clear")
     else
-      remaining = (report.end_date.to_date - Time.now.to_date)
+      remaining = (report.end_date.to_date - Time.now.to_date).to_i
       css_class = nil
       if remaining <= 0
         css_class = "alert"
@@ -35,9 +36,8 @@ module ApplicationHelper
       else
         css_class = "circle-check"
       end
-      puts remaining
       if report.closed?
-        content_tag(:div,"Status: <strong>#{report.status.titleize}</strong>".html_safe, :style => "float:left")+
+        content_tag(:div,"#{Report.human_attribute_name(:status)}: <strong>#{report.status.titleize}</strong>".html_safe, :class=> "#{report.status.downcase}",:style => "float:left")+
           content_tag(:div, nil, :class=>"clear")
       else
         if report.start_date.nil? || (report.start_date > Time.now.to_date)
@@ -45,21 +45,47 @@ module ApplicationHelper
         else
           days = distance_of_time_in_words(Time.now,report.end_date)
         end
-        content_tag(:div,:class => css_class) do
-          content_tag(:span,nil,:style=>"float:left; margin: 2px 3px 2px 0;", :class =>"ui-icon ui-icon-#{css_class}") +
-          content_tag(:span,"Estado: #{report.status.titleize}", :style =>"float: left;margin: 2px 0")+
-          content_tag(:span,"<strong>#{remaining <= 0 ? 'Se paso ' + distance_of_time_in_words(report.start_date,Time.now) : 'Tiempo restante: ' + days}</strong> <small>( #{l (report.start_date.nil? ? Time.now.to_date : report.start_date),:format => :short } - #{ l report.end_date,:format => :short } ) </small>".html_safe,:style =>"float:right;margin: 2px 0") +
-          content_tag(:div, nil, :class=>"clear")
+
+        text1 =  content_tag(:div,:class => css_class) do
+                  content_tag(:span,nil,:style=>"float:left; margin: 2px 3px 2px 0;", :class =>"ui-icon ui-icon-#{css_class}") +
+                  content_tag(:span,"#{Report.human_attribute_name(:status)}: #{report.status.titleize}", :style =>"float: left;margin: 2px 0") +  content_tag(:div, nil, :class=>"clear")
         end
+        text2 = content_tag(:span,"<br><strong>#{remaining <= 0 ? 'Se paso ' + distance_of_time_in_words(report.start_date,Time.now) : 'Tiempo restante: ' + days}</strong><br> <small>#{l (report.start_date.nil? ? Time.now.to_date : report.start_date),:format => :short } - #{ l report.end_date,:format => :short }</small>".html_safe,:style =>"float:left;margin: 0") + content_tag(:div, nil, :class=>"clear")
+        return content_tag(:div, text1 + text2 )
       end
     end
   end
 
-  def statics_report(report)
-    total  = report.deteriorations.size.to_f
-    finish = report.deteriorations.where(:fixed => true).size.to_f
-    open   = report.deteriorations.where(:fixed => false).size.to_f
-    content_tag(:span, content_tag(:span,"Reporte completado: #{number_to_percentage((finish/total)*100, :precision => 1) }"),:style => "font-weight:bold;")
+  def deteriorations_complete(report)
+    if report.deteriorations.size > 0
+      total  = report.deteriorations.size
+      finish = report.deteriorations.where(:fixed => true).size
+      open   = report.deteriorations.where(:fixed => false).size
+      content_tag(:span, content_tag(:span,"#{finish}/#{total} ( #{number_to_percentage((finish.to_f/total.to_f)*100, :precision => 1) })"),:style => "font-weight:bold;")
+    else
+      content_tag(:span, "Reporte completado: 0/0 (0.0%)" ,:style => "font-weight:bold;")
+    end
+  end
+
+  def hours_complete(report)
+    if report.tasks.size > 0
+      left = report.remaining_hours
+      total = report.hours
+      cumplidas = total - left
+      content_tag(:span,"#{(cumplidas).to_s} / #{total.to_s} ( #{number_to_percentage((cumplidas/total)*100, :precision => 1)} )" ,:style => "font-weight:bold;")
+    else
+      content_tag(:span, "0hs. / 0hs. (0.0%)" ,:style => "font-weight:bold;")
+    end
+  end
+  def deterioration_hours(deterioration)
+    if deterioration.tasks.size > 0
+      total = deterioration.hours
+      left = deterioration.remaining_hours
+      complete = total - left
+      content_tag(:span,"Diagnostico terminado: #{(complete).to_s} hs. / #{total.to_s} hs. ( #{number_to_percentage((complete/total)*100, :precision => 1)} )" ,:style => "font-weight:bold;")
+    else
+      content_tag(:span, "Diagnostico terminado: 0hs. / 0hs. (0.0%)" ,:style => "font-weight:bold;")
+    end
   end
 end
 

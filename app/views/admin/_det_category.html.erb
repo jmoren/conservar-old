@@ -1,0 +1,15 @@
+<tr class="category_link" style="line-height: 2em;" >
+  <td style="width:5%;text-align:center;"><%= category.active ? image_tag('closed-12.png') : image_tag('open-12.png') %></td>
+  <td style="width:15%"><%= category.name %></td>
+  <td class="suggestion" id="<%= category.id%>" style="width:60%"><%= category.suggestion %></td>
+  <td style="width:10%;">
+    <span id="category_<%= category.id %>" style="display:none;padding-left:10px;" class="link">
+    <% if category.active %>
+      <%= link_to 'disable', admin_disable_category_path(:admin,category)%>
+    <% else %>
+      <%= link_to 'enable', admin_enable_category_path(:admin,category)%>
+    <% end %>
+    </span>
+  </td>
+</tr>
+

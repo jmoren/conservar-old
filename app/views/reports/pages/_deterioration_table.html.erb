@@ -1,0 +1,32 @@
+<% unless @report.deteriorations.empty? %>
+  <table id="table_deterioration">
+    <tr>
+      <th> <%= Deterioration.human_attribute_name(:status)%> </th>
+      <th> <%= Deterioration.human_attribute_name(:category)%> </th>
+      <th> <%= Deterioration.human_attribute_name(:place)%> </th>
+      <th> <%= Deterioration.human_attribute_name(:description)%> </th>
+      <th> <%= Deterioration.human_attribute_name(:tasks)%> </th>
+      <th> </th>
+    </tr>
+    <% @report.deteriorations.each do |deterioration| %>
+      <tr id="deterioration_<%= deterioration.id%>" >
+        <td class=" status"><%= deterioration.fixed ? image_tag('closed.png') : image_tag('open.png') %></td>
+        <td class="category" id="<%= deterioration.id%>"><%= deterioration.det_category.name %></td>
+        <td class="place" id="<%= deterioration.id%>"><%= deterioration.place %></td>
+        <td class="description" id="<%= deterioration.id%>"><%= simple_format truncate(deterioration.description,:length => 140)%></td>
+        <td class="tasks"><%= link_to deterioration.tasks.size, report_deterioration_path(@report,deterioration) %></td>
+        <td class="actions">
+          <span class="show">
+            <%= link_to t('helpers.links.show'), report_deterioration_path(@report,deterioration) %>
+          </span>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+<% else %>
+  <div class="deterioration_message">
+    <h3>No deteriorations where founded </h3>
+  </div>
+<% end %>
+

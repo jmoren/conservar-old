@@ -1,0 +1,71 @@
+<% content_for :head do %>
+  <script>
+    $(function(){
+      $('#help_report').click(function(){
+        $('#help_report_text').dialog({title:"Reporte",width:600});
+      });
+      $('#help_images').click(function(){
+        $('#help_images_text').dialog({title:"Imagenes",width:600});
+      });
+      $('#help_info').click(function(){
+        $('#help_info_text').dialog({title:"Informacion",width:600});
+      });
+      $('#help_others').click(function(){
+        $('#help_others_text').dialog({title:"Otros",width:600});
+      })
+    })
+  </script>
+<% end %>
+<%= report_status(@report)%>
+<hr>
+<p>
+  <strong>Progreso:</strong>
+  <div style="text-align:left;width:25%;float:left">Diagnosticos:</div>
+  <div style="text-align:right;width:70%;float:right"><strong><%= deteriorations_complete(@report) %></strong></div>
+  <div class="clear"></div>
+  <div style="text-align:left;width:25%;float:left">Horas:</div>
+  <div style="text-align:right;width:70%;float:right"><strong><%= hours_complete(@report) %></strong></div>
+</p>
+<br>
+<div class="clear"></div>
+<hr>
+<p>
+  <strong>Creacion:</strong>
+  <div style="text-align:left;width:40%;float:left">Creado:</div>
+  <div style="text-align:right;width:60%;float:right"> <strong><%= l @report.created_at, :format => :short %></strong></div>
+  <div class="clear"></div>
+  <div style="text-align:left;width:40%;float:left">Actualizado:</div>
+  <div style="text-align:right;width:60%;float:right"><strong><%= l @report.updated_at, :format => :short%></strong></div>
+</p>
+<br>
+<hr>
+<p style="color:#26456D">
+  <strong>Ayuda</strong>
+  <ol style="margin-left:-20px;">
+    <li>
+      <%= link_to "El reporte de conservacion","#",:id => "help_report" %>
+      <div id="help_report_text" style="display:none">
+        <%= render :partial => "reports/help/help_report" %>
+      </div>
+    </li>
+    <li>
+      <%= link_to_function "Imagenes en un reporte","#",:id => "help_images"%>
+      <div id="help_images_text" style="display:none">
+        <%= render :partial => "reports/help/help_images" %>
+      </div>
+    </li>
+    <li>
+      <%= link_to_function "Informacion adicional de un reporte","#",:id => "help_info"%>
+      <div id="help_info_text" style="display:none">
+        <%= render :partial => "reports/help/help_info" %>
+      </div>
+    </li>
+    <li>
+      <%= link_to_function "Table de deterioros y tareas","#",:id => "help_others"%>
+      <div id="help_others_text" style="display:none">
+        <%= render :partial => "reports/help/help_others" %>
+      </div>
+    </li>
+  </ol>
+</p>
+

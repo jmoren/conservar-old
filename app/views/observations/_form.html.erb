@@ -1,14 +1,13 @@
-<%= form_for [@report,@observation] do |f| %>
-  <%= f.error_messages %>
-
-    <%= f.label :category %><br />
-    <%= f.text_field :category %>
-  </p>
+<div id="new_observation_form" style="float:left;margin-top: 0px;font-size: 12px">
+<%= form_for [@report,@report.observations.new], :validate => true, :remote => true do |f| %>
+  <%= f.label :category %>
+  <%= f.select :category,Observation::CATEGORIES %>
   <p>
     <%= f.label :body %><br />
-    <%= f.text_area :body %>
+    <%= f.text_area :body,:rows => 5,:cols => 30 %>
   </p>
 
   <p><%= f.submit %></p>
 <% end %>
+</div>
 

@@ -1,42 +1,77 @@
+<%= javascript_include_tag "jquery.colorbox" %>
+<%= stylesheet_link_tag "colorbox" %>
 <% title "Task" %>
-
+<script>
+  $(function(){
+    $(".gallery").colorbox();
+  })
+</script>
 <p>
-  <%= link_to "Report ##{@task.report_id}", report_path(@task.report) %>
+  <%= link_to "#{Report.model_name.human} ##{@task.report_id}", report_path(@task.report) %>
   >
-  <%= link_to "Deterioration ##{@task.deterioration_id}", report_deterioration_path(@task.report,@task.deterioration) %>
+  <%= link_to "#{Deterioration.model_name.human} ##{@task.deterioration_id}", report_deterioration_path(@task.report,@task.deterioration) %>
   >
-  <strong>Task <%= @task.id %></strong>
-</p>
-  <p><small> Created by <strong><%= @task.user.email %></strong></small></p>
-<p>
-  <strong>Description:</strong>
-  <%= @task.description %>
-</p>
-<p>
-  <h2> Tools </h2>
-  <% @task.tools.each do |tool|%>
-    <p style="border: 1px solid #ccc;margin: 2px">
-      <p>
-        <strong> Task # </strong> <%= tool.id %>
-      </p>
-      <p>
-        <strong>Category:</strong>
-        <%= tool.category %>
-      </p>
-      <strong>Description:</strong>
-      <%= simple_format tool.description, :class=>"text_area"%>
-    </p>
-  <% end %>
-<p>
-  <strong> Galleries: </strong>
-  <br>
-  <% @task.galleries.each do |gallery|%>
-    <%= link_to "Gallery ##{gallery.id}", gallery  %>
-  <% end %>
- </p>
+  <strong><%= Task.model_name.human%><%= @task.id %></strong>
 <p>
   <span class="button with_text new"> <%= link_to 'New Gallery', new_task_gallery_path(@task)  %></span>
   <span class="button with_text edit"> <%= link_to 'Edit', edit_report_task_path(@task.report,@task)  %></span>
   <span class="button with_text delete"><%= link_to "Destroy", @task, :confirm => 'Are you sure?', :method => :delete %></span>
 </p>
+</p>
+  <p><small><%= Task.human_attribute_name(:created_at)%> <strong><%= @task.user.full_name %></strong></small></p>
+<p>
+  <strong><%= Task.human_attribute_name(:description)%>:</strong>
+  <%= simple_format @task.description, :class => "text_area" %>
+</p>
+<p>
+  <strong><%= Task.human_attribute_name(:hours)%>:</strong> <%= @task.hours %>
+</p>
+<p>
+  <h3> Herramienetas </h3>
+  <table>
+    <tr>
+      <th> Nro. #</th>
+      <th> <%= Tool.human_attribute_name(:category)%></th>
+      <th> <%= Tool.human_attribute_name(:description)%></th>
+    </th>
+    <% @task.tools.each do |tool|%>
+      <tr>
+        <td><%= tool.id %></td>
+        <td><%= tool.category %></td>
+        <td><%= simple_format tool.description%></td>
+      </tr>
+    <% end %>
+  </table>
+<p>
+  <strong> <%= Gallery.model_name.human %>: </strong>
+  <br>
+  <% @task.galleries.each do |gallery|%>
+    <div>
+      <h3 style="background:#26456D;padding:3px;color:#fff;border: solid 1px #26456D; border-radius: 4px;"> <%= Gallery.human_name%> #<%= gallery.id %></h3>
+      <strong> <%= Gallery.human_attribute_name(:description)%> </strong>
+      <p>
+        <%= simple_format gallery.description, :class => "text_area" %>
+      </p>
+    </div>
+    <strong> <%= Gallery.human_attribute_name(:photos)%> (<%= gallery.photos.size%>) </strong>
+    <ul style="list-style:none;margin:5px 0 0 20px;padding:0">
+      <% gallery.photos.limit(10).each do |photo| %>
+        <li style="float:left;margin-right: 5px;">
+          <a href="<%=photo.image.url(:normal) %>" title="<%= truncate(photo.description, :length => 40) %>" rel="gallery_<%=photo.gallery.id%>" class="gallery" >
+            <%= image_tag(photo.image.url(:small))%>
+          </a>
+        </li>
+      <%end %>
+    </ul>
+    <div class="clear"></div>
+    <p>
+      <span class="button with_text show">
+        <%= link_to t('helpers.links.show'), gallery  %>
+      </span>
+      <span class="button with_text edit">
+        <%= link_to t('helpers.links.edit'), uploader_gallery_path(gallery)  %>
+      </span>
+    </p>
+  <% end %>
+ </p>
 
