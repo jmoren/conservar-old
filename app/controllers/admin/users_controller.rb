@@ -11,7 +11,7 @@ class Admin::UsersController < AdminController
   def create
     @user = User.new(params[:user])
     if @user.save
-      redirect_to admin_users_path, :notice => "Thank you for signing up! You are now logged in."
+      redirect_to admin_users_path, :notice => "Se creo con exito el usuario #{@user.full_name}"
     else
       render :action => 'new'
     end
@@ -22,12 +22,25 @@ class Admin::UsersController < AdminController
   end
 
   def update
-    @user = current_user
+    @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
-      redirect_to admin_users_path, :notice => "Your profile has been updated."
+      redirect_to admin_users_path, :notice => "El perfil de #{@user.full_name} fue actualizado"
     else
       render :action => 'edit'
     end
   end
+
+  def enable
+    @user = User.find(params[:id])
+    @user.enable
+    redirect_to admin_users_path, :notice => "El usuario #{@user.full_name} fue habilitado."
+  end
+
+  def disable
+    @user = User.find(params[:id])
+    @user.disable
+    redirect_to admin_users_path, :notice => "El usuario #{@user.full_name} fue deshabilitado."
+  end
+
 end
 

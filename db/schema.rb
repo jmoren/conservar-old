@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110620205304) do
+ActiveRecord::Schema.define(:version => 20110629004308) do
+
+  create_table "collections", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "det_categories", :force => true do |t|
     t.string   "name"
@@ -36,6 +44,63 @@ ActiveRecord::Schema.define(:version => 20110620205304) do
     t.string   "galleryable_type"
     t.text     "description"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "generic_boolean_fields", :force => true do |t|
+    t.integer  "item_id"
+    t.string   "label"
+    t.boolean  "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "generic_fields", :force => true do |t|
+    t.integer  "item_category_id"
+    t.string   "name"
+    t.string   "field_style"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "generic_float_fields", :force => true do |t|
+    t.integer  "item_id"
+    t.string   "label"
+    t.float    "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "generic_integer_fields", :force => true do |t|
+    t.integer  "item_id"
+    t.string   "label"
+    t.integer  "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "generic_select_fields", :force => true do |t|
+    t.integer  "item_id"
+    t.string   "label"
+    t.string   "content"
+    t.string   "options"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "generic_text_areas", :force => true do |t|
+    t.integer  "item_id"
+    t.string   "label"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "generic_text_fields", :force => true do |t|
+    t.integer  "item_id"
+    t.string   "label"
+    t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -72,6 +137,28 @@ ActiveRecord::Schema.define(:version => 20110620205304) do
     t.datetime "updated_at"
   end
 
+  create_table "item_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "item_category_id"
+    t.boolean  "active",           :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "items", :force => true do |t|
+    t.integer  "collection_id"
+    t.integer  "user_id"
+    t.string   "code"
+    t.string   "title"
+    t.string   "author"
+    t.text     "description"
+    t.integer  "item_category_id"
+    t.integer  "item_subcategory_id"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "observations", :force => true do |t|
     t.integer  "report_id"
     t.string   "category"
@@ -104,6 +191,7 @@ ActiveRecord::Schema.define(:version => 20110620205304) do
     t.date     "end_date"
     t.float    "hours",      :default => 0.0
     t.boolean  "archived"
+    t.integer  "item_id"
   end
 
   create_table "slugs", :force => true do |t|
@@ -126,7 +214,7 @@ ActiveRecord::Schema.define(:version => 20110620205304) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "closed_at"
-    t.float    "hours",            :default => 0.0
+    t.float    "hours",            :default => 1.0
   end
 
   create_table "tools", :force => true do |t|

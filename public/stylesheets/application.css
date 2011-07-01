@@ -49,10 +49,128 @@ a {
   color: #666;
   font-weight:bold;
   text-decoration:none;
+  padding: 2px 4px
 }
-.cerrado {
-  padding: 5px;
+
+/* Reporte */
+/* fin reporte */
+
+/* items */
+/* fin items */
+
+/* galeria y fotos */
+
+#table_photos{
+  border-collapse: collapse;
+  width: 100%;
+  border: solid #ccc 1px;
 }
+#table_edit_photos{
+  margin: auto;
+  width: 100%;
+  }
+#table_photos tr th{
+  color: #000;
+  line-height: 1.7em;
+  padding: 0 10px;
+  background: #26456D;
+  border: solid 1px #26456D;
+  color: #fff;
+  text-align:left;
+}
+#table_photos tr{
+  line-height: .7em;
+}
+#table_photos td{
+  padding: 10px;
+}
+#table_photos td.image{
+  width: 80px;
+  text-align:center;
+}
+#table_photos td.description{
+  width: 250px;
+
+}
+
+#table_photos td.size{
+  width: 40px;
+}
+#table_photos td.date{
+  width: 120px;
+}
+#table_photos td.delete{
+  width: 50px;
+}
+#table_photos td.delete{
+  width: 50px;
+  text-align:center;
+}
+
+
+/* fin galeria y fotos */
+
+/* deteriorations */
+
+#report #table_deterioration{
+  border-collapse: collapse;
+  width: 100%;
+  border: solid #ccc 1px;
+}
+#report #table_deterioration tr th{
+  color: #000;
+  line-height: 2em;
+  padding-left: 5px;
+  background: #26456D;
+  border: solid 1px #26456D;
+  color: #fff;
+  text-align:left;
+}
+#report #table_deterioration tr{
+  line-height: 0em;
+}
+#report #table_deterioration td{
+  border-left: solid 1px #ccc;
+  padding: 10px;
+}
+
+#report #table_deterioration td.tasks,#report #table_deterioration td.status{
+    width: 5%;
+    text-align:center;
+}
+#report #table_deterioration td.det_category_id {
+    width: 10%;
+
+}
+#report #table_deterioration td.description{
+    width: 50%;
+}
+#report #table_deterioration td.place{
+  width: 19%;
+}
+
+#report #table_deterioration td.actions{
+  width: 7%;
+}
+
+/* fin deteriorations */
+
+/* tasks */
+/* fin tasks */
+
+/* users */
+/* fin users */
+
+/* det_categories */
+/* fin det_categories */
+
+/* item_categories */
+/* fin item_categories */
+
+/* institution */
+/* fin institution */
+
+/* layout */
 
 .clear {
   clear: both;
@@ -146,37 +264,63 @@ nav ul li a:hover {
   border: solid 1px #C66;
 }
 
-.field_with_errors {
+/* fin layout */
+
+/* forms */
+/* fin forms */
+/* admin */
+#admin_index {
+  width: 70%;
+  margin: auto;
+}
+ul.conf_list{
+  text-align:center;
   display: inline;
+  list-style: none;
 }
-
-.error_messages {
-  width: 400px;
-  border: 2px solid #CF0000;
-  padding: 0px;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
-  font-size: 12px;
+ul.conf_list li{
+  float: left;
+  margin: 30px 10px;
+  width: 30%;
 }
-
-.error_messages h2 {
-  text-align: left;
-  font-weight: bold;
-  padding: 5px 10px;
-  font-size: 12px;
-  margin: 0;
-  background-color: #c00;
+ul.conf_list li a.conf_option{
+  border: solid 2px #999;
+  color: #666;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 6px;
+  width: 100%;
+}
+ul.conf_list li:hover a.conf_option{
   color: #fff;
+  background: #666;
+  border: solid 2px #666;
+}
+ul.conf_list li .conf_explanation{
+  display:none;
+}
+ul.conf_list li:hover .conf_explanation{
+  display: block;
+  color: #666;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 5px;
+  margin: 10px auto;
+  width: 60%;
+}
+/* fin admin */
+
+
+a.help:hover {
+  border: solid #666 1px;
+  background: #f1f1f1;
+  padding: 1px 3px;
+  color: #333
+}
+.cerrado {
+  padding: 5px;
 }
 
-.error_messages p {
-  margin: 8px 10px;
-}
-
-.error_messages ul {
-  margin: 0;
-}
 label.message{
 color: #D00;
 display:block;
@@ -200,92 +344,7 @@ font-weight:bold;
   border-radius: 5px;
   width: 98%;
 }
-#report #table_deterioration{
-  border-collapse: collapse;
-  width: 100%;
-  border: solid #ccc 1px;
-}
-#report #table_deterioration tr th{
-  color: #000;
-  line-height: 2em;
-  padding-left: 5px;
-  background: #26456D;
-  border: solid 1px #26456D;
-  color: #fff;
-  text-align:left;
-}
-#report #table_deterioration tr{
-  line-height: 0em;
-}
-#report #table_deterioration td{
-  border-left: solid 1px #ccc;
-  padding: 10px;
-}
 
-#report #table_deterioration td.tasks,#report #table_deterioration td.status{
-    width: 5%;
-    text-align:center;
-}
-#report #table_deterioration td.det_category_id {
-    width: 10%;
-
-}
-#report #table_deterioration td.description{
-    width: 50%;
-}
-#report #table_deterioration td.place{
-  width: 19%;
-}
-
-#report #table_deterioration td.actions{
-  width: 7%;
-}
-#table_photos{
-  border-collapse: collapse;
-  width: 100%;
-  border: solid #ccc 1px;
-}
-#table_edit_photos{
-  margin: auto;
-  width: 100%;
-  }
-#table_photos tr th{
-  color: #000;
-  line-height: 1.7em;
-  padding: 0 10px;
-  background: #26456D;
-  border: solid 1px #26456D;
-  color: #fff;
-  text-align:left;
-}
-#table_photos tr{
-  line-height: .7em;
-}
-#table_photos td{
-  padding: 10px;
-}
-#table_photos td.image{
-  width: 80px;
-  text-align:center;
-}
-#table_photos td.description{
-  width: 250px;
-
-}
-
-#table_photos td.size{
-  width: 40px;
-}
-#table_photos td.date{
-  width: 120px;
-}
-#table_photos td.delete{
-  width: 50px;
-}
-#table_photos td.delete{
-  width: 50px;
-  text-align:center;
-}
 
 
 .button{
@@ -301,12 +360,6 @@ font-weight:bold;
   font-size: 12px;
 }
 
-#report #table_deterioration td.open{
-  background: url(/images/open.png) no-repeat 40% 50%;
-}
-#report #table_deterioration td.closed{
-  background: url(/images/closed.png) no-repeat 40% 50%;
-}
 input[type="text"],select,input[type="checkbox"],input[type="password"]{
   border: solid 1px #ccc;
   line-height: 1.5em;
@@ -445,45 +498,7 @@ border: solid 1px #ccc;
 #table_tasks{
   border-collapse: collapse;
   }
-/* observations section */
-/*ol.observations {
-	margin: 0px 0;
-	background: #222; --Bg of the order numbers--
-	padding: 0 0 0 35px; --Distance between the order numbers--
-	border: 1px solid #111;
-	color: #f1f1f1;
-}
-ol.observations li {
-	margin: 0;
-	padding: 0px;
-	font-size: 1.7em;
-	font-weight: bold;*/
-       /*--The bevel look is styled with various colors in the border properties below--
-	border-top: 1px solid #000;
-	border-bottom: 1px solid #353535;
-	border-right: 1px solid #333;
-	border-left: 1px solid #151515;
-	background: #f1f1f1;
-	font-size:12px;
-}
-li.observation .observation_header{
-  font-size: 13px;
-  background: #222;
-  color: #f1f1f1;
-  padding:  10px;
-  margin: 0;
-  }
-li.observation .observation_body{
-  font-size: 13px;
-  color: #222;
-  padding: 10px;
-}
-li.observation .observation_footer{
-  font-size: 11px;
-  color: #222;
-  padding: 10px 5px;
 
-}*/
 .thumbs {
   list-style:none;
   padding: 5px;
@@ -500,5 +515,9 @@ li.observation .observation_footer{
   padding: 3px;
   text-align: left;
 
+}
+/* help list report side panel */
+li.help_list{
+  margin: 5px 0;
 }
 

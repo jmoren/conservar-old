@@ -1,0 +1,20 @@
+<% title "Generic Fields" %>
+
+<p>
+  <strong>Category:</strong>
+  <%= @generic_fields.category_id %>
+</p>
+<p>
+  <strong>Name:</strong>
+  <%= @generic_fields.name %>
+</p>
+<p>
+  <strong>Field Style:</strong>
+  <%= @generic_fields.field_style %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_generic_fields_path(@generic_fields) %> |
+  <%= link_to "Destroy", @generic_fields, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", generic_fields_path %>
+</p>

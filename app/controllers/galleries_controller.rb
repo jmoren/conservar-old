@@ -9,7 +9,7 @@ class GalleriesController < ApplicationController
     end
   end
   def index
-    @galleries = Gallery.all
+    @galleries = Gallery.page params[:page]
   end
 
   def show

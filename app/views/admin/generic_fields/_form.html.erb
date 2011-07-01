@@ -1,0 +1,13 @@
+<%= form_for [:admin,subcategory.generic_fields.new],:validate => true do |f| %>
+  <%= f.hidden_field :item_category_id, :value => subcategory.id %>
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name, :size => 20 %>
+  </p>
+  <p>
+    <%= f.label :field_style %>
+    <%= f.select :field_style, GenericField::STYLES %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>
+

@@ -1,0 +1,34 @@
+<% title "Items" %>
+ <%= paginate @items %>
+<table>
+  <tr>
+    <th>Collection</th>
+    <th>User</th>
+    <th>Code</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Description</th>
+    <th>Category</th>
+    <th>Subcategory</th>
+    <th>Status</th>
+  </tr>
+  <% for item in @items %>
+    <tr>
+      <td><%= item.collection.try(:name) || "---" %></td>
+      <td><%= item.user.full_name %></td>
+      <td><%= item.code %></td>
+      <td><%= item.title %></td>
+      <td><%= item.author %></td>
+      <td><%= item.description %></td>
+      <td><%= item.category.name %></td>
+      <td><%= item.subcategory.name %></td>
+      <td><%= item.status %></td>
+      <td><%= link_to "Show", item %></td>
+      <td><%= link_to "Edit", edit_item_path(item) %></td>
+      <td><%= link_to "Destroy", item, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+ <%= paginate @items %>
+<p><%= link_to "New Item", new_item_path %></p>
+

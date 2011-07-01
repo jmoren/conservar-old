@@ -1,5 +1,5 @@
 <% title "Reports" %>
-
+ <%= paginate @reports %>
 <table>
   <tr>
     <th>Status</th>
@@ -21,6 +21,5 @@
     </tr>
   <% end %>
 </table>
-
-<p><%= link_to "New Report", new_report_path %></p>
+ <%= paginate @reports %>
 

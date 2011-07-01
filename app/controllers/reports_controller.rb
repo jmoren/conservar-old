@@ -1,21 +1,23 @@
 class ReportsController < ApplicationController
   respond_to :html, :json
   def index
-    @reports = Report.all
+    @reports = Report.page params[:page]
   end
 
   def show
-    @report = Report.find_by_code(params[:id])
+    @report = Report.find(params[:id])
     respond_with(@report.deteriorations,:inlcude => :tasks)
   end
 
   def new
-    @report = Report.new
+    @item = Item.find(params[:item_id])
+    @report = @item.reports.new
   end
 
   def create
-    sleep 5
-    @report = Report.new(params[:report])
+    @item = Item.find(params[:item_id])
+    @report = @item.reports.new(params[:report])
+    @report.generate_code
     @report.user = current_user
     unless params.include?('has_date')
       @report.start_date = @report.end_date = nil
@@ -28,11 +30,11 @@ class ReportsController < ApplicationController
   end
 
   def edit
-    @report = Report.find_by_code(params[:id])
+    @report = Report.find(params[:id])
   end
 
   def update
-    @report = Report.find_by_code(params[:id])
+    @report = Report.find(params[:id])
     dates = {}
     unless params.include?('has_date')
       dates = { :start_date => nil, :end_date => nil }
@@ -45,27 +47,27 @@ class ReportsController < ApplicationController
   end
 
   def destroy
-    @report = Report.find_by_code(params[:id])
+    @report = Report.find(params[:id])
     @report.destroy
     redirect_to reports_url, :notice => "Successfully destroyed report."
   end
   def close
-    @report = Report.find_by_code(params[:id])
+    @report = Report.find(params[:id])
     @report.close
     redirect_to @report, :notice => "Successfully closed report."
   end
   def open
-    @report = Report.find_by_code(params[:id])
+    @report = Report.find(params[:id])
     @report.open
     redirect_to @report, :notice => "Successfully opened report."
   end
 
   def compare_galleries
-    @report = Report.find_by_code(params[:id])
+    @report = Report.find(params[:id])
     @galleries = @report.galleries
   end
   def print
-    @report = Report.find_by_code(params[:id])
+    @report = Report.find(params[:id])
     @institution = Institution.first
   end
 #  def deteriorations_to_gantt

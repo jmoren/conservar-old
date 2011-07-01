@@ -15,9 +15,11 @@
         <% if current_user %>
         <nav>
           <ul>
+            <li><%= link_to('Objetos', items_path)  %></li>
             <li><%= link_to('Reportes', reports_path)  %></li>
             <li><%= link_to('Galerias', galleries_path)  %></li>
             <li><%= link_to('Tareas', tasks_path)  %></li>
+            <li><%= link_to('Colecciones', collections_path)  %></li>
             <% if current_user && current_user.admin? %>
               <li><%= link_to_unless_current 'Admin', admin_path %></li>
             <% end %>

@@ -6,7 +6,7 @@
   })
 </script>
 <div id="model_form">
-<%= form_for @report do |f| %>
+<%= form_for [@item,@report] do |f| %>
   <%= f.error_messages %>
   <p>
     <label>

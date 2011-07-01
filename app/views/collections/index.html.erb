@@ -1,0 +1,21 @@
+<% title "Collections" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>User</th>
+  </tr>
+  <% for collection in @collections %>
+    <tr>
+      <td><%= collection.name %></td>
+      <td><%= collection.description %></td>
+      <td><%= collection.user_id %></td>
+      <td><%= link_to "Show", collection %></td>
+      <td><%= link_to "Edit", edit_collection_path(collection) %></td>
+      <td><%= link_to "Destroy", collection, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Collection", new_collection_path %></p>

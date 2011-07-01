@@ -1,0 +1,54 @@
+<h2> <%= @item.title %> </h2>
+<div>
+  <p>
+    <strong>Codigo </strong><br />
+    <%= @item.code %>
+  </p>
+  <p>
+    <strong> Categoria/Subcategoria </strong><br />
+    <%= @item.category.name %>/<%= @item.subcategory.name %>
+  </p>
+</div>
+
+<%= form_for @item do |f| %>
+  <%= f.fields_for :generic_text_fields do |a| %>
+    <p>
+      <%= a.object.label_attribute %>
+      <%= a.hidden_field :label_attribute, :value => a.object.label_attribute %>
+      <%= a.text_field :content %>
+    </p>
+  <% end %>
+  <%= f.fields_for :generic_integer_fields do |b| %>
+    <p>
+      <%= b.object.label_attribute %>
+      <%= b.hidden_field :label_attribute, :value => b.object.label_attribute %>
+      <%= b.text_field :content, :size => 10 %>
+    </p>
+  <% end %>
+  <%= f.fields_for :generic_float_fields do |c| %>
+    <p>
+      <%= c.object.label_attribute %>
+      <%= c.hidden_field :label_attribute, :value => c.object.label_attribute %>
+      <%= c.text_field :content, :size => 10 %>
+    </p>
+  <% end %>
+  <%= f.fields_for :generic_boolean_fields do |d| %>
+    <p>
+      <%= d.object.label_attribute %>
+      <%= d.hidden_field :label_attribute, :value => d.object.label_attribute %>
+      <%= d.check_box :content %>
+    </p>
+  <% end %>
+  <%= f.fields_for :generic_text_areas do |e| %>
+    <p>
+      <%= e.object.label_attribute %>
+      <br>
+      <%= e.hidden_field :label_attribute, :value => e.object.label_attribute %>
+      <%= e.text_area :content, :cols => 50, :rows => 5 %>
+    </p>
+  <% end %>
+  <p>
+    <%= f.submit "Guardar" %>
+  </p>
+<% end %>
+

@@ -32,7 +32,7 @@
   <%= @report.code %>
 </h1>
 <div style="width:100%;margin:auto;">
-  <div style="float:left;width:49%">
+  <div style="float:left;width:59%">
     <h2> Informacion General </h2>
     <p>
       <strong><%= Report.human_attribute_name(:user) %>:</strong>
@@ -55,8 +55,16 @@
       <%=l @report.end_date, :format => :long %>
     </p>
     <% end %>
+    <p>
+      <strong><%= Report.human_attribute_name(:item) %>:</strong>
+      <%= @report.item.title %>
+      <br>
+      <small>
+        <strong>Categoria:</strong> <%= @report.item.category.name %> > <%= @report.item.subcategory.name %>
+      </small>
+    </p>
   </div>
-  <div style="float:left;width:49%">
+  <div style="float:left;width:40%">
     <h2> Estado del Reporte </h2>
     <strong><%= Report.human_attribute_name(:status) %>: </strong>
     <%= @report.status %>
@@ -67,10 +75,10 @@
     </p>
     <% end %>
     <p>
-      <%= deteriorations_complete(@report) %>
+      Problemas resueltos: <%= deteriorations_complete(@report) %>
     </p>
     <p>
-      <%= hours_complete(@report) %>
+      Horas completadas: <%= hours_complete(@report) %>
     </p>
   </div>
   <div class="clear"></div>

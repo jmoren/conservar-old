@@ -1,0 +1,77 @@
+<% title "Item" %>
+
+<p>
+  <strong>Collection:</strong>
+  <%= @item.collection.name %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%= @item.user.full_name %>
+</p>
+<p>
+  <strong>Code:</strong>
+  <%= @item.code %>
+</p>
+<p>
+  <strong>Title:</strong>
+  <%= @item.title %>
+</p>
+<p>
+  <strong>Author:</strong>
+  <%= @item.author %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%= @item.description %>
+</p>
+<p>
+  <strong>Category:</strong>
+  <%= @item.category.name %>
+</p>
+<p>
+  <strong>Subcategory:</strong>
+  <%= @item.subcategory.name %>
+</p>
+<p>
+  <strong>Status:</strong>
+  <%= @item.status %>
+</p>
+<h3> Informacion Adicional </h3>
+  <% @item.generic_text_areas.each do |field| %>
+    <p>
+      <strong> <%= field.label_attribute %></strong>
+      <%= simple_format field.content %>
+    </p>
+  <% end %>
+  <% @item.generic_text_fields.each do |field| %>
+    <p>
+      <strong> <%= field.label_attribute %></strong>
+      <%= field.content %>
+    </p>
+  <% end %>
+  <% @item.generic_integer_fields.each do |field| %>
+    <p>
+      <strong> <%= field.label_attribute %></strong>
+      <%= field.content %>
+    </p>
+  <% end %>
+  <% @item.generic_float_fields.each do |field| %>
+    <p>
+      <strong> <%= field.label_attribute %></strong>
+      <%= field.content %>
+    </p>
+  <% end %>
+  <% @item.generic_boolean_fields.each do |field| %>
+    <p>
+      <strong> <%= field.label_attribute %></strong>
+      <%= field.content? ? "Yes" : "No" %>
+    </p>
+  <% end %>
+
+<p><%= link_to "New Report", new_item_report_path(@item) %></p>
+<p>
+  <%= link_to "Edit", edit_item_path(@item) %> |
+  <%= link_to "Destroy", @item, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", items_path %>
+</p>
+

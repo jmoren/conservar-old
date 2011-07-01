@@ -1,0 +1,2 @@
+module GenericFieldsHelper
+end

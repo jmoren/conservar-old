@@ -10,7 +10,7 @@
     </tr>
     <% @report.deteriorations.each do |deterioration| %>
       <tr id="deterioration_<%= deterioration.id%>" >
-        <td class=" status"><%= deterioration.fixed ? image_tag('closed.png') : image_tag('open.png') %></td>
+        <td class="status"><%= deterioration.fixed ? image_tag('closed.png') : image_tag('open.png') %></td>
         <td class="category" id="<%= deterioration.id%>"><%= deterioration.det_category.name %></td>
         <td class="place" id="<%= deterioration.id%>"><%= deterioration.place %></td>
         <td class="description" id="<%= deterioration.id%>"><%= simple_format truncate(deterioration.description,:length => 140)%></td>

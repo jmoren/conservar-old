@@ -7,10 +7,10 @@ class TasksController < ApplicationController
     end
   end
   def set_report
-    @report = Report.find_by_code(params[:report_id])
+    @report = Report.find(params[:report_id])
   end
   def index
-    @tasks = Task.all
+    @tasks = Task.page params[:page]
   end
 
   def show
@@ -19,7 +19,7 @@ class TasksController < ApplicationController
   def new
     if params[:det_id]
       @deterioration = Deterioration.find(params[:det_id])
-      @task = @report.tasks.new(:deterioration_id => params[:det_id])
+      @task = @report.tasks.new(:deterioration_id => @deterioration.id)
     else
       @task = @report.tasks.new
     end
@@ -32,6 +32,7 @@ class TasksController < ApplicationController
     end
     if @task.save
       @task.deterioration.update_hours(params[:task][:hours].to_f)
+      @task.deterioration.update_status
       redirect_to report_deterioration_path(@task.report,@task.deterioration), :notice => "Successfully created task."
     else
       render :action => 'new'

@@ -6,12 +6,14 @@ class User < ActiveRecord::Base
   has_many :tasks
   has_many :galleries
   has_many :photos
+  has_many :collections
+  has_many :items
 
   attr_accessor :password
   before_save :prepare_password
 
   validates_presence_of :username,:name, :lastname
-  validates_uniqueness_of :username, :email, :allow_blank => true
+  validates_uniqueness_of :username, :email, :allow_blank => true, :on => :create
   validates_format_of :username, :with => /^[-\w\._@]+$/i, :allow_blank => true, :message => "should only contain letters, numbers, or .-_@"
   validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
   validates_presence_of :password, :on => :create
@@ -33,11 +35,11 @@ class User < ActiveRecord::Base
   def enable
     self.update_attributes(:enabled => true) if !self.enabled?
   end
-  def disabale
+  def disable
     self.update_attributes(:enabled => false) if self.enabled?
   end
   def full_name
-    "#{self.name} #{self.lastname}"
+    self.name == 'admin' ? "Admin" : "#{self.name} #{self.lastname}"
   end
   def admin?
     self.role == 'admin'

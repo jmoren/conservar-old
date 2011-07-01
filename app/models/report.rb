@@ -1,24 +1,22 @@
 class Report < ActiveRecord::Base
+  has_friendly_id :code, :use_slug => true
   belongs_to :user
+  belongs_to :item
   has_many :deteriorations, :dependent=> :destroy
   has_many :galleries, :as => :galleryable, :dependent => :destroy
   has_many :tasks, :dependent=> :destroy
   has_many :observations, :dependent=> :destroy
   accepts_nested_attributes_for :deteriorations, :allow_destroy => true, :reject_if => lambda { |attributes| attributes['place'].blank? || attributes['description'].blank? }
 
-  attr_accessible :code, :comments, :treatment, :deteriorations_attributes, :start_date, :end_date, :status,:user_id,:hours,:archived
+  attr_accessible :code, :comments, :treatment, :deteriorations_attributes, :start_date, :end_date, :status,:user_id,:hours,:archived,:item_id
   before_save :sanitize_dates
-  before_create :generate_code
-
   #scopes
   scope :not_archivied, where(:archived => false)
   scope :archived, where(:archived => true)
   scope :closed, where(:status => "Cerrado")
   scope :with_status, lambda{|status| where(:status => status)}
 
-  def to_param
-    "#{self.code}"
-  end
+
   def can_close?
     status = true
     self.deteriorations.collect{|d| d.fixed? ? nil : status = false }
@@ -51,8 +49,6 @@ class Report < ActiveRecord::Base
     end
     return hours
   end
-
-  protected
   def generate_code
     random = ""
     6.times{ random << SecureRandom.random_number(6).to_s}
@@ -61,8 +57,10 @@ class Report < ActiveRecord::Base
     else
       last = ""
     end
-    self.code = "RE"+ random + last
+    self.code = random + last
   end
+  protected
+
   def sanitize_dates
     self.start_date = start_date.to_date if self.start_date
     self.end_date = end_date.to_date if self.end_date

@@ -1,0 +1,15 @@
+<% title Collection.model_name.human %>
+<small>Creado por <%= @collection.user.full_name %> el <%= l @collection.created_at, :format => :short %></small>
+<p>
+  <strong><%= Collection.human_attribute_name(:name)%>:</strong>
+  <%= @collection.name %>
+</p>
+<p>
+  <strong><%= Collection.human_attribute_name(:description)%>:</strong>
+  <%= simple_format @collection.description, :class => "text_area" %>
+</p>
+<p>
+  <%= link_to t('helpers.links.edit'), edit_collection_path(@collection) %> |
+  <%= link_to t('helpers.links.delete'), @collection, :confirm => 'Are you sure?', :method => :delete %>
+</p>
+

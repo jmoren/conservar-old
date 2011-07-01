@@ -39,29 +39,41 @@
 </p>
 <br>
 <hr>
+<p>
+  <strong>Item: <%= truncate(@report.item.title,:length => 30) %> </strong>
+  <div style="text-align:right;width:40%;float:left">Titulo: </div>
+  <div style="text-align:right;width:60%;float:right"><%= link_to @report.item.code, @report.item  %></div>
+  <div style="text-align:right;width:40%;float:left">Categoria:</div>
+  <div style="text-align:right;width:60%;float:right"> <strong><%= @report.item.category.name %></strong></div>
+  <div class="clear"></div>
+  <div style="text-align:right;width:40%;float:left">Subcategoria:</div>
+  <div style="text-align:right;width:60%;float:right"><strong><%= @report.item.subcategory.name%></strong></div>
+</p>
+<br>
+<hr>
 <p style="color:#26456D">
   <strong>Ayuda</strong>
   <ol style="margin-left:-20px;">
-    <li>
-      <%= link_to "El reporte de conservacion","#",:id => "help_report" %>
+    <li class="help_list">
+      <%= link_to "El reporte de conservacion","#",:id => "help_report", :class => "help" %>
       <div id="help_report_text" style="display:none">
         <%= render :partial => "reports/help/help_report" %>
       </div>
     </li>
-    <li>
-      <%= link_to_function "Imagenes en un reporte","#",:id => "help_images"%>
+    <li class="help_list">
+      <%= link_to_function "Imagenes en un reporte","#",:id => "help_images", :class => "help"%>
       <div id="help_images_text" style="display:none">
         <%= render :partial => "reports/help/help_images" %>
       </div>
     </li>
-    <li>
-      <%= link_to_function "Informacion adicional de un reporte","#",:id => "help_info"%>
+    <li class="help_list">
+      <%= link_to_function "Informacion adicional","#",:id => "help_info", :class => "help"%>
       <div id="help_info_text" style="display:none">
         <%= render :partial => "reports/help/help_info" %>
       </div>
     </li>
-    <li>
-      <%= link_to_function "Table de deterioros y tareas","#",:id => "help_others"%>
+    <li class="help_list">
+      <%= link_to_function "Deterioros y tareas","#",:id => "help_others", :class => "help"%>
       <div id="help_others_text" style="display:none">
         <%= render :partial => "reports/help/help_others" %>
       </div>

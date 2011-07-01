@@ -59,13 +59,14 @@ $(function(){
       closeOnEscape: true,
       height: 220,
       width: 350,
-      title: "Editar Institucion"
-    })
+      title: "Editar Foto Institucion"
+    });
+    return false;
   });
 });
 </script>
 <div id="categories" style="border-bottom: solid 2px #ccc;padding-bottom: 10px;">
-  <h2> Categorias </h2>
+  <h2> Categorias (deterioros)</h2>
   <div id="category_form" style="float:right;width:28%;margin-top: 0px;">
     <div style="font-weight:bold;font-size:15px;color:#fff;background-color:#26456D;padding:2px 5px;"> Agregar nueva categoria </div>
     <%= form_for [:admin,DetCategory.new],:validate => true, :remote => true, :html => { :style => "margin-left:30px" } do |f|%>
@@ -79,7 +80,7 @@ $(function(){
         <br />
         <%= f.text_area :suggestion, :cols => 30, :rows => 5 %>
       </p>
-      <%= f.submit "Crear" %> o <%= link_to_function 'Cancelar', "$('#new_det_category')[0].reset();$('label.message').html(' ')"  %>
+      <%= f.submit "Crear" %> o <%= link_to_function 'Cancelar', "$('#new_det_category')[0].reset();$('#new_det_category label.message').hide()"  %>
   <% end %>
   </div>
   <div style="width:70%;float:left;margin:auto">
@@ -97,6 +98,45 @@ $(function(){
   </div>
   <div class="clear"></div>
 </div>
+
+<div id="item_categories" style="border-bottom: solid 2px #ccc;padding-bottom: 10px;">
+  <h2> Categorias (items)</h2>
+  <div id="item_category_form" style="float:right;width:28%;margin-top: -10px;">
+    <div style="font-weight:bold;font-size:15px;color:#fff;background-color:#26456D;padding:2px 5px;">
+      Agregar nueva categoria
+    </div>
+    <%= form_for [:admin,ItemCategory.new],:validate => true, :html => { :style => "margin-left:30px" } do |f|%>
+      <p>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </p>
+      <p>
+        <%= f.label :item_category_id, "Categoria" %>
+        <%= f.select :item_category_id, ItemCategory.categories.collect{|c| [c.name, c.id]}, :prompt => true %>
+      </p>
+      <%= f.submit "Crear" %> o <%= link_to_function 'Cancelar', "$('#new_item_category')[0].reset();$('#new_item_category label.message').hide()"  %>
+  <% end %>
+  </div>
+  <div style="width:70%;float:left;margin:auto">
+    <% ItemCategory.categories.each do |category| %>
+      <div style="width:20%;float:left;margin:5px;min-height:100px;">
+        <dt>
+          <strong><%= category.name %></strong>
+        </dt>
+        <% category.item_categories.each do |subcategory| %>
+          <dd style="margin:7px 5px">
+            <span style="float:left;margin-right:10px">
+              <%= subcategory.active? ? (link_to image_tag('closed-12.png'), admin_disable_item_category_path(subcategory)) : (link_to image_tag('open-12.png'), admin_enable_item_category_path(subcategory))%>
+            </span>
+            <%= link_to subcategory.name, admin_item_category_path(subcategory) %>
+          </dd>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="clear"></div>
+</div>
+
 
 <div id="institutions" style="border-bottom: solid 2px #ccc;padding-bottom: 10px;">
   <h2> Institucion </h2>

@@ -1,11 +1,11 @@
 class ObservationsController < ApplicationController
   def new
-    @report = Report.find_by_code(params[:report_id])
+    @report = Report.find(params[:report_id])
     @observation = @report.observations.new
   end
 
   def create
-    @report = Report.find_by_code(params[:report_id])
+    @report = Report.find(params[:report_id])
     @observation = @report.observations.new(params[:observation])
     @observation.user = current_user
     @observation.save

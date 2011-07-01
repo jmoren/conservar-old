@@ -43,12 +43,15 @@
         <span style="float:left"><%= @deterioration.fixed ? (image_tag('closed-12.png') ): (image_tag('open-12.png')) %></span>
       </div>
       <div class="clear"></div>
-      <div class="with_tooltip">
-      <strong> <%= Deterioration.human_attribute_name(:category) %>: </strong><%= @deterioration.det_category.name %>
-      <span class="tooltip"><%= @deterioration.det_category.suggestion %></span>
+      <div>
+        <strong> <%= Deterioration.human_attribute_name(:category) %>: </strong><%= @deterioration.det_category.name %>
       </div>
       <p>
         <strong> <%= Deterioration.human_attribute_name(:description) %>: </strong>
+        <span class="with_tooltip" style="margin-right:15px;float:right">
+          <%= image_tag('help.png') %>
+          <span class="tooltip"><%= @deterioration.det_category.suggestion %></span>
+        </span>
         <%= simple_format @deterioration.description, :class => "text_area" %>
       </p>
       <p> <%= deterioration_hours(@deterioration) %></p>

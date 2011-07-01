@@ -146,6 +146,7 @@ es-AR:
       add_gallery: 'Crear Galeria'
       compare_gallery: 'Comparar imagenes'
       add_observation: 'Crear Observacion'
+      cancel: "Cancelar"
     text:
       before_upload: 'Puedes seleccionar hasta 5 fotos a la vez para subir. Antes de eso, asegurate que los nombres de las fotos no contengan espacios ni caracteres raros (%,$,/, etc. Reemplazalos por guiones bajos o medios).'
       add_zoom: 'Haz click en cada foto que quieras activar el zoom'
@@ -185,6 +186,7 @@ es-AR:
         odd: "debe ser un número non"
   activerecord:
     models:
+      item: "Item"
       report: "Reporte"
       task: "Tarea"
       tool: 'Herramienta'
@@ -194,7 +196,22 @@ es-AR:
       photo: 'Foto'
       image: 'Imagen'
       observation: 'Observacion'
+      collection: 'Coleccion'
+
     attributes:
+      item:
+        collection_id: "Coleccion"
+        code: "Codigo"
+        title: "Titulo"
+        author: "Autor"
+        description: "Descripcion"
+        category: "Categoria"
+        subcategory: "Subcategoria"
+        status: "Estado"
+      collection:
+        description: 'Descripcion'
+        name: 'Nombre'
+        user: 'usuario'
       task:
         closed_at: 'Cerrado'
         hours: 'Horas'
@@ -203,6 +220,7 @@ es-AR:
         user: 'Usuario'
         created_at: 'Creado'
       report:
+        item: 'Objeto'
         start_date: "Inicio"
         end_date: "Fin"
         comments: "Comentarios"

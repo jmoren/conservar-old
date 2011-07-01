@@ -27,16 +27,16 @@
   <strong><%= Task.human_attribute_name(:hours)%>:</strong> <%= @task.hours %>
 </p>
 <p>
-  <h3> Herramienetas </h3>
+  <h3> Heramienetas </h3>
   <table>
     <tr>
-      <th> Nro. #</th>
+      <th></th>
       <th> <%= Tool.human_attribute_name(:category)%></th>
       <th> <%= Tool.human_attribute_name(:description)%></th>
-    </th>
+    </tr>
     <% @task.tools.each do |tool|%>
       <tr>
-        <td><%= tool.id %></td>
+        <td><%= image_tag('ok.png') %></td>
         <td><%= tool.category %></td>
         <td><%= simple_format tool.description%></td>
       </tr>
