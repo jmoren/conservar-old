@@ -81,5 +81,10 @@ class ItemsController < ApplicationController
       end
     end
   end
+  def remove_collection
+    sleep(10)
+    @item = Item.find(params[:id])
+    @item.update_attributes(:collection_id => nil )
+  end
 end
 

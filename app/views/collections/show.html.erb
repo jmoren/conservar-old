@@ -1,4 +1,11 @@
 <% title Collection.model_name.human %>
+<script>
+  $(function(){
+    $(".remove_item").click(function(){
+      $('#loading').show();
+    })
+  })
+</script>
 <small>Creado por <%= @collection.user.full_name %> el <%= l @collection.created_at, :format => :short %></small>
 <p>
   <strong><%= Collection.human_attribute_name(:name)%>:</strong>
@@ -8,6 +15,23 @@
   <strong><%= Collection.human_attribute_name(:description)%>:</strong>
   <%= simple_format @collection.description, :class => "text_area" %>
 </p>
+<h3> Items </h3>
+<p>
+  <% @collection.items.each do |item| %>
+    <div id="item_<%= item.id%>" style="margin: 10px; border: solid 1px #333;background: #f1f1f1;padding: 5px; width: 30%;float:left">
+      <span style="float:right"><%= link_to 'x',remove_collection_item_path(item), :method => :post,:remote => true, :class => "remove_item"  %></span>
+      <strong> Codigo: </strong><%= item.code %>
+      <strong> Titulo: </strong><%= item.title %>
+      <br>
+      <strong> Subcategoria: </strong><%= item.subcategory.name %> (<%= item.category.name %>)
+      <br>
+      <strong> Autor: </strong><%= item.author %>
+      <span style="float:right"><%= link_to 'Ver', item  %></span>
+    </div>
+  <% end %>
+</p>
+<div class="clear"></div>
+<div id="loading" style="text-align:center;display:none;z-index:99999;position:absolute;border: solid 1px #666;padding:10px;background: #fff;width:15%;top: 50%;left: 40%;"><%= image_tag('loading.gif')%><div><small> eliminando...</small></div></div>
 <p>
   <%= link_to t('helpers.links.edit'), edit_collection_path(@collection) %> |
   <%= link_to t('helpers.links.delete'), @collection, :confirm => 'Are you sure?', :method => :delete %>

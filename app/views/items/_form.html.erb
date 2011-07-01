@@ -51,9 +51,17 @@
   <div style="float:left;width:45%">
     <p>
       <%= f.label :category %>
-      <%= f.select :item_category_id, ItemCategory.categories.collect{|c| [c.name,c.id]},:prompt => true %>
+      <% if @item.new_record? %>
+        <%= f.select :item_category_id, ItemCategory.categories.collect{|c| [c.name,c.id]},:prompt => true %>
+      <% else %>
+        <strong><%= @item.category.name %></strong>
+      <% end %>
       <%= f.label :subcategory %>
-      <%= f.select :item_subcategory_id, "<option value>Seleccione una categoria</option>"%>
+      <% if @item.new_record? %>
+        <%= f.select :item_subcategory_id, "<option value>Seleccione una categoria</option>"%>
+      <% else %>
+        <strong><%= @item.subcategory.name %></strong>
+      <% end %>
       <br/>
       <span id="subcategory_error" style="display:none;color:#D00;font-weight:bold;font-size:12px">
         Subcateogria no puede estar en blanco. Seleccione una categoria primero

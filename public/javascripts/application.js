@@ -171,7 +171,7 @@ $(function(){
           })
         })
     });
-    //hideFlash();
+    hideFlash();
   });
 function hideFlash() {
   var flash_div = $(".flash");

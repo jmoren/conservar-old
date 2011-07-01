@@ -30,6 +30,7 @@ Conservar::Application.routes.draw do
   resources :items do
     resources :reports, :only => [:new, :create]
     member do
+      post :remove_collection
       get :complete_fields
     end
   end

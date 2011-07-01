@@ -32,17 +32,17 @@
   <div style="border:solid 2px #999;border-radius: 5px;width: 25%;margin-left:20px;">
     <div style="font-size: 15px;font-weight:bold;text-align:center"> Report <%= @report.code %></div>
     <p>
-      <label>Status: </label>
+      <label>Estado del reporte: </label>
       <strong><%= @report.status %></strong>
       <br>
-      <label>Tasks: </label>
+      <label>Tareas: </label>
       <strong><%= @report.tasks.size %></strong>
       <br>
-      <label>Open deteriorations: </label>
+      <label>Problemas encontrados: </label>
       <strong><%= @report.deteriorations.where(:fixed => false).size %></strong>
       <br>
-      <label>Object: </label>
-      <strong>Aca va el code</strong>
+      <label>Item: </label>
+      <strong><%= @report.item.code %></strong>
     </p>
   </div>
   <div class="clear"></div>

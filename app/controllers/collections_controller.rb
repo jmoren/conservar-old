@@ -4,7 +4,7 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    @collection = Collection.find(params[:id])
+    @collection = Collection.find(params[:id], :include => :items)
   end
 
   def new

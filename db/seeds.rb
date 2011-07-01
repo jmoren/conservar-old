@@ -5,7 +5,5 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
-
-categories = DetCategory.create([{:name => "humedad",:suggestion => "Aca va la sugerencia para el tratamiento de problemas relativos a la humedad"},{:name => "insectos",:suggestion => "Aca va la sugerencia para el tratamiento de problemas relativos a los insectos"}])
 admin = User.create({:name => "admin", :lastname => "admin", :username => "admin",:email => "admin@conservar.com", :password => "admin123", :password_confirmation => "admin123", :role => "admin"})
 

@@ -41,13 +41,13 @@ class Deterioration < ActiveRecord::Base
   #           :series => self.tasks.collect(&:to_ghash)
   #        }
   #end
-  #def to_custom_hash
-  #  return { :id => self.id,
-  #           :fixed => self.fixed,
-  #           :category => self.det_category.name,
-  #           :description => self.description
-  #        }
-  #end
+  def to_custom_hash
+    return { :id => self.id,
+             :fixed => self.fixed,
+             :category => self.det_category.name,
+             :description => self.description
+          }
+  end
   def category
     "#{self.id}.- #{self.det_category.name}"
   end
