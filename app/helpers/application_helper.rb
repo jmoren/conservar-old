@@ -63,7 +63,7 @@ module ApplicationHelper
       open   = report.deteriorations.where(:fixed => false).size
       content_tag(:span, content_tag(:span,"#{finish}/#{total} ( #{number_to_percentage((finish.to_f/total.to_f)*100, :precision => 1) })"),:style => "font-weight:bold;")
     else
-      content_tag(:span, "Reporte completado: 0/0 (0.0%)" ,:style => "font-weight:bold;")
+      content_tag(:span, "0/0 (0.0%)" ,:style => "font-weight:bold;")
     end
   end
 

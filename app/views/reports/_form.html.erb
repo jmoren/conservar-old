@@ -8,12 +8,13 @@
 <div id="model_form">
 <%= form_for [@item,@report] do |f| %>
   <%= f.error_messages %>
-  <p>
-    <label>
-      <strong> Creado por </strong>
-      <%= current_user.full_name %>
-    </label>
-    <%= f.hidden_field :user_id, :value => current_user.id %>
+  <div style="float:left;margin: 0 20px;">
+    <strong> Creado por </strong>
+    <%= current_user.full_name %>
+  </div>
+
+  <div class="clear"></div>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
   <p>
     <label><strong>Has dates?</strong></label>
     <% if !@report.has_dates? %>

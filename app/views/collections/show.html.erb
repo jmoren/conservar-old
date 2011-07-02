@@ -19,7 +19,7 @@
 <p>
   <% @collection.items.each do |item| %>
     <div id="item_<%= item.id%>" style="margin: 10px; border: solid 1px #333;background: #f1f1f1;padding: 5px; width: 30%;float:left">
-      <span style="float:right"><%= link_to 'x',remove_collection_item_path(item), :method => :post,:remote => true, :class => "remove_item"  %></span>
+      <span style="float:right"><%= link_to 'x',remover_item_path(item), :method => :post,:remote => true, :class => "remove_item"  %></span>
       <strong> Codigo: </strong><%= item.code %>
       <strong> Titulo: </strong><%= item.title %>
       <br>

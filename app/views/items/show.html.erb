@@ -1,41 +1,42 @@
-<% title "Item" %>
+<% title "#{@item.title.titleize} - #{@item.code}" %>
 
 <p>
-  <strong>Collection:</strong>
-  <%= @item.collection.name %>
+  <strong><%= Item.human_attribute_name(:collection)%>:</strong>
+  <%= @item.collection.try(:name) || "Sin Coleccion" %>
 </p>
 <p>
-  <strong>User:</strong>
+  <strong><%= Item.human_attribute_name(:user)%>:</strong>
   <%= @item.user.full_name %>
 </p>
 <p>
-  <strong>Code:</strong>
+  <strong><%= Item.human_attribute_name(:code)%>:</strong>
   <%= @item.code %>
 </p>
 <p>
-  <strong>Title:</strong>
+  <strong><%= Item.human_attribute_name(:title)%>:</strong>
   <%= @item.title %>
 </p>
 <p>
-  <strong>Author:</strong>
-  <%= @item.author %>
+  <strong><%= Item.human_attribute_name(:author)%>:</strong>
+  <%= @item.author.blank? ? "Sin autor" : @item.author %>
 </p>
 <p>
-  <strong>Description:</strong>
+  <strong><%= Item.human_attribute_name(:description)%>:</strong>
   <%= @item.description %>
 </p>
 <p>
-  <strong>Category:</strong>
+  <strong><%= Item.human_attribute_name(:category)%>:</strong>
   <%= @item.category.name %>
 </p>
 <p>
-  <strong>Subcategory:</strong>
+  <strong><%= Item.human_attribute_name(:subcategory)%>:</strong>
   <%= @item.subcategory.name %>
 </p>
 <p>
-  <strong>Status:</strong>
+  <strong><%= Item.human_attribute_name(:status)%>:</strong>
   <%= @item.status %>
 </p>
+
 <h3> Informacion Adicional </h3>
   <% @item.generic_text_areas.each do |field| %>
     <p>
@@ -68,10 +69,9 @@
     </p>
   <% end %>
 
-<p><%= link_to "New Report", new_item_report_path(@item) %></p>
+<p><%= link_to t('helpers.links.new_report'), new_item_report_path(@item) %></p>
 <p>
-  <%= link_to "Edit", edit_item_path(@item) %> |
-  <%= link_to "Destroy", @item, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", items_path %>
+  <%= link_to t('helpers.links.edit'), edit_item_path(@item) %> |
+  <%= link_to t('helpers.links.delete'), @item, :confirm => 'Are you sure?', :method => :delete %>
 </p>
 

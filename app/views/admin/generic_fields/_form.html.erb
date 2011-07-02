@@ -1,4 +1,6 @@
-<%= form_for [:admin,subcategory.generic_fields.new],:validate => true do |f| %>
+
+<%= form_for [:admin,subcategory.generic_fields.new] do |f| %>
+  <%= f.error_messages %>
   <%= f.hidden_field :item_category_id, :value => subcategory.id %>
   <p>
     <%= f.label :name %>

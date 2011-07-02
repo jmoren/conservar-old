@@ -36,20 +36,16 @@ class CollectionsController < ApplicationController
 
   def destroy
     @collection = Collection.find(params[:id])
-    @collection.destroy
+    @items = @collection.items
+    if @collection.destroy
+      unless @items.empty?
+        @items.each do |item|
+          item.remove_from_collection
+        end
+      end
+    end
     redirect_to collections_url, :notice => "Successfully destroyed collection."
   end
 
-  def add_item
-
-  end
-
-  def remmove_item
-
-  end
-
-  def get_items
-
-  end
 end
 

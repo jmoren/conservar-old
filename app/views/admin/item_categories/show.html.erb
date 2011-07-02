@@ -1,8 +1,21 @@
 <h2> Subcategoria <%= @subcategory.name %></h2>
+<script>
+  $(function(){
+    $('.generic_field').click(function(){
+      $('#loading').show();
+    })
+  })
+</script>
 <div>
   <ul>
     <% @subcategory.generic_fields.each do |generic_field| %>
-      <li><%= generic_field.name %> : <%= generic_field.field_style %></li>
+      <li id="generic_<%= generic_field.id%>">
+        <%= generic_field.name %> : <%= generic_field.field_style %>
+        <small>
+          <%= link_to 'Eliminar', admin_generic_field_path(generic_field), :method => :delete, :remote => true, :class => "generic_field" %>
+          <%= link_to 'Eliminar y eliminar campo de los objetos', admin_generic_field_path(generic_field, :delete_fields => true), :method => :delete, :remote => true, :class => "generic_field" %>
+        </small>
+      </li>
     <% end %>
   </ul>
   <hr>
@@ -10,5 +23,6 @@
     <%= render :partial => 'admin/generic_fields/form', :locals => {:subcategory => @subcategory } %>
   </div>
 </div>
+<div id="loading" style="border-radius: 3px;background: #fff;box-shadow: 0px 0px 10px 5px #666666;position:absolute;top:10%;left:40%;text-align:center;display:none;width:10%"><p><%= image_tag('loading2.gif') %></p><p> eliminando... </p></div>
 <%= link_to 'Volver', admin_configuration_path  %>
 

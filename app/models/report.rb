@@ -10,6 +10,7 @@ class Report < ActiveRecord::Base
 
   attr_accessible :code, :comments, :treatment, :deteriorations_attributes, :start_date, :end_date, :status,:user_id,:hours,:archived,:item_id
   before_save :sanitize_dates
+
   #scopes
   scope :not_archivied, where(:archived => false)
   scope :archived, where(:archived => true)
@@ -50,17 +51,11 @@ class Report < ActiveRecord::Base
     return hours
   end
   def generate_code
-    random = ""
-    6.times{ random << SecureRandom.random_number(6).to_s}
-    if Report.count > 0
-      last = Report.last.id.to_s
-    else
-      last = ""
-    end
-    self.code = random + last
+    s = ""
+    3.times {s << rand(9).to_s}
+    self.code = "RC" + s + " " + self.item.code
   end
-  protected
-
+protected
   def sanitize_dates
     self.start_date = start_date.to_date if self.start_date
     self.end_date = end_date.to_date if self.end_date

@@ -19,6 +19,5 @@ class Admin::ItemCategoriesController < AdminController
     @item_category.disable
     redirect_to admin_configuration_path
   end
-
 end
 

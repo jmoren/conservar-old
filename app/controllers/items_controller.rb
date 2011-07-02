@@ -15,7 +15,7 @@ class ItemsController < ApplicationController
     @item = Item.new(params[:item])
     @item.user = current_user
     if @item.save
-      redirect_to complete_fields_item_path(@item), :notice => "Successfully created item."
+      redirect_to @item.subcategory.generic_fields.empty? ? @item : complete_fields_item_path(@item), :notice => "Successfully created item."
     else
       render :action => 'new'
     end
@@ -53,7 +53,7 @@ class ItemsController < ApplicationController
       when 'texto'
         @item.generic_text_areas.create(:label_attribute => field.name) unless @item.generic_text_areas.find_by_label_attribute(field.name)
       when 'boolean'
-        @item.generic_boolean_fieldsds.create(:label_attribute => field.name) unless @item.generic_boolean_fields.find_by_label_attribute(field.name)
+        @item.generic_boolean_fields.create(:label_attribute => field.name) unless @item.generic_boolean_fields.find_by_label_attribute(field.name)
       end
     end
   end
@@ -81,10 +81,9 @@ class ItemsController < ApplicationController
       end
     end
   end
-  def remove_collection
-    sleep(10)
+  def remove_from_collection
     @item = Item.find(params[:id])
-    @item.update_attributes(:collection_id => nil )
+    @item.remove_from_collection
   end
 end
 

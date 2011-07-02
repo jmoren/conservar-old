@@ -75,13 +75,21 @@
       <%= f.label :author %><br />
       <%= f.text_field :author %>
     </p>
-    <% if !@item.new_record? %>
+    <% unless @item.new_record? %>
       <%= f.fields_for :generic_text_fields do |a| %>
         <p>
           <%= a.object.label_attribute.titleize %>
           <br>
           <%= a.hidden_field :label_attribute, :value => a.object.label_attribute %>
           <%= a.text_field :content %>
+          <div style="margin-top:-10px;color:#666">
+            <% unless @item.subcategory.generic_fields.find_by_name(a.object.label_attribute) %>
+              <small>
+                <%= a.check_box :_destroy %>
+                <strong>Este campo ya no se utiliza mas, puede eliminarlo si lo desea. </strong>
+              </small>
+            <% end %>
+          </div>
         </p>
       <% end %>
       <%= f.fields_for :generic_integer_fields do |b| %>
@@ -90,6 +98,14 @@
           <br>
           <%= b.hidden_field :label_attribute, :value => b.object.label_attribute %>
           <%= b.text_field :content, :size => 10 %>
+          <div style="margin-top:-10px;color:#666">
+            <% unless @item.subcategory.generic_fields.find_by_name(b.object.label_attribute) %>
+              <small>
+                <%= b.check_box :_destroy %>
+                <strong>Este campo ya no se utiliza mas, puede eliminarlo si lo desea. </strong>
+              </small>
+            <% end %>
+          </div>
         </p>
       <% end %>
       <%= f.fields_for :generic_float_fields do |c| %>
@@ -98,6 +114,14 @@
           <br>
           <%= c.hidden_field :label_attribute, :value => c.object.label_attribute %>
           <%= c.text_field :content, :size => 10 %>
+          <div style="margin-top:-10px;color:#666">
+            <% unless @item.subcategory.generic_fields.find_by_name(c.object.label_attribute) %>
+              <small>
+                <%= c.check_box :_destroy %>
+                <strong>Este campo ya no se utiliza mas, puede eliminarlo si lo desea. </strong>
+              </small>
+            <% end %>
+          </div>
         </p>
       <% end %>
       <%= f.fields_for :generic_boolean_fields do |d| %>
@@ -106,6 +130,14 @@
           <br>
           <%= d.hidden_field :label_attribute, :value => d.object.label_attribute %>
           <%= d.check_box :content %>
+          <div style="margin-top:-10px;color:#666">
+            <% unless @item.subcategory.generic_fields.find_by_name(d.object.label_attribute) %>
+              <small>
+                <%= d.check_box :_destroy %>
+                <strong>Este campo ya no se utiliza mas, puede eliminarlo si lo desea. </strong>
+              </small>
+            <% end %>
+          </div>
         </p>
       <% end %>
       <%= f.fields_for :generic_text_areas do |e| %>
@@ -114,6 +146,14 @@
           <br>
           <%= e.hidden_field :label_attribute, :value => e.object.label_attribute %>
           <%= e.text_area :content, :cols => 50, :rows => 5 %>
+          <div style="margin-top:-10px;color:#666">
+            <% unless @item.subcategory.generic_fields.find_by_name(e.object.label_attribute) %>
+              <small>
+                <%= e.check_box :_destroy %>
+                <strong>Este campo ya no se utiliza mas, puede eliminarlo si lo desea. </strong>
+              </small>
+            <% end %>
+          </div>
         </p>
       <% end %>
     <% end %>

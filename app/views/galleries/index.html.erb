@@ -2,14 +2,12 @@
  <%= paginate @galleries %>
 <table>
   <tr>
-    <th>Galleryable</th>
-    <th>Galleryable Type</th>
+    <th>Parent</th>
     <th>Description</th>
   </tr>
   <% for gallery in @galleries %>
     <tr>
-      <td><%= gallery.galleryable_id %></td>
-      <td><%= gallery.galleryable_type %></td>
+      <td><%= link_to gallery.galleryable_type, gallery.galleryable %></td>
       <td><%= gallery.description %></td>
       <td><%= link_to "Show", gallery %></td>
       <td><%= link_to "Edit", edit_gallery_path(gallery) %></td>
