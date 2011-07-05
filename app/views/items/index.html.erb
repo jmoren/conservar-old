@@ -1,34 +1,92 @@
 <% title "Items" %>
- <%= paginate @items %>
-<table>
-  <tr>
-    <th>Collection</th>
-    <th>User</th>
-    <th>Code</th>
-    <th>Title</th>
-    <th>Author</th>
-    <th>Description</th>
-    <th>Category</th>
-    <th>Subcategory</th>
-    <th>Status</th>
-  </tr>
-  <% for item in @items %>
+<script>
+	$(function() {
+		var icons = {
+			header: "ui-icon-circle-arrow-e",
+			headerSelected: "ui-icon-circle-arrow-s"};
+
+		$( "#accordion" ).accordion({
+			icons: icons,
+			autoHeight: false,
+			navigation: true,
+			collapsible: true
+
+		});
+	});
+	</script>
+<div>
+  <div style="float:left;">
+    <%= form_tag items_path, :method => 'get' do %>
+      Buscar por autor o codigo:
+      <%= search_field_tag 'q' %>
+      <%= submit_tag "ok"%>
+    <% end %>
+  </div>
+  <div style="float:right;width:20%">
+    <span class="button with_text new"><%= link_to "New Item", new_item_path %></span>
+  </div>
+</div>
+<div class="clear"></div>
+<div style="margin-top:3%">
+  <div style="float:right;width:20%" id="accordion">
+    <h3><a href="#categoria">Filtar por Categoria</a></h3>
+    <div>
+      <ul style="list-style:none">
+        <% ItemCategory.categories.each do |category| %>
+          <% if !category.empty?%>
+            <li> <%= link_to category.name, items_path(:category => category.id) %> </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+    <h3><a href="#subcategoria">Filtar por Subcategoria</a></h3>
+    <div>
+      <ul style="list-style:none">
+        <% ItemCategory.all_subcategories.each do |subcategory| %>
+          <% if Item.where(:item_subcategory_id => subcategory).size > 0 %>
+            <li> <%= link_to subcategory.name.titleize, items_path(:subcategory => subcategory.id) %> </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+    <h3><a href="#coleccion">Filtar por Coleccion</a></h3>
+    <div>
+      <ul style="list-style:none">
+        <% Collection.all.each do |collection| %>
+          <li> <%= link_to collection.name.titleize, items_path(:collection => collection.id) %> </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div style="float:left;width:70%;">
+  <table>
     <tr>
-      <td><%= item.collection.try(:name) || "---" %></td>
-      <td><%= item.user.full_name %></td>
-      <td><%= item.code %></td>
-      <td><%= item.title %></td>
-      <td><%= item.author %></td>
-      <td><%= item.description %></td>
-      <td><%= item.category.name %></td>
-      <td><%= item.subcategory.name %></td>
-      <td><%= item.status %></td>
-      <td><%= link_to "Show", item %></td>
-      <td><%= link_to "Edit", edit_item_path(item) %></td>
-      <td><%= link_to "Destroy", item, :confirm => 'Are you sure?', :method => :delete %></td>
+      <th><%= Item.human_attribute_name(:collection)%></th>
+      <th><%= Item.human_attribute_name(:code)%></th>
+      <th><%= Item.human_attribute_name(:title)%></th>
+      <th><%= Item.human_attribute_name(:author)%></th>
+      <th><%= Item.human_attribute_name(:category)%></th>
+      <th><%= Item.human_attribute_name(:subcategory)%></th>
+      <th><%= Item.human_attribute_name(:status)%></th>
     </tr>
-  <% end %>
-</table>
- <%= paginate @items %>
-<p><%= link_to "New Item", new_item_path %></p>
+    <% for item in @items %>
+      <tr>
+        <td><%= item.collection.try(:name) || "---" %></td>
+        <td><%= item.code %></td>
+        <td><%= truncate(item.title, :lenght => 25) %></td>
+        <td><%= item.author %></td>
+        <td><%= item.category.name %></td>
+        <td><%= item.subcategory.name %></td>
+        <td><%= item.status %></td>
+        <td><%= link_to t('helpers.links.show'), item %></td>
+        <td><%= link_to t('helpers.links.edit'), edit_item_path(item) %></td>
+        <% if current_user.admin? %>
+          <td><%= link_to t('helpers.links.delete'), item, :confirm => 'Are you sure?', :method => :delete %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+   <%= paginate @items %>
+  </div>
+</div>
 

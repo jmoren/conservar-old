@@ -54,22 +54,21 @@
       <% if @item.new_record? %>
         <%= f.select :item_category_id, ItemCategory.categories.collect{|c| [c.name,c.id]},:prompt => true %>
       <% else %>
+        <%= f.hidden_field :item_category_id, :value => @item.category.id %>
         <strong><%= @item.category.name %></strong>
       <% end %>
       <%= f.label :subcategory %>
       <% if @item.new_record? %>
         <%= f.select :item_subcategory_id, "<option value>Seleccione una categoria</option>"%>
       <% else %>
+        <%= f.hidden_field :item_subcategory_id, :value => @item.subcategory.id %>
         <strong><%= @item.subcategory.name %></strong>
       <% end %>
       <br/>
-      <span id="subcategory_error" style="display:none;color:#D00;font-weight:bold;font-size:12px">
-        Subcateogria no puede estar en blanco. Seleccione una categoria primero
-      </span>
     </p>
     <p>
-      <%= f.label :status %><br />
-      <%= f.text_field :status %>
+      <%= f.label :status %>
+      <%= f.select :status,ApplicationHelper::ITEM_STATUS %>
     </p>
       <p>
       <%= f.label :author %><br />

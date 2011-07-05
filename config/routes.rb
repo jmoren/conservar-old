@@ -4,8 +4,8 @@ Conservar::Application.routes.draw do
   match 'login' => 'sessions#new', :as => :login
   #admin routes
   match 'admin' => "admin#index", :as => :admin
-  match 'admin/statistics/' => "admin#statistics", :as => "admin_statistics"
-  match 'admin/configuration' => "admin#configuration", :as => "admin_configuration"
+  match 'admin/estadisticas' => "admin#statistics", :as => "admin_statistics"
+  match 'admin/configuracion' => "admin#configuration", :as => "admin_configuration"
   #institution
   post '/admin/institutions/update_in_place'  => "admin::Institutions#update_in_place"
   # deterioration categories

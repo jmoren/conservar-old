@@ -2,7 +2,8 @@ module ApplicationHelper
 
   ROLES = [['user','user'],['admin','admin']]
   STATUS = [['Abierto','Abierto'],['Cerrado','Cerrado'],['Reabierto','Reabierto']]
-
+  ItemAttributes = [['coleccion','collection'],['categoria','category'],['subcatecoria','subcategory']]
+  ITEM_STATUS = [['bueno','bueno'],['regular','regular'],['malo','malo']]
   def remove_child_link(name, f)
     f.hidden_field(:_destroy) + link_to(name, "#", :class => "remove_child")
   end

@@ -1,6 +1,14 @@
 class ItemsController < ApplicationController
   def index
-    @items = Item.page params[:page]
+    if params[:q]
+      @items = Item.search(params[:q]).page params[:page]
+    elsif params[:category]
+      @items = Item.where(:item_category_id => params[:category]).page params[:page]
+    elsif params[:subcategory]
+      @items = Item.where(:item_subcategory_id => params[:subcategory]).page params[:page]
+    else
+      @items = Item.page params[:page]
+    end
   end
 
   def show

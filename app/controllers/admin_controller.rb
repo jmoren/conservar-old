@@ -11,11 +11,29 @@ class AdminController < ApplicationController
     @reportes_cerrados = Report.with_status('Cerrado')
     @total_reportes = Report.all.size
 
-    #deteriorations
+    #items [cat|subcat, cant.]
+    @items_by_category = []
+    Item.group(:item_category_id).size.each do |cat,value|
+      @items_by_category << [ ItemCategory.find(cat).name, value ]
+    end
+    @items_by_subcategory = []
+    Item.group(:item_subcategory_id).size.each do |cat,value|
+      @items_by_subcategory << [ ItemCategory.find(cat).name, value ]
+    end
+
+    #deteriorations [nombre, cant.]
+    @total_dets = Deterioration.count
     @dets = []
     Deterioration.group(:det_category_id).size.each do |detid,value|
-      @dets << { :det_category_id => DetCategory.find(detid).name,:size => value }
+      det = DetCategory.find(detid).name
+      @dets << [ det, value ]
     end
+
+    #colecciones [nombre, cant. items]
+    @collections = Collection.all
+
+    #tasks
+    @tasks = [Task.closed.size,Task.open.size]
   end
 
   def configuration

@@ -31,23 +31,23 @@ class Admin::GenericFieldsController < AdminController
       case @generic_field.field_style
       when "entero"
         @items.each do |item|
-          item.generic_integer_fields.find_by_label_attribute(@generic_field.name).destroy
+          item.generic_integer_fields.find_by_label_attribute(@generic_field.name).try(:destroy)
         end
       when "string"
         @items.each do |item|
-          item.generic_text_fields.find_by_label_attribute(@generic_field.name).destroy
+          item.generic_text_fields.find_by_label_attribute(@generic_field.name).try(:destroy)
         end
       when "text"
         @items.each do |item|
-          item.generic_text_areas.find_by_label_attribute(@generic_field.name).destroy
+          item.generic_text_areas.find_by_label_attribute(@generic_field.name).try(:destroy)
         end
       when "float"
         @items.each do |item|
-          item.generic_float_fields.find_by_label_attribute(@generic_field.name).destroy
+          item.generic_float_fields.find_by_label_attribute(@generic_field.name).try(:destroy)
         end
       when "boolean"
         @items.each do |item|
-          item.generic_boolean_fields.find_by_label_attribute(@generic_field.name).destroy
+          item.generic_boolean_fields.find_by_label_attribute(@generic_field.name).try(:destroy)
         end
       end
     end

@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_filter :set_report, :set_deterioration
+  before_filter :set_report, :set_deterioration, :only => [:new,:create]
 
   def set_deterioration
     if params[:deterioration_id]
@@ -7,7 +7,9 @@ class TasksController < ApplicationController
     end
   end
   def set_report
-    @report = Report.find(params[:report_id])
+    if params[:report_id]
+      @report = Report.find(params[:report_id])
+    end
   end
   def index
     @tasks = Task.page params[:page]

@@ -29,11 +29,19 @@ class Item < ActiveRecord::Base
   scope :by_collection, lambda{|author| where(:author => author)}
   scope :by_collection, lambda{|status| where(:status => status)}
   scope :with_deterioration_detected, lambda{|det| joins(:deteriorations,:det_category).where(:name => det)}
-  validates_presence_of :code, :title, :description, :category, :subcategory, :status
+  validates_presence_of :code, :title, :description, :status
+  validates_presence_of :category, :subcategory, :on => :create
   validates_uniqueness_of :code
 
   def remove_from_collection
     self.update_attributes(:collection_id => nil )
+  end
+  def self.search(search)
+    if search
+      where('title LIKE ? OR code LIKE ?', "%#{search}%", "%#{search}%")
+    else
+      scoped
+    end
   end
 end
 

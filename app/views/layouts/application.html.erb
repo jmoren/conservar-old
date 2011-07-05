@@ -12,8 +12,9 @@
     <div id="header">
       <header  style="width:94%;margin: 0 auto -10px auto">
         <%= link_to image_tag('logo.png'), root_url%>
+        <div class="clear"></div>
         <% if current_user %>
-        <nav>
+        <div id="main_menu">
           <ul>
             <li><%= link_to('Objetos', items_path)  %></li>
             <li><%= link_to('Reportes', reports_path)  %></li>
@@ -21,12 +22,13 @@
             <li><%= link_to('Tareas', tasks_path)  %></li>
             <li><%= link_to('Colecciones', collections_path)  %></li>
             <% if current_user && current_user.admin? %>
-              <li><%= link_to_unless_current 'Admin', admin_path %></li>
+              <li><%= link_to 'Admin', admin_path %></li>
             <% end %>
           </ul>
-        </nav>
+        </div>
       <% end %>
       </header>
+      <div class="clear"></div>
       <section id="messages" style="width:94%">
         <span style="float:right;">
           <% if current_user %>

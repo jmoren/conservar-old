@@ -10,6 +10,8 @@ class Task < ActiveRecord::Base
   validates_presence_of :description, :deterioration_id
 
   before_save :check_status
+  scope :closed, where('closed_at is not null')
+  scope :open, where(:closed_at => nil)
 
   def check_status
     self.closed_at = self.hours == 0 ? Time.now : nil

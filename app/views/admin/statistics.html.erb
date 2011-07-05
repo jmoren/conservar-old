@@ -1,45 +1,161 @@
 <% content_for :head do %>
-  <script type="text/javascript" src="/javascripts/jquery.jqplot.js"></script>
-  <script type="text/javascript" src="/javascripts/jqplot.pieRenderer.js"></script>
-  <script type="text/javascript" src="/javascripts/jqplot.json2.js"></script>
+  <%= javascript_include_tag "highcharts" %>
 
 <% end %>
 <script>
-$(document).ready(function(){
-  var data = [
-    ['Heavy Industry', 12],['Retail', 9], ['Light Industry', 14],
-    ['Out of home', 16],['Commuting', 7], ['Orientation', 9]
-  ];
-  // data tiene que venir por json
-  var plot1 = jQuery.jqplot ('chart1', [data],
-    {
-      seriesDefaults: {
-        renderer: jQuery.jqplot.PieRenderer,
-        rendererOptions: {
-          // Turn off filling of slices.
-          //fill: false,
-          showDataLabels: true,
-          // Add a margin to seperate the slices.
-          sliceMargin: 3,
-          // stroke the slices with a little thicker line.
-          lineWidth: 5
-        }
+$(function() {
+   chart1 = new Highcharts.Chart({
+      chart: {
+         renderTo: 'det_container',
+         plotBackgroundColor: null,
+         plotBorderWidth: null,
+         plotShadow: false
       },
-      legend: { show:true, location: 'e' }
-    }
-  );
-});
+      title: {
+         text: 'Problemas encontrados por tipo'
+      },
+      tooltip: {
+         formatter: function() {
+            return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat((this.y*100)/<%= @total_dets %>,0) +' %';
+         }
+      },
+      plotOptions: {
+         pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+               enabled: true,
+               color: '#000000',
+               connectorColor: '#000000',
+               formatter: function() {
+                  return '<b>'+ this.point.name +'</b>: '+ this.y;
+               }
+            }
+         }
+      },
+       series: [{
+          type: 'pie',
+          name: 'Categorias',
+          data: [
+            <% @dets.each do |c| %>
+              ['<%= c[0] %>',<%= c[1] %>],
+            <% end %>
+          ]
+       }]
+    });
+     chart2 = new Highcharts.Chart({
+      chart: {
+         renderTo: 'item_container1',
+         plotBackgroundColor: null,
+         plotBorderWidth: null,
+         plotShadow: false
+      },
+      title: {
+         text: 'Items por categoria'
+      },
+      tooltip: {
+         formatter: function() {
+            return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat((this.y*100)/<%= @total_dets %>,0) +' %';
+         }
+      },
+      plotOptions: {
+         pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+               enabled: true,
+               color: '#000000',
+               connectorColor: '#000000',
+               formatter: function() {
+                  return '<b>'+ this.point.name +'</b>: '+ this.y;
+               }
+            }
+         }
+      },
+       series: [{
+          type: 'pie',
+          name: 'Categorias',
+          data: [
+            <% @items_by_category.each do |c| %>
+              ['<%= c[0] %>',<%= c[1] %>],
+            <% end %>
+          ]
+       }]
+    });
+    chart3 = new Highcharts.Chart({
+      chart: {
+         renderTo: 'item_container2',
+         plotBackgroundColor: null,
+         plotBorderWidth: null,
+         plotShadow: false
+      },
+      title: {
+         text: 'Items por subcategoria'
+      },
+      tooltip: {
+         formatter: function() {
+            return '<b>  Subcategoria '+ this.point.name +'</b>: '+ Highcharts.numberFormat((this.y*100)/<%= @total_dets %>,0) +' %';
+         }
+      },
+      plotOptions: {
+         pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+               enabled: true,
+               color: '#000000',
+               connectorColor: '#000000',
+               formatter: function() {
+                  return '<b>'+ this.point.name +'</b>: '+ this.y;
+               }
+            }
+         }
+      },
+       series: [{
+          type: 'pie',
+          name: 'Categorias',
+          data: [
+            <% @items_by_subcategory.each do |c| %>
+              ['<%= c[0] %>',<%= c[1] %>],
+            <% end %>
+          ]
+       }]
+    });
+ });
 </script>
 <h1> Estadisticas Generales </h1>
 <h2> Reportes </h2>
 
 <h2> Objetos </h2>
-
+  <div style="width:40%;height:30%;float:left" id="item_container1"></div>
+  <div style="width:40%;height:30%;float:left" id="item_container2"></div>
+<div class="clear"></div>
 <h2> Colecciones </h2>
-
+  <% @collections.each do |collection| %>
+  <div style="float:left;width: 20%;margin:10px;border: solid 1px #666;padding: 10px;">
+    <div style="font-size:15px;font-weight:bold;"><%= link_to collection.name.titleize, collection %> </div>
+    <div>
+      <p class="text_area"><small > <%= collection.description %></small></p>
+      <p>
+        Items totales : <%= collection.items.size %>
+      </p>
+      <div style="width: 100%;margin:auto">
+        <% ApplicationHelper::ITEM_STATUS.each do |status|%>
+          <div style="float:left;width: 33%;margin:auto;text-align:center;">
+            <%= image_tag("#{status[0]}.png", :title => "Porcentaje de objetos con el estado #{status[0]}") %><br />
+            <span style="font-weight:bold">
+              <%= number_to_percentage((collection.gral_status["#{status[0]}"].to_i*100)/collection.items.size,:precision => 1) %>
+            </span>
+          </div>
+        <% end %>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+<div class="clear"></div>
 <h2> Tareas </h2>
-
+  <%= @tasks %>
 <h2> Problemas encontrados </h2>
-  <%= @dets %>
-<div id="chart1"></div>
+<div style="width:40%;height:30%" id="det_container"></div>
 

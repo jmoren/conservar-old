@@ -235,16 +235,19 @@ section#content{
   border: solid 1px #FAF452;
   padding: 5px 8px;
 }
-nav{
-	float:right;
-
+#main_menu{
+	text-align:center;
+	width:50%;
+	margin:auto;
 	}
-nav ul li {
-	float: left;
+#main_menu ul{
 	list-style: none;
 }
+#main_menu ul li {
+	float: left;
+}
 
-nav ul li a {
+#main_menu ul li a {
 	display: inline;
 	margin: 20px 0 0 20px;
 	font-size: 14px;
@@ -253,20 +256,11 @@ nav ul li a {
 	color: #777;
 }
 
-nav ul li a:hover {
+#main_menu ul li a:hover {
   border-top: 3px solid #777;
   padding-bottom: 2px;
 }
 
-	nav ul li.selected a {
-		color: #fff;
-	}
-
-	nav ul li.subscribe a {
-		margin-left: 22px;
-		padding-left: 33px;
-		text-align: left;
-	}
 #flash_error, #flash_alert {
   background-color: #FCC;
   border: solid 1px #C66;
