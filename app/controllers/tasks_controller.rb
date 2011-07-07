@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_filter :set_report, :set_deterioration, :only => [:new,:create]
+  before_filter :set_report, :set_deterioration, :only => [:new,:create,:edit, :update]
 
   def set_deterioration
     if params[:deterioration_id]

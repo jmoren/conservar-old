@@ -66,7 +66,7 @@
     <% unless @deterioration.tasks.empty? %>
       <table id="table_tasks">
         <tr class="table_header">
-          <td class="table_title short"> <%= Task.human_attribute_name(:status)%> </td>
+          <td class="table_title image"> <%= Task.human_attribute_name(:status)%> </td>
           <td class="table_title short"> <%= Task.human_attribute_name(:id)%></td>
           <td class="table_title long"> <%= Task.human_attribute_name(:created_at)%> </td>
           <td class="table_title long"> <%= Task.human_attribute_name(:user)%> </td>
@@ -79,7 +79,7 @@
 
       <% @deterioration.tasks.each do |task| %>
         <tr class="task_row">
-          <td class="body_table short image"> <%= task.closed_at.nil? ? (image_tag('open-12.png',:title => "Open")) : (image_tag('closed-12.png',:title => "Cerrado")) %></td>
+          <td class="body_table image"> <%= task.closed_at.nil? ? (image_tag('open-12.png',:title => "Open")) : (image_tag('closed-12.png',:title => "Cerrado")) %></td>
           <td class="body_table short ">Task <%= task.id %> </td>
           <td class="body_table long"><%=l task.created_at,:format => :short %></td>
           <td class="body_table long"><%= task.user.full_name %></td>

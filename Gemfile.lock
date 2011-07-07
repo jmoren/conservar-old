@@ -32,7 +32,6 @@ GEM
     babosa (0.3.4)
     bcrypt-ruby (2.1.4)
     builder (2.1.2)
-    cancan (1.6.5)
     client_side_validations (3.0.4)
       activesupport (~> 3.0.0)
     erubis (2.6.6)
@@ -91,7 +90,6 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby
-  cancan
   client_side_validations
   friendly_id
   jquery-rails

@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :photos
   has_many :collections
   has_many :items
-
+  has_many :events
   attr_accessor :password
   before_save :prepare_password
 

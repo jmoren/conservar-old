@@ -1,5 +1,7 @@
 Conservar::Application.routes.draw do
 
+  resources :events
+
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login
   #admin routes
@@ -26,6 +28,8 @@ Conservar::Application.routes.draw do
   post 'observations/update_in_place'  => "observations#update_in_place"
   #item_categories
   get 'items/get_subcategories' => "items#get_subcategories", :as => 'get_subcategories'
+  #calendar
+  post '/events/:id/update_in_calendar' => 'events#update_in_calendar'
 
   resources :items do
     resources :reports, :only => [:new, :create]

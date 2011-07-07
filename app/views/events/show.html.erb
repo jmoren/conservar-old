@@ -1,0 +1,33 @@
+<% title "Event" %>
+
+<p>
+  <strong>User:</strong>
+  <%= @event.user.full_name %>
+</p>
+<p>
+  <strong>Title:</strong>
+  <%= @event.title %>
+</p>
+<p>
+  <strong>Activity:</strong>
+  <%= @event.activity %>
+</p>
+<p>
+  <strong>Start At:</strong>
+  <%= l @event.start_at, :format => :long %>
+</p>
+<p>
+  <strong>End At:</strong>
+  <%= l @event.end_at, :format => :long %>
+</p>
+<p>
+  <strong>All Day:</strong>
+  <%= @event.all_day ? "Yes" : "No" %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_event_path(@event) %> |
+  <%= link_to "Destroy", @event, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", events_path %>
+</p>
+

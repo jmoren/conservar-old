@@ -6,6 +6,8 @@ class ItemsController < ApplicationController
       @items = Item.where(:item_category_id => params[:category]).page params[:page]
     elsif params[:subcategory]
       @items = Item.where(:item_subcategory_id => params[:subcategory]).page params[:page]
+    elsif params[:collection]
+      @items = Item.where(:collection_id => params[:collection]).page params[:page]
     else
       @items = Item.page params[:page]
     end

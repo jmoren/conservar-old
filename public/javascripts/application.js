@@ -1,4 +1,5 @@
 $(function(){
+
     // dinamic fields
     $('form a.add_child').click(function() {
       var assoc   = $(this).attr('data-association');
@@ -171,7 +172,7 @@ $(function(){
           })
         })
     });
-    hideFlash();
+    //hideFlash();
   });
 function hideFlash() {
   var flash_div = $(".flash");

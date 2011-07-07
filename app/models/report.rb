@@ -9,7 +9,7 @@ class Report < ActiveRecord::Base
   accepts_nested_attributes_for :deteriorations, :allow_destroy => true, :reject_if => lambda { |attributes| attributes['place'].blank? || attributes['description'].blank? }
 
   attr_accessible :code, :comments, :treatment, :deteriorations_attributes, :start_date, :end_date, :status,:user_id,:hours,:archived,:item_id
-  before_save :sanitize_dates
+  before_save :sanitize_dates, :report_event
 
   #scopes
   scope :not_archivied, where(:archived => false)
@@ -54,6 +54,11 @@ class Report < ActiveRecord::Base
     s = ""
     3.times {s << rand(9).to_s}
     self.code = "RC" + s + " " + self.item.code
+  end
+  def report_event
+    unless self.end_date.nil?
+      Event.create(:title => "Fin del reporte #{self.code}", :activity => "cierre del reporte de conservacion", :start_at => self.end_date.to_time + 8.hours, :end_at => self.end_date.to_time + 17.hours, :user_id => self.user_id)
+    end
   end
 protected
   def sanitize_dates

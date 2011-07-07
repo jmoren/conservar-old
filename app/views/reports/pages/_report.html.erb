@@ -5,7 +5,7 @@
       <%= distance_of_time_in_words(Time.now,@report.created_at) %>.
     </small>
   </span>
-  <span id="report_buttons">
+  <div id="report_buttons">
     <span class="button with_text edit">
       <%= link_to t('helpers.links.edit'), edit_report_path(@report), :style => "background:#f1f1f1;" %>
     </span>
@@ -33,7 +33,7 @@
     <span class="button with_text print">
       <%= link_to t('helpers.links.pdf'),print_pdf_report_path(@report,@report.closed? ? Date.today.strftime('%d%m%Y') :  @report.updated_at.strftime('%d%m%Y') , :format => "pdf"),:class => 'ui-icon-print', :style => "background:#f1f1f1;" %>
     </span>
-  </span>
+  </div>
 </div>
 <br>
 <p>

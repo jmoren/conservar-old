@@ -1,0 +1,66 @@
+<% title link_to "Nuevo Evento", new_event_path %>
+
+<% content_for :head do%>
+  <%= javascript_include_tag 'fullcalendar' %>
+  <%= stylesheet_link_tag 'fullcalendar' %>
+<% end %>
+<script>
+  $(function(){
+    $('#calendar').fullCalendar({
+      dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+      dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+      monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+      monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul','Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+      height: 550,
+      width: 500,
+      theme: false,
+      minTime: 8,
+      maxTime: 18,
+      firstHour: 8,
+      header: {
+        left: 'today prev,next',
+        center: 'title',
+        right:  'month,agendaWeek,agendaDay'
+      },
+      contentHeight: 450,
+      timeFormat: {
+        '' : 'hh:mm tt'
+      },
+      //eventColor: '#378',
+      events: [
+        <% @events.each do |event| %>
+          {
+            id: <%= event.id %>,
+            title  : ' <%= event.title.titleize %>',
+            start  : '<%= event.start_at %>',
+            end    : '<%= event.end_at %>',
+            url: '<%= event_path(event) %>',
+            allDay : false,
+            description:'<div><%= event.title.titleize %> </div>' +'<small>'+ $.fullCalendar.formatDate($.fullCalendar.parseDate('<%= event.start_at %>'),'hh:mm tt') +' - '+ $.fullCalendar.formatDate($.fullCalendar.parseDate('<%= event.end_at %>'),'hh:mm tt')+'</small>' +'<p><%=raw event.activity %></p>'
+          },
+        <% end %>
+      ],
+      editable: true,
+      disableResizing: true,
+      dragOpacity:{
+        '': .5
+      },
+      eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc) {
+        $.post('/events/'+ event.id + '/update_in_calendar?delta=' + dayDelta,function(data) {
+          $('.flash').html('<span style="float:right" class="close_flash"><a href="#" title="cerrar">X</a></span>' + data).fadeIn();
+        });
+      },
+    });
+    $('.close_flash').live('click',function(){
+      $('.flash').html('').fadeOut('slow');
+      return false;
+    });
+  });
+</script>
+<section>
+  <div class="flash" id="flash_notice" style="display:none;width: 50%"></div>
+</section>
+<p>
+  <div id="calendar"></div>
+</p>
+

@@ -203,22 +203,16 @@ section#content{
 	padding-right: 22px;
 }
 .flash{
-  position: absolute;
-  top: 0;
-  left: -10%;
-  width: 120%;
+  width: 20%;
   padding: 5px 0;
-  font-weight: bold;
+  margin: auto;
+  font-size: 12px;
   text-align: center;
   }
-#flash_notice, #flash_error, #flash_alert {
-  padding: 5px 8px;
-  margin: 10px 0;
-}
 
 #flash_notice {
-  background-color: #CFC;
-  border: solid 1px #6C6;
+  background-color: #FAF8A0;
+  border: solid 1px #F7F55C;
 }
 .circle-check {
   background-color: #CFC;
@@ -237,7 +231,7 @@ section#content{
 }
 #main_menu{
 	text-align:center;
-	width:50%;
+	width:60%;
 	margin:auto;
 	}
 #main_menu ul{
@@ -421,6 +415,9 @@ border: solid 1px #ccc;
   float: left;
   margin: 0 0 10px 0;
 }
+#report #report_buttons span{
+
+}
 #deterioration{
   margin: 10px;
   border: solid #999 2px;
@@ -433,6 +430,10 @@ border: solid 1px #ccc;
   text-align:center;
   margin: -5px 0;
 }
+#table_tasks{
+  border-collapse: collapse;
+  width:100%;
+  }
 #tasks tr.task_row{
   line-height: 1.7em;
 }
@@ -451,17 +452,21 @@ border: solid 1px #ccc;
   padding: 5px;
   }
 #tasks .long{
-  width: 140px;
+  width: 130px;
   }
+
+
 #tasks .short{
   text-align: center;
-  width: 100px;
+  width: 50px;
   }
+
 #tasks .last{
   padding-right: 10px;
   }
 #tasks .image{
   text-align: center;
+  width: 20px;
   }
 #tasks .buttons{
   width: 150px;
@@ -497,9 +502,7 @@ border: solid 1px #ccc;
     padding: 5px;
 
 }
-#table_tasks{
-  border-collapse: collapse;
-  }
+
 
 .thumbs {
   list-style:none;

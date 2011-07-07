@@ -3,7 +3,7 @@ class DeteriorationsController < ApplicationController
 
   respond_to :json, :html
   def set_report
-    @report = Report.find_by_code(params[:report_id])
+    @report = Report.find(params[:report_id])
   end
   def show
     @deterioration = Deterioration.find(params[:id],:include => :tasks)

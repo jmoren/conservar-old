@@ -18,8 +18,7 @@ gem 'pdfkit', '0.4.6'
 #images
 gem 'paperclip'
 gem 'rack-raw-upload'
-#user access
-gem 'cancan'
+
 #nice things
 gem 'nifty-generators'
 gem 'friendly_id'

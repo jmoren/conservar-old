@@ -19,7 +19,7 @@ class ReportsController < ApplicationController
     @report = @item.reports.new(params[:report])
     @report.generate_code
     @report.user = current_user
-    unless params.include?('has_date')
+    if !params.include?('has_date')
       @report.start_date = @report.end_date = nil
     end
     if @report.save
