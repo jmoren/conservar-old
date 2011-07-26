@@ -1,0 +1,5 @@
+$("#items").html("<%= escape_javascript(render 'items', :collection => @items)%>");
+$('.loading').hide();
+$('.result').html("<%= escape_javascript(search_page_entries_info(@items)) %>");
+$('#q').val('');
+

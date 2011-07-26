@@ -1,4 +1,4 @@
-<h2> Subcategoria <%= @subcategory.name %></h2>
+<% title "Subcategoria #{@subcategory.name} "%>
 <script>
   $(function(){
     $('.generic_field').click(function(){
@@ -18,11 +18,10 @@
       </li>
     <% end %>
   </ul>
-  <hr>
+
   <div class="generic_field_form">
     <%= render :partial => 'admin/generic_fields/form', :locals => {:subcategory => @subcategory } %>
   </div>
 </div>
 <div id="loading" style="border-radius: 3px;background: #fff;box-shadow: 0px 0px 10px 5px #666666;position:absolute;top:10%;left:40%;text-align:center;display:none;width:10%"><p><%= image_tag('loading2.gif') %></p><p> eliminando... </p></div>
-<%= link_to 'Volver', admin_configuration_path  %>
 

@@ -1,0 +1,6 @@
+$('#alerts').append("<%= escape_javascript(render @alert) %>");
+$('#new_alert')[0].reset();
+$('label.messages').hide();
+$('#custom_alert_error').hide();
+$('#loading').hide();
+

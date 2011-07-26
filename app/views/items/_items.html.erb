@@ -1,0 +1,36 @@
+<table>
+  <tr>
+    <th><%= Item.human_attribute_name(:collection)%></th>
+    <th><%= Item.human_attribute_name(:code)%></th>
+    <th><%= Item.human_attribute_name(:title)%></th>
+    <th><%= Item.human_attribute_name(:author)%></th>
+    <th><%= Item.human_attribute_name(:category)%></th>
+    <th><%= Item.human_attribute_name(:subcategory)%></th>
+    <th><%= Item.human_attribute_name(:status)%></th>
+    <th><%= Item.human_attribute_name(:reports)%></th>
+    <th></th>
+  </tr>
+  <% for item in @items %>
+    <tr>
+      <td><%= item.collection.try(:name) || "---" %></td>
+      <td><%= item.code %></td>
+      <td><%= truncate(item.title, :lenght => 25) %></td>
+      <td><%= item.author %></td>
+      <td><%= item.category.name %></td>
+      <td><%= item.subcategory.name %></td>
+      <td><%= item.status %></td>
+      <td><%= item.reports.size %></td>
+      <td>
+        <%= link_to t('helpers.links.show'), item %>
+        <%= link_to t('helpers.links.edit'), edit_item_path(item) %>
+        <% if current_user.admin? %>
+          <%= link_to t('helpers.links.delete'), item, :confirm => 'Are you sure?', :method => :delete %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<p>
+  <%= paginate @items, :remote => true %>
+</p>
+

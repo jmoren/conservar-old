@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   def index
+    sleep 1
     if params[:q]
       @items = Item.search(params[:q]).page params[:page]
     elsif params[:category]

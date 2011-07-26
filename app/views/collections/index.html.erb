@@ -1,21 +1,32 @@
-<% title "Collections" %>
-
+<% title "Colecciones" %>
+<div>
+  <span class="button link_new"><%= link_to "Nueva Coleccion", new_collection_path %></span>
+</div>
+<div class="clear"></div>
+<div id="collections">
 <table>
   <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>User</th>
+    <th>Nombre</th>
+    <th>Descripcion</th>
+    <th>Creado por</th>
+    <th>Cantidad de objetos</th>
+    <th></th>
   </tr>
   <% for collection in @collections %>
     <tr>
       <td><%= collection.name %></td>
       <td><%= collection.description %></td>
-      <td><%= collection.user_id %></td>
-      <td><%= link_to "Show", collection %></td>
-      <td><%= link_to "Edit", edit_collection_path(collection) %></td>
-      <td><%= link_to "Destroy", collection, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= collection.user.full_name %></td>
+      <td><%= collection.items.size %></td>
+      <td>
+        <%= link_to "Show", collection %>
+        <%= link_to "Edit", edit_collection_path(collection) %>
+        <% if current_user.admin? %>
+          <%= link_to "Destroy", collection, :confirm => 'Are you sure?', :method => :delete %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </table>
+</div>
 
-<p><%= link_to "New Collection", new_collection_path %></p>

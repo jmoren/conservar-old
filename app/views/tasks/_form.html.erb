@@ -1,82 +1,66 @@
-<div id="model_form">
+<div id="task_form" class="form">
 <%= form_for [@report,@task], :validate => true do |f| %>
-
+  <div style="float:right;margin-right:10px">
+    <%= f.submit :disable_with => "Guardando..." %> o <%= link_to ' Cancelar', @report , :id => "cancel_link" %>
+  </div>
   <p>
+    <div>
+      <%= f.label :deterioration_id %>
+      <%= collection_select :task, :deterioration_id, @report.deteriorations, :id, :category,:prompt => true, :selected => @deterioration ? @deterioration.id : nil  %>
+    </div>
     <% if @task.new_record? && params[:det_id].nil? %>
-      <div id="deterioration_info" style="float:right;width: 70%"></div>
+      <div id="deterioration_info" style="margin:10px 0"></div>
     <% else %>
-      <div id="deterioration_info" style="float:right;width: 70%">
-        <div id="deterioration_info" style="float:rigth; border:solid 2px #999;border-radius: 5px; padding: 5px; margin-right:20px">
-          <span style="float:right">
-            <%=@deterioration.fixed ? (image_tag('closed.png')) : (image_tag('open.png')) %>
-          </span>
-          <strong> Deterioration #<%= @deterioration.id %></strong>
-          <span style="margin-left: 50px;">
-            <strong>Category:</strong>
-            <%= @deterioration.det_category.name %>
-          </span>
-          <div class="clear"></div>
-          <span style="float:left;width:15%;">
-            <strong> Description: </strong>
-          </span>
-          <span style="float:left;margin-left: 10px;min-height:120px">
+      <div id="deterioration_info" style="border:solid 2px #999;border-radius: 5px; padding: 5px;margin:10px 0">
+        <span style="float:right">
+          <%=@deterioration.fixed ? (image_tag('closed.png')) : (image_tag('open.png')) %>
+        </span>
+        <strong> Deterioro #<%= @deterioration.id %></strong>
+        <span>
+          <strong>Categoria:</strong>
+          <%= @deterioration.det_category.name %>
+        </span>
+        <div class="clear"></div>
+        <p>
+          <div>
+            <strong> Descripcion: </strong>
+          </div>
+          <p>
             <%= @deterioration.description %>
-          </span>
-          <div class="clear"></div>
-        </div>
+          </p>
+        </p>
       </div>
     <% end %>
-    <%= f.label :deterioration_id %>
-    <%= collection_select :task, :deterioration_id, @report.deteriorations, :id, :category,:prompt => true, :selected => @deterioration ? @deterioration.id : nil  %>
   </p>
-  <div style="border:solid 2px #999;border-radius: 5px;width: 25%;margin-left:20px;">
-    <div style="font-size: 15px;font-weight:bold;text-align:center"> Report <%= @report.code %></div>
-    <p>
-      <label>Estado del reporte: </label>
-      <strong><%= @report.status %></strong>
-      <br>
-      <label>Tareas: </label>
-      <strong><%= @report.tasks.size %></strong>
-      <br>
-      <label>Problemas encontrados: </label>
-      <strong><%= @report.deteriorations.where(:fixed => false).size %></strong>
-      <br>
-      <label>Item: </label>
-      <strong><%= @report.item.code %></strong>
-    </p>
+  <div class="text_form">
+    <strong><%= f.label :description %></strong><br />
+    <p><%= f.text_area :description%></p>
   </div>
   <div class="clear"></div>
   <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.label :hours,"Horas:" %>
+    <%= f.text_field :hours, :size => 3 %>
   </p>
-  <div id="deterioration_table">
-    <div style="margin-left:13px; background: #ccc;padding: 4px;width:95%;border-radius: 3px">
-      <div style="font-weight:bold;width:100px;float:left">Category</div>
+  <div class="clear"></div>
+  <h3>Herramientas</h3>
+  <div id="add_field" class="button with_text new">
+    <%= add_child_link "Agregar",  :tools %>
+  </div>
+  <div class="clear"></div>
+  <div id="tools_table">
+    <div style="padding: 4px;width:99%;color:#222C;border-bottom:solid 1px #666">
+      <div style="font-weight:bold;width:150px;float:left">Category</div>
       <div style="font-weight:bold;widht:250px;float:left">Description</div>
       <div class="clear"></div>
     </div>
-
     <%= f.fields_for :tools do |build| %>
       <%= render :partial => 'tool', :locals => { :f => build } %>
     <% end %>
-    <p>
-      <div id="add_field"  style="margin-left:0px;" class="button with_text new">
-        <%= add_child_link "Add Tool",  :tools %>
-      </div>
-    </p>
     <div>
       <%= new_child_fields_template(f, :tools, :object => @task.tools.build) %>
     </diV>
   </div>
-  <div>
-    <%= f.label :hours,"Horas estimadas:" %><%= f.text_field :hours, :size => 3 %>
-  </div>
-  <p>
-    <%= f.submit :disable_with => "Pleas wait..." %>
-    or
-    <%= link_to ' Cancel', @report , :id => "cancel_link" %>
-  </p>
+  <div class="clear"></div>
 <% end %>
 </div>
 

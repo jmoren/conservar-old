@@ -1,0 +1,21 @@
+<% title "Alertas"%>
+<script>
+  $(function(){
+    $('.delete_link').click(function(){
+      $('#loading').show()
+    });
+  });
+
+</script>
+<div id="alert_index">
+  <%= render 'alerts/form' %>
+  <div id="parent_info">
+    <ol id="alerts">
+      <small> Podes editar el mensaje o la frecuencia aca mismo</small>
+      <% @parent.alerts.each do |alert| %>
+        <%= render :partial => "alert", :locals => {:alert =>  alert } %>
+      <% end %>
+    </ol>
+  </div>
+<div id="loading" style="text-align:center;display:none;z-index:99999;position:absolute;border: solid 1px #666;padding:10px;background: #fff;width:15%;top: 40%;left: 40%;"><%= image_tag('loading2.gif')%><div><small> eliminando...</small></div></div>
+

@@ -126,9 +126,9 @@ $(function(){
         <% category.item_categories.each do |subcategory| %>
           <dd style="margin:7px 5px">
             <span style="float:left;margin-right:10px">
-              <%= subcategory.active? ? (link_to image_tag('closed-12.png'), admin_disable_item_category_path(subcategory)) : (link_to image_tag('open-12.png'), admin_enable_item_category_path(subcategory))%>
+              <%= subcategory.active? ? (link_to image_tag('closed.png'), admin_disable_item_category_path(subcategory)) : (link_to image_tag('open.png'), admin_enable_item_category_path(subcategory))%>
             </span>
-            <%= link_to subcategory.name, admin_item_category_path(subcategory) %>
+            <%= link_to subcategory.name, admin_item_category_path(subcategory), :style => "color:#36C;font-weight:bold" %>
           </dd>
         <% end %>
       </div>

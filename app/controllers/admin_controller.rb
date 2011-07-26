@@ -5,6 +5,11 @@ class AdminController < ApplicationController
 
   end
   def statistics
+    @type = params['estadisticas'].present? ? params['estadisticas']['type'] : nil
+    sm    = params['estadisticas'].present? ? params['estadisticas']['desde'] : '1'
+    em    = params['estadisticas'].present? ? params['estadisticas']['hasta'] : '12'
+    year  = params['estadisticas'].present? ? params['estadisticas']['anio'] : Date.today.year
+
     #reportes
     @reporte_abiertos = Report.with_status('Abierto')
     @reporte_reabiertos = Report.with_status('Reabierto')
@@ -13,18 +18,18 @@ class AdminController < ApplicationController
 
     #items [cat|subcat, cant.]
     @items_by_category = []
-    Item.group(:item_category_id).size.each do |cat,value|
+    Item.search_by(sm,em,year).group(:item_category_id).size.each do |cat,value|
       @items_by_category << [ ItemCategory.find(cat).name, value ]
     end
     @items_by_subcategory = []
-    Item.group(:item_subcategory_id).size.each do |cat,value|
+    Item.search_by(sm,em,year).group(:item_subcategory_id).size.each do |cat,value|
       @items_by_subcategory << [ ItemCategory.find(cat).name, value ]
     end
 
     #deteriorations [nombre, cant.]
     @total_dets = Deterioration.count
     @dets = []
-    Deterioration.group(:det_category_id).size.each do |detid,value|
+    Deterioration.search_by(sm,em,year).group(:det_category_id).size.each do |detid,value|
       det = DetCategory.find(detid).name
       @dets << [ det, value ]
     end

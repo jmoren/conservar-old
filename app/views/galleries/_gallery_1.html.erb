@@ -19,13 +19,13 @@ $(function(){
   });
 });
 </script>
-<div style="text-align:left">
+<div style="text-align:left;margin-left:10px">
   <%= simple_format truncate(@gallery.description,:length => 50) %>
   <div>
     <small style="float=left"> <%= t('helpers.text.add_zoom') %> </small>
     <div style="text-align:right;float:right">
-      <%= link_to t('helpers.links.edit'), uploader_gallery_path(@gallery)  %> |
-      <%= link_to t('helpers.links.show'), @gallery %>
+      <%= link_to t('helpers.links.edit'), uploader_gallery_path(@gallery),:style => "color:#36C"  %> |
+      <%= link_to t('helpers.links.show'), @gallery,:style => "color:#36C" %>
     </div>
   </div>
 </div>

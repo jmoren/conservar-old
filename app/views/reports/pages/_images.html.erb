@@ -1,37 +1,47 @@
-<span class="button with_text new">
- <%= link_to t('helpers.links.add_gallery'), new_report_gallery_path(@report)%>
-</span>
-<span class="button with_text show">
- <%= link_to t('helpers.links.compare_gallery'), compare_galleries_report_path(@report)%>
-</span>
-<p>
+<div>
+  <span class="button link_new">
+   <%= link_to t('helpers.links.add_gallery'), new_report_gallery_path(@report)%>
+  </span>
+  <span class="button link_compare">
+   <%= link_to t('helpers.links.compare_gallery'), compare_galleries_report_path(@report)%>
+  </span>
+</div>
+<div class="clear"></div>
+<div>
   <% @report.galleries.each do |gallery| %>
-    <div>
-      <h3 style="background:#26456D;padding:3px 5px;color:#fff;border: solid 1px #26456D; border-radius: 4px;"> <%= Gallery.model_name.human%> #<%= gallery.id %><span style="float:right"><%= l gallery.created_at,:format => :short%></span></h3>
-      <strong> <%= Gallery.human_attribute_name(:description)%> </strong>
-      <p>
-        <%= simple_format gallery.description, :class => "text_area" %>
-      </p>
+    <div class="report_gallery">
+      <div>
+        <h3 style="background:#26456D;padding:3px 5px;color:#fff;border: solid 1px #26456D; border-radius: 4px;"> <%= Gallery.model_name.human%> #<%= gallery.id %><span style="float:right"><%= l gallery.created_at,:format => :short%></span></h3>
+        <strong> <%= Gallery.human_attribute_name(:description)%> </strong>
+        <p>
+          <%= simple_format gallery.description, :class => "text_area" %>
+        </p>
+      </div>
+      <% unless gallery.photos.empty? %>
+        <div>
+          <strong> <%= Gallery.human_attribute_name(:photos)%> (<%= gallery.photos.size%>) </strong>
+          <ul class="report_gallery_list">
+            <% gallery.photos.limit(10).each do |photo| %>
+              <li class="report_photo">
+                <a href="<%=photo.image.url(:normal) %>" title="<%= truncate(photo.description, :length => 40) %>" rel="gallery_<%=photo.gallery.id%>" class="gallery" >
+                  <%= image_tag(photo.image.url(:small))%>
+                </a>
+              </li>
+            <%end %>
+          </ul>
+        </div>
+        <div class="clear"></div>
+        <div class="report_galerry_links">
+          <span class="button link_show">
+            <%= link_to t('helpers.links.show'), gallery  %>
+          </span>
+          <span class="button link_edit">
+            <%= link_to t('helpers.links.edit'), uploader_gallery_path(gallery)  %>
+          </span>
+        </div>
+        <div class="clear"></div>
+      <% end %>
     </div>
-    <strong> <%= Gallery.human_attribute_name(:photos)%> (<%= gallery.photos.size%>) </strong>
-    <ul style="list-style:none;margin:5px 0 0 20px;padding:0">
-      <% gallery.photos.limit(10).each do |photo| %>
-        <li style="float:left;margin-right: 5px;">
-          <a href="<%=photo.image.url(:normal) %>" title="<%= truncate(photo.description, :length => 40) %>" rel="gallery_<%=photo.gallery.id%>" class="gallery" >
-            <%= image_tag(photo.image.url(:small))%>
-          </a>
-        </li>
-      <%end %>
-    </ul>
-    <div class="clear"></div>
-    <p>
-      <span class="button with_text show">
-        <%= link_to t('helpers.links.show'), gallery  %>
-      </span>
-      <span class="button with_text edit">
-        <%= link_to t('helpers.links.edit'), uploader_gallery_path(gallery)  %>
-      </span>
-    </p>
  <% end %>
-</p>
+</div>
 

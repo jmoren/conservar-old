@@ -1,9 +1,7 @@
 <%= javascript_include_tag 'gallery','zoom'%>
-<% title "Reporte #{@report.code}"%>
-<p>
-  <%= link_to t('helpers.links.back'), @report  %>
-</p>
-<div id="gallery_1_container" style="width:49%;float:left;text-align:left;margin: 0 0 0 -20px">
+<% title link_to "Report #{@report.code}", @report %>
+
+<div class="compare" id="gallery_1_container" style="width:49%;float:left;text-align:left;margin: 0 0 0 -20px;text-align:center">
 <%= form_tag gallery_1_report_galleries_path(@report), :remote => true, :method => "get" do %>
   <%= select_tag "gallery_1", options_from_collection_for_select(@galleries, "id", "title"),:include_blank => "Elija una galeria", :id => "select_gallery_1" %>
   <%= submit_tag "Ok" %>
@@ -14,7 +12,7 @@
 
 </div>
 
-<div id="gallery_2_container" style="width:49%;float:right;text-align:left">
+<div id="gallery_2_container" style="width:49%;float:right;text-align:left;text-align:center" class="compare">
 <%= form_tag gallery_2_report_galleries_path(@report), :remote => true, :method => "get" do %>
   <%= select_tag "gallery_2", options_from_collection_for_select(@galleries, "id", "title") ,:include_blank => "Elija una galeria", :id => "select_gallery_2"%>
   <%= submit_tag "Ok" %>

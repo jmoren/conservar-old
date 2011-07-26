@@ -10,7 +10,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110706223949) do
+ActiveRecord::Schema.define(:version => 20110725154302) do
+
+  create_table "alerts", :force => true do |t|
+    t.string   "alertable_type"
+    t.integer  "alertable_id"
+    t.text     "message"
+    t.string   "frequency"
+    t.integer  "custom"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "day"
+  end
 
   create_table "collections", :force => true do |t|
     t.string   "name"
@@ -49,6 +61,21 @@ ActiveRecord::Schema.define(:version => 20110706223949) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "flaggings", :force => true do |t|
+    t.string   "flaggable_type"
+    t.integer  "flaggable_id"
+    t.string   "flagger_type"
+    t.integer  "flagger_id"
+    t.string   "flag"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "flaggings", ["flag", "flaggable_type", "flaggable_id"], :name => "index_flaggings_on_flag_and_flaggable_type_and_flaggable_id"
+  add_index "flaggings", ["flag", "flagger_type", "flagger_id", "flaggable_type", "flaggable_id"], :name => "access_flag_flaggings"
+  add_index "flaggings", ["flaggable_type", "flaggable_id"], :name => "index_flaggings_on_flaggable_type_and_flaggable_id"
+  add_index "flaggings", ["flagger_type", "flagger_id", "flaggable_type", "flaggable_id"], :name => "access_flaggings"
 
   create_table "galleries", :force => true do |t|
     t.integer  "galleryable_id"
@@ -168,6 +195,10 @@ ActiveRecord::Schema.define(:version => 20110706223949) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "observations", :force => true do |t|
@@ -200,9 +231,13 @@ ActiveRecord::Schema.define(:version => 20110706223949) do
     t.string   "status"
     t.date     "start_date"
     t.date     "end_date"
-    t.float    "hours",      :default => 0.0
+    t.float    "hours",        :default => 0.0
     t.boolean  "archived"
     t.integer  "item_id"
+    t.text     "conclusion"
+    t.float    "budget_tools"
+    t.float    "budget_work"
+    t.integer  "assigned_to"
   end
 
   create_table "slugs", :force => true do |t|

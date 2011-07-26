@@ -35,8 +35,33 @@ $(function () {
 </script>
 <% title "#{Report.human_name} #{@report.code}" %>
 <div id="report">
-  <div id="report_side_panel" style="width:15%;float:left;padding: 5px;border: solid 1px #ccc;margin: 0 20px 0 0;font-size:12px">
+  <div id="report_side_panel" style="width:15%;float:left;padding: 5px 10px;border-right: solid 1px #ccc;margin: 0 10px 0 0;font-size:12px">
     <%= render :partial => "side_panel" %>
+  </div>
+  <div id="report_user_info">
+    <small>
+      Creado por <strong style="color:#333"><%= @report.user.full_name %></strong> hace
+      <%= distance_of_time_in_words(Time.now,@report.created_at) %>.
+    </small>
+  </div>
+  <div id="report_links">
+    <div class="button link_edit"><%= link_to t('helpers.links.edit'), edit_report_path(@report) %></div>
+    <% if @current_user.admin? %>
+      <div class="button link_delete"><%= link_to t('helpers.links.delete'), @report, :confirm => 'Are you sure?', :method => :delete %></div>
+    <% end %>
+    <% unless @report.deteriorations.empty? %>
+      <div class="button link_new"><%= link_to t('helpers.links.add_task'), new_report_task_path(@report) %></div>
+    <% end %>
+    <% if @report.can_close?%>
+      <% if !@report.closed? %>
+        <div class="button link_close"><%= link_to t('helpers.links.close_report'),close_report_path(@report), :method => :post %> </div>
+      <% else %>
+        <div class="button link_open"><%= link_to t('helpers.links.open_report'),open_report_path(@report), :method => :post%></div>
+      <% end %>
+    <% end %>
+    <div class="button link_pdf">
+      <%= link_to t('helpers.links.pdf'),print_pdf_report_path(@report,@report.closed? ? Date.today.strftime('%d%m%Y') :  @report.updated_at.strftime('%d%m%Y') , :format => "pdf")%>
+    </div>
   </div>
   <div id="tabs" style="margin:0; padding: 0;width:82%;float:left">
     <ul>

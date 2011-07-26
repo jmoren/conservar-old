@@ -12,6 +12,7 @@ class ReportsController < ApplicationController
   def new
     @item = Item.find(params[:item_id])
     @report = @item.reports.new
+    @deterioration = @report.deteriorations.build
   end
 
   def create

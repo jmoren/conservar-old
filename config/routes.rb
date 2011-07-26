@@ -1,7 +1,5 @@
 Conservar::Application.routes.draw do
 
-  resources :events
-
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login
   #admin routes
@@ -30,15 +28,18 @@ Conservar::Application.routes.draw do
   get 'items/get_subcategories' => "items#get_subcategories", :as => 'get_subcategories'
   #calendar
   post '/events/:id/update_in_calendar' => 'events#update_in_calendar'
+  #alerts
+  post 'alerts/update_in_place'  => "alerts#update_in_place"
 
   resources :items do
+    resources :alerts
     resources :reports, :only => [:new, :create]
     member do
       post 'remover' => "items#remove_from_collection"
       get :complete_fields
     end
   end
-  resources :collections
+
   resources :galleries, :except => [:new, :create] do
     collection do
       post :upload
@@ -47,11 +48,13 @@ Conservar::Application.routes.draw do
       get :uploader
     end
   end
+
   resources :tasks, :except => [:new, :create] do
     resources :galleries, :only => [:new, :create, :show]
   end
-  resources :observations, :except => [:new, :create]
+
   resources :reports, :except => [:new,:create] do
+    resources :alerts
     resources :observations, :only => [:new, :create,:show]
     resources :deteriorations, :only => [:show]
     resources :galleries, :only => [:new, :create,:show] do
@@ -68,6 +71,7 @@ Conservar::Application.routes.draw do
       get '/compare' => "reports#compare_galleries", :as => 'compare_galleries'
     end
   end
+
   namespace "admin" do
     resources :users do
       member do
@@ -80,6 +84,10 @@ Conservar::Application.routes.draw do
     resources :generic_fields
     resources :institutions, :only => [:new, :create, :edit, :update]
   end
+  resources :observations, :only => [:destroy]
+  resources :alerts
+  resources :events
+  resources :collections
   resources :sessions
   resources :users, :only => [:edit, :update]
   root :to => "items#index"

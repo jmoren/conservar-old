@@ -1,14 +1,16 @@
-<% title "Log in" %>
 
+<div style="width: 35%;text-align:center;margin: 20px auto;font-size:15px">
 <%= form_tag sessions_path do %>
-  <p>
-    <%= label_tag :login, "Username or Email Address" %><br />
-    <%= text_field_tag :login, params[:login] %>
-  </p>
-  <p>
-    <%= label_tag :password %><br />
-    <%= password_field_tag :password %>
-  </p>
-  <p><%= submit_tag "Log in" %></p>
+  <div id="login_form">
+    <div style="float:left;width: 150px;margin:5px 10px;text-align: right"><%= label_tag :login, "Usuario o email" %></div>
+    <div style="float:left;"><%= text_field_tag :login, params[:login] %></div>
+    <div class="clear"></div>
+    <div style="float:left;width: 150px;margin:5px 10px;text-align: right"><%= label_tag :password %></div>
+    <div style="float:left;"><%= password_field_tag :password %></div>
+    <div class="clear"></div>
+    <div style="float:right;margin: 10px 40px;"><%= submit_tag "Login" %></div>
+    <div class="clear"></div>
+  </div>
 <% end %>
+</div>
 

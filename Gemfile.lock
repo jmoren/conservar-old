@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/cavneb/make_flaggable.git
+  revision: fe6aac7e593fe5326363e0f0c840153f7454b034
+  specs:
+    make_flaggable (0.0.3)
+      activerecord (~> 3.0.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -94,6 +101,7 @@ DEPENDENCIES
   friendly_id
   jquery-rails
   kaminari
+  make_flaggable!
   mocha
   mysql2 (~> 0.2.1)
   nifty-generators

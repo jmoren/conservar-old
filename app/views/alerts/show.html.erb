@@ -1,0 +1,32 @@
+<% title "Alert" %>
+
+<p>
+  <strong>Alertable Type:</strong>
+  <%= @alert.alertable_type %>
+</p>
+<p>
+  <strong>Alertable:</strong>
+  <%= @alert.alertable_id %>
+</p>
+<p>
+  <strong>Message:</strong>
+  <%= @alert.message %>
+</p>
+<p>
+  <strong>Frequency:</strong>
+  <%= @alert.frequency %>
+</p>
+<p>
+  <strong>Custom:</strong>
+  <%= @alert.custom %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%= @alert.user_id %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_alert_path(@alert) %> |
+  <%= link_to "Destroy", @alert, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", alerts_path %>
+</p>

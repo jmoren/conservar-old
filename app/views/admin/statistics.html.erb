@@ -1,161 +1,99 @@
+<% title "Estadisticas Generales"%>
 <% content_for :head do %>
   <%= javascript_include_tag "highcharts" %>
-
+  <script>
+    $(function(){
+      $("#it").click(function(){
+        $("#items").html('<div style="text-align:center;padding-top:50px"><%= image_tag('loading2.gif')%><p> Buscando...</p></div>')
+      });
+      $("#det").click(function(){
+        $("#deteriorations").html('<div style="text-align:center;padding-top:50px"><%= image_tag('loading2.gif')%><p> Buscando...</p></div>')
+      });
+    });
+  </script>
 <% end %>
-<script>
-$(function() {
-   chart1 = new Highcharts.Chart({
-      chart: {
-         renderTo: 'det_container',
-         plotBackgroundColor: null,
-         plotBorderWidth: null,
-         plotShadow: false
-      },
-      title: {
-         text: 'Problemas encontrados por tipo'
-      },
-      tooltip: {
-         formatter: function() {
-            return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat((this.y*100)/<%= @total_dets %>,0) +' %';
-         }
-      },
-      plotOptions: {
-         pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-               enabled: true,
-               color: '#000000',
-               connectorColor: '#000000',
-               formatter: function() {
-                  return '<b>'+ this.point.name +'</b>: '+ this.y;
-               }
-            }
-         }
-      },
-       series: [{
-          type: 'pie',
-          name: 'Categorias',
-          data: [
-            <% @dets.each do |c| %>
-              ['<%= c[0] %>',<%= c[1] %>],
-            <% end %>
-          ]
-       }]
-    });
-     chart2 = new Highcharts.Chart({
-      chart: {
-         renderTo: 'item_container1',
-         plotBackgroundColor: null,
-         plotBorderWidth: null,
-         plotShadow: false
-      },
-      title: {
-         text: 'Items por categoria'
-      },
-      tooltip: {
-         formatter: function() {
-            return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat((this.y*100)/<%= @total_dets %>,0) +' %';
-         }
-      },
-      plotOptions: {
-         pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-               enabled: true,
-               color: '#000000',
-               connectorColor: '#000000',
-               formatter: function() {
-                  return '<b>'+ this.point.name +'</b>: '+ this.y;
-               }
-            }
-         }
-      },
-       series: [{
-          type: 'pie',
-          name: 'Categorias',
-          data: [
-            <% @items_by_category.each do |c| %>
-              ['<%= c[0] %>',<%= c[1] %>],
-            <% end %>
-          ]
-       }]
-    });
-    chart3 = new Highcharts.Chart({
-      chart: {
-         renderTo: 'item_container2',
-         plotBackgroundColor: null,
-         plotBorderWidth: null,
-         plotShadow: false
-      },
-      title: {
-         text: 'Items por subcategoria'
-      },
-      tooltip: {
-         formatter: function() {
-            return '<b>  Subcategoria '+ this.point.name +'</b>: '+ Highcharts.numberFormat((this.y*100)/<%= @total_dets %>,0) +' %';
-         }
-      },
-      plotOptions: {
-         pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-               enabled: true,
-               color: '#000000',
-               connectorColor: '#000000',
-               formatter: function() {
-                  return '<b>'+ this.point.name +'</b>: '+ this.y;
-               }
-            }
-         }
-      },
-       series: [{
-          type: 'pie',
-          name: 'Categorias',
-          data: [
-            <% @items_by_subcategory.each do |c| %>
-              ['<%= c[0] %>',<%= c[1] %>],
-            <% end %>
-          ]
-       }]
-    });
- });
-</script>
-<h1> Estadisticas Generales </h1>
-<h2> Reportes </h2>
-
-<h2> Objetos </h2>
-  <div style="width:40%;height:30%;float:left" id="item_container1"></div>
-  <div style="width:40%;height:30%;float:left" id="item_container2"></div>
+<span class="button"> <%= link_to 'Volver', admin_path  %></span>
 <div class="clear"></div>
-<h2> Colecciones </h2>
-  <% @collections.each do |collection| %>
-  <div style="float:left;width: 20%;margin:10px;border: solid 1px #666;padding: 10px;">
-    <div style="font-size:15px;font-weight:bold;"><%= link_to collection.name.titleize, collection %> </div>
-    <div>
-      <p class="text_area"><small > <%= collection.description %></small></p>
-      <p>
-        Items totales : <%= collection.items.size %>
-      </p>
-      <div style="width: 100%;margin:auto">
-        <% ApplicationHelper::ITEM_STATUS.each do |status|%>
-          <div style="float:left;width: 33%;margin:auto;text-align:center;">
-            <%= image_tag("#{status[0]}.png", :title => "Porcentaje de objetos con el estado #{status[0]}") %><br />
-            <span style="font-weight:bold">
-              <%= number_to_percentage((collection.gral_status["#{status[0]}"].to_i*100)/collection.items.size,:precision => 1) %>
-            </span>
-          </div>
+<div id="estadistica_deterioros" style="border:solid 1px #ccc;padding: 15px;margin: 5px 0">
+  <div style="color: #fff; background: #26456D;padding: 10px; font-weight: bold;font-size: 20px"> Problemas encontrados </div>
+  <div class="search">
+    <%= form_tag 'estadisticas', :method => 'get', :remote => true do %>
+      Buscar entre
+      <%= hidden_field_tag "estadisticas[type]", "deteriorations" %>
+      <select name="estadisticas[desde]" id="det_desde">
+        <% ApplicationHelper::MESES.each do |mes,n| %>
+          <option value="<%= n %>"><%= mes %></option>
         <% end %>
-        <div class="clear"></div>
+      </select>
+      y
+      <select name="estadisticas[hasta]" id="det_hasta">
+        <% ApplicationHelper::MESES.each do |mes,n| %>
+          <option value="<%= n %>"><%= mes %></option>
+        <% end %>
+      </select>
+      <select name="estadisticas[anio]">
+        <% Date.today.year.downto(1980) do |year| %>
+          <option><%= year %></option>
+        <% end %>
+      </select>
+      <%= submit_tag "Ok",:id => "det" %>
+    <% end %>
+  </div>
+  <%= render "deteriorations_graph" %>
+</div>
+<div id="estadistica_objetos" style="border:solid 1px #ccc;padding: 15px;margin: 5px 0">
+  <div style="color: #fff; background: #26456D;padding: 10px; font-weight: bold;font-size: 20px">
+    Objetos
+  </div>
+  <div class="search">
+    <%= form_tag 'estadisticas', :method => 'get', :remote => true do %>
+      Buscar entre
+      <%= hidden_field_tag "estadisticas[type]", "items" %>
+      <select name="estadisticas[desde]" id="item_desde">
+        <% ApplicationHelper::MESES.each do |mes,n| %>
+          <option value="<%= n %>"><%= mes %></option>
+        <% end %>
+      </select>
+      y
+      <select name="estadisticas[hasta]" id="item_hasta">
+        <% ApplicationHelper::MESES.each do |mes,n| %>
+          <option value="<%= n %>"><%= mes %></option>
+        <% end %>
+      </select>
+      <select name="estadisticas[anio]">
+        <% Date.today.year.downto(1980) do |year| %>
+          <option><%= year %></option>
+        <% end %>
+      </select>
+      <%= submit_tag "Ok", :id =>"it" %>
+    <% end %>
+  </div>
+  <%= render "items_graph" %>
+</div>
+<div id="estadistica_colecciones" style="border:solid 1px #ccc;padding: 15px;margin: 5px 0">
+  <div style="color: #fff; background: #26456D;padding: 10px; font-weight: bold;font-size: 20px"> Colecciones </div>
+    <% @collections.each do |collection| %>
+    <div style="float:left;width: 20%;margin:10px;border: solid 1px #666;padding: 10px;">
+      <div style="font-size:15px;font-weight:bold;"><%= link_to collection.name.titleize, collection %> </div>
+      <div>
+        <p class="text_area"><small > <%= collection.description %></small></p>
+        <p>
+          Items totales : <%= collection.items.size %>
+        </p>
+        <div style="width: 100%;margin:auto">
+          <% ApplicationHelper::ITEM_STATUS.each do |status|%>
+            <div style="float:left;width: 33%;margin:auto;text-align:center;">
+              <%= image_tag("#{status[0]}.png", :title => "Porcentaje de objetos con el estado #{status[0]}") %><br />
+              <span style="font-weight:bold">
+                <%= number_to_percentage((collection.gral_status["#{status[0]}"].to_i*100)/collection.items.size,:precision => 1) %>
+              </span>
+            </div>
+          <% end %>
+          <div class="clear"></div>
+        </div>
       </div>
     </div>
-  </div>
-  <% end %>
-<div class="clear"></div>
-<h2> Tareas </h2>
-  <%= @tasks %>
-<h2> Problemas encontrados </h2>
-<div style="width:40%;height:30%" id="det_container"></div>
+    <% end %>
+  <div class="clear"></div>
+</div>
 

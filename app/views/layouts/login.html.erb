@@ -9,26 +9,23 @@
     <%= yield(:head) %>
   </head>
   <body>
-    <header style="width:99%;margin: 0 auto -10px auto">
-      <%= link_to image_tag('logo.png'), root_url%>
-    </header>
-    <section id="messages">
-      <span style="float:left;font-weight:bold;font-size:20px">
+    <div id="header">
+    <div style="text-align:center;margin: 20px">
+      <%= image_tag('logo.png')%>
+    </div>
+    <div class="clear"></div>
+    <div id="sub_header">
+      <div id="title">
         <%= yield(:title) if show_title? %>
-      </span>
+      </div>
       <div class="clear"></div>
-    </section>
-
-    <section style="width:95%;margin:auto">
-    <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, :id => "flash_#{name}",:class => "flash" %>
-      <% end %>
-    </section>
-    <section id="content">
+    </div>
+    <div id="content">
       <%= yield %>
-    </section>
-    <section id="footer">
-    </section>
+    </div>
+    <div id="footer">
+       Conservar © 2011 - Jorge Moreno
+    </div>
   </body>
 </html>
 

@@ -1,9 +1,11 @@
 class Report < ActiveRecord::Base
   has_friendly_id :code, :use_slug => true
   belongs_to :user
+  belongs_to :assigned, :class_name => "User", :foreign_key => :assigned_to
   belongs_to :item
   has_many :deteriorations, :dependent=> :destroy
   has_many :galleries, :as => :galleryable, :dependent => :destroy
+  has_many :alerts, :as => :alertable, :dependent => :destroy
   has_many :tasks, :dependent=> :destroy
   has_many :observations, :dependent=> :destroy
   accepts_nested_attributes_for :deteriorations, :allow_destroy => true, :reject_if => lambda { |attributes| attributes['place'].blank? || attributes['description'].blank? }

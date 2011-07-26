@@ -187,6 +187,7 @@ es-AR:
         odd: "debe ser un número non"
   activerecord:
     models:
+      alert: "Alertas"
       item: "Item"
       report: "Reporte"
       task: "Tarea"
@@ -198,8 +199,14 @@ es-AR:
       image: 'Imagen'
       observation: 'Observacion'
       collection: 'Coleccion'
-
     attributes:
+      alert:
+        day: "dia"
+        frequency: "Frecuencia"
+        custom: "Personalizado"
+        user: "Creado por"
+        message: "Mensaje"
+        parent: "Pertenece a"
       item:
         collection_id: "Coleccion"
         collection: "Coleccion"
@@ -210,6 +217,7 @@ es-AR:
         category: "Categoria"
         subcategory: "Subcategoria"
         status: "Estado"
+        user: "Creado por"
       collection:
         description: 'Descripcion'
         name: 'Nombre'
@@ -220,6 +228,7 @@ es-AR:
         tools: 'Materiales'
         galleries: 'Imagenes'
         user: 'Usuario'
+        status: 'Estado'
         created_at: 'Creado'
       report:
         item: 'Objeto'
@@ -233,6 +242,7 @@ es-AR:
         galleries: 'Imagenes'
         graphics: 'Graficos'
         status: 'Estado'
+        code: "Codigo"
       deterioration:
         place: "Lugar"
         description: "Descripcion"

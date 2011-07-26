@@ -1,12 +1,12 @@
 <% title "#{Deterioration.human_name} ##{@deterioration.id}" %>
 <script>
   $(function(){
-    $(".task_row").hover(function(){
-          tip = $(this).find('.buttons');
-          tip.show(); //Show tooltip
-      }, function() {
-          tip.hide(); //Hide tooltip
-      });
+    //$(".task_row").hover(function(){
+    //      tip = $(this).find('.buttons');
+    //      tip.show(); //Show tooltip
+    //  }, function() {
+    //      tip.hide(); //Hide tooltip
+    //  });
       $(".with_tooltip").hover(function(){
           tip = $(this).find('.tooltip');
           tip.show(); //Show tooltip
@@ -35,12 +35,19 @@
 </script>
 
 <div id="deterioration">
-  <span class="button with_text back"><%= link_to "#{Report.human_name} ##{@report.id}", @report  %></span>
+  <div style="margin:15px">
+    <span class="button with_text back"><%= link_to "#{Report.human_name} ##{@report.id}", @report  %></span>
+  </div>
+  <div class="with_tooltip" style="float:right;margin-right:15px;">
+    <%= image_tag('help.png') %>
+    <span class="tooltip" style="display:none"><%= @deterioration.det_category.suggestion %></span>
+  </div>
+  <div class="clear"></div>
   <p>
     <div class="det_info" style="margin: 0 10px;">
       <div>
         <span style="float:left; margin: 1px 6px 0 0;"><strong><%= Deterioration.human_attribute_name(:status) %></strong></span>
-        <span style="float:left"><%= @deterioration.fixed ? (image_tag('closed-12.png') ): (image_tag('open-12.png')) %></span>
+        <span style="float:left"><%= @deterioration.fixed ? (image_tag('closed.png') ): (image_tag('open.png')) %></span>
       </div>
       <div class="clear"></div>
       <div>
@@ -48,10 +55,6 @@
       </div>
       <p>
         <strong> <%= Deterioration.human_attribute_name(:description) %>: </strong>
-        <span class="with_tooltip" style="margin-right:15px;float:right">
-          <%= image_tag('help.png') %>
-          <span class="tooltip"><%= @deterioration.det_category.suggestion %></span>
-        </span>
         <%= simple_format @deterioration.description, :class => "text_area" %>
       </p>
       <p> <%= deterioration_hours(@deterioration) %></p>
@@ -74,12 +77,11 @@
           <td class="table_title long"> <%= Task.human_attribute_name(:closed_at)%> </td>
           <td class="table_title short"> <%= Task.human_attribute_name(:tools)%> </td>
           <td class="table_title short"> <%= Task.human_attribute_name(:galleries)%> </td>
-          <td class="table_title buttons"></td>
         </tr>
 
       <% @deterioration.tasks.each do |task| %>
         <tr class="task_row">
-          <td class="body_table image"> <%= task.closed_at.nil? ? (image_tag('open-12.png',:title => "Open")) : (image_tag('closed-12.png',:title => "Cerrado")) %></td>
+          <td class="body_table image"> <%= task.closed_at.nil? ? (image_tag('open.png',:title => "Open")) : (image_tag('closed.png',:title => "Cerrado")) %></td>
           <td class="body_table short ">Task <%= task.id %> </td>
           <td class="body_table long"><%=l task.created_at,:format => :short %></td>
           <td class="body_table long"><%= task.user.full_name %></td>
@@ -87,7 +89,7 @@
           <td class="body_table long"><%=task.closed_at.nil? ? '---':(l task.closed_at, :format => :short) %></td>
           <td class="body_table short"><%= task.tools.size %></td>
           <td class="body_table short"><%= task.galleries.size %></td>
-          <td class="body_table buttons">
+          <td class="body_table buttons" style="display:table-row">
             <span><%= link_to t('helpers.links.edit'), edit_report_task_path(@report,task)  %></span>
             <span><%= link_to t('helpers.links.delete'), report_task_path(@report,task), :confirm => "Are you sure?", :method => :delete%> </span>
             <span><%= link_to t('helpers.links.show'), report_task_path(@report,task)%></span>

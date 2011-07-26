@@ -6,7 +6,7 @@ $(function(){
       var content = $('#' + assoc + '_fields_template').html();
       var regexp  = new RegExp('new_' + assoc, 'g');
       var new_id  = new Date().getTime();
-      $(this).after().before(content.replace(regexp, new_id));
+      $("#"+ assoc +"_table").after().after(content.replace(regexp, new_id));
       return false;
     });
     $('form a.remove_child').live('click', function() {
@@ -18,98 +18,14 @@ $(function(){
       return false;
     });
 
-    // buttons
-    $('.button.with_text.new a ').button({
-      icons:{primary:'ui-icon-plus'}
-    });
-    $('.button.with_text.unlock a ').button({
-      icons:{primary:'ui-icon-unlocked'}
-    });
-    $('.button.with_text.lock a ').button({
-      icons:{primary:'ui-icon-locked'}
-    });
-
-    $('.button.with_text.delete a ').button({
-      icons:{primary:'ui-icon-trash'}
-    });
-    $('.button.with_text.print a ').button({
-      icons:{primary:'ui-icon-print'}
-    });
-    $('.button.with_text.show a ').button({
-      icons:{primary:'ui-icon-search'}
-    });
-    $('.button.with_text.edit a ').button({
-      icons:{primary:'ui-icon-pencil'}
-    });
-    $('.button.with_text.back a ').button({
-      icons:{primary:'ui-icon-arrowreturn-1-w'}
-    });
-    $('.button.without_text.new a ').button({
-      icons: {
-        primary: 'ui-icon-plus'
-      },
-      text: false
-    });
-    $('.button.without_text.lock a ').button({
-      icons: {
-        primary: 'ui-icon-locked'
-      },
-      text: false
-    });
-    $('.button.without_text.unlock a ').button({
-      icons: {
-        primary: 'ui-icon-unlocked'
-      },
-      text: false
-    });
-
-    $('.button.without_text.delete a ').button({
-      icons: {
-        primary: 'ui-icon-trash'
-      },
-      text: false
-    });
-    $('.button.without_text.show a ').button({
-      icons: {
-        primary: 'ui-icon-search'
-      },
-      text: false
-    });
-
-    // datepickers
-    //var dates = $( "#report_start_date, #report_end_date" ).datepicker({
-		//	minDate: -2,
-			//image calendar
-		//	showOn: "button",
-  	//		buttonImage: "/images/calendar.gif",
-	  //		buttonImageOnly: true,
-			  //dateFormat
-		//	  dateFormat:"d, MM yy",
-	  //		onSelect: function( selectedDate ) {
-		//		var option = this.id == "report_start_date" ? "minDate" : "maxDate",
-		//			instance = $( this ).data( "datepicker" ),
-		//			date = $.datepicker.parseDate(
-		//				instance.settings.dateFormat ||
-		//				$.datepicker._defaults.dateFormat,
-		//			selectedDate, instance.settings );
-		//		dates.not( this ).datepicker( "option", option, date );
-		//	}
-		//});
-
 	  $("#report_start_date" ).datepicker({
         minDate: -2,
-        //showOn: "button",
-			  //buttonImage: "/images/calendar.gif",
-			  //buttonImageOnly: true,
 			  dateFormat:"DD, d MM yy",
 			  showOtherMonths: true,
   			selectOtherMonths: true
 			});
     $("#report_end_date").datepicker({
         minDate: +1,
-        //showOn: "button",
-			  //buttonImage: "/images/calendar.gif",
-			  //buttonImageOnly: true,
 			  dateFormat:"DD, d MM yy",
 			  showOtherMonths: true,
   			selectOtherMonths: true,
@@ -155,13 +71,12 @@ $(function(){
               image = '/images/open.png'
             }
             var template =
-            '<div id="deterioration_info" style="border:solid 2px #999;border-radius: 5px; padding: 5px; margin-right:20px">' +
+            '<div id="deterioration_info" style="border:solid 2px #999;border-radius: 5px; padding: 5px;">' +
               '<span style="float:right"><img src="' + image +'"></span>'+
-              '<strong> Deterioration #'+ deterioration.id +'</strong>' +
-              '<span style="margin-left: 50px;"> <strong>Category:</strong>  '+ deterioration.category +'</span>'+
+              '<span> <strong>Categoria:</strong>  '+ deterioration.category +'</span>'+
               '<div class="clear"></div>'+
-              '<span style="float:left;width:15%;"> <strong> Description: </strong></span>'+
-              '<span style="float:left;margin-left: 10px;min-height:120px">'+
+              '<span><strong> Descripcion: </strong></span>'+
+              '<span>'+
                  deterioration.description +
               '</span><div class="clear"></div>'
             $("#deterioration_info").html(template);

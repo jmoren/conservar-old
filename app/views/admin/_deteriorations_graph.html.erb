@@ -1,0 +1,47 @@
+<div id="deteriorations" style="height:350px">
+  <script>
+  $(function() {
+     chart1 = new Highcharts.Chart({
+        chart: {
+           renderTo: 'det_container',
+           plotBackgroundColor: null,
+           plotBorderWidth: null,
+           plotShadow: false
+        },
+        title: {
+           text: 'Problemas encontrados por tipo'
+        },
+        tooltip: {
+           formatter: function() {
+              return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat((this.y*100)/<%= @total_dets %>,0) +' %';
+           }
+        },
+        plotOptions: {
+           pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                 enabled: true,
+                 color: '#000000',
+                 connectorColor: '#000000',
+                 formatter: function() {
+                    return '<b>'+ this.point.name +'</b>: '+ this.y;
+                 }
+              }
+           }
+        },
+         series: [{
+            type: 'pie',
+            name: 'Categorias',
+            data: [
+              <% @dets.each do |c| %>
+                ['<%= c[0] %>',<%= c[1] %>],
+              <% end %>
+            ]
+         }]
+      });
+    });
+  </script>
+  <div style="width:40%;height:100%" id="det_container"></div>
+</div>
+

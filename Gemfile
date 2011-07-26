@@ -22,6 +22,7 @@ gem 'rack-raw-upload'
 #nice things
 gem 'nifty-generators'
 gem 'friendly_id'
+gem 'make_flaggable', :git => 'git://github.com/cavneb/make_flaggable.git'
 
 gem "mocha", :group => :test
 gem "bcrypt-ruby", :require => "bcrypt"

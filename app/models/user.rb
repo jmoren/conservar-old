@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_friendly_id :full_name, :use_slug => true
+  make_flagger
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :username, :email, :password, :password_confirmation, :name, :lastname,:enabled,:role
   has_many :reports
@@ -9,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :collections
   has_many :items
   has_many :events
+  has_many :alerts
   attr_accessor :password
   before_save :prepare_password
 

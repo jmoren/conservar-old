@@ -1,3 +1,4 @@
+<% title @report.new_record? ? "Nuevo Reporte" : "Reporte #{@report.code}" %>
 <script>
   $(function(){
     $('#has_date').click(function(){
@@ -5,36 +6,51 @@
     });
   })
 </script>
-<div id="model_form">
+<div id="report_form" class="form">
 <%= form_for [@item,@report] do |f| %>
   <%= f.error_messages %>
-  <div style="float:left;margin: 0 20px;">
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <div>
     <strong> Creado por </strong>
     <%= current_user.full_name %>
   </div>
-
+  <div>
+    <p>
+      <%= f.label :assigned_to, "Asignado a" %>
+      <%= f.select :assigned_to, User.all.collect{|a| [a.full_name, a.id]} %>
+    </p>
+  </div>
+  <div>
+    <p>
+      <%= f.label :status %>
+      <%= f.select :status,ApplicationHelper::STATUS %>
+    </p>
+  </div>
   <div class="clear"></div>
-  <%= f.hidden_field :user_id, :value => current_user.id %>
-  <p>
-    <label><strong>Has dates?</strong></label>
-    <% if !@report.has_dates? %>
-      <%= check_box_tag :has_date  %>
-    <% else %>
-      <%= check_box_tag :has_date, "#{@report.has_dates?}",:checked %>
-    <% end %>
-    <span id="dates" style="<%= @report.has_dates? ? '' : 'display:none' %>">
-      <%= f.label :start_date, "Comienza el",  %>
-      <%= f.text_field :start_date, :size => 20, :value => (@report.new_record? || @report.start_date.nil?) ? nil : (l @report.start_date, :format => '%A, %d %B %Y') %>
-      <%= f.label :end_date, "hasta"%>
-      <%= f.text_field :end_date, :size => 20 , :value => (@report.new_record? || @report.end_date.nil?) ? nil : (l @report.end_date, :format => '%A, %d %B %Y') %>
-    <span>
-  </p>
-  <p>
-    <%= f.label :status %>
-    <%= f.select :status,ApplicationHelper::STATUS %>
-  </p>
-  <div id="deterioration_table">
-    <div style="margin-left:13px; background: #ccc;padding: 4px;width:95%;border-radius: 3px">
+  <div>
+    <div>
+      <label>Tiene fechas?</label>
+      <% if !@report.has_dates? %>
+        <%= check_box_tag :has_date  %>
+      <% else %>
+        <%= check_box_tag :has_date, "#{@report.has_dates?}",:checked %>
+      <% end %>
+      <span id="dates" style="<%= @report.has_dates? ? '' : 'display:none' %>">
+        <strong>Comienza el</strong>
+        <%= f.text_field :start_date, :size => 20, :value => (@report.new_record? || @report.start_date.nil?) ? nil : (l @report.start_date, :format => '%A, %d %B %Y') %>
+        <strong>hasta</strong>
+        <%= f.text_field :end_date, :size => 20 , :value => (@report.new_record? || @report.end_date.nil?) ? nil : (l @report.end_date, :format => '%A, %d %B %Y') %>
+      </span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <br>
+  <div id="add_field" class="button">
+    <%= add_child_link "Agregar",  :deteriorations %>
+  </div>
+  <div class="clear"></div>
+  <div id="deteriorations_table">
+    <div style="padding: 4px;width:99%;color:#36C;border-bottom:solid 1px #666">
       <div style="font-weight:bold;width:90px;float:left"><%= Deterioration.human_attribute_name(:category)%></div>
       <div style="font-weight:bold;width:220px;float:left"><%= Deterioration.human_attribute_name(:place)%></div>
       <div style="font-weight:bold;widht:250px;float:left"><%= Deterioration.human_attribute_name(:description)%></div>
@@ -44,25 +60,21 @@
     <%= f.fields_for :deteriorations do |build| %>
       <%= render :partial => 'deterioration', :locals => { :f => build } %>
     <% end %>
-    <p>
-      <div id="add_field"  style="margin: 5px;" class="button with_text new">
-        <%= add_child_link "Add field",  :deteriorations %>
-      </div>
-    </p>
-    <div>
-      <%= new_child_fields_template(f, :deteriorations, :object => @report.deteriorations.build) %>
-    </diV>
   </div>
-  <div class="clear"></div>
-  <p>
-    <span class="title"><%= f.label :comments %></span>
-    <%= f.text_area :comments %>
-  </p>
-  <p>
-    <span class="title"><%= f.label :treatment %></span>
-    <%= f.text_area :treatment %>
-  </p>
-  <p><%= f.submit :disable_with => "Please wait..." %></p>
+  <div>
+    <%= new_child_fields_template(f, :deteriorations, :object => @report.deteriorations.build) %>
+  </diV>
+  <div class="text_form">
+    <p>
+      <strong><%= f.label :comments %></strong>
+      <%= f.text_area :comments %>
+    </p>
+    <p>
+      <strong><%= f.label :treatment %></strong>
+      <%= f.text_area :treatment%>
+    </p>
+  </div>
+  <p><%= f.submit :disable_with => "Please wait..." %> o <%= link_to 'Cancelar', @report.new_record? ? @item : @report %></p>
 <% end %>
 </div>
 

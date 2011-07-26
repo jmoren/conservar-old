@@ -3,7 +3,7 @@ class Deterioration < ActiveRecord::Base
   belongs_to :det_category
   has_many :tasks
   attr_accessible :report_id, :det_category_id, :place, :description, :fixed, :hours
-
+  scope :search_by, lambda{|sm,em,y| where('MONTH(created_at) >= ? AND MONTH(created_at) <= ? AND YEAR(created_at) = ?', sm,em,y)}
   def set_fixed
     self.update_attributes!(:fixed => true) unless self.fixed
   end
@@ -30,7 +30,9 @@ class Deterioration < ActiveRecord::Base
     end
     return hours
   end
-
+  def closed_tasks
+    self.tasks.where('closed_at is not null').size
+  end
   #def to_gjson
   #  self.to_ghash.to_json
   #end

@@ -4,12 +4,15 @@ module ApplicationHelper
   STATUS = [['Abierto','Abierto'],['Cerrado','Cerrado'],['Reabierto','Reabierto']]
   ItemAttributes = [['coleccion','collection'],['categoria','category'],['subcatecoria','subcategory']]
   ITEM_STATUS = [['bueno','bueno'],['regular','regular'],['malo','malo']]
+  MESES = [['Enero','1'], ['Febrero','2'],['Marzo','3'],['Abril','4'],['Mayo','5'],['Junio','6'],
+           ['Julio','7'],['Agosto','8'],['Septiembre','9'],['Octubre','10'],['Noviembre','11'],['Diciembre','12']]
+
   def remove_child_link(name, f)
     f.hidden_field(:_destroy) + link_to(name, "#", :class => "remove_child")
   end
 
   def add_child_link(name, association)
-    link_to(name, "javascript:void(0)", :class => "add_child",:style => "margin-left:10px;", :"data-association" => association)
+    link_to(name, "javascript:void(0)", :class => "add_child", :"data-association" => association)
   end
 
   def new_child_fields_template(form_builder,association, options = {})
@@ -25,7 +28,7 @@ module ApplicationHelper
 
   def report_status(report)
     if (report.start_date.nil? && report.end_date.nil?) || report.end_date.nil?
-      content_tag(:div,"#{Report.human_attribute_name(:status)}: #{report.status.titleize}", :style => "float:left;")+
+      content_tag(:div,"#{Report.human_attribute_name(:status)}: #{report.status.titleize}", :style => "float:left;font-weight:bold")+
           content_tag(:div, nil, :class=>"clear")
     else
       remaining = (report.end_date.to_date - Time.now.to_date).to_i
@@ -62,7 +65,7 @@ module ApplicationHelper
       total  = report.deteriorations.size
       finish = report.deteriorations.where(:fixed => true).size
       open   = report.deteriorations.where(:fixed => false).size
-      content_tag(:span, content_tag(:span,"#{finish}/#{total} ( #{number_to_percentage((finish.to_f/total.to_f)*100, :precision => 1) })"),:style => "font-weight:bold;")
+      content_tag(:span, content_tag(:span,"#{finish} / #{total} ( #{number_to_percentage((finish.to_f/total.to_f)*100, :precision => 1) })"),:style => "font-weight:bold;")
     else
       content_tag(:span, "0/0 (0.0%)" ,:style => "font-weight:bold;")
     end
@@ -78,14 +81,44 @@ module ApplicationHelper
       content_tag(:span, "0hs. / 0hs. (0.0%)" ,:style => "font-weight:bold;")
     end
   end
+
+  def tasks_complete(report)
+    if report.tasks.size > 0
+      total = report.tasks.size
+      total_closed = report.tasks.where('closed_at is not null').size
+      content_tag(:span,"#{(total_closed).to_s} / #{total.to_s} ( #{number_to_percentage((total_closed/total)*100, :precision => 1)} )" ,:style => "font-weight:bold;")
+    else
+      content_tag(:span, "0 / 0 (0.0%)" ,:style => "font-weight:bold;")
+    end
+  end
+
   def deterioration_hours(deterioration)
     if deterioration.tasks.size > 0
       total = deterioration.hours
       left = deterioration.remaining_hours
       complete = total - left
-      content_tag(:span,"Diagnostico terminado: #{(complete).to_s} hs. / #{total.to_s} hs. ( #{number_to_percentage((complete/total)*100, :precision => 1)} )" ,:style => "font-weight:bold;")
+      content_tag(:span,"Diagnosticos terminados: #{(complete).to_s} hs. / #{total.to_s} hs. ( #{number_to_percentage((complete/total)*100, :precision => 1)} )" ,:style => "font-weight:bold;")
     else
-      content_tag(:span, "Diagnostico terminado: 0hs. / 0hs. (0.0%)" ,:style => "font-weight:bold;")
+      content_tag(:span, "Diagnosticos terminados: 0hs. / 0hs. (0.0%)" ,:style => "font-weight:bold;")
+    end
+  end
+  def page_entries_info(collection)
+    content_tag :div, :class => "page_info" do
+      collection_name = collection.klass.model_name.human
+      total = collection.klass.count
+      if collection.count > 0
+        "#{collection.offset_value + 1} - #{collection.offset_value + collection.length} de #{total} en total"
+      end
+    end
+  end
+
+  def search_page_entries_info(collection)
+    content_tag :div, :class => "page_info" do
+      collection_name = collection.klass.model_name.human
+      total = collection.klass.count
+      if collection.count > 0
+        "#{collection.offset_value + 1} - #{collection.offset_value + collection.length} de #{collection.count} encontrados"
+      end
     end
   end
 end

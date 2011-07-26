@@ -1,6 +1,6 @@
 <%= javascript_include_tag "jquery.colorbox" %>
 <%= stylesheet_link_tag "colorbox" %>
-<% title "Task" %>
+<% title "Tarea" %>
 <script>
   $(function(){
     $(".gallery").colorbox();
@@ -13,10 +13,11 @@
   >
   <strong><%= Task.model_name.human%><%= @task.id %></strong>
 <p>
-  <span class="button with_text new"> <%= link_to 'New Gallery', new_task_gallery_path(@task)  %></span>
-  <span class="button with_text edit"> <%= link_to 'Edit', edit_report_task_path(@task.report,@task)  %></span>
-  <span class="button with_text delete"><%= link_to "Destroy", @task, :confirm => 'Are you sure?', :method => :delete %></span>
+  <span class="button link_new"> <%= link_to 'Nueva Galeria', new_task_gallery_path(@task)  %></span>
+  <span class="button link_edit"> <%= link_to 'Editar', edit_report_task_path(@task.report,@task)  %></span>
+  <span class="button link_delete"><%= link_to "Eliminar", @task, :confirm => 'Are you sure?', :method => :delete %></span>
 </p>
+<div class="clear"></div>
 </p>
   <p><small><%= Task.human_attribute_name(:created_at)%> <strong><%= @task.user.full_name %></strong></small></p>
 <p>
@@ -26,13 +27,14 @@
 <p>
   <strong><%= Task.human_attribute_name(:hours)%>:</strong> <%= @task.hours %>
 </p>
-<p>
+<% unless @task.tools.empty? %>
+<div id="tools">
   <h3> Heramienetas </h3>
   <table>
     <tr>
       <th></th>
-      <th> <%= Tool.human_attribute_name(:category)%></th>
-      <th> <%= Tool.human_attribute_name(:description)%></th>
+      <th> Categoria</th>
+      <th> Descripcion</th>
     </tr>
     <% @task.tools.each do |tool|%>
       <tr>
@@ -42,9 +44,9 @@
       </tr>
     <% end %>
   </table>
-<p>
-  <strong> <%= Gallery.model_name.human %>: </strong>
-  <br>
+</div>
+<% end %>
+<div>
   <% @task.galleries.each do |gallery|%>
     <div>
       <h3 style="background:#26456D;padding:3px;color:#fff;border: solid 1px #26456D; border-radius: 4px;"> <%= Gallery.human_name%> #<%= gallery.id %></h3>
@@ -65,13 +67,13 @@
     </ul>
     <div class="clear"></div>
     <p>
-      <span class="button with_text show">
+      <span class="button link_show">
         <%= link_to t('helpers.links.show'), gallery  %>
       </span>
-      <span class="button with_text edit">
+      <span class="button link_edit">
         <%= link_to t('helpers.links.edit'), uploader_gallery_path(gallery)  %>
       </span>
     </p>
   <% end %>
- </p>
+</div>
 

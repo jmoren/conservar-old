@@ -1,77 +1,144 @@
 <% title "#{@item.title.titleize} - #{@item.code}" %>
+<div style="float:right;margin-right:50px">
+  <div class="button"><%= link_to t('helpers.links.new_report'), new_item_report_path(@item) %></div>
+  <div class="button"><%= link_to t('helpers.links.edit'), edit_item_path(@item) %></div>
+  <div class="button"><%= link_to t('helpers.links.delete'), @item, :confirm => 'Are you sure?', :method => :delete %></div>
+  <div class="button"><%= link_to 'Nueva Alerta', item_alerts_path(@item) %></div>
+</div>
+<div class="clear"></div>
+<div id="item">
+  <div class="item_basic_info">
+    <h3> Informacion Basica </h3>
+    <div class="left col_img"><%= image_tag @item.photo.url(:medium) %></div>
+    <div class="left col_left_info">
+      <div class="item_info">
+        <div class="title"><%= Item.human_attribute_name(:collection)%>:</div>
+        <% if @item.collection.nil? %>
+          Sin Coleccion
+        <% else %>
+          <span class="with_vcard">
+            <%= link_to @item.collection.name.titleize, @item.collection%>
+            <div class="vcard-right" id="vcard" style="display:none">
+              <div class="vcard-in-right">
+                <strong><%= @item.collection.name.titleize %></strong>
+                <div class="collection_desc"><em><%= @item.collection.description%></em></div>
+                <div>Elementos: <%= @item.collection.items.size %></div>
+                <div><small><%= l @item.collection.created_at, :format => :short %> por <%= @item.collection.user.full_name%></small></div>
+              </div>
+            </div>
+          </span>
+        <% end %>
+      </div>
+      <div class="item_info">
+        <div class="title"><%= Item.human_attribute_name(:user)%>:</div>
+        <%= @item.user.full_name %>
+      </div>
+      <div class="item_info">
+        <div class="title"><%= Item.human_attribute_name(:code)%>:</div>
+        <%= @item.code %>
+      </div>
+      <div class="item_info">
+        <div class="title"><%= Item.human_attribute_name(:title)%>:</div>
+        <%= @item.title %>
+      </div>
+    </div>
+    <div class="left col_left_info">
+      <div class="item_info">
+        <div class="title"><%= Item.human_attribute_name(:author)%>:</div>
+        <%= @item.author.blank? ? "Sin autor" : @item.author %>
+      </div>
+      <div class="item_info">
+        <div class="title"><%= Item.human_attribute_name(:category)%>:</div>
+        <%= link_to @item.category.name, items_path(:category => @item.category.id) %>
+      </div>
+      <div class="item_info">
+        <div class="title"><%= Item.human_attribute_name(:subcategory)%>:</div>
+        <%= link_to @item.subcategory.name, items_path(:subcategory => @item.subcategory.id) %>
+      </div>
+      <div class="item_info">
+        <div class="title"><%= Item.human_attribute_name(:status)%>:</div>
+        <%= @item.status %>
+      </div>
+    </div>
 
-<p>
-  <strong><%= Item.human_attribute_name(:collection)%>:</strong>
-  <%= @item.collection.try(:name) || "Sin Coleccion" %>
-</p>
-<p>
-  <strong><%= Item.human_attribute_name(:user)%>:</strong>
-  <%= @item.user.full_name %>
-</p>
-<p>
-  <strong><%= Item.human_attribute_name(:code)%>:</strong>
-  <%= @item.code %>
-</p>
-<p>
-  <strong><%= Item.human_attribute_name(:title)%>:</strong>
-  <%= @item.title %>
-</p>
-<p>
-  <strong><%= Item.human_attribute_name(:author)%>:</strong>
-  <%= @item.author.blank? ? "Sin autor" : @item.author %>
-</p>
-<p>
-  <strong><%= Item.human_attribute_name(:description)%>:</strong>
-  <%= @item.description %>
-</p>
-<p>
-  <strong><%= Item.human_attribute_name(:category)%>:</strong>
-  <%= @item.category.name %>
-</p>
-<p>
-  <strong><%= Item.human_attribute_name(:subcategory)%>:</strong>
-  <%= @item.subcategory.name %>
-</p>
-<p>
-  <strong><%= Item.human_attribute_name(:status)%>:</strong>
-  <%= @item.status %>
-</p>
+  </div>
+  <div class="clear"></div>
+  <p>
+    <strong><%= Item.human_attribute_name(:description)%>:</strong>
+    <%= simple_format @item.description, :class=> "text_area" %>
+  </p>
+  <% unless @item.has_addicional_info? %>
+    <div class="item_addicional_info">
+      <h3> Informacion Adicional </h3>
+      <div class="left col_left">
+        <% @item.generic_text_fields.each do |field| %>
+          <div class="item_info">
+            <div class="title"><%= field.label_attribute.titleize %></div>
+            <%= field.content.blank? ? "sin datos" : field.content %>
+          </div>
+          <div class="clear"></div>
+        <% end %>
+        <% @item.generic_integer_fields.each do |field| %>
+          <div class="item_info">
+            <div class="title"><%= field.label_attribute.titleize %></div>
+            <%= field.content.blank? ? "sin datos" : field.content %>
+          </div>
+          <div class="clear"></div>
+        <% end %>
+        <% @item.generic_float_fields.each do |field| %>
+          <div class="item_info">
+            <div class="title"><%= field.label_attribute.titleize %></div>
+            <%= field.content.blank? ? "sin datos" : field.content %>
+          </div>
+          <div class="clear"></div>
+        <% end %>
+        <% @item.generic_boolean_fields.each do |field| %>
+          <div class="item_info">
+            <div class="title"><%= field.label_attribute.titleize %></div>
+            <%= field.content.blank? ? "sin datos" : field.content %>
+          </div>
+          <div class="clear"></div>
+        <% end %>
+      </div>
+      <div class="right col_right">
+        <% @item.generic_text_areas.each do |field| %>
+          <div class="item_info">
+            <div class="title"><%= field.label_attribute.titleize %></div>
+            <br>
+            <%= simple_format field.content.blank? ? "sin datos" : field.content, :class=> "text_area" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="clear"></div>
+    </div>
+  <% end %>
+  <h3> Reportes (<%= @item.reports.size %>)</h3>
+  <% unless @item.reports.empty? %>
+    <ol>
+      <% @item.reports.each do |report| %>
+        <li class="item_report">
+          <%= link_to report.code, report %>
+        </li>
+      <% end %>
+    </ol>
+  <% else %>
+    <h4> Todavia no tiene reportes </h4>
+  <% end %>
+  <h3> Alertas <small style="margin-left: 15px"> <%= link_to '(ver todas)', item_alerts_path(@item) %></small></h3>
+    <ol>
+      <% @item.alerts.each do |alert| %>
+        <li class="item_report">
+          <% if alert.custom.nil? %>
+            Frecuencia: cada <%= alert.frequency  %> dia(s) el dia
+            <% unless alert.day.nil? %>
+              <span id="<%= alert.id %>" class="day"><%= alert.day %></span>
+            <% end %>
+          <% else %>
+            Frecuencia: cada <%= alert.custom %> dia(s).
+          <% end %>
+        </li>
+      <% end %>
+    </ol>
 
-<h3> Informacion Adicional </h3>
-  <% @item.generic_text_areas.each do |field| %>
-    <p>
-      <strong> <%= field.label_attribute %></strong>
-      <%= simple_format field.content %>
-    </p>
-  <% end %>
-  <% @item.generic_text_fields.each do |field| %>
-    <p>
-      <strong> <%= field.label_attribute %></strong>
-      <%= field.content %>
-    </p>
-  <% end %>
-  <% @item.generic_integer_fields.each do |field| %>
-    <p>
-      <strong> <%= field.label_attribute %></strong>
-      <%= field.content %>
-    </p>
-  <% end %>
-  <% @item.generic_float_fields.each do |field| %>
-    <p>
-      <strong> <%= field.label_attribute %></strong>
-      <%= field.content %>
-    </p>
-  <% end %>
-  <% @item.generic_boolean_fields.each do |field| %>
-    <p>
-      <strong> <%= field.label_attribute %></strong>
-      <%= field.content? ? "Yes" : "No" %>
-    </p>
-  <% end %>
-
-<p><%= link_to t('helpers.links.new_report'), new_item_report_path(@item) %></p>
-<p>
-  <%= link_to t('helpers.links.edit'), edit_item_path(@item) %> |
-  <%= link_to t('helpers.links.delete'), @item, :confirm => 'Are you sure?', :method => :delete %>
-</p>
+</div>
 

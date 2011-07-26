@@ -3,15 +3,19 @@
     $(function(){
       $('#help_report').click(function(){
         $('#help_report_text').dialog({title:"Reporte",width:600});
+        return false;
       });
       $('#help_images').click(function(){
         $('#help_images_text').dialog({title:"Imagenes",width:600});
+        return false;
       });
       $('#help_info').click(function(){
         $('#help_info_text').dialog({title:"Informacion",width:600});
+        return false;
       });
       $('#help_others').click(function(){
         $('#help_others_text').dialog({title:"Otros",width:600});
+        return false;
       })
     })
   </script>
@@ -19,9 +23,12 @@
 <%= report_status(@report)%>
 <hr>
 <p>
-  <strong>Progreso:</strong>
+  <span class="side_title">Progreso:</span>
   <div style="text-align:left;width:25%;float:left">Diagnosticos:</div>
   <div style="text-align:right;width:70%;float:right"><strong><%= deteriorations_complete(@report) %></strong></div>
+  <div class="clear"></div>
+  <div style="text-align:left;width:25%;float:left">Tareas:</div>
+  <div style="text-align:right;width:70%;float:right"><strong><%= tasks_complete(@report) %></strong></div>
   <div class="clear"></div>
   <div style="text-align:left;width:25%;float:left">Horas:</div>
   <div style="text-align:right;width:70%;float:right"><strong><%= hours_complete(@report) %></strong></div>
@@ -30,7 +37,7 @@
 <div class="clear"></div>
 <hr>
 <p>
-  <strong>Creacion:</strong>
+  <span class="side_title">Creacion:</span>
   <div style="text-align:left;width:40%;float:left">Creado:</div>
   <div style="text-align:right;width:60%;float:right"> <strong><%= l @report.created_at, :format => :short %></strong></div>
   <div class="clear"></div>
@@ -40,9 +47,9 @@
 <br>
 <hr>
 <p>
-  <strong>Item: <%= truncate(@report.item.title,:length => 30) %> </strong>
+  <span class="side_title">Item: <%= truncate(@report.item.title,:length => 30) %> </span>
   <div style="text-align:right;width:40%;float:left">Titulo: </div>
-  <div style="text-align:right;width:60%;float:right"><%= link_to @report.item.code, @report.item  %></div>
+  <div style="text-align:right;width:60%;float:right;font-weight:bold"><%= link_to @report.item.code, @report.item  %></div>
   <div style="text-align:right;width:40%;float:left">Categoria:</div>
   <div style="text-align:right;width:60%;float:right"> <strong><%= @report.item.category.name %></strong></div>
   <div class="clear"></div>

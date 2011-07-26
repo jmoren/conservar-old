@@ -1,19 +1,29 @@
-<% title "Galleries" %>
- <%= paginate @galleries %>
+<% title "Galerias de Fotos" %>
+<div id="galleries">
 <table>
   <tr>
-    <th>Parent</th>
-    <th>Description</th>
+    <th>Pertenece a</th>
+    <th>Descripcion</th>
+    <th></th>
   </tr>
   <% for gallery in @galleries %>
     <tr>
-      <td><%= link_to gallery.galleryable_type, gallery.galleryable %></td>
-      <td><%= gallery.description %></td>
-      <td><%= link_to "Show", gallery %></td>
-      <td><%= link_to "Edit", edit_gallery_path(gallery) %></td>
-      <td><%= link_to "Destroy", gallery, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td class="belongs_to">
+        <%= link_to "#{gallery.galleryable.class.model_name.human} ##{gallery.galleryable.id}" , gallery.galleryable %>
+      </td>
+      <td class="description">
+        <%= gallery.description %>
+      </td>
+      <td class="actions">
+        <%= link_to t('helpers.links.show'), gallery %>
+        <%= link_to t('helpers.links.edit'), edit_gallery_path(gallery) %>
+        <%= link_to t('helpers.links.delete'), gallery, :confirm => 'Are you sure?', :method => :delete %>
+      </td>
     </tr>
   <% end %>
 </table>
+</div>
+<p>
  <%= paginate @galleries %>
+</p>
 

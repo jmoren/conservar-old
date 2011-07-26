@@ -28,138 +28,149 @@
     });
   })
 </script>
-<%= form_for @item, :validate => true do |f| %>
-  <%= f.error_messages %>
-  <div style="float:left;width:40%">
-    <p>
-      <%= f.label :collection_id %>
-      <%= f.select :collection_id, Collection.all.collect{|c| [c.name,c.id]}, :prompt => true %>
-    </p>
-    <p>
-      <%= f.label :code %><br />
-      <%= f.text_field :code %>
-    </p>
-    <p>
-      <%= f.label :title %><br />
-      <%= f.text_field :title %>
-    </p>
-    <p>
-      <%= f.label :description %><br />
-      <%= f.text_area :description %>
-    </p>
-  </div>
-  <div style="float:left;width:45%">
-    <p>
-      <%= f.label :category %>
-      <% if @item.new_record? %>
-        <%= f.select :item_category_id, ItemCategory.categories.collect{|c| [c.name,c.id]},:prompt => true %>
-      <% else %>
-        <%= f.hidden_field :item_category_id, :value => @item.category.id %>
-        <strong><%= @item.category.name %></strong>
-      <% end %>
-      <%= f.label :subcategory %>
-      <% if @item.new_record? %>
-        <%= f.select :item_subcategory_id, "<option value>Seleccione una categoria</option>"%>
-      <% else %>
-        <%= f.hidden_field :item_subcategory_id, :value => @item.subcategory.id %>
-        <strong><%= @item.subcategory.name %></strong>
-      <% end %>
-      <br/>
-    </p>
-    <p>
-      <%= f.label :status %>
-      <%= f.select :status,ApplicationHelper::ITEM_STATUS %>
-    </p>
+<div class="form" id="item_form">
+  <%= form_for @item, :html =>{:multipart => true}, :validate => true do |f| %>
+    <%= f.error_messages %>
+    <h3> Datos basicos</h3>
+    <div class="col_left left">
       <p>
-      <%= f.label :author %><br />
-      <%= f.text_field :author %>
-    </p>
-    <% unless @item.new_record? %>
-      <%= f.fields_for :generic_text_fields do |a| %>
+        <%= f.label :collection_id %>
+        <%= f.select :collection_id, Collection.all.collect{|c| [c.name,c.id]}, :prompt => true %>
+      </p>
+      <p>
+        <%= f.label :code %>
+        <%= f.text_field :code %>
+      </p>
+      <p>
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+      </p>
+    </div>
+    <div class="col_right right">
+      <div class="item_type_form">
+        <span><strong>Categoria </strong></span>
+        <% if @item.new_record? %>
+          <%= f.select :item_category_id, ItemCategory.categories.collect{|c| [c.name,c.id]},:prompt => "categoria" %>
+        <% else %>
+          <%= f.hidden_field :item_category_id, :value => @item.category.id %>
+          <span class="item_type"><%= @item.category.name %></span>
+        <% end %>
+        <span style="margin-left:10px"><strong> Subcategoria </strong> </span>
+        <% if @item.new_record? %>
+          <%= f.select :item_subcategory_id, "<option value>Subcategoria</option>"%>
+        <% else %>
+          <%= f.hidden_field :item_subcategory_id, :value => @item.subcategory.id %>
+          <span class="item_type"><%= @item.subcategory.name %></span>
+        <% end %>
+        <br/>
+      </div>
+      <p>
+        <%= f.label :status %>
+        <%= f.select :status,ApplicationHelper::ITEM_STATUS %>
+      </p>
         <p>
-          <%= a.object.label_attribute.titleize %>
-          <br>
-          <%= a.hidden_field :label_attribute, :value => a.object.label_attribute %>
-          <%= a.text_field :content %>
-          <div style="margin-top:-10px;color:#666">
-            <% unless @item.subcategory.generic_fields.find_by_name(a.object.label_attribute) %>
-              <small>
-                <%= a.check_box :_destroy %>
-                <strong>Este campo ya no se utiliza mas, puede eliminarlo si lo desea. </strong>
-              </small>
-            <% end %>
-          </div>
-        </p>
+        <%= f.label :author %>
+        <%= f.text_field :author %>
+      </p>
+    </div>
+    <div class="clear"></div>
+    <div class="text_form">
+      <strong>Descripcion</strong>
+      <%= f.text_area :description %>
+      <p>
+        <%= f.label :photo, "Foto"%>
+        <%= !@item.new_record? && @item.photo.exists? ? image_tag(@item.photo.url(:small),:style => "float:left;margin-right:10px") : nil %>
+        <%= f.file_field :photo %>
+      </p>
+    </div>
+    <div class="clear"></div>
+    <div class="attributes_added">
+      <% unless @item.new_record? || @item.has_addicional_info? %>
+        <h3> Datos adicionales</h3>
+        <div class="left col_left">
+          <%= f.fields_for :generic_text_fields do |a| %>
+            <div class="addicional_field">
+              <label><%= a.object.label_attribute.titleize %></label>
+              <%= a.hidden_field :label_attribute, :value => a.object.label_attribute %>
+              <%= a.text_field :content %>
+              <div class="delete_message_option">
+                <% unless @item.subcategory.generic_fields.find_by_name(a.object.label_attribute) %>
+                  <small class="can_delete_field">
+                    <%= a.check_box :_destroy %>
+                    <strong>Este campo ya no se utiliza mas, puede eliminarse. </strong>
+                  </small>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <%= f.fields_for :generic_integer_fields do |b| %>
+            <div class="addicional_field">
+              <label><%= b.object.label_attribute.titleize %></label>
+              <%= b.hidden_field :label_attribute, :value => b.object.label_attribute %>
+              <%= b.text_field :content, :size => 10 %>
+              <div class="delete_message_option">
+                <% unless @item.subcategory.generic_fields.find_by_name(b.object.label_attribute) %>
+                  <small class="can_delete_field">
+                    <%= b.check_box :_destroy %>
+                    <strong>Este campo ya no se utiliza mas, puede eliminarse. </strong>
+                  </small>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <%= f.fields_for :generic_float_fields do |c| %>
+            <div class="addicional_field">
+              <label><%= c.object.label_attribute.titleize %></label>
+              <%= c.hidden_field :label_attribute, :value => c.object.label_attribute %>
+              <%= c.text_field :content, :size => 10 %>
+              <div class="delete_message_option">
+                <% unless @item.subcategory.generic_fields.find_by_name(c.object.label_attribute) %>
+                  <small class="can_delete_field">
+                    <%= c.check_box :_destroy %>
+                    <strong>Este campo ya no se utiliza mas, puede eliminarse. </strong>
+                  </small>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <%= f.fields_for :generic_boolean_fields do |d| %>
+            <div class="addicional_field">
+              <label><%= d.object.label_attribute.titleize %></label>
+              <%= d.hidden_field :label_attribute, :value => d.object.label_attribute %>
+              <%= d.check_box :content %>
+              <div class="delete_message_option">
+                <% unless @item.subcategory.generic_fields.find_by_name(d.object.label_attribute) %>
+                  <small class="can_delete_field">
+                    <%= d.check_box :_destroy %>
+                    <strong>Este campo ya no se utiliza mas, puede eliminarse. </strong>
+                  </small>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="added_attributes_text col_right right">
+          <%= f.fields_for :generic_text_areas do |e| %>
+            <div class="addicional_field">
+              <strong><%= e.object.label_attribute.titleize %></strong>
+              <br>
+              <%= e.hidden_field :label_attribute, :value => e.object.label_attribute %>
+              <%= e.text_area :content, :cols => 50, :rows => 5 %>
+              <div class="delete_message_option">
+                <% unless @item.subcategory.generic_fields.find_by_name(e.object.label_attribute) %>
+                  <small class="can_delete_field">
+                    <%= e.check_box :_destroy %>
+                    <strong>Este campo ya no se utiliza mas, puede eliminarse. </strong>
+                  </small>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
       <% end %>
-      <%= f.fields_for :generic_integer_fields do |b| %>
-        <p>
-          <%= b.object.label_attribute.titleize %>
-          <br>
-          <%= b.hidden_field :label_attribute, :value => b.object.label_attribute %>
-          <%= b.text_field :content, :size => 10 %>
-          <div style="margin-top:-10px;color:#666">
-            <% unless @item.subcategory.generic_fields.find_by_name(b.object.label_attribute) %>
-              <small>
-                <%= b.check_box :_destroy %>
-                <strong>Este campo ya no se utiliza mas, puede eliminarlo si lo desea. </strong>
-              </small>
-            <% end %>
-          </div>
-        </p>
-      <% end %>
-      <%= f.fields_for :generic_float_fields do |c| %>
-        <p>
-          <%= c.object.label_attribute.titleize %>
-          <br>
-          <%= c.hidden_field :label_attribute, :value => c.object.label_attribute %>
-          <%= c.text_field :content, :size => 10 %>
-          <div style="margin-top:-10px;color:#666">
-            <% unless @item.subcategory.generic_fields.find_by_name(c.object.label_attribute) %>
-              <small>
-                <%= c.check_box :_destroy %>
-                <strong>Este campo ya no se utiliza mas, puede eliminarlo si lo desea. </strong>
-              </small>
-            <% end %>
-          </div>
-        </p>
-      <% end %>
-      <%= f.fields_for :generic_boolean_fields do |d| %>
-        <p>
-          <%= d.object.label_attribute.titleize %>
-          <br>
-          <%= d.hidden_field :label_attribute, :value => d.object.label_attribute %>
-          <%= d.check_box :content %>
-          <div style="margin-top:-10px;color:#666">
-            <% unless @item.subcategory.generic_fields.find_by_name(d.object.label_attribute) %>
-              <small>
-                <%= d.check_box :_destroy %>
-                <strong>Este campo ya no se utiliza mas, puede eliminarlo si lo desea. </strong>
-              </small>
-            <% end %>
-          </div>
-        </p>
-      <% end %>
-      <%= f.fields_for :generic_text_areas do |e| %>
-        <p>
-          <%= e.object.label_attribute.titleize %>
-          <br>
-          <%= e.hidden_field :label_attribute, :value => e.object.label_attribute %>
-          <%= e.text_area :content, :cols => 50, :rows => 5 %>
-          <div style="margin-top:-10px;color:#666">
-            <% unless @item.subcategory.generic_fields.find_by_name(e.object.label_attribute) %>
-              <small>
-                <%= e.check_box :_destroy %>
-                <strong>Este campo ya no se utiliza mas, puede eliminarlo si lo desea. </strong>
-              </small>
-            <% end %>
-          </div>
-        </p>
-      <% end %>
-    <% end %>
-  </div>
-
-  <div class="clear"></div>
-
-  <p><%= f.submit %> o <%= link_to t('helpers.links.cancel'), @item.new_record? ? items_path : @item  %></p>
-<% end %>
+      <div class="clear"></div>
+    </div>
+    <p id="submit_buttons"><%= f.submit :disable_with => "Guardando..." %><span class="separator"> o </span> <%= link_to t('helpers.links.cancel'), @item.new_record? ? items_path : @item  %></p>
+  <% end %>
+</div>
 

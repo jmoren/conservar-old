@@ -1,4 +1,5 @@
-<div id="admin_index">
+<% title "Admin" %>
+<div id="admin_index" style="min-height: 200px;">
   <ul class="conf_list">
     <li>
       <%= link_to 'Usuarios', admin_users_path, :class => "conf_option" %>
@@ -6,11 +7,11 @@
     </li>
     <li>
       <%= link_to 'Estadisticas',admin_statistics_path, :class => "conf_option"  %>
-      <div class="conf_explanation"><p>de nuevoooo</p></div>
+      <div class="conf_explanation"><p>Aca podra ver estadisticas de objetos, colecciones y problemas encontrados.</p></div>
     </li>
     <li>
       <%= link_to 'Configuracion',admin_configuration_path, :class => "conf_option"  %>
-      <div class="conf_explanation"><p>chauuuu</p></div>
+      <div class="conf_explanation"><p>Aca podra configurar la aplicacion, categorias disponibles, campos nuevos, datos de la institucion.</p></div>
     </li>
   </ul>
 </div>

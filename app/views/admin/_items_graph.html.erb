@@ -1,0 +1,88 @@
+<div id="items" style="height:350px">
+  <script>
+  $(function(){
+    chart2 = new Highcharts.Chart({
+      chart: {
+         renderTo: 'item_container1',
+         plotBackgroundColor: null,
+         plotBorderWidth: null,
+         plotShadow: false
+      },
+      title: {
+         text: 'Items por categoria'
+      },
+      tooltip: {
+         formatter: function() {
+            return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat((this.y*100)/<%= @total_dets %>,0) +' %';
+         }
+      },
+      plotOptions: {
+         pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+               enabled: true,
+               color: '#000000',
+               connectorColor: '#000000',
+               formatter: function() {
+                  return '<b>'+ this.point.name +'</b>: '+ this.y;
+               }
+            }
+         }
+      },
+       series: [{
+          type: 'pie',
+          name: 'Categorias',
+          data: [
+            <% @items_by_category.each do |c| %>
+              ['<%= c[0] %>',<%= c[1] %>],
+            <% end %>
+          ]
+       }]
+    });
+    chart3 = new Highcharts.Chart({
+      chart: {
+         renderTo: 'item_container2',
+         plotBackgroundColor: null,
+         plotBorderWidth: null,
+         plotShadow: false
+      },
+      title: {
+         text: 'Items por subcategoria'
+      },
+      tooltip: {
+         formatter: function() {
+            return '<b>  Subcategoria '+ this.point.name +'</b>: '+ Highcharts.numberFormat((this.y*100)/<%= @total_dets %>,0) +' %';
+         }
+      },
+      plotOptions: {
+         pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+               enabled: true,
+               color: '#000000',
+               connectorColor: '#000000',
+               formatter: function() {
+                  return '<b>'+ this.point.name +'</b>: '+ this.y;
+               }
+            }
+         }
+      },
+      series: [{
+         type: 'pie',
+         name: 'Categorias',
+         data: [
+           <% @items_by_subcategory.each do |c| %>
+             ['<%= c[0] %>',<%= c[1] %>],
+           <% end %>
+         ]
+       }]
+    });
+  });
+  </script>
+  <div style="width:40%;height:100%;float:left" id="item_container1"></div>
+  <div style="width:40%;height:100%;float:left" id="item_container2"></div>
+  <div class="clear"></div>
+</div>
+
