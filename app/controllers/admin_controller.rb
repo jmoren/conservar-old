@@ -17,6 +17,7 @@ class AdminController < ApplicationController
     @total_reportes = Report.all.size
 
     #items [cat|subcat, cant.]
+    @total_items = Item.count
     @items_by_category = []
     Item.search_by(sm,em,year).group(:item_category_id).size.each do |cat,value|
       @items_by_category << [ ItemCategory.find(cat).name, value ]

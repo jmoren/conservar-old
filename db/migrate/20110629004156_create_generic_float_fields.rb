@@ -2,7 +2,7 @@ class CreateGenericFloatFields < ActiveRecord::Migration
   def self.up
     create_table :generic_float_fields do |t|
       t.integer :item_id
-      t.string :label
+      t.string :label_attribute
       t.float :content
 
       t.timestamps
@@ -13,3 +13,4 @@ class CreateGenericFloatFields < ActiveRecord::Migration
     drop_table :generic_float_fields
   end
 end
+

@@ -13,7 +13,7 @@
       },
       tooltip: {
          formatter: function() {
-            return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat((this.y*100)/<%= @total_dets %>,0) +' %';
+            return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat((this.y*100)/<%= @total_items %>,0) +' %';
          }
       },
       plotOptions: {
@@ -52,7 +52,7 @@
       },
       tooltip: {
          formatter: function() {
-            return '<b>  Subcategoria '+ this.point.name +'</b>: '+ Highcharts.numberFormat((this.y*100)/<%= @total_dets %>,0) +' %';
+            return '<b>  Subcategoria '+ this.point.name +'</b>: '+ Highcharts.numberFormat((this.y*100)/<%= @total_items %>,0) +' %';
          }
       },
       plotOptions: {
@@ -71,7 +71,7 @@
       },
       series: [{
          type: 'pie',
-         name: 'Categorias',
+         name: 'SubCategorias',
          data: [
            <% @items_by_subcategory.each do |c| %>
              ['<%= c[0] %>',<%= c[1] %>],

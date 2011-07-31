@@ -2,7 +2,7 @@ class CreateGenericTextAreas < ActiveRecord::Migration
   def self.up
     create_table :generic_text_areas do |t|
       t.integer :item_id
-      t.string :label
+      t.string :label_attribute
       t.text :content
 
       t.timestamps
@@ -13,3 +13,4 @@ class CreateGenericTextAreas < ActiveRecord::Migration
     drop_table :generic_text_areas
   end
 end
+

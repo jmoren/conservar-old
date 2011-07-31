@@ -2,7 +2,7 @@ class CreateGenericBooleanFields < ActiveRecord::Migration
   def self.up
     create_table :generic_boolean_fields do |t|
       t.integer :item_id
-      t.string :label
+      t.string :label_attribute
       t.boolean :content
 
       t.timestamps
@@ -13,3 +13,4 @@ class CreateGenericBooleanFields < ActiveRecord::Migration
     drop_table :generic_boolean_fields
   end
 end
+
