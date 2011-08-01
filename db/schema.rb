@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(:version => 20110725154302) do
 
   create_table "generic_boolean_fields", :force => true do |t|
     t.integer  "item_id"
-    t.string   "label_attribute"
+    t.string   "label"
     t.boolean  "content"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(:version => 20110725154302) do
 
   create_table "generic_float_fields", :force => true do |t|
     t.integer  "item_id"
-    t.string   "label_attribute"
+    t.string   "label"
     t.float    "content"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(:version => 20110725154302) do
 
   create_table "generic_integer_fields", :force => true do |t|
     t.integer  "item_id"
-    t.string   "label_attribute"
+    t.string   "label"
     t.integer  "content"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(:version => 20110725154302) do
 
   create_table "generic_select_fields", :force => true do |t|
     t.integer  "item_id"
-    t.string   "label_attribute"
+    t.string   "label"
     t.string   "content"
     t.string   "options"
     t.datetime "created_at"
@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(:version => 20110725154302) do
 
   create_table "generic_text_areas", :force => true do |t|
     t.integer  "item_id"
-    t.string   "label_attribute"
+    t.string   "label"
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(:version => 20110725154302) do
 
   create_table "generic_text_fields", :force => true do |t|
     t.integer  "item_id"
-    t.string   "label_attribute"
+    t.string   "label"
     t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"

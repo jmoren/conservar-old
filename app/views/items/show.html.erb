@@ -67,7 +67,6 @@
     <strong><%= Item.human_attribute_name(:description)%>:</strong>
     <%= simple_format @item.description, :class=> "text_area" %>
   </p>
-  <% unless @item.has_addicional_info? %>
     <div class="item_addicional_info">
       <h3> Informacion Adicional </h3>
       <div class="left col_left">
@@ -111,7 +110,6 @@
       </div>
       <div class="clear"></div>
     </div>
-  <% end %>
   <h3> Reportes (<%= @item.reports.size %>)</h3>
   <% unless @item.reports.empty? %>
     <ol>

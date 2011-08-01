@@ -3,10 +3,7 @@
  </script>
 <li class="alert">
   <% if alert.custom.nil? %>
-    Frecuencia: cada <span id="<%= alert.id %>" class="frequency"><%= alert.frequency  %> </span> dia(s) el dia
-    <% unless alert.day.nil? %>
-      <span id="<%= alert.id %>" class="day"><%= alert.day %></span>
-    <% end %>
+    Frecuencia: <span id="<%= alert.id %>" class="frequency"><%= alert.frequency == "30" ? "Mensual" : "#{alert.frequency} dias"  %> </span>
   <% else %>
     Frecuencia: cada <span id="<%= alert.id %>" class="custom"><%= alert.custom %></span> dia(s).
   <% end %>

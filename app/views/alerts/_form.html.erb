@@ -104,8 +104,7 @@
     <p>
       Frecuencia personalizada? <%= check_box_tag :custom_option %><br>
       <br>
-      <div style="float: left;width: 26%;margin-right:10px"><%= f.label :day %><%= f.select :day, Alert::DAYS,:disabled => 'disabled' %></div>
-      <div style="float: left;width: 39%;margin: 0 10px">
+      <div style="float: left;width: 39%;">
         <%= f.label :frequency %><%= f.select :frequency, Alert::FREQUENCY %>
       </div>
       <div style="float: left;width: 25%;margin-left:10px">

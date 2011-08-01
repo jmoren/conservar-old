@@ -85,7 +85,7 @@
     </div>
     <div class="clear"></div>
     <div class="attributes_added">
-      <% unless @item.new_record? || @item.has_addicional_info? %>
+      <% unless @item.new_record?  %>
         <h3> Datos adicionales</h3>
         <div class="left col_left">
           <%= f.fields_for :generic_text_fields do |a| %>
