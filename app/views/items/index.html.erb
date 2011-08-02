@@ -6,7 +6,7 @@
         $('.loading').show();
         $('.result').html('');
       });
-      $('#by_category').click(function(){
+      $('#by_category').change(function(){
         $('.loading').show();
         $('.result').html('');
         $.ajax({
@@ -17,7 +17,7 @@
           dataType: 'script'
         });
       });
-      $('#by_subcategory').click(function(){
+      $('#by_subcategory').change(function(){
         $('.loading').show();
         $('.result').html('');
         $.ajax({
@@ -28,7 +28,7 @@
           dataType: 'script'
         });
       });
-      $('#by_collection').click(function(){
+      $('#by_collection').change(function(){
         $('.loading').show();
         $('.result').html('');
         $.ajax({
@@ -53,6 +53,7 @@
   <div id="items_filter">
     Filtar por
     <select id="by_category" title="Filtrar por Categoria">
+      <option value="0" selected="selected"> Categoria </option>
       <% ItemCategory.categories.each do |category| %>
         <% if !category.empty?%>
           <option value="<%= category.id %>"> <%= category.name%> </option>
@@ -60,6 +61,7 @@
       <% end %>
     </select>
     <select id="by_subcategory" title="filtar por Subcategoria">
+      <option value="0" selected="selected"> Subcategoria </option>
       <% ItemCategory.all_subcategories.each do |subcategory| %>
         <% if Item.where(:item_subcategory_id => subcategory).size > 0 %>
           <option value="<%= subcategory.id %>"><%= subcategory.name.titleize %> </option>
@@ -67,6 +69,7 @@
       <% end %>
     </select>
     <select id="by_collection" title="Filtrar por coleccion">
+      <option value="0" selected="selected"> Coleccion </option>
       <% Collection.all.each do |collection| %>
         <option value="<%= collection.id %>"> <%= collection.name.titleize %> </option>
       <% end %>

@@ -1,13 +1,13 @@
-<div id="new_observation_form" style="float:left;margin-top: 0px;font-size: 12px">
+<div id="new_observation_form" >
 <%= form_for [@report,@report.observations.new], :validate => true, :remote => true do |f| %>
-  <%= f.label :category %>
+  <strong><%= f.label :category %></strong>
   <%= f.select :category,Observation::CATEGORIES %>
   <p>
-    <%= f.label :body %><br />
-    <%= f.text_area :body,:rows => 5,:cols => 30 %>
+    <p><strong><%= f.label :body %></strong></p>
+    <%= f.text_area :body,:rows => 5 %>
   </p>
 
-  <p><%= f.submit %></p>
+  <p><%= f.submit %> o <%= link_to_function 'Cancelar', "$('#new_observation_form form')[0].reset();$('#new_observation_form label.message').hide()"   %></p>
 <% end %>
 </div>
 

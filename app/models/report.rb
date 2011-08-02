@@ -10,7 +10,9 @@ class Report < ActiveRecord::Base
   has_many :observations, :dependent=> :destroy
   accepts_nested_attributes_for :deteriorations, :allow_destroy => true, :reject_if => lambda { |attributes| attributes['place'].blank? || attributes['description'].blank? }
 
-  attr_accessible :code, :comments, :treatment, :deteriorations_attributes, :start_date, :end_date, :status,:user_id,:hours,:archived,:item_id
+  attr_accessible :code, :comments, :treatment, :deteriorations_attributes,
+                  :start_date, :end_date, :status,:user_id,:hours,:archived,
+                  :item_id, :assigned_to
   before_save :sanitize_dates, :report_event
 
   #scopes

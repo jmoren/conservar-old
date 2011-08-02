@@ -1,4 +1,4 @@
-<li class="observation"  id="observation_<%=observation.id%>" style="width:75%;margin: 5px 0">
+<div class="observation"  id="observation_<%=observation.id%>">
   <script>
     $(function(){
       $(".observation_body").editInPlace({
@@ -7,28 +7,32 @@
           params: 'field=body',
           field_type: "textarea",
       		textarea_rows: "3",
-	      	textarea_cols: "50",
+	      	textarea_cols: "65",
 	      	bg_out: "#f1f1f1"
       });
+      $('.remove_obs').click(function(){
+        var id = $(this).attr('id');
+        $('#observation_'+id).html('<div style="margin-top: 25px;height:60px"><img src="/images/loading.gif"> eliminando... </div>');
+      })
     });
  </script>
   <div class="observation_header">
-    <%= Observation.human_attribute_name(:category)%> <strong><%= observation.category %></strong>
+    <%= Observation.human_attribute_name(:category)%> <strong><%= observation.category.titleize %></strong>
   </div>
   <div>
-    <p class="observation_body" style="background: #f1f1f1;border: solid 1px #ccc;padding: 5px;width:100%" id="<%= observation.id %>">
+    <p class="observation_body" id="<%= observation.id %>">
     <%= observation.body %>
   </div>
-  <div class="observation_footer" style="font-size:11px">
-    <div class="user_info" style="float:left;margin-bottom:10x;">
+  <div class="observation_footer">
+    <div class="user_info left">
       <%= Observation.human_attribute_name(:user)%>: <strong><%= observation.user.full_name %></strong>
       -
       <%= Observation.human_attribute_name(:created_at)%>: <strong><%= l observation.created_at, :format=> :short %></strong>
     </div>
-    <div class="link_to_delete" style="float:right;margin-bottom:10x;">
-        <%= link_to t('helpers.links.delete'), observation, :confirm => t('helpers.confirm_message'), :method => :delete, :remote => true  %>
+    <div class="link_to_delete right" >
+        <%= link_to t('helpers.links.delete'), observation, :method => :delete, :remote => true, :class => "remove_obs", :id => observation.id  %>
     </div>
   </div>
   <div class="clear"></div>
-</li>
+</div>
 

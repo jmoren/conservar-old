@@ -5,6 +5,7 @@ class CollectionsController < ApplicationController
 
   def show
     @collection = Collection.find(params[:id], :include => :items)
+    @items = @collection.items.page(params[:page])
   end
 
   def new

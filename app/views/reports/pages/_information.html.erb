@@ -1,14 +1,15 @@
-<div id="report_observation_form" style="float:right;width:30%">
-  <h3 style="float:left;font-size:16px;margin:20px 0 10px 0 "> Nueva Observacion </h3>
-  <p>
+<div id="report_observation_form">
+  <h2> Nueva Observacion </h2>
+  <div>
     <%= render 'observations/form' %>
-  </p>
+  </div>
+  <div class="clear"></div>
 </div>
-<h3> Observaciones </h3>
-<ol class="observations" style="width:60%;float:left">
+<div id="observations">
+  <h2> Observaciones </h2>
   <% @report.observations.each do |observation| %>
     <%= render :partial => "observations/observation", :locals => {:observation => observation } %>
   <% end %>
-</ol>
+</div>
 <div class="clear"></div>
 

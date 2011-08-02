@@ -65,6 +65,9 @@ a {
   text-decoration: none;
   font-weight: bold;
 }
+a, a:active, a:focus {
+  outline: 0 !important;
+}
 #login_form {
   border: solid 2px #ccc;
   padding: 10px;
@@ -90,7 +93,8 @@ label.message{
   padding: 3px;
   min-height:50px;
   border-radius: 5px;
-  width: 98%;
+  width: 99%;
+  margin: 0 5px;
 }
 .tooltip{
     color: #fff;
@@ -126,21 +130,21 @@ textarea:focus, input[type="text"]:focus,input[type="password"]:focus {
 	box-shadow: 0px 0px 5px #007eff;
 }
 select, input[type="search"]{
-  border: solid 1px #ccc;
-  border-radius: 5px;
-  background: #f1f1f1;
-  -webkit-transition: .1s ease-in-out;
-  -moz-transition: .1s ease-in-out;
+  text-shadow: 0px 1px 0px #fff;
+	outline: none;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	-webkit-transition: .3s ease-in-out;
+  -moz-transition: .3s ease-in-out;
+  padding: 2px;
 }
 select:focus{
   border: solid 1px #fafafa;
   outline: 3px auto #007eff;
 }
-input[type="search"]:focus{
-  background: #fff;
-  border: solid 1px #fafafa;
-  outline: 3px auto #007eff;
-}
+
 
 input[type="submit"]{
   border-radius: 5px;
@@ -166,7 +170,7 @@ input[type="submit"]{
   }
 .left{float: left;}
 .right{float:right}
-.col_left{width:49%;margin-right:10px}
+.col_left{width:48%;margin-right:10px}
 .col_right{width:49%;margin-right:10px}
 .col_left_info{width:39%;margin-right:10px}
 .col_right_info{width:39%;margin-right:10px}
@@ -185,7 +189,7 @@ input[type="submit"]{
 #item_form .delete_message_option .can_delete_field input{float:left;margin:2px 3px 0 -2px}
 #item_form #submit_buttons {text-align:left}
 #item_form #submit_buttons .separator {margin: 0 10px}
-#item_form label.message{color: #DD4B39;width:150px;float:left;padding-left:85px;margin-top:-5px}
+#item_form label.message{color: #DD4B39;width:150px;float:left;padding-left:85px}
 #item_form .text_form label.message{color: #DD4B39;width:150px;float:left;margin-top:-5px;padding-left:0px !important}
 #item_form p{margin: 20px 0}
 #report_form{padding: 20px;}
@@ -305,45 +309,19 @@ input[type="submit"]{
   color: #666;
   text-decoration: none;
 }
-.link_new {
-}
-.link_edit {
-}
-.link_delete {
-}
-.link_pdf {
-}
-.link_open {
-}
-.link_close {
-}
 
-.pagination {
-  text-align:center;
-}
-.pagination .page{
+#items .pagination .page{
   margin: 2px;
-  padding: 1px 3px;
-  border: solid 1px #ccc;
-  border-radius: 3px;
 }
-.pagination .current{
-  background: #222;
-  padding: 0px 2px;
-  color: #fff;
-  border: solid 1px #222;
-  border-radius: 3px;
-}
-.pagination .page a{
+#items .pagination .current{
   color: #666;
-  padding: 1px 3px;
+}
+#items .pagination .page a{
   text-decoration: none;
   text-align:center;
 }
-.pagination .next a, .prev a, .first a, .last a {
-  color: #666;
+#items .pagination .next a, .prev a, .first a, .last a {
   text-decoration: none;
-  margin: 0 3px;
 }
 li.help_list:hover {
   border: solid #ccc 1px;
@@ -466,7 +444,54 @@ li.help_list{
   text-align: center;
 }
 /* galleries */
+/* observations */
 
+#report_observation_form{
+  float:right;
+  width:40%;
+  background: #f1f1f1;
+  border-radius: 10px;
+  padding: 10px
+}
+#report_observation_form h2{color:#3D9400;}
+#new_observation_form{
+  float:left;
+  margin-top: 0px;
+  font-size: 12px;
+}
+#new_observation_form a{
+  color: #DD4B39
+}
+#observations{
+  padding: 10px;
+  width:55%;
+  float:left;
+  margin: auto;
+}
+#observations h2{color:#3D9400;margin-left:10px}
+#observations .observation{
+  width:95%;
+  margin: 5px auto;
+  padding-bottom: 10px;
+  border-bottom: #ccc 1px dotted;
+}
+#observations .observation .observation_header{
+}
+
+#observations .observation .observation_body{
+  background: #f1f1f1;
+  border: solid 1px #ccc;
+  padding: 5px;
+}
+
+#observations .observation .observation_footer{
+  font-size:11px;
+  margin-bottom:10x;
+}
+#observations .observation .observation_footer a{
+  color: #DD4B39
+}
+/* observations */
 /* tasks */
 #tasks              { width: 99%;margin: 20px 10px; }
 #tasks  table       { width: 100%;border-collapse: collapse; }
@@ -494,7 +519,7 @@ li.help_list{
 #collection_item_panel{
   width: 46%;
   margin: 3px auto;
-  min-height: 150px;
+  min-height: 180px;
   border: solid 1px #ccc;
   padding: 15px;
   border-radius: 5px;
@@ -502,10 +527,15 @@ li.help_list{
 #collection_item_panel h3 a{color:#3D9400;margin-left: 5px}
 .panel_item_photo{width: 20%; padding: 5px}
 .panel_item{width: 75%; padding: 5px; margin-left: 5px}
+
 #items_collection{
   width: 50%;
 }
+item_collection nav.pagination{
+  margin-bottom: 5px;
+}
 .item_collection{
+  float: left;
   border: solid 1px #ccc;
   padding: 5px;
   margin: 3px;

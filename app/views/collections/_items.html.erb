@@ -1,0 +1,14 @@
+<%= paginate @items, :remote => true %>
+<% @items.each do |item| %>
+  <div id="item_<%= item.id%>" class="item_collection">
+    <div> Codigo:<%= item.code %></div>
+    <div> Titulo:<%= item.title %></div>
+    <div> Subcategoria: <%= item.subcategory.name %> (<%= item.category.name %>)</div>
+    <div> Autor: <%= item.author %></div>
+    <div>
+      <%= link_to 'eliminar',remover_item_path(item), :method => :post,:remote => true, :class => "remove_item", :id => item.id  %> |
+      <%= link_to 'detalles', item, :remote => true, :class=> "item_info" %>
+    </div>
+  </div>
+<% end %>
+

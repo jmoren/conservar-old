@@ -3,14 +3,14 @@ class ItemsController < ApplicationController
     sleep 1
     if params[:q]
       @items = Item.search(params[:q]).page params[:page]
-    elsif params[:category]
+    elsif params[:category] && params[:category] != '0'
       @items = Item.where(:item_category_id => params[:category]).page params[:page]
-    elsif params[:subcategory]
+    elsif params[:subcategory] && params[:subcategory] != '0'
       @items = Item.where(:item_subcategory_id => params[:subcategory]).page params[:page]
-    elsif params[:collection]
+    elsif params[:collection] && params[:collection] != '0'
       @items = Item.where(:collection_id => params[:collection]).page params[:page]
     else
-      @items = Item.page params[:page]
+      @items = Item.page(params[:page])
     end
   end
 

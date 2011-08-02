@@ -29,27 +29,20 @@
     <% else %>
       <h3> Items </h3>
       <div class="left" id="items_collection">
-        <% @collection.items.each do |item| %>
-          <div id="item_<%= item.id%>" class="item_collection left">
-            <div> Codigo:<%= item.code %></div>
-            <div> Titulo:<%= item.title %></div>
-            <div> Subcategoria: <%= item.subcategory.name %> (<%= item.category.name %>)</div>
-            <div> Autor: <%= item.author %></div>
-            <div>
-              <%= link_to 'eliminar',remover_item_path(item), :method => :post,:remote => true, :class => "remove_item", :id => item.id  %> |
-              <%= link_to 'detalles', item, :remote => true, :class=> "item_info" %>
-            </div>
-          </div>
-        <% end %>
+        <%= render :partial => "items" %>
       </div>
       <div class="left" id="collection_item_panel"><div style="text-align:center;margin-top: 40px"> No se selecciono ningun item</div></div>
       <div class="clear"></div>
     <% end %>
   </div>
   <div class="clear"></div>
-  <div>
-  <%= link_to t('helpers.links.edit'), edit_collection_path(@collection) %> |
-  <%= link_to t('helpers.links.delete'), @collection, :confirm => 'Esta seguro que desea eliminar esta coleccion?', :method => :delete %>
-  </div>
+  <p>
+    <div class="button">
+      <%= link_to t('helpers.links.edit'), edit_collection_path(@collection) %>
+    </div>
+    <div class="button">
+      <%= link_to t('helpers.links.delete'), @collection, :confirm => 'Esta seguro que desea eliminar esta coleccion?', :method => :delete %>
+    </div>
+  </p>
 </div>
 
