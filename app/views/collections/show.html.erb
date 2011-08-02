@@ -2,38 +2,54 @@
 <script>
   $(function(){
     $(".remove_item").click(function(){
-      $('#loading').show();
+      var id = $(this).attr('id');
+      $('#item_'+id).html("<div style='text-align:center;margin-top: 40px'><img src='/images/loading.gif'> Eliminando</div>");
+    });
+    $(".item_info").click(function(){
+      $('#collection_item_panel').html("<div style='text-align:center;margin-top: 40px'><img src='/images/loading2.gif'></div>");
     })
+
   })
 </script>
-<small>Creado por <%= @collection.user.full_name %> el <%= l @collection.created_at, :format => :short %></small>
-<p>
-  <strong><%= Collection.human_attribute_name(:name)%>:</strong>
-  <%= @collection.name %>
-</p>
-<p>
-  <strong><%= Collection.human_attribute_name(:description)%>:</strong>
-  <%= simple_format @collection.description, :class => "text_area" %>
-</p>
-<h3> Items </h3>
-<p>
-  <% @collection.items.each do |item| %>
-    <div id="item_<%= item.id%>" style="margin: 10px; border: solid 1px #333;background: #f1f1f1;padding: 5px; width: 30%;float:left">
-      <span style="float:right"><%= link_to 'x',remover_item_path(item), :method => :post,:remote => true, :class => "remove_item"  %></span>
-      <strong> Codigo: </strong><%= item.code %>
-      <strong> Titulo: </strong><%= item.title %>
-      <br>
-      <strong> Subcategoria: </strong><%= item.subcategory.name %> (<%= item.category.name %>)
-      <br>
-      <strong> Autor: </strong><%= item.author %>
-      <span style="float:right"><%= link_to 'Ver', item  %></span>
-    </div>
-  <% end %>
-</p>
-<div class="clear"></div>
-<div id="loading" style="text-align:center;display:none;z-index:99999;position:absolute;border: solid 1px #666;padding:10px;background: #fff;width:15%;top: 50%;left: 40%;"><%= image_tag('loading2.gif')%><div><small> eliminando...</small></div></div>
-<p>
+<div id="collection">
+  <div id="colecction_info">
+    <small>Creado por <%= @collection.user.full_name %> el <%= l @collection.created_at, :format => :short %></small>
+    <p>
+      <strong><%= Collection.human_attribute_name(:name)%>:</strong>
+      <%= @collection.name %>
+    </p>
+    <p>
+      <strong><%= Collection.human_attribute_name(:description)%>:</strong>
+      <%= simple_format @collection.description, :class => "text_area" %>
+    </p>
+  </div>
+  <div id="collection_items">
+    <% if @collection.items.empty? %>
+      <h3> No hay objetos en esta coleccion </h3>
+    <% else %>
+      <h3> Items </h3>
+      <div class="left" id="items_collection">
+        <% @collection.items.each do |item| %>
+          <div id="item_<%= item.id%>" class="item_collection left">
+            <div> Codigo:<%= item.code %></div>
+            <div> Titulo:<%= item.title %></div>
+            <div> Subcategoria: <%= item.subcategory.name %> (<%= item.category.name %>)</div>
+            <div> Autor: <%= item.author %></div>
+            <div>
+              <%= link_to 'eliminar',remover_item_path(item), :method => :post,:remote => true, :class => "remove_item", :id => item.id  %> |
+              <%= link_to 'detalles', item, :remote => true, :class=> "item_info" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="left" id="collection_item_panel"><div style="text-align:center;margin-top: 40px"> No se selecciono ningun item</div></div>
+      <div class="clear"></div>
+    <% end %>
+  </div>
+  <div class="clear"></div>
+  <div>
   <%= link_to t('helpers.links.edit'), edit_collection_path(@collection) %> |
-  <%= link_to t('helpers.links.delete'), @collection, :confirm => 'Are you sure?', :method => :delete %>
-</p>
+  <%= link_to t('helpers.links.delete'), @collection, :confirm => 'Esta seguro que desea eliminar esta coleccion?', :method => :delete %>
+  </div>
+</div>
 

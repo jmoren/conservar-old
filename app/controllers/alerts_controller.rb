@@ -49,6 +49,8 @@ class AlertsController < ApplicationController
 
   def update_in_place
     @alert = Alert.find(params[:element_id])
+    puts params[:field]
+    puts  params[:update_value]
     @alert.update_attributes(params[:field] => params[:update_value])
     render :text => @alert.send(params[:field])
   end

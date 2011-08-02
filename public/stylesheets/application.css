@@ -487,6 +487,32 @@ li.help_list{
 #collections  table tr    { line-height: 1.5em; border-bottom: 1px solid #ccc; }
 #collections  table tr td { padding: 5px; }
 
+#collection{
+  width: 90%;
+  margin: auto;
+}
+#collection_item_panel{
+  width: 46%;
+  margin: 3px auto;
+  min-height: 150px;
+  border: solid 1px #ccc;
+  padding: 15px;
+  border-radius: 5px;
+}
+#collection_item_panel h3 a{color:#3D9400;margin-left: 5px}
+.panel_item_photo{width: 20%; padding: 5px}
+.panel_item{width: 75%; padding: 5px; margin-left: 5px}
+#items_collection{
+  width: 50%;
+}
+.item_collection{
+  border: solid 1px #ccc;
+  padding: 5px;
+  margin: 3px;
+  border-radius: 5px;
+  width: 45%;
+  min-height: 90px;
+}
 /* collections */
 /*admin */
 #admin_index {
