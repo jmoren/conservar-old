@@ -37,9 +37,9 @@
       <% end %>
       <span id="dates" style="<%= @report.has_dates? ? '' : 'display:none' %>">
         <strong>Comienza el</strong>
-        <%= f.text_field :start_date, :size => 20, :value => (@report.new_record? || @report.start_date.nil?) ? nil : (l @report.start_date, :format => '%A, %d %B %Y') %>
+        <%= f.text_field :start_date, :size => 20, :value => (@report.new_record? || @report.start_date.nil?) ? nil : (l @report.start_date, :format => '%d/%m/%Y') %>
         <strong>hasta</strong>
-        <%= f.text_field :end_date, :size => 20 , :value => (@report.new_record? || @report.end_date.nil?) ? nil : (l @report.end_date, :format => '%A, %d %B %Y') %>
+        <%= f.text_field :end_date, :size => 20 , :value => (@report.new_record? || @report.end_date.nil?) ? nil : (l @report.end_date, :format => '%d/%m/%Y') %>
       </span>
     </div>
   </div>

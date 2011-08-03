@@ -60,7 +60,7 @@ class Report < ActiveRecord::Base
     self.code = "RC" + s + " " + self.item.code
   end
   def report_event
-    unless self.end_date.nil?
+    if !self.end_date.nil?  && self.end_date_changed?
       Event.create(:title => "Fin del reporte #{self.code}", :activity => "cierre del reporte de conservacion", :start_at => self.end_date.to_time + 8.hours, :end_at => self.end_date.to_time + 17.hours, :user_id => self.user_id)
     end
   end

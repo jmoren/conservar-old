@@ -20,13 +20,13 @@ $(function(){
 
 	  $("#report_start_date" ).datepicker({
         minDate: -2,
-			  dateFormat:"DD, d MM yy",
+			  //dateFormat:"DD, d MM yy",
 			  showOtherMonths: true,
   			selectOtherMonths: true
 			});
     $("#report_end_date").datepicker({
         minDate: +1,
-			  dateFormat:"DD, d MM yy",
+			  //dateFormat:"DD, d MM yy",
 			  showOtherMonths: true,
   			selectOtherMonths: true,
   			onSelect: function( selectedDate ) {
