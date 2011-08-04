@@ -2,6 +2,16 @@
 
 es-AR:
   views:
+    flash:
+      edit: "Fue actualizado con exito"
+      create: "Fue creado con exito"
+      delete: "Se elimino con exito"
+      closed:
+        deterioration: "Se cerro con exito el problema detectado"
+        report: "Se cerro con exito el reporte %{code}"
+      open:
+        deterioration: "Se abrio el problema detectado"
+        report: "Se abrio el reporte %{code}"
     pagination:
       previous: "&laquo; Ant"
       next: "Prox &raquo;"
@@ -148,6 +158,7 @@ es-AR:
       add_observation: 'Crear Observacion'
       cancel: "Cancelar"
       new_report: "Nuevo Reporte"
+      manage_images: "Adm. Imagenes"
     text:
       before_upload: 'Puedes seleccionar hasta 5 fotos a la vez para subir. Antes de eso, asegurate que los nombres de las fotos no contengan espacios ni caracteres raros (%,$,/, etc. Reemplazalos por guiones bajos o medios).'
       add_zoom: 'Haz click en cada foto que quieras activar el zoom'
@@ -265,7 +276,7 @@ es-AR:
         description: "Descripcion"
         user: 'Usuario'
         created_at: 'Creado'
-        upload: 'Sube las fotos'
+        upload: 'Cargar imagenes'
         delete: 'Eliminar'
         size: 'Tamano'
         image: 'Imagen'

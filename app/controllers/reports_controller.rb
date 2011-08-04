@@ -24,7 +24,7 @@ class ReportsController < ApplicationController
       @report.start_date = @report.end_date = nil
     end
     if @report.save
-      redirect_to @report, :notice => "Successfully created report."
+      redirect_to @report, :notice => t("views.flash.create")
     else
       render :action => 'new'
     end
@@ -41,7 +41,7 @@ class ReportsController < ApplicationController
       dates = { :start_date => nil, :end_date => nil }
     end
     if @report.update_attributes(params[:report].merge(dates) )
-      redirect_to @report, :notice  => "Successfully updated report."
+      redirect_to @report, :notice  => t("views.flash.edit")
     else
       render :action => 'edit'
     end
@@ -50,17 +50,17 @@ class ReportsController < ApplicationController
   def destroy
     @report = Report.find(params[:id])
     @report.destroy
-    redirect_to reports_url, :notice => "Successfully destroyed report."
+    redirect_to reports_url, :notice => t("views.flash.delete")
   end
   def close
     @report = Report.find(params[:id])
     @report.close
-    redirect_to @report, :notice => "Successfully closed report."
+    redirect_to @report, :notice => t("views.flash.closed.report", :code => @report.code)
   end
   def open
     @report = Report.find(params[:id])
     @report.open
-    redirect_to @report, :notice => "Successfully opened report."
+    redirect_to @report, :notice => t("views.flash.open.report", :code => @report.code)
   end
 
   def compare_galleries

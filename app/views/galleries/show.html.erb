@@ -1,4 +1,3 @@
-<% title "Gallery" %>
 <%= javascript_include_tag 'jquery.colorbox'%>
 <%= stylesheet_link_tag "colorbox" %>
 <script>
@@ -6,38 +5,39 @@
     $(".gallery").colorbox({transition:"elastic"});
   });
 </script>
-<p>
-  <%= link_to @gallery.galleryable_type, @gallery.galleryable %>
-  >
-  <strong>Gallery #<%= @gallery.id %></strong>
-
-</p>
-<p>
-  <p><small> Created by <strong><%= @gallery.user.email %></strong></small></p>
-  <br>
-  <strong>Description:</strong>
-  <%= @gallery.description %>
-</p>
-<p>
-  <% unless @gallery.photos.empty? %>
-  <div> Images </div>
-  <ul style="list-style:none;">
-    <% @gallery.photos.each do |photo| %>
-      <li style="float:left;margin-left:5px;">
-        <a href="<%=photo.image.url(:normal) %>" title="<%= truncate(photo.description, :length => 40) %>" rel="gallery_<%=photo.gallery.id%>" class="gallery" ><%= image_tag(photo.image.url(:small))%>
-            </a>
-      </li>
-    <% end %>
-   </ul>
-   <% else %>
-   <h3> No images yet</h3>
-   <% end %>
+<div id="gallery">
+  <div class="left">
+    <%= link_to @gallery.galleryable_type, @gallery.galleryable %>
+    >
+    <strong>Gallery #<%= @gallery.id %></strong>
+  </div>
+  <div class="right">
+    <div class="button"><%= link_to t('helpers.links.edit'), edit_gallery_path(@gallery) %></div>
+    <div class="button"><%= link_to t('helpers.links.manage_images'),uploader_gallery_path(@gallery)  %></div>
+    <div class="button"><%= link_to t('helpers.links.delete'), @gallery, :confirm => 'Are you sure?', :method => :delete %></div>
+  </div>
+  <div class="clear"></div>
+  <div id="gallery_info">
+    <h2> Galeria #<%= @gallery.id%></h2>
+    <p>Creado por <strong><%= @gallery.user.full_name %></strong></p>
+    <p><strong>Description:</strong></p>
+    <%= simple_format @gallery.description, :class => "text_area" %>
+  </div>
+  <div id="gallery_images">
+    <h2> Imagenes </h2>
+    <% unless @gallery.photos.empty? %>
+    <ul style="list-style:none;">
+      <% @gallery.photos.each do |photo| %>
+        <li style="float:left;margin-left:5px;">
+          <a href="<%=photo.image.url(:normal) %>" title="<%= truncate(photo.description, :length => 40) %>" rel="gallery_<%=photo.gallery.id%>" class="gallery" ><%= image_tag(photo.image.url(:small))%>
+              </a>
+        </li>
+      <% end %>
+     </ul>
+     <% else %>
+     <h3>  <span class="button"><%= link_to 'Agregar imagenes',uploader_gallery_path(@gallery)  %></span></h3>
+     <% end %>
    <div class="clear"></div>
-</p>
-<p>
-  <%= link_to "Edit", edit_gallery_path(@gallery) %> |
-  <%= link_to 'Manage Images',uploader_gallery_path(@gallery)  %> |
-  <%= link_to "Destroy", @gallery, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", galleries_path %>
-</p>
+  </div>
+</div>
 

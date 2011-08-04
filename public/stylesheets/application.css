@@ -61,7 +61,7 @@ body {
   border: solid 1px #F7F55C;
 }
 a {
-  color: #DD4B39;
+  color: #36C;
   text-decoration: none;
   font-weight: bold;
 }
@@ -90,11 +90,10 @@ label.message{
 .text_area {
   background: #f1f1f1;
   border: solid 1px #ccc;
-  padding: 3px;
+  padding: 5px;
   min-height:50px;
   border-radius: 5px;
   width: 99%;
-  margin: 0 5px;
 }
 .tooltip{
     color: #fff;
@@ -283,6 +282,7 @@ input[type="submit"]{
 #content {
   margin: 10px;
   padding: 10px;
+  min-height: 460px;
 }
 /* common styles */
 .button{
@@ -371,7 +371,7 @@ li.help_list{
 
 #item    {padding:15px;border: solid #ccc 1px; border-radius: 10px;width:90%;margin:20px auto}
 #item  h3 {color:#3D9400}
-#item .item_info        {margin: 10px 0;padding: 3px 5px}
+#item .item_info {margin: 10px 0;padding: 3px 5px}
 #item .item_info .title {width: 100px;float:left;font-weight:bold}
 #item .item_info:hover  {background: #FCFBB6;padding: 3px 5px}
 #item a {color:#36C}
@@ -405,15 +405,26 @@ li.help_list{
 .report_photo{ float:left;margin:5px 5px 5px 0;padding:5px}
 /* reports */
 /* galleries */
+#gallery{width: 80%;margin:auto;border: solid 1px #ccc;padding: 10px;border-radius: 10px}
+#gallery h2{color:#3D9400}
 #galleries { margin: 20px 10px; width: 99%; }
-#galleries table{width: 100%;border-collapse: collapse;}
-#galleries table th{ text-align: left;background: #26456D ; padding: 5px;color: #fff}
+#galleries table { width: 100%;border-collapse: collapse;}
+#galleries table th{ text-align: left;background: #26456D ; padding: 5px;color: #fff;border-collapse: collapse;}
 #galleries table tr{ line-height: 1.5em; border-bottom: 1px solid #ccc;}
 #galleries table tr td{ padding: 5px;}
 #galleries table tr td.belongs_to{ padding: 5px; width: 10%}
 #galleries table tr td.description{ padding: 5px; width: 70%}
 #galleries table tr td.actions{ padding: 5px; width: 10%}
-
+#gallery #table_photos table {border-collapse: collapse;}
+#gallery #table_photos  table th { text-align: left;background: #26456D ; padding: 5px;color: #fff;}
+#gallery #table_photos  table tr td { padding: 5px; }
+#gallery #table_photos  table tr td.image { padding: 5px; width:8%; text-align: center; }
+#gallery #table_photos  table tr td.description { padding: 5px; width: 12% }
+#gallery #table_photos  table tr td.date { padding: 5px; width: 40% }
+#gallery #table_photos  table tr td.size { padding: 5px; width: 10%;text-align: center }
+#gallery #table_photos  table tr td.delete { padding: 5px; width: 10%;text-align: center }
+#gallery #table_photos  table tr:hover{background: #FCFBB6}
+#gallery .check_uncheck{float:left;font-size:11px;color:#666;margin-top:15px;}
 .thumbs {
   list-style:none;
   padding: 5px;
@@ -437,8 +448,6 @@ li.help_list{
 }
 /* galleries */
 #footer {
-  margin: 10px;
-  padding: 10px;
   font-size: 11px;
   color: #666;
   text-align: center;
@@ -516,9 +525,11 @@ li.help_list{
   width: 90%;
   margin: auto;
 }
+#collection h2{
+  color:#3D9400;
+}
 #collection_item_panel{
   width: 46%;
-  margin: 3px auto;
   min-height: 180px;
   border: solid 1px #ccc;
   padding: 15px;
@@ -531,9 +542,7 @@ li.help_list{
 #items_collection{
   width: 50%;
 }
-item_collection nav.pagination{
-  margin-bottom: 5px;
-}
+
 .item_collection{
   float: left;
   border: solid 1px #ccc;
@@ -543,6 +552,9 @@ item_collection nav.pagination{
   width: 45%;
   min-height: 90px;
 }
+#collection .item_info        {margin: 10px 0;padding: 3px 5px}
+#collection .item_info .title {width: 80px;float:left;font-weight:bold}
+#collection .item_info p      {margin: 10px 0;padding: 3px}
 /* collections */
 /*admin */
 #admin_index {

@@ -16,7 +16,7 @@ class CollectionsController < ApplicationController
     @collection = Collection.new(params[:collection])
     @collection.user = current_user
     if @collection.save
-      redirect_to @collection, :notice => "Successfully created collection."
+      redirect_to @collection, :notice => t("views.flash.create")
     else
       render :action => 'new'
     end
@@ -29,7 +29,7 @@ class CollectionsController < ApplicationController
   def update
     @collection = Collection.find(params[:id])
     if @collection.update_attributes(params[:collection])
-      redirect_to @collection, :notice  => "Successfully updated collection."
+      redirect_to @collection, :notice  => t("views.flash.edit")
     else
       render :action => 'edit'
     end
@@ -45,7 +45,7 @@ class CollectionsController < ApplicationController
         end
       end
     end
-    redirect_to collections_url, :notice => "Successfully destroyed collection."
+    redirect_to collections_url, :notice => t("views.flash.delete")
   end
 
 end

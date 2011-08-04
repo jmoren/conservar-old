@@ -42,7 +42,7 @@ $(function () {
     <small>
       Creado por <strong style="color:#333"><%= @report.user.full_name %></strong> hace
       <%= distance_of_time_in_words(Time.now,@report.created_at) %>.
-      Asignado a <strong style="color:#3D9400"><%= @report.assigned.full_name %></strong>
+      Asignado a <strong style="color:#3D9400"><%= @report.assigned.try(:full_name) || "DESCONOCIDO" %></strong>
     </small>
   </div>
   <div id="report_links">

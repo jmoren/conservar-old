@@ -1,4 +1,3 @@
 $("#loading").fadeOut('slow');
-$("#item_<%= @item.id %>").fadeOut('slow');
-$("#item_<%= @item.id %>").remove();
+$('#items_collection').html("<%= escape_javascript(render :partial => 'collections/items')%>");
 

@@ -25,7 +25,7 @@ class GalleriesController < ApplicationController
     @gallery = parent.galleries.new(params[:gallery])
     @gallery.user = current_user
     if @gallery.save
-      redirect_to uploader_gallery_path(@gallery), :notice => "Successfully created gallery."
+      redirect_to uploader_gallery_path(@gallery), :notice => t("views.flash.create")
     else
       render :action => 'new'
     end
@@ -39,7 +39,7 @@ class GalleriesController < ApplicationController
 
     @gallery = Gallery.find(params[:id])
     if @gallery.update_attributes(params[:gallery])
-      redirect_to uploader_gallery_path(@gallery), :notice  => "Successfully updated gallery."
+      redirect_to uploader_gallery_path(@gallery), :notice  => t("views.flash.edit")
     else
       render :action => 'edit'
     end
@@ -48,7 +48,7 @@ class GalleriesController < ApplicationController
   def destroy
     @gallery = Gallery.find(params[:id])
     @gallery.destroy
-    redirect_to galleries_url, :notice => "Successfully destroyed gallery."
+    redirect_to galleries_url, :notice => t("views.flash.delete")
   end
 
   def uploader

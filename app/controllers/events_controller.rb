@@ -15,7 +15,7 @@ class EventsController < ApplicationController
     @event = Event.new(params[:event])
     @event.user = current_user
     if @event.save
-      redirect_to @event, :notice => "Successfully created event."
+      redirect_to @event, :notice => t("views.flash.create")
     else
       render :action => 'new'
     end
@@ -28,7 +28,7 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     if @event.update_attributes(params[:event])
-      redirect_to @event, :notice  => "Successfully updated event."
+      redirect_to @event, :notice  => t("views.flash.edit")
     else
       render :action => 'edit'
     end
@@ -37,7 +37,7 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
     @event.destroy
-    redirect_to events_url, :notice => "Successfully destroyed event."
+    redirect_to events_url, :notice => t("views.flash.delete")
   end
 
   def update_in_calendar

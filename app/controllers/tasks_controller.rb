@@ -35,7 +35,7 @@ class TasksController < ApplicationController
     if @task.save
       @task.deterioration.update_hours(params[:task][:hours].to_f)
       @task.deterioration.update_status
-      redirect_to report_deterioration_path(@task.report,@task.deterioration), :notice => "Successfully created task."
+      redirect_to report_deterioration_path(@task.report,@task.deterioration), :notice => t("views.flash.create")
     else
       render :action => 'new'
     end
@@ -50,7 +50,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     if @task.update_attributes(params[:task])
       @task.deterioration.update_status
-      redirect_to report_deterioration_path(@task.report,@task.deterioration), :notice  => "Successfully updated task."
+      redirect_to report_deterioration_path(@task.report,@task.deterioration), :notice  => t("views.flash.edit")
     else
       render :action => 'edit'
     end
@@ -61,7 +61,7 @@ class TasksController < ApplicationController
     report = @task.report
     deterioration = @task.deterioration
     @task.destroy
-    redirect_to report_deterioration_path(@task.report,@task.deterioration), :notice => "Successfully destroyed task."
+    redirect_to report_deterioration_path(@task.report,@task.deterioration), :notice => t("views.flash.delete")
   end
 end
 

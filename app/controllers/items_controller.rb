@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
     @item = Item.new(params[:item])
     @item.user = current_user
     if @item.save
-      redirect_to @item.subcategory.generic_fields.empty? ? @item : complete_fields_item_path(@item), :notice => "Successfully created item."
+      redirect_to @item.subcategory.generic_fields.empty? ? @item : complete_fields_item_path(@item), :notice => t("views.flash.create")
     else
       render :action => 'new'
     end
@@ -72,7 +72,7 @@ class ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if @item.update_attributes(params[:item])
-      redirect_to @item, :notice  => "Successfully updated item."
+      redirect_to @item, :notice  => t("views.flash.edit")
     else
       render :action => 'edit'
     end
@@ -81,7 +81,7 @@ class ItemsController < ApplicationController
   def destroy
     @item = Item.find(params[:id])
     @item.destroy
-    redirect_to items_url, :notice => "Successfully destroyed item."
+    redirect_to items_url, :notice => t("views.flash.delete")
   end
 
   def get_subcategories
@@ -94,6 +94,8 @@ class ItemsController < ApplicationController
   end
   def remove_from_collection
     @item = Item.find(params[:id])
+    @collection = @item.collection
+    @items = @collection.items.page(params[:page])
     @item.remove_from_collection
   end
 end

@@ -15,13 +15,13 @@ class DeteriorationsController < ApplicationController
     if @deterioration.report.closed?
       @deterioration.report.open
     end
-    redirect_to @deterioration.report, :notice => "Successfully opened deterioration."
+    redirect_to @deterioration.report, :notice => t("views.flash.open.deteroiration")
   end
   def close
     @deterioration = Deterioration.find(params[:id])
     if @deterioration.update_attributes(:fixed => true)
       @deterioration.tasks.update_all(:hours => 0.0)
-      redirect_to @deterioration.report, :notice => "Successfully closed deterioration."
+      redirect_to @deterioration.report, :notice => t("views.flash.closed.deterioration")
     end
   end
 

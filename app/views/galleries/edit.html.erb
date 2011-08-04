@@ -1,8 +1,4 @@
-<% title "Edit Gallery" %>
+<% title "Editar #{Gallery.model_name.human}" %>
 
 <%= render 'form' %>
 
-<p>
-  <%= link_to "Show", @gallery %> |
-  <%= link_to "View All", galleries_path %>
-</p>

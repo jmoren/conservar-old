@@ -6,7 +6,13 @@ class Collection < ActiveRecord::Base
   validates_presence_of :name, :description
   validates_uniqueness_of :name
 
+  before_destroy :reset_items
 
+  def reset_items
+    items.each do |item|
+      item.remove_from_collection
+    end
+  end
   def gral_status
     items = self.items.group(:status).size
   end

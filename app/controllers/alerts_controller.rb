@@ -44,7 +44,7 @@ class AlertsController < ApplicationController
     @alert = Alert.find(params[:id])
     @parent = @alert.alertable
     @alert.destroy
-    redirect_to polymorphic_path([@parent,:alerts]), :notice => "Se elimino la alerta"
+    redirect_to polymorphic_path([@parent,:alerts]), :notice => t("views.flash.delete")
   end
 
   def update_in_place

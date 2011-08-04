@@ -1,4 +1,19 @@
-<%= paginate @items, :remote => true %>
+<script>
+  $(function(){
+    $(".remove_item").click(function(){
+      var id = $(this).attr('id');
+      $('#item_'+id).html("<div style='text-align:center;margin-top: 40px'><img src='/images/loading.gif'> Eliminando</div>");
+    });
+    $(".item_info_link").click(function(){
+      $('#collection_item_panel').html("<div style='text-align:center;margin-top: 40px'><img src='/images/loading2.gif'></div>");
+    });
+    $('nav.pagination a').live("click",function(){
+      $("#items_collection").html('<div style="text-align:center;margin-top:40px;"><img src="/images/loading2.gif"</div>');
+    });
+  });
+</script>
+<div id="pag_items_collection" style="margin-right: 25px" class="right"><%= paginate @items, :remote => true %></div>
+<div class="clear"></div>
 <% @items.each do |item| %>
   <div id="item_<%= item.id%>" class="item_collection">
     <div> Codigo:<%= item.code %></div>
@@ -7,7 +22,7 @@
     <div> Autor: <%= item.author %></div>
     <div>
       <%= link_to 'eliminar',remover_item_path(item), :method => :post,:remote => true, :class => "remove_item", :id => item.id  %> |
-      <%= link_to 'detalles', item, :remote => true, :class=> "item_info" %>
+      <%= link_to 'detalles', item, :remote => true, :class=> "item_info_link" %>
     </div>
   </div>
 <% end %>

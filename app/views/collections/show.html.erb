@@ -1,37 +1,19 @@
 <% title Collection.model_name.human %>
-<script>
-  $(function(){
-    $(".remove_item").click(function(){
-      var id = $(this).attr('id');
-      $('#item_'+id).html("<div style='text-align:center;margin-top: 40px'><img src='/images/loading.gif'> Eliminando</div>");
-    });
-    $(".item_info").click(function(){
-      $('#collection_item_panel').html("<div style='text-align:center;margin-top: 40px'><img src='/images/loading2.gif'></div>");
-    })
-
-  })
-</script>
 <div id="collection">
   <div id="colecction_info">
     <small>Creado por <%= @collection.user.full_name %> el <%= l @collection.created_at, :format => :short %></small>
-    <p>
-      <strong><%= Collection.human_attribute_name(:name)%>:</strong>
-      <%= @collection.name %>
-    </p>
-    <p>
-      <strong><%= Collection.human_attribute_name(:description)%>:</strong>
-      <%= simple_format @collection.description, :class => "text_area" %>
-    </p>
+    <h2> Coleccion <%= @collection.name %></h2>
+    <%= simple_format @collection.description, :class => "text_area" %>
   </div>
   <div id="collection_items">
+    <h2> Items </h2>
     <% if @collection.items.empty? %>
       <h3> No hay objetos en esta coleccion </h3>
     <% else %>
-      <h3> Items </h3>
       <div class="left" id="items_collection">
         <%= render :partial => "items" %>
       </div>
-      <div class="left" id="collection_item_panel"><div style="text-align:center;margin-top: 40px"> No se selecciono ningun item</div></div>
+      <div class="left" style="margin: <%= @collection.items.size > 10 ? '20px' : '0'%> auto;" id="collection_item_panel"><div style="text-align:center;margin-top: 40px"> No se selecciono ningun item</div></div>
       <div class="clear"></div>
     <% end %>
   </div>

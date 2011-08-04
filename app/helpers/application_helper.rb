@@ -107,7 +107,7 @@ module ApplicationHelper
       collection_name = collection.klass.model_name.human
       total = collection.klass.count
       if collection.count > 0
-        "#{collection.offset_value + 1} - #{collection.offset_value + collection.length} de #{total} en total"
+        "#{collection.offset_value + 1} - #{collection.offset_value + collection.length} items"
       end
     end
   end
@@ -115,9 +115,9 @@ module ApplicationHelper
   def search_page_entries_info(collection)
     content_tag :div, :class => "page_info" do
       collection_name = collection.klass.model_name.human
-      total = collection.klass.count
+      total = collection.offset_value + collection.length
       if collection.count > 0
-        "#{collection.offset_value + 1} - #{collection.offset_value + collection.length} de #{collection.size} encontrados"
+        "#{collection.offset_value + 1} - #{collection.offset_value + collection.length} items"
       end
     end
   end

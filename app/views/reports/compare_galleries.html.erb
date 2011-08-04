@@ -1,5 +1,5 @@
 <%= javascript_include_tag 'gallery','zoom'%>
-<% title link_to "Report #{@report.code}", @report %>
+<% title link_to "Report #{@report.code}", @report, :style => "color:#36C" %>
 
 <div class="compare" id="gallery_1_container" style="width:49%;float:left;text-align:left;margin: 0 0 0 -20px;text-align:center">
 <%= form_tag gallery_1_report_galleries_path(@report), :remote => true, :method => "get" do %>

@@ -1,14 +1,55 @@
-<h3><%= link_to @item.collection.name.titleize, @item %></h3>
+<h3>Coleccion <%= link_to @item.collection.name.titleize, @item %></h3>
 <div class="left panel_item_photo" >
   <%= image_tag @item.photo.url(:small) %>
 </div>
 <div class="left panel_item">
-  Code: <%= @item.code %>
+  Code: <%= link_to @item.code, @item %>
   <p>
-    <%= @item.subcategory.name %>(<%= @item.category.name %>)
+    Categoria: <%= @item.subcategory.name %>(<%= @item.category.name %>)
   </p>
   <p>
     Este item tiene <%= @item.reports.size %> reportes
   </p>
+</div>
+<div class="clear"></div>
+<div>
+  <h3> Informacion Adicional </h3>
+  <div>
+    <% @item.generic_text_fields.each do |field| %>
+      <div class="item_info">
+        <div class="title"><%= field.label_attribute.titleize %></div>
+        <%= field.content.blank? ? "sin datos" : field.content %>
+      </div>
+      <div class="clear"></div>
+    <% end %>
+    <% @item.generic_integer_fields.each do |field| %>
+      <div class="item_info">
+        <div class="title"><%= field.label_attribute.titleize %></div>
+        <%= field.content.blank? ? "sin datos" : field.content %>
+      </div>
+      <div class="clear"></div>
+    <% end %>
+    <% @item.generic_float_fields.each do |field| %>
+      <div class="item_info">
+        <div class="title"><%= field.label_attribute.titleize %></div>
+        <%= field.content.blank? ? "sin datos" : field.content %>
+      </div>
+      <div class="clear"></div>
+    <% end %>
+    <% @item.generic_boolean_fields.each do |field| %>
+      <div class="item_info">
+        <div class="title"><%= field.label_attribute.titleize %></div>
+        <%= field.content? ? "Si" : "No" %>
+      </div>
+      <div class="clear"></div>
+    <% end %>
+    <% @item.generic_text_areas.each do |field| %>
+      <div class="item_info">
+        <div class="title"><%= field.label_attribute.titleize %></div>
+        <div class="clear"></div>
+        <%= simple_format field.content.blank? ? "sin datos" : field.content, :class=>"text_area" %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
