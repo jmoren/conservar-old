@@ -68,6 +68,7 @@
     <%= simple_format @item.description, :class=> "text_area" %>
   </p>
   <div class="item_addicional_info">
+    <% if @item.has_additional_info? %>
     <h3> Informacion Adicional </h3>
     <div class="left col_left">
       <% @item.generic_text_fields.each do |field| %>
@@ -110,6 +111,7 @@
     </div>
     <div class="clear"></div>
   </div>
+  <% end %>
   <h3> Reportes (<%= @item.reports.size %>)</h3>
   <% unless @item.reports.empty? %>
     <ol>

@@ -535,7 +535,7 @@ li.help_list{
   padding: 15px;
   border-radius: 5px;
 }
-#collection_item_panel h3 a{color:#3D9400;margin-left: 5px}
+#collection_item_panel h3 {color:#3D9400;margin-left: 5px}
 .panel_item_photo{width: 20%; padding: 5px}
 .panel_item{width: 75%; padding: 5px; margin-left: 5px}
 

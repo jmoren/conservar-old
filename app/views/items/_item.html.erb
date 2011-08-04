@@ -1,18 +1,19 @@
-<h3>Coleccion <%= link_to @item.collection.name.titleize, @item %></h3>
+<h3>Titulo: <%= link_to @item.title, @item %></h3>
 <div class="left panel_item_photo" >
   <%= image_tag @item.photo.url(:small) %>
 </div>
 <div class="left panel_item">
-  Code: <%= link_to @item.code, @item %>
+  Code:<strong> <%= @item.code %></strong>
   <p>
-    Categoria: <%= @item.subcategory.name %>(<%= @item.category.name %>)
+    Categoria: <%= link_to @item.subcategory.name, items_path(:subcategory => @item.subcategory.id) %> (<%= link_to @item.category.name, items_path(:category => @item.category.id) %>)
   </p>
   <p>
-    Este item tiene <%= @item.reports.size %> reportes
+    Este item tiene <%= @item.reports.count %> reporte(s)
   </p>
 </div>
 <div class="clear"></div>
 <div>
+  <% if @item.has_additional_info? %>
   <h3> Informacion Adicional </h3>
   <div>
     <% @item.generic_text_fields.each do |field| %>
@@ -51,5 +52,6 @@
       </div>
     <% end %>
   </div>
+  <% end %>
 </div>
 
