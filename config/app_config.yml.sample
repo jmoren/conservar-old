@@ -1,0 +1,10 @@
+conservar:
+  domain: example.com
+  host_and_port: "conservar.local:3000"
+  domain: "conservar.local"
+  mail_user: "user"
+  mail_pass: "pass"
+  mail_auth: "plain"
+  smtp_server: "smtp.gmail.com"
+  smtp_port: 587
+

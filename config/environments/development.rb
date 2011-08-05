@@ -16,7 +16,17 @@ Conservar::Application.configure do
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
-
+  config.action_mailer.default_url_options = { :host => CONFIG['host_and_port'] }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => CONFIG['smtp_server'],
+    :port                 => CONFIG['smtp_port'],
+    :domain               => CONFIG['domain'],
+    :user_name            => CONFIG['mail_user'],
+    :password             => CONFIG['mail_pass'],
+    :authentication       => CONFIG['mail_auth'],
+    :enable_starttls_auto => true
+  }
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 

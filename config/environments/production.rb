@@ -36,7 +36,18 @@ Conservar::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-
+  #mailer
+  config.action_mailer.default_url_options = { :host => CONFIG['host_and_port'] }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => CONFIG['smtp_server'], #"smtp.gmail.com",
+    :port                 => CONFIG['smtp_port'],   #587,
+    :domain               => CONFIG['domain'],      #'example.com',
+    :user_name            => CONFIG['mail_user'],
+    :password             => CONFIG['mail_pass'],
+    :authentication       => CONFIG['mail_auth'],   #'plain',
+    :enable_starttls_auto => true
+  }
   # Enable threaded mode
   # config.threadsafe!
 
@@ -47,3 +58,4 @@ Conservar::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 end
+

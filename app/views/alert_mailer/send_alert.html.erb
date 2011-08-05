@@ -1,0 +1,17 @@
+<div style="font-size: 14px; font-family:Ubuntu">
+  <h2> Conservar - <span style="color:#3D9400"> Mail de Alerta </span></h2>
+  <p style="background:#f1f1f1;padding: 5px; border:solid 1px #ccc;border-radius: 8px;min-height:20px;font-weight:bold">
+    <%= @alert.message %>
+  </p>
+  <p>
+    <div>Ultima actualizacion: <%= l @item.updated_at, :format => "%A, %d de %B %Y" %></div>
+    <% if @item.reports.empty? %>
+      <div> Este objeto no tiene ningun reporte realizado </div>
+    <% else %>
+      <div> Ultimo reporte creado: <%= @item.reports.last.code %> (Ultima actualizacion: <%= l @item.reports.last.updated_at, :format => "%A, %d de %B %Y" %>)</div>
+    <% end %>
+  <p>
+    Puede ver el objeto aca: <a href="<%= @url %>" style="color:#DD4B39" target="_blank"> <%= @item.title %></a>
+  </p>
+</div>
+
