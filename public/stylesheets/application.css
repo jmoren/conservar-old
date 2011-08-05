@@ -335,7 +335,7 @@ li.help_list:hover  a{
 a.help{
   color: #666;
 }
-li.help_list{
+li.help_list{#FCFBB6
   margin: 6px 0;
   padding: 3px
 }
@@ -362,7 +362,20 @@ li.help_list{
   float: right;
 }
 
-
+#item_flags:hover{
+  background: #FCFBB6;
+  border: solid 1px #F7F55C;
+  padding: 2px 9px;
+  width: 10%;
+}
+#item_flags{
+  width: 10%;
+  padding: 3px 10px;
+}
+#item_flags img{
+  float: left;
+  margin: 0px 5px 0 0
+}
 #items { margin: 20px 10px; width: 99%; }
 #items  table{width: 100%;border-collapse: collapse;}
 #items  table th{ text-align: left;background: #26456D; color: #fff; padding: 5px;}

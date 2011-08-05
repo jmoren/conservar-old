@@ -37,6 +37,8 @@ Conservar::Application.routes.draw do
     member do
       post 'remover' => "items#remove_from_collection"
       get :complete_fields
+      get 'flag' => "items#flag_as"
+      get 'unflag' => "items#unflag"
     end
   end
 

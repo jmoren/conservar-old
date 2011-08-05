@@ -1,0 +1,17 @@
+<script>
+  $(function(){
+    $('.loading').click(function(){
+      $('#flag').html('<span id="loading"><img src="/images/loading.gif"> guardando...</span>');
+    });
+    $('#item_flags').hover(
+      function(){$('#flag').show()},
+      function(){$('#flag').hide()}
+      )
+  })
+</script>
+<% if @item.flagged_by?(current_user,:important) %>
+  <%= image_tag('important.png') %> <span id="flag" style="display:none"><%= link_to "quitar marca", unflag_item_path(@item), :remote => true, :class => "loading" %></span>
+<% else %>
+  <%= image_tag('sin_marca.png') %> <span id="flag" style="display:none"><%= link_to "Marcar como importante", flag_item_path(@item), :remote => true, :class => "loading" %></span>
+<% end %>
+

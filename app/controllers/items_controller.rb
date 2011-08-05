@@ -98,5 +98,14 @@ class ItemsController < ApplicationController
     @items = @collection.items.page(params[:page])
     @item.remove_from_collection
   end
+
+  def flag_as
+    @item = Item.find(params[:id])
+    current_user.flag(@item,:important)
+  end
+  def unflag
+    @item = Item.find(params[:id])
+    current_user.unflag(@item, :important)
+  end
 end
 

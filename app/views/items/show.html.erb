@@ -1,9 +1,14 @@
 <% title "#{@item.title.titleize} - #{@item.code}" %>
-<div style="float:right;margin-right:50px">
-  <div class="button"><%= link_to t('helpers.links.new_report'), new_item_report_path(@item) %></div>
-  <div class="button"><%= link_to t('helpers.links.edit'), edit_item_path(@item) %></div>
-  <div class="button"><%= link_to t('helpers.links.delete'), @item, :confirm => 'Are you sure?', :method => :delete %></div>
-  <div class="button"><%= link_to 'Nueva Alerta', item_alerts_path(@item) %></div>
+<div style="width:90%;margin:auto">
+  <div id="item_flags" class="left" >
+    <%= render :partial => "item_flag" %>
+  </div>
+  <div class="right">
+    <div class="button"><%= link_to t('helpers.links.new_report'), new_item_report_path(@item) %></div>
+    <div class="button"><%= link_to t('helpers.links.edit'), edit_item_path(@item) %></div>
+    <div class="button"><%= link_to t('helpers.links.delete'), @item, :confirm => 'Are you sure?', :method => :delete %></div>
+   <div class="button"><%= link_to 'Nueva Alerta', item_alerts_path(@item) %></div>
+  </div>
 </div>
 <div class="clear"></div>
 <div id="item">
