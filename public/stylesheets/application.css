@@ -362,20 +362,16 @@ li.help_list{#FCFBB6
   float: right;
 }
 
-#item_flags:hover{
-  background: #FCFBB6;
-  border: solid 1px #F7F55C;
-  padding: 2px 9px;
-  width: 10%;
-}
 #item_flags{
-  width: 10%;
-  padding: 3px 10px;
+  width: 15%;
+  margin: 0;
+  cursor: pointer;
 }
 #item_flags img{
+  margin-top: -5px;
   float: left;
-  margin: 0px 5px 0 0
 }
+
 #items { margin: 20px 10px; width: 99%; }
 #items  table{width: 100%;border-collapse: collapse;}
 #items  table th{ text-align: left;background: #26456D; color: #fff; padding: 5px;}
