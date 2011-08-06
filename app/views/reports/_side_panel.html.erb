@@ -47,9 +47,10 @@
 <br>
 <hr>
 <p>
-  <span class="side_title">Item: <%= truncate(@report.item.title,:length => 30) %> </span>
-  <div style="text-align:right;width:40%;float:left">Titulo: </div>
+  <span class="side_title"><%= truncate(@report.item.title.titleize,:length => 30) %></span>
+  <div style="text-align:right;width:40%;float:left">Codigo: </div>
   <div style="text-align:right;width:60%;float:right;font-weight:bold"><%= link_to @report.item.code, @report.item  %></div>
+  <div class="clear"></div>
   <div style="text-align:right;width:40%;float:left">Categoria:</div>
   <div style="text-align:right;width:60%;float:right"> <strong><%= @report.item.category.name %></strong></div>
   <div class="clear"></div>

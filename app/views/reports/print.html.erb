@@ -57,10 +57,9 @@
     <% end %>
     <p>
       <strong><%= Report.human_attribute_name(:item) %>:</strong>
-      <%= @report.item.title %>
-      <br>
+      <%= @report.item.title.titleize %>
       <small>
-        <strong>Categoria:</strong> <%= @report.item.category.name %> > <%= @report.item.subcategory.name %>
+        (<%= @report.item.subcategory.name %> - <%= @report.item.category.name %>)
       </small>
     </p>
   </div>
@@ -70,7 +69,7 @@
     <%= @report.status %>
     <% if @report.closed? %>
     <p>
-      <strong><%= Report.human_attribute_name(:closed_at) %>:</strong>
+      <strong>Cerrado el:</strong>
       <%= l @report.updated_at, :format => :long %>
     </p>
     <% end %>
@@ -88,7 +87,7 @@
   <h2> Problemas encontrados:</h2>
   <% unless @report.deteriorations.empty? %>
     <% @report.deteriorations.each do |deterioration| %>
-      <div style="border: solid 2px #666;border-radius: 3px; padding: 5px;margin: 5px">
+      <div style="border: solid 2px #666;border-radius: 3px; padding: 5px;margin: 5px 0">
         <div class="deterioration_header">
           <div class="category">
             <%= Deterioration.human_attribute_name(:category)%>: <%= deterioration.det_category.name %>
@@ -105,16 +104,22 @@
         </div>
         <h3> Tareas </h3>
         <% unless deterioration.tasks.empty? %>
-          <div class="tasks">
+          <table style="width:100%">
+            <tr>
+              <th style="width:10%;text-align:left;padding: 0 5px"> Horas </th>
+              <th style="width:60%;text-align:left;padding: 0 5px"> Descripcion </th>
+              <th style="width:30%;text-align:left;padding: 0 5px"> Herramientas </th>
+            </tr>
             <% deterioration.tasks.each do |task| %>
-              <p>
-                <div>Horas: <%= task.hours %></div>
-                <div>Descripcion: <%= simple_format task.description %> </div>
-              </p>
+              <tr>
+                <td style="width:10%;padding: 0 5px"><%= task.hours %></td>
+                <td style="width:60%;padding: 0 5px"><%= task.description %> </td>
+                <td style="width:30%;padding: 0 5px"><%= task.tools.collect(&:category).to_sentence %></td>
+              </tr>
             <% end %>
-          </div>
+          </table>
         <% else %>
-         <h4> No hay tareas </h4>
+         <h3> No hay tareas </h3>
         <% end %>
       </div>
     <% end %>
@@ -127,22 +132,49 @@
 <div>
   <h2> Observaciones </h2>
   <% unless @report.observations.empty? %>
-    <ol style="margin: 0 0 0 -20px">
+    <table  style="width:100%">
+      <tr>
+        <th style="width:10%;text-align:left;padding: 0 5px"><%= Observation.human_attribute_name(:category)%></th>
+        <th style="width:50%;text-align:left;padding: 0 5px"><%= Observation.human_attribute_name(:body)%></th>
+        <th style="width:20%;text-align:left;padding: 0 5px"><%= Observation.human_attribute_name(:user)%></th>
+        <th style="width:20%;text-align:left;padding: 0 5px"><%= Observation.human_attribute_name(:created_at)%></th>
       <% @report.observations.each do |observation| %>
-        <li style="border: solid 1px #ccc; margin: 10px 5px; padding: 5px">
-          <div>
-            <%= Observation.human_attribute_name(:category)%> <strong><%= observation.category %></strong>
-          </div>
-          <div>
-            <%= simple_format observation.body %>
-          </div>
-          <small>
-            Agregado por <strong><%= observation.user.full_name %></strong>
-            el <strong><%= l observation.created_at, :format=> :long %></strong>
-          </small>
-        </li>
+        <tr>
+          <td style="width:10%;padding: 0 5px"><%= observation.category %></td>
+          <td style="width:50%;padding: 0 5px"><%= observation.body %></td>
+          <td style="width:20%;padding: 0 5px"><%= observation.user.full_name %></td>
+          <td style="width:20%;padding: 0 5px"><%= l observation.created_at, :format=> :short %></td>
+        </tr>
       <% end %>
-    </ol>
+    </table>
+  <% else %>
+    <h3> No hay observaciones </h3>
   <% end %>
 </div>
+<p>
+  <span><strong><%= Report.human_attribute_name(:comments)%>: </strong></span>
+    <%= simple_format @report.comments, :class => "text_area" %>
+</p>
+<p>
+  <span><strong><%= Report.human_attribute_name(:treatment)%>: </strong></span>
+  <%= simple_format @report.treatment, :class => "text_area"%>
+</p>
+<p>
+  <span><strong><%= Report.human_attribute_name(:conclusion) %>: </strong></span>
+  <%= simple_format @report.conclusion, :class => "text_area" %>
+</p>
+<% if @report.closed? %>
+  <h2> Conclusion </h2>
+  <p>
+    <div class="left col_left">
+      <p><strong>Costo horas de trabajo (aproximado)</strong></p>
+      <%= @report.budget_work %> <%= CONFIG['currency'] %>
+    </div>
+    <div class="left col_right">
+      <p><strong>Costo de materiales (aproximado)</strong></p>
+      <%= @report.budget_tools %> <%= CONFIG['currency'] %>
+    </div>
+    <div class="clear"></div>
+  </p>
+<% end %>
 

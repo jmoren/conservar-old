@@ -12,7 +12,7 @@ class Report < ActiveRecord::Base
 
   attr_accessible :code, :comments, :treatment, :deteriorations_attributes,
                   :start_date, :end_date, :status,:user_id,:hours,:archived,
-                  :item_id, :assigned_to
+                  :item_id, :assigned_to,:conclusion, :budget_work, :budget_tools
   before_save :sanitize_dates, :report_event
 
   #scopes

@@ -37,16 +37,21 @@ class ReportsController < ApplicationController
   def update
     @report = Report.find(params[:id])
     dates = {}
-    unless params.include?('has_date')
-      dates = { :start_date => nil, :end_date => nil }
-    end
+
     if @report.update_attributes(params[:report].merge(dates) )
       redirect_to @report, :notice  => t("views.flash.edit")
     else
       render :action => 'edit'
     end
   end
-
+  def conclusion
+    @report = Report.find(params[:id])
+    unless @report.closed?
+      redirect_to @report
+    else
+      @budget_work = @report.hours * CONFIG['price_per_hour'].to_f
+    end
+  end
   def destroy
     @report = Report.find(params[:id])
     @report.destroy
@@ -55,7 +60,7 @@ class ReportsController < ApplicationController
   def close
     @report = Report.find(params[:id])
     @report.close
-    redirect_to @report, :notice => t("views.flash.closed.report", :code => @report.code)
+    redirect_to conclusion_report_path(@report), :notice => t("views.flash.closed.report", :code => @report.code)
   end
   def open
     @report = Report.find(params[:id])

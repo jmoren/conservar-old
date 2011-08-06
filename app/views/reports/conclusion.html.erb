@@ -1,0 +1,75 @@
+<div id="report_form" class="form">
+<%= form_for [@item,@report] do |f| %>
+  <%= f.error_messages %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <div>
+    <label> Creado por </label>
+    <%= current_user.full_name %>
+  </div>
+  <div>
+    <p>
+      <%= f.label :assigned_to, "Asignado a" %><%= @report.assigned.try(:full_name) || "Sin asignado" %>
+      <%= f.hidden_field :assigned_to, :value => @report.assigned_to %>
+    </p>
+  </div>
+  <div>
+    <p>
+      <%= f.label :status %>
+      <%= @report.status %>
+      <%= f.hidden_field :status,:value => @report.status %>
+    </p>
+  </div>
+  <div class="clear"></div>
+  <div>
+    <div>
+      <label> Fechas </label>
+      <% if @report.has_dates? %>
+        <%= hidden_field_tag :has_date, @report.has_dates? %>
+        <span id="dates" style="<%= @report.has_dates? ? '' : 'display:none' %>">
+          <strong>Comienza el</strong>
+          <%= l @report.start_date, :format => '%d/%m/%Y' %>
+          <%= f.hidden_field :start_date,:value => @report.start_date%>
+          <strong>hasta</strong>
+          <%= l @report.end_date, :format => '%d/%m/%Y' %>
+          <%= f.hidden_field :end_date, :value => @report.end_date %>
+        </span>
+      <% end %>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <br>
+  <%= render 'reports/pages/deterioration_table' %>
+  <div class="text_form">
+    <p>
+      <strong><%= f.label :comments %></strong>
+      <br>
+      <%= simple_format @report.comments, :class=>"text_area" %>
+      <%= f.hidden_field :comments, :value => @report.comments %>
+    </p>
+    <p>
+      <strong><%= f.label :treatment %></strong>
+      <br>
+      <%= simple_format @report.treatment, :class=>"text_area" %>
+      <%= f.hidden_field :treatment, :value => @report.treatment%>
+    </p>
+    <p>
+      <%= f.label :conclusion %>
+      <%= f.text_area :conclusion %>
+    </p>
+    <p>
+      <div class="left col_left">
+        <p><strong>Costo horas de trabajo (aproximado)</strong></p>
+        <%= f.text_field :budget_work, :value => @budget_work, :size => 15 %> <%= CONFIG['currency'] %>
+      </div>
+      <div class="left col_right">
+        <p><strong>Costo de materiales (aproximado)</strong></p>
+        <%= f.text_field :budget_tools, :size => 15 %> <%= CONFIG['currency'] %>
+      </div>
+      <div class="clear"></div>
+    </p>
+  </div>
+
+  <p><%= f.submit :disable_with => "Please wait..." %> o <%= link_to 'Cancelar', @report.new_record? ? @item : @report %></p>
+<% end %>
+</div>
+

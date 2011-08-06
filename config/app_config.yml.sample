@@ -6,4 +6,6 @@ mail_pass: "pass"
 mail_auth: "plain"
 smtp_server: "smtp.example"
 smtp_port: 587
+currency: "$ (pesos argentinos)"
+price_per_hour: "70"
 

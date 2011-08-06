@@ -81,7 +81,7 @@ $(function(){
               '</span><div class="clear"></div>'
             $("#deterioration_info").html(template);
            }else{
-            var missing_det = '<div id="deterioration_info" style="float:rigth; border:solid 2px #999;border-radius: 5px; padding: 5px; margin-right: 20px; text-align:center;min-height:145px"><p><img src="/images/open.png" ></p><p> <strong style="margin:10px">Select a deterioration</strong></p></div>'
+            var missing_det = '<div id="deterioration_info" style="float:rigth; border:solid 2px #999;border-radius: 5px; padding: 5px; margin-right: 20px; text-align:center;min-height:100px"><p><img src="/images/regular.png" ></p><p> <strong style="margin:10px">Seleccione un problema detectado</strong></p></div>'
             $("#deterioration_info").html(missing_det);
            }
           })

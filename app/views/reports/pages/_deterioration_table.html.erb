@@ -18,7 +18,9 @@
           <td class="tasks"><%= link_to deterioration.tasks.size, report_deterioration_path(@report,deterioration), :title => "#{deterioration.closed_tasks} tareas cerradas" %></td>
           <td class="actions">
             <span class="show">
-              <%= link_to t('helpers.links.show'), report_deterioration_path(@report,deterioration) %>
+              <% unless action_name == "conclusion" %>
+                <%= link_to t('helpers.links.show'), report_deterioration_path(@report,deterioration) %>
+              <% end %>
             </span>
           </td>
         </tr>

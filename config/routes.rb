@@ -67,6 +67,7 @@ Conservar::Application.routes.draw do
     end
     resources :tasks
     member do
+      get 'conclusion' => 'reports#conclusion'
       match 'print/report_:closed_at' => "reports#print", :as => :print_pdf
       post '/close' => "reports#close"
       post '/open' => "reports#open"

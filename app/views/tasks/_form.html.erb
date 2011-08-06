@@ -5,7 +5,7 @@
   </div>
   <p>
     <div>
-      <%= f.label :deterioration_id %>
+      <%= f.label :deterioration_id, "Problema" %>
       <%= collection_select :task, :deterioration_id, @report.deteriorations, :id, :category,:prompt => true, :selected => @deterioration ? @deterioration.id : nil  %>
     </div>
     <% if @task.new_record? && params[:det_id].nil? %>
@@ -49,8 +49,8 @@
   <div class="clear"></div>
   <div id="tools_table">
     <div style="padding: 4px;width:99%;color:#222C;border-bottom:solid 1px #666">
-      <div style="font-weight:bold;width:150px;float:left">Category</div>
-      <div style="font-weight:bold;widht:250px;float:left">Description</div>
+      <div style="font-weight:bold;width:150px;float:left">Tipo</div>
+      <div style="font-weight:bold;widht:250px;float:left">Descripcion</div>
       <div class="clear"></div>
     </div>
     <%= f.fields_for :tools do |build| %>

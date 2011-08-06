@@ -1,7 +1,7 @@
 <div class="fields">
   <%= f.select :det_category_id, DetCategory.actives.collect{|c| [c.name,c.id]} %>
   <%= f.text_field :place, :size => 25 %>
-  <%= f.text_field :description, :size => 70 %>
+  <%= f.text_field :description, :size => 69 %>
   <span style="float:right" class="button link_delete">
     <%= remove_child_link "eliminar", f %>
   </span>

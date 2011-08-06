@@ -2,7 +2,7 @@
   #header{
     display: none;
   }
-
+  #footer{display: none;}
   #header_pdf {
     text-align: center;
     border-bottom: solid 1px #cccccc;
@@ -386,6 +386,7 @@ li.help_list{#FCFBB6
 #item a {color:#36C}
 #item .item_report{margin: 5px}
 #item ol{margin-left:20px;padding:0}
+
 /* items */
 /* reports */
 #report .side_title{font-weight:bold;color:#3D9400}
@@ -394,7 +395,14 @@ li.help_list{#FCFBB6
 #reports  table th    { text-align: left;background: #26456D; color: #fff; padding: 5px; }
 #reports  table tr    { line-height: 1.5em; border-bottom: 1px solid #ccc; }
 #reports  table tr td { padding: 5px; }
-
+#report_side_panel{
+  width:15%;
+  float:left;
+  padding: 5px 10px;
+  border-right: solid 1px #ccc;
+  margin: 0 10px 0 0;
+  font-size:12px
+}
 #deteriorations  table       { width: 100%;border-collapse: collapse; border: solid #ccc 1px; }
 #deteriorations  table tr th { line-height: 1.5em; text-align: left;background: #26456D; color: #fff; padding: 5px; }
 #deteriorations  table tr    { line-height: 2em;border-bottom: 1px solid #ccc; }
