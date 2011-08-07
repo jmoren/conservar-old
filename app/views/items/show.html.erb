@@ -6,7 +6,7 @@
   <div class="right">
     <div class="button"><%= link_to t('helpers.links.new_report'), new_item_report_path(@item) %></div>
     <div class="button"><%= link_to t('helpers.links.edit'), edit_item_path(@item) %></div>
-    <div class="button"><%= link_to t('helpers.links.delete'), @item, :confirm => 'Are you sure?', :method => :delete %></div>
+    <div class="button"><%= link_to t('helpers.links.delete'), @item, :confirm => 'Se eliminaran los reportes, imagenes, tareas, observaciones asociadas a este objeto. Esta seguro de continuar?', :method => :delete %></div>
    <div class="button"><%= link_to 'Nueva Alerta', item_alerts_path(@item) %></div>
   </div>
 </div>

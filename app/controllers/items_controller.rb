@@ -2,7 +2,10 @@ class ItemsController < ApplicationController
   def index
     sleep 1
     if params[:q]
-      @items = Item.search(params[:q]).page params[:page]
+      @q = params[:q]
+      @items = Item.search(@q).page params[:page]
+    elsif params[:flagged]
+      @items = Item.important(current_user,params[:flagged]).page(params[:page])
     elsif params[:category] && params[:category] != '0'
       @items = Item.where(:item_category_id => params[:category]).page params[:page]
     elsif params[:subcategory] && params[:subcategory] != '0'
@@ -80,8 +83,12 @@ class ItemsController < ApplicationController
 
   def destroy
     @item = Item.find(params[:id])
-    @item.destroy
-    redirect_to items_url, :notice => t("views.flash.delete")
+    if !current_user.admin?
+      redirect_to @item, :notice => "No puede eliminar un objeto si no es administrador."
+    else
+      @item.destroy
+      redirect_to items_url, :notice => t("views.flash.delete")
+    end
   end
 
   def get_subcategories
@@ -99,7 +106,7 @@ class ItemsController < ApplicationController
     @item.remove_from_collection
   end
 
-  def flag_as
+  def flag
     @item = Item.find(params[:id])
     current_user.flag(@item,:important)
   end

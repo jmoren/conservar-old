@@ -6,6 +6,9 @@
         $('.loading').show();
         $('.result').html('');
       });
+      $('.important').click(function(){
+        $("#items").html('<div style="text-align:center;margin-top:40px;"><img src="/images/loading2.gif"</div>');
+      });
       $('#by_category').change(function(){
         $('.loading').show();
         $('.result').html('');
@@ -80,6 +83,14 @@
   </div>
   <div class="clear"></div>
   <div>
+    <div class="left">
+      <small>
+        <% if current_user.has_items_flagged?(:important) %>
+          <%= link_to 'Destacados', items_path(:flagged => 'important'), :remote => true, :class => "important"  %> -
+        <% end %>
+        <%= link_to 'Todos', items_path, :remote => true, :class => "important"  %>
+      </small>
+    </div>
     <div class="loading" style="display:none;">
       <%= image_tag('loading.gif') %> buscando...
     </div>

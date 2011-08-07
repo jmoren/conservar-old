@@ -1,7 +1,7 @@
 <script>
 
  </script>
-<li class="alert">
+<li class="alert" id="alert_<%= alert.id %>">
   <% if alert.custom.nil? %>
     Frecuencia: cada <span id="<%= alert.id %>" class="frequency"><%= alert.frequency  %> </span> dia(s).
   <% else %>
@@ -9,7 +9,7 @@
   <% end %>
   <small style="float:right; margin-right: 5px">
     <%= l alert.created_at, :format => :short %> -
-    <%= link_to 'Eliminar', alert,:method => :delete, :class => "delete_link" %>
+    <%= link_to 'Eliminar', alert,:method => :delete, :class => "delete_link", :id => alert.id %>
   </small>
   <br>
   <p id="<%= alert.id %>" class="message text_area"><%= alert.message%> </p>

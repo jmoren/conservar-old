@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110725154302) do
+ActiveRecord::Schema.define(:version => 20110806224854) do
 
   create_table "alerts", :force => true do |t|
     t.string   "alertable_type"
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(:version => 20110725154302) do
 
   create_table "generic_boolean_fields", :force => true do |t|
     t.integer  "item_id"
-    t.string   "label"
+    t.string   "label_attribute"
     t.boolean  "content"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(:version => 20110725154302) do
 
   create_table "generic_float_fields", :force => true do |t|
     t.integer  "item_id"
-    t.string   "label"
+    t.string   "label_attribute"
     t.float    "content"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(:version => 20110725154302) do
 
   create_table "generic_integer_fields", :force => true do |t|
     t.integer  "item_id"
-    t.string   "label"
+    t.string   "label_attribute"
     t.integer  "content"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(:version => 20110725154302) do
 
   create_table "generic_select_fields", :force => true do |t|
     t.integer  "item_id"
-    t.string   "label"
+    t.string   "label_attribute"
     t.string   "content"
     t.string   "options"
     t.datetime "created_at"
@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(:version => 20110725154302) do
 
   create_table "generic_text_areas", :force => true do |t|
     t.integer  "item_id"
-    t.string   "label"
+    t.string   "label_attribute"
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(:version => 20110725154302) do
 
   create_table "generic_text_fields", :force => true do |t|
     t.integer  "item_id"
-    t.string   "label"
+    t.string   "label_attribute"
     t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -199,6 +199,8 @@ ActiveRecord::Schema.define(:version => 20110725154302) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.boolean  "featured",            :default => false
+    t.string   "remote_site"
   end
 
   create_table "observations", :force => true do |t|

@@ -5,10 +5,13 @@
       $('#new_alert')[0].reset();
       $('label.message').hide();
       $('#custom_alert_error').hide();
+      $('#alert_custom').attr('disabled',true);
+      $('#alert_frequency').attr('disabled',false);
      });
    $('.alert').live("mouseout",function(){
       $('.delete_link').click(function(){
-        $('#loading').show();
+        var id = $(this).attr('id');
+        $('#alert_'+id).html("<div style='margin:10px 5px;min-height: 60px'><img src='/images/loading.gif'> eliminando...</div>");
       });
       $(".frequency").editInPlace({
         url: '/alerts/update_in_place',
@@ -40,14 +43,12 @@
       }
       else{
         $('#alert_custom').attr('disabled',true);
-        $('#alert_custom').html('');
-        $('#custom_alert_error').hide();
         $('#alert_frequency').attr('disabled',false);
       }
     });
 
-    $('#alert_custom').change(function(){
-      if ($('#alert_custom').val() != ''){
+    $('#alert_frequency').change(function(){
+      if ($('#alert_custom').val() != ' '){
         $('#custom_alert_error').hide();
       }
       else{
@@ -55,13 +56,14 @@
       }
     });
     $('#alert_custom').blur(function(){
-      if ($('#alert_custom').val() != ''){
+      if ($('#alert_custom').val() != ' '){
         $('#custom_alert_error').hide();
       }
       else{
         $('#custom_alert_error').show();
       }
     });
+
   });
 </script>
 <div id="alert_index">

@@ -5,39 +5,41 @@
     });
   });
 </script>
-<table>
-  <tr>
-    <th></th>
-    <th><%= Item.human_attribute_name(:collection)%></th>
-    <th><%= Item.human_attribute_name(:code)%></th>
-    <th><%= Item.human_attribute_name(:title)%></th>
-    <th><%= Item.human_attribute_name(:author)%></th>
-    <th><%= Item.human_attribute_name(:category)%></th>
-    <th><%= Item.human_attribute_name(:subcategory)%></th>
-    <th><%= Item.human_attribute_name(:status)%></th>
-    <th><%= Item.human_attribute_name(:reportes)%></th>
-    <th></th>
-  </tr>
-  <% for item in @items %>
+<% unless @items.empty? && @q %>
+  <table>
     <tr>
-      <td><%= item.flagged_by?(current_user,:important) ? image_tag('important16.png') : nil %></td>
-      <td><%= item.collection.try(:name) || "---" %></td>
-      <td><%= item.code %></td>
-      <td><%= truncate(item.title, :lenght => 25) %></td>
-      <td><%= item.author %></td>
-      <td><%= item.category.name %></td>
-      <td><%= item.subcategory.name %></td>
-      <td><%= item.status %></td>
-      <td><%= item.reports.size %></td>
-      <td>
-        <%= link_to t('helpers.links.show'), item %>
-        <%= link_to t('helpers.links.edit'), edit_item_path(item) %>
-        <% if current_user.admin? %>
-          <%= link_to t('helpers.links.delete'), item, :confirm => 'Are you sure?', :method => :delete %>
-        <% end %>
-      </td>
+      <th style="text-align:center;width:20px">!</th>
+      <th><%= Item.human_attribute_name(:collection)%></th>
+      <th><%= Item.human_attribute_name(:code)%></th>
+      <th><%= Item.human_attribute_name(:title)%></th>
+      <th><%= Item.human_attribute_name(:author)%></th>
+      <th><%= Item.human_attribute_name(:category)%></th>
+      <th><%= Item.human_attribute_name(:subcategory)%></th>
+      <th><%= Item.human_attribute_name(:status)%></th>
+      <th><%= Item.human_attribute_name(:reportes)%></th>
+      <th></th>
     </tr>
-  <% end %>
-</table>
+    <% for item in @items %>
+      <tr>
+        <td style="text-align:center;width:20px"><%= item.flagged_by?(current_user,:important) ? image_tag('important16.png') : nil %></td>
+        <td><%= item.collection.try(:name) || "---" %></td>
+        <td><%= item.code %></td>
+        <td><%= truncate(item.title, :lenght => 25) %></td>
+        <td><%= item.author %></td>
+        <td><%= item.category.name %></td>
+        <td><%= item.subcategory.name %></td>
+        <td><%= item.status %></td>
+        <td><%= item.reports.size %></td>
+        <td>
+          <%= link_to t('helpers.links.show'), item %>
+          <%= link_to t('helpers.links.edit'), edit_item_path(item) %>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+<% else %>
+  <div style="margin: 10px auto;width:40%;font-size:15px">No se encotraron items con la palabra <em style="font-weight:bold;color:#3D9400"><%= @q %></em></h3>
+<% end %>
+
 <%= paginate @items, :remote => true %>
 

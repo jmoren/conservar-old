@@ -45,32 +45,40 @@
         <%= f.label :title %>
         <%= f.text_field :title %>
       </p>
+      <p>
+        <%= f.label :remote_site, "Url externa" %>
+        <%= f.text_field :remote_site %>
+      </p>
     </div>
-    <div class="col_right right">
-      <div class="item_type_form">
-        <span><strong>Categoria </strong></span>
-        <% if @item.new_record? %>
-          <%= f.select :item_category_id, ItemCategory.categories.collect{|c| [c.name,c.id]},:prompt => "categoria" %>
-        <% else %>
-          <%= f.hidden_field :item_category_id, :value => @item.category.id %>
-          <span class="item_type"><%= @item.category.name %></span>
-        <% end %>
-        <span style="margin-left:10px"><strong> Subcategoria </strong> </span>
-        <% if @item.new_record? %>
-          <%= f.select :item_subcategory_id, "<option value>Subcategoria</option>"%>
-        <% else %>
-          <%= f.hidden_field :item_subcategory_id, :value => @item.subcategory.id %>
-          <span class="item_type"><%= @item.subcategory.name %></span>
-        <% end %>
-        <br/>
-      </div>
+    <div class="col_right left">
       <p>
         <%= f.label :status %>
         <%= f.select :status,ApplicationHelper::ITEM_STATUS %>
       </p>
-        <p>
+      <div style="margin: 1em 0">
+        <label>Categoria </label>
+        <% if @item.new_record? %>
+          <span class="left"><%= f.select :item_category_id, ItemCategory.categories.collect{|c| [c.name,c.id]},:prompt => "categoria" %></span>
+        <% else %>
+          <%= f.hidden_field :item_category_id, :value => @item.category.id %>
+          <span class="item_type left"><%= @item.category.name %></span>
+        <% end %>
+        <label style="width:100px;margin-left: 10px"> Subcategoria </label>
+        <% if @item.new_record? %>
+          <span class="left"><%= f.select :item_subcategory_id, "<option value>Subcategoria</option>"%></span>
+        <% else %>
+          <%= f.hidden_field :item_subcategory_id, :value => @item.subcategory.id %>
+          <span class="item_type left"><%= @item.subcategory.name %></span>
+        <% end %>
+      </div>
+      <div class="clear"></div>
+      <p>
         <%= f.label :author %>
         <%= f.text_field :author %>
+      </p>
+      <p>
+        <%= f.label :featured, "Importante" %>
+        <%= f.check_box :featured %>
       </p>
     </div>
     <div class="clear"></div>

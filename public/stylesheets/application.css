@@ -178,7 +178,7 @@ input[type="submit"]{
 .form {width: 80%;margin:auto; background: #fafafa; border: solid 1px #E4E4E4; padding: 15px; border-radius: 10px;color:#222}
 #item_form .text_form textarea{ max-width: 99%;min-width: 99%;margin:10px auto;height:120px;padding: 5px;margin-top: 5px;}
 #item_form label{float:left;width: 80px;font-weight:bold;margin-top:2px}
-#item_form .item_type{padding:3px 5px;color:#3D9400;font-weight:bold;border-radius: 5px;border:solid 1px #ccc}
+#item_form .item_type{padding:2px 5px;color:#3D9400;font-weight:bold;width: 60px}
 #item_form h3{color: #3D9400}
 #item_form .item_type_form{margin: 17px 0;}
 #item_form .addicional_field{margin: 10px 0}

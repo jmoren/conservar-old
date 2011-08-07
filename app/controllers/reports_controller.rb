@@ -1,5 +1,6 @@
 class ReportsController < ApplicationController
   respond_to :html, :json
+
   def index
     @reports = Report.page params[:page]
   end
@@ -32,31 +33,43 @@ class ReportsController < ApplicationController
 
   def edit
     @report = Report.find(params[:id])
+    if (@report.closed? && !current_user.admin?)
+      redirect_to @report, :notice => "El reporte ya esta cerrado, no puede editarlo"
+    end
   end
 
   def update
     @report = Report.find(params[:id])
-    dates = {}
-
-    if @report.update_attributes(params[:report].merge(dates) )
-      redirect_to @report, :notice  => t("views.flash.edit")
+    if (@report.closed? && !current_user.admin?)
+      redirect_to @report, :notice => "El reporte ya esta cerrado, no puede editarlo"
     else
-      render :action => 'edit'
+      if @report.update_attributes(params[:report])
+        redirect_to @report, :notice  => t("views.flash.edit")
+      else
+        render :action => 'edit'
+      end
     end
   end
+
   def conclusion
     @report = Report.find(params[:id])
-    unless @report.closed?
-      redirect_to @report
+    if (@report.closed? && !current_user.admin?)
+      redirect_to @report, :notice => "El reporte ya esta cerrado, no puede editarlo"
     else
       @budget_work = @report.hours * CONFIG['price_per_hour'].to_f
     end
   end
+
   def destroy
     @report = Report.find(params[:id])
-    @report.destroy
-    redirect_to reports_url, :notice => t("views.flash.delete")
+    if !current_user.admin?
+      redirect_to @report, :notice => "No puede eliminar el reporte si no es administrador"
+    else
+      @report.destroy
+      redirect_to reports_url, :notice => t("views.flash.delete")
+    end
   end
+
   def close
     @report = Report.find(params[:id])
     @report.close
@@ -64,8 +77,12 @@ class ReportsController < ApplicationController
   end
   def open
     @report = Report.find(params[:id])
-    @report.open
-    redirect_to @report, :notice => t("views.flash.open.report", :code => @report.code)
+    if (@report.closed? && !current_user.admin?)
+      redirect_to @report, :notice => "El reporte ya esta cerrado, no puede reabrirlo si no es administrador"
+    else
+      @report.open
+      redirect_to @report, :notice => t("views.flash.open.report", :code => @report.code)
+    end
   end
 
   def compare_galleries

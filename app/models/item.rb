@@ -23,7 +23,7 @@ class Item < ActiveRecord::Base
                   :item_category_id, :item_subcategory_id,
                   :status, :generic_text_fields_attributes,:generic_text_areas_attributes,
                   :generic_boolean_fields_attributes,:generic_integer_fields_attributes,
-                  :generic_float_fields_attributes
+                  :generic_float_fields_attributes, :featured, :remote_site
   has_attached_file :photo, :styles => {:small => "90x90#",:medium => "150x130#",  :normal => "600x400#"},
                             :path => ":rails_root/public/fotos/items/:code/:style/:basename.:extension",
                             :url => "/fotos/items/:code/:style/:basename.:extension"
@@ -38,6 +38,7 @@ class Item < ActiveRecord::Base
   scope :by_status, lambda{|status| where(:status => status)}
   scope :with_deterioration_detected, lambda{|det| joins(:deteriorations,:det_category).where(:name => det)}
   scope :search_by, lambda{|sm,em,y| where('MONTH(created_at) >= ? AND MONTH(created_at) <= ? AND YEAR(created_at) = ?', sm,em,y)}
+  scope :important, lambda{|user,flag| joins(:flaggings).where('flaggings.flagger_id = ? ',user.id) }
   validates_presence_of :code, :title, :description, :status
   validates_uniqueness_of :code
 
