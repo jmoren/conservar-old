@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110806224854) do
+ActiveRecord::Schema.define(:version => 20110808014021) do
 
   create_table "alerts", :force => true do |t|
     t.string   "alertable_type"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20110806224854) do
     t.boolean  "all_day"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "report_id"
   end
 
   create_table "flaggings", :force => true do |t|
@@ -240,6 +241,7 @@ ActiveRecord::Schema.define(:version => 20110806224854) do
     t.float    "budget_tools"
     t.float    "budget_work"
     t.integer  "assigned_to"
+    t.date     "closed_at"
   end
 
   create_table "slugs", :force => true do |t|

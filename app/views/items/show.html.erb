@@ -7,7 +7,7 @@
     <div class="button"><%= link_to t('helpers.links.new_report'), new_item_report_path(@item) %></div>
     <div class="button"><%= link_to t('helpers.links.edit'), edit_item_path(@item) %></div>
     <div class="button"><%= link_to t('helpers.links.delete'), @item, :confirm => 'Se eliminaran los reportes, imagenes, tareas, observaciones asociadas a este objeto. Esta seguro de continuar?', :method => :delete %></div>
-   <div class="button"><%= link_to 'Nueva Alerta', item_alerts_path(@item) %></div>
+   <div class="button"><%= link_to 'Alertas', item_alerts_path(@item) %></div>
   </div>
 </div>
 <div class="clear"></div>
@@ -23,7 +23,8 @@
         <% else %>
           <span class="with_vcard">
             <%= link_to @item.collection.name.titleize, @item.collection%>
-            <div class="vcard-right" id="vcard" style="display:none">
+            <div class="vcard-right vcard_collection" id="vcard" style="display:none">
+              <span style="float:right;margin: 7px 20px;"> <%= link_to 'Close', "#", :id => "close_vcard_collection"  %></span>
               <div class="vcard-in-right">
                 <strong><%= @item.collection.name.titleize %></strong>
                 <div class="collection_desc"><em><%= @item.collection.description%></em></div>
@@ -46,6 +47,10 @@
         <div class="title"><%= Item.human_attribute_name(:title)%>:</div>
         <%= @item.title %>
       </div>
+      <div class="item_info">
+        <div class="title">Url externa:</div>
+        <a href="http://<%= @item.remote_site %>" target="_blank">Sitio externo</a>
+      </div>
     </div>
     <div class="left col_left_info">
       <div class="item_info">
@@ -63,6 +68,10 @@
       <div class="item_info">
         <div class="title"><%= Item.human_attribute_name(:status)%>:</div>
         <%= @item.status %>
+      </div>
+      <div class="item_info">
+        <div class="title">Destacado:</div>
+        <%= @item.featured ? "Si" : "No" %>
       </div>
     </div>
 
@@ -121,29 +130,23 @@
   <% unless @item.reports.empty? %>
     <ol>
       <% @item.reports.each do |report| %>
-        <li class="item_report">
-          <%= link_to report.code, report %>
+        <li>
+          <span class="item_report with_vcard">
+            <%= link_to report.code, report %>
+            <div class="vcard-right vcard_report_<%= report.id %>" id="vcard" style="display:none;margin-left: 50px">
+              <div class="vcard-in-right">
+                <span style="float:right;margin: 10px 20px;"> <%= link_to 'Close', "#", :id => "#{report.id}", :class => "close_vcard_report"  %></span>
+                <p>Estado:<strong> <%= report.status %> </strong></p>
+                <p>Cerrado el: <strong><%= report.closed_at.nil? ? ("Sin Fecha") : (l report.closed_at :format => :long) %></strong></p>
+                <p>Asignado a:<strong> <%= report.assigned.nil? ? "desconocido" : report.assigned.full_name %></p>
+              </div>
+            </div>
+          </span>
         </li>
       <% end %>
     </ol>
   <% else %>
     <h4> Todavia no tiene reportes </h4>
   <% end %>
-  <h3> Alertas <small style="margin-left: 15px"> <%= link_to '(ver todas)', item_alerts_path(@item) %></small></h3>
-    <ol>
-      <% @item.alerts.each do |alert| %>
-        <li class="item_report">
-          <% if alert.custom.nil? %>
-            Frecuencia: cada <%= alert.frequency  %> dia(s) el dia
-            <% unless alert.day.nil? %>
-              <span id="<%= alert.id %>" class="day"><%= alert.day %></span>
-            <% end %>
-          <% else %>
-            Frecuencia: cada <%= alert.custom %> dia(s).
-          <% end %>
-        </li>
-      <% end %>
-    </ol>
-
 </div>
 

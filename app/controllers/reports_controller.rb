@@ -40,24 +40,16 @@ class ReportsController < ApplicationController
 
   def update
     @report = Report.find(params[:id])
-    if (@report.closed? && !current_user.admin?)
-      redirect_to @report, :notice => "El reporte ya esta cerrado, no puede editarlo"
+    if @report.update_attributes(params[:report])
+      redirect_to @report, :notice  => t("views.flash.edit")
     else
-      if @report.update_attributes(params[:report])
-        redirect_to @report, :notice  => t("views.flash.edit")
-      else
-        render :action => 'edit'
-      end
+      render :action => 'edit'
     end
   end
 
   def conclusion
     @report = Report.find(params[:id])
-    if (@report.closed? && !current_user.admin?)
-      redirect_to @report, :notice => "El reporte ya esta cerrado, no puede editarlo"
-    else
-      @budget_work = @report.hours * CONFIG['price_per_hour'].to_f
-    end
+    @budget_work = @report.hours * CONFIG['price_per_hour'].to_f
   end
 
   def destroy

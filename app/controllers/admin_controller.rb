@@ -11,10 +11,8 @@ class AdminController < ApplicationController
     year  = params['estadisticas'].present? ? params['estadisticas']['anio'] : Date.today.year
 
     #reportes
-    @reporte_abiertos = Report.with_status('Abierto')
-    @reporte_reabiertos = Report.with_status('Reabierto')
-    @reportes_cerrados = Report.with_status('Cerrado')
-    @total_reportes = Report.all.size
+    @total_reports = Report.count
+    @reports_by_status = Report.search_by(sm,em,year).group(:status).size
 
     #items [cat|subcat, cant.]
     @total_items = Item.count
@@ -38,11 +36,11 @@ class AdminController < ApplicationController
     #colecciones [nombre, cant. items]
     @collections = Collection.all
 
-    #tasks
-    @tasks = [Task.closed.size,Task.open.size]
   end
 
   def configuration
+    @item_categories = ItemCategory.categories
+    @select_categories = ItemCategory.categories.collect{|c| [c.name, c.id]}
     @categories = DetCategory.all
     @institution = Institution.first
   end

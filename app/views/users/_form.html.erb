@@ -1,21 +1,31 @@
-<%= form_for @user, :validate => true do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :lastname %>
-    <%= f.text_field :lastname %>
-  </p>
-  <p>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </p>
-  <p>
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </p>
-  <p><%= f.submit (@user.new_record? ? "Sign up" : "Update") %></p>
-<% end %>
+<div class="form" id="user_form">
+  <%= form_for @user, :validate => true do |f| %>
+    <%= f.error_messages %>
+    <div class="left col_left">
+      <p>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </p>
+      <p>
+        <%= f.label :lastname %>
+        <%= f.text_field :lastname %>
+      </p>
+      <p>
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+      </p>
+      <p>
+        <%= f.label :password_confirmation, "Confirmar" %>
+        <%= f.password_field :password_confirmation %>
+      </p>
+    </div>
+    <div class="col_left left">
+      <p><label> Usuario:</label><%= @user.username %></p>
+      <p><label> Email:</label><%= @user.email %></p>
+      <p><label> Rol:</label><%= @user.role %></p>
+    </div>
+    <div class="clear"></div>
+    <p><%= f.submit "Guardar" %> o <%= link_to 'Cancelar', :back  %></p>
+  <% end %>
+</div>
 

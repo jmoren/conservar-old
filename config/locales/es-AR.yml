@@ -150,6 +150,7 @@ es-AR:
       show: 'Ver'
       back: 'Volver'
       pdf: 'PDF'
+      all: "Ver todos"
       close_report: 'Cerrar Reporte'
       open_report: 'Abrir Reporte'
       add_task: 'Crear Tarea'
@@ -210,7 +211,13 @@ es-AR:
       image: 'Imagen'
       observation: 'Observacion'
       collection: 'Coleccion'
+      event: "Evento"
     attributes:
+      event:
+        title: "Titulo"
+        start_at: "Comienza el"
+        end_at: "Termina el"
+        activity: "Actividad"
       alert:
         day: "dia"
         frequency: "Frecuencia"

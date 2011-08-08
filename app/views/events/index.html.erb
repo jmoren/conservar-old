@@ -47,14 +47,14 @@
       },
       eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc) {
         $.post('/events/'+ event.id + '/update_in_calendar?delta=' + dayDelta,function(data) {
-          $('.flash').html('<span style="float:right" class="close_flash"><a href="#" title="cerrar">X</a></span>' + data).fadeIn();
+          $('.flash').html('<span style="float:right;margin-right:15px" class="close_flash"><a href="#" title="cerrar" style="color:#666">x</a></span>' + data).fadeIn();
         });
       },
     });
   });
 </script>
 <section>
-  <div class="flash" id="flash_notice" style="display:none;width: 50%"></div>
+  <div class="flash" id="flash_notice" style="display:none;width: 40%"></div>
 </section>
 <p>
   <div id="calendar"></div>

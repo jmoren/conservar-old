@@ -6,74 +6,78 @@
     $(".gallery").colorbox();
   })
 </script>
-<p>
-  <%= link_to "#{Report.model_name.human} ##{@task.report_id}", report_path(@task.report) %>
-  >
-  <%= link_to "#{Deterioration.model_name.human} ##{@task.deterioration_id}", report_deterioration_path(@task.report,@task.deterioration) %>
-  >
-  <strong><%= Task.model_name.human%><%= @task.id %></strong>
-<p>
-  <span class="button link_new"> <%= link_to 'Nueva Galeria', new_task_gallery_path(@task)  %></span>
-  <span class="button link_edit"> <%= link_to 'Editar', edit_report_task_path(@task.report,@task)  %></span>
-  <span class="button link_delete"><%= link_to "Eliminar", @task, :confirm => 'Are you sure?', :method => :delete %></span>
-</p>
-<div class="clear"></div>
-</p>
-  <p><small><%= Task.human_attribute_name(:created_at)%> <strong><%= @task.user.full_name %></strong></small></p>
-<p>
-  <strong><%= Task.human_attribute_name(:description)%>:</strong>
-  <%= simple_format @task.description, :class => "text_area" %>
-</p>
-<p>
-  <strong><%= Task.human_attribute_name(:hours)%>:</strong> <%= @task.hours %>
-</p>
-<% unless @task.tools.empty? %>
-<div id="tools">
-  <h3> Heramienetas </h3>
-  <table>
-    <tr>
-      <th></th>
-      <th> Categoria</th>
-      <th> Descripcion</th>
-    </tr>
-    <% @task.tools.each do |tool|%>
+<div id="task">
+  <div class="left">
+    <%= link_to "#{Report.model_name.human} ##{@task.report_id}", report_path(@task.report) %>
+    >
+    <%= link_to "#{Deterioration.model_name.human} ##{@task.deterioration_id}", report_deterioration_path(@task.report,@task.deterioration) %>
+    >
+    <strong><%= Task.model_name.human%><%= @task.id %></strong>
+  </div>
+  <div class="right">
+    <span class="button link_new"> <%= link_to 'Nueva Galeria', new_task_gallery_path(@task)  %></span>
+    <span class="button link_edit"> <%= link_to 'Editar', edit_report_task_path(@task.report,@task)  %></span>
+    <span class="button link_delete"><%= link_to "Eliminar", @task, :confirm => 'Are you sure?', :method => :delete %></span>
+  </div>
+  <div class="clear"></div>
+  </p>
+    <p><small><%= Task.human_attribute_name(:created_at)%> <strong><%= @task.user.full_name %></strong></small></p>
+  <p>
+    <strong><%= Task.human_attribute_name(:description)%>:</strong>
+    <%= simple_format @task.description, :class => "text_area" %>
+  </p>
+  <p>
+    <strong><%= Task.human_attribute_name(:hours)%>:</strong> <%= @task.hours %>
+  </p>
+  <% unless @task.tools.empty? %>
+  <div id="tools">
+    <h3> Herramientas </h3>
+    <table>
       <tr>
-        <td><%= image_tag('ok.png') %></td>
-        <td><%= tool.category %></td>
-        <td><%= simple_format tool.description%></td>
+        <th></th>
+        <th> Categoria</th>
+        <th> Descripcion</th>
       </tr>
-    <% end %>
-  </table>
-</div>
-<% end %>
-<div>
-  <% @task.galleries.each do |gallery|%>
-    <div>
-      <h3 style="background:#26456D;padding:3px;color:#fff;border: solid 1px #26456D; border-radius: 4px;"> <%= Gallery.human_name%> #<%= gallery.id %></h3>
-      <strong> <%= Gallery.human_attribute_name(:description)%> </strong>
-      <p>
-        <%= simple_format gallery.description, :class => "text_area" %>
-      </p>
-    </div>
-    <strong> <%= Gallery.human_attribute_name(:photos)%> (<%= gallery.photos.size%>) </strong>
-    <ul style="list-style:none;margin:5px 0 0 20px;padding:0">
-      <% gallery.photos.limit(10).each do |photo| %>
-        <li style="float:left;margin-right: 5px;">
-          <a href="<%=photo.image.url(:normal) %>" title="<%= truncate(photo.description, :length => 40) %>" rel="gallery_<%=photo.gallery.id%>" class="gallery" >
-            <%= image_tag(photo.image.url(:small))%>
-          </a>
-        </li>
-      <%end %>
-    </ul>
-    <div class="clear"></div>
-    <p>
-      <span class="button link_show">
-        <%= link_to t('helpers.links.show'), gallery  %>
-      </span>
-      <span class="button link_edit">
-        <%= link_to t('helpers.links.edit'), uploader_gallery_path(gallery)  %>
-      </span>
-    </p>
+      <% @task.tools.each do |tool|%>
+        <tr>
+          <td><%= image_tag('ok.png') %></td>
+          <td><%= tool.category %></td>
+          <td><%= simple_format tool.description%></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
   <% end %>
+  <div>
+    <% @task.galleries.each do |gallery|%>
+      <div>
+        <h3 style="background:#26456D;padding:3px;color:#fff;border: solid 1px #26456D; border-radius: 4px;"> <%= Gallery.human_name%> #<%= gallery.id %></h3>
+        <strong> <%= Gallery.human_attribute_name(:description)%> </strong>
+        <p>
+          <%= simple_format gallery.description, :class => "text_area" %>
+        </p>
+      </div>
+      <strong> <%= Gallery.human_attribute_name(:photos)%> (<%= gallery.photos.size%>) </strong>
+      <ul style="list-style:none;margin:5px 0 0 20px;padding:0">
+        <% gallery.photos.limit(10).each do |photo| %>
+          <li style="float:left;margin-right: 5px;">
+            <a href="<%=photo.image.url(:normal) %>" title="<%= truncate(photo.description, :length => 40) %>" rel="gallery_<%=photo.gallery.id%>" class="gallery" >
+              <%= image_tag(photo.image.url(:small))%>
+            </a>
+          </li>
+        <%end %>
+      </ul>
+      <div class="clear"></div>
+      <p>
+        <span class="button link_show">
+          <%= link_to t('helpers.links.show'), gallery  %>
+        </span>
+        <span class="button link_edit">
+          <%= link_to t('helpers.links.edit'), uploader_gallery_path(gallery)  %>
+        </span>
+      </p>
+      <div class="clear"></div>
+    <% end %>
+  </div>
 </div>
 

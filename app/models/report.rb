@@ -13,14 +13,14 @@ class Report < ActiveRecord::Base
   attr_accessible :code, :comments, :treatment, :deteriorations_attributes,
                   :start_date, :end_date, :status,:user_id,:hours,:archived,
                   :item_id, :assigned_to,:conclusion, :budget_work, :budget_tools
-  before_save :sanitize_dates, :report_event
-
+  before_save :sanitize_dates
+  after_create  :report_event
   #scopes
   scope :not_archivied, where(:archived => false)
   scope :archived, where(:archived => true)
   scope :closed, where(:status => "Cerrado")
   scope :with_status, lambda{|status| where(:status => status)}
-
+  scope :search_by, lambda{|sm,em,y| where('MONTH(created_at) >= ? AND MONTH(created_at) <= ? AND YEAR(created_at) = ?', sm,em,y)}
 
   def can_close?
     status = true
@@ -37,11 +37,11 @@ class Report < ActiveRecord::Base
   end
 
   def close
-    self.update_attributes!(:status => "Cerrado")
+    self.update_attributes!(:status => "Cerrado", :closed_at => Date.today)
   end
 
   def open
-    self.update_attributes!(:status => "Abierto")
+    self.update_attributes!(:status => "Abierto", :closed_at => nil)
   end
   def update_hours(hours)
     self.hours += hours
@@ -61,10 +61,13 @@ class Report < ActiveRecord::Base
   end
   def report_event
     if !self.end_date.nil?  && self.end_date_changed?
-      Event.create(:title => "Fin del reporte #{self.code}", :activity => "cierre del reporte de conservacion", :start_at => self.end_date.to_time + 8.hours, :end_at => self.end_date.to_time + 17.hours, :user_id => self.user_id)
+      Event.create(:title => "Finalizacion del reporte #{self.code}", :activity => "cierre del reporte de conservacion", :start_at => self.end_date.to_time + 8.hours, :end_at => self.end_date.to_time + 17.hours, :user_id => self.user_id, :report_id => self.id)
     end
   end
 protected
+  def update_dates(date)
+    self.update_attributes(:end_date => date)
+  end
   def sanitize_dates
     self.start_date = start_date.to_date if self.start_date
     self.end_date = end_date.to_date if self.end_date

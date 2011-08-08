@@ -1,31 +1,6 @@
 <script>
   $(function(){
-    $('#item_item_category_id').change(function(){
-      $.getJSON( "/items/get_subcategories",{id: $(this).val(), ajax: 'true'}, function(j){
-          var options = '';
-          for (var i = 0; i < j.length; i++) {
-            options += '<option value="' + j[i].id + '">' + j[i].name + '</option>';
-          }
-          $("#item_item_subcategory_id").html(options);
-          $('#subcategory_error').hide();
-        })
-    });
-    $("#item_item_subcategory_id").change(function(){
-      if ($("#item_item_subcategory_id").val() == '' ){
-        $('#subcategory_error').show();
-        return false;
-      }else{
-        $('#subcategory_error').hide();
-      }
-    });
-    $('#item_submit').click(function(){
-      if ($("#item_item_subcategory_id").val() == '' ){
-        $('#subcategory_error').show();
-        return false;
-      }else{
-        $('#subcategory_error').hide();
-      }
-    });
+
   })
 </script>
 <div class="form" id="item_form">

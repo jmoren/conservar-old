@@ -1,10 +1,3 @@
-<script>
-  $(function(){
-    $('nav.pagination a').live("click",function(){
-      $("#items").html('<div style="text-align:center;margin-top:40px;"><img src="/images/loading2.gif"</div>');
-    });
-  });
-</script>
 <% unless @items.empty? && @q %>
   <table>
     <tr>

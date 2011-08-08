@@ -1,87 +1,23 @@
 <% title "Configuracion" %>
-<script>
-$(function(){
-  $(".category_link").hover(function(){
-        tip = $(this).find('.link');
-        tip.show(); //Show tooltip
-      }, function() {
-        tip.hide(); //Hide tooltip
-      }
-   );
-
-   $(".suggestion").editInPlace({
-      url: '/admin/det_categories/update_in_place',
-      saving_image: '/images/loading.gif',
-      params: 'field=suggestion',
-      field_type: "textarea",
-		  textarea_rows: "2",
-  	  textarea_cols: "60"
-    });
-    $(".phone").editInPlace({
-      url: '/admin/institutions/update_in_place',
-      saving_image: '/images/loading.gif',
-      params: 'field=phone',
-      size: '20'
-    });
-    $(".address").editInPlace({
-      url: '/admin/institutions/update_in_place',
-      saving_image: '/images/loading.gif',
-      params: 'field=address',
-      size: '20'
-    });
-  $(".email").editInPlace({
-      url: '/admin/institutions/update_in_place',
-      saving_image: '/images/loading.gif',
-      params: 'field=email',
-      size: '20'
-    });
-  $(".name").editInPlace({
-      url: '/admin/institutions/update_in_place',
-      saving_image: '/images/loading.gif',
-      params: 'field=name',
-      size: '20'
-    });
-  $(".zip").editInPlace({
-      url: '/admin/institutions/update_in_place',
-      saving_image: '/images/loading.gif',
-      params: 'field=zip',
-      size: '20'
-    });
-  $(".city").editInPlace({
-      url: '/admin/institutions/update_in_place',
-      saving_image: '/images/loading.gif',
-      params: 'field=city',
-      size: '20'
-    });
-  $('#edit_institution').click(function(){
-    $('#edit_institution_form').dialog({
-      modal:true,
-      closeOnEscape: true,
-      height: 220,
-      width: 350,
-      title: "Editar Foto Institucion"
-    });
-    return false;
-  });
-});
-</script>
 <div id="categories" style="border-bottom: solid 2px #ccc;padding-bottom: 10px;">
   <h2> Categorias (deterioros)</h2>
   <div id="category_form" style="float:right;width:28%;margin-top: 0px;">
     <div style="font-weight:bold;font-size:15px;color:#fff;background-color:#26456D;padding:2px 5px;"> Agregar nueva categoria </div>
-    <%= form_for [:admin,DetCategory.new],:validate => true, :remote => true, :html => { :style => "margin-left:30px" } do |f|%>
-      <p>
-        <%= f.label :name %>
-        <br />
-        <%= f.text_field :name %>
-      </p>
-      <p>
-        <label>Sugerencia de tratamiento</label>
-        <br />
-        <%= f.text_area :suggestion, :cols => 30, :rows => 5 %>
-      </p>
-      <%= f.submit "Crear" %> o <%= link_to_function 'Cancelar', "$('#new_det_category')[0].reset();$('#new_det_category label.message').hide()"  %>
-  <% end %>
+    <div style="background:#f1f1f1;border:solid 1px #ccc;padding:5px">
+      <%= form_for [:admin,DetCategory.new],:validate => true, :remote => true, :html => { :style => "margin-left:30px" } do |f|%>
+        <p>
+          <%= f.label :name %>
+          <br />
+          <%= f.text_field :name %>
+        </p>
+        <p>
+          <label>Sugerencia de tratamiento</label>
+          <br />
+          <%= f.text_area :suggestion, :cols => 30, :rows => 5 %>
+        </p>
+        <%= f.submit "Crear" %> o <%= link_to_function 'Cancelar', "$('#new_det_category')[0].reset();$('#new_det_category label.message').hide()"  %>
+      <% end %>
+    </div>
   </div>
   <div style="width:70%;float:left;margin:auto">
     <table id="categories_enable" style="width:99%;border-collapse:collapse;margin:0">
@@ -105,20 +41,22 @@ $(function(){
     <div style="font-weight:bold;font-size:15px;color:#fff;background-color:#26456D;padding:2px 5px;">
       Agregar nueva categoria
     </div>
-    <%= form_for [:admin,ItemCategory.new],:validate => true, :html => { :style => "margin-left:30px" } do |f|%>
-      <p>
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-      </p>
-      <p>
-        <%= f.label :item_category_id, "Categoria" %>
-        <%= f.select :item_category_id, ItemCategory.categories.collect{|c| [c.name, c.id]}, :prompt => true %>
-      </p>
-      <%= f.submit "Crear" %> o <%= link_to_function 'Cancelar', "$('#new_item_category')[0].reset();$('#new_item_category label.message').hide()"  %>
-  <% end %>
+    <div style="background:#f1f1f1;border:solid 1px #ccc;padding:5px">
+      <%= form_for [:admin,ItemCategory.new],:validate => true, :html => { :style => "margin-left:30px" } do |f|%>
+        <p>
+          <%= f.label :name %>
+          <%= f.text_field :name %>
+        </p>
+        <p>
+          <%= f.label :item_category_id, "Categoria" %>
+          <%= f.select :item_category_id, @select_categories, :prompt => true %>
+        </p>
+        <%= f.submit "Crear" %> o <%= link_to_function 'Cancelar', "$('#new_item_category')[0].reset();$('#new_item_category label.message').hide()"  %>
+      <% end %>
+    </div>
   </div>
   <div style="width:70%;float:left;margin:auto">
-    <% ItemCategory.categories.each do |category| %>
+    <% @item_categories.each do |category| %>
       <div style="width:20%;float:left;margin:5px;min-height:100px;">
         <dt>
           <strong><%= category.name %></strong>

@@ -127,7 +127,9 @@ textarea:focus, input[type="text"]:focus,input[type="password"]:focus {
 	-webkit-box-shadow: 0px 0px 6px #007eff;
 	-moz-box-shadow: 0px 0px 5px #007eff;
 	box-shadow: 0px 0px 5px #007eff;
+
 }
+textarea{margin: 2px 0;}
 select, input[type="search"]{
   text-shadow: 0px 1px 0px #fff;
 	outline: none;
@@ -204,6 +206,18 @@ input[type="submit"]{
 #task_form label.message{color: #DD4B39; display:block;margin-top:-10px;width:150px}
 #task_form h3{color: #3D9400}
 
+#event_form .text_form textarea{ max-width: 99%;min-width: 99%;margin:10px auto;height:120px;padding: 5px;margin-top: 5px;}
+#event_form label{float:left;width: 80px;font-weight:bold;margin-top:2px}
+#event_form .item_type{padding:2px 5px;color:#3D9400;font-weight:bold;width: 60px}
+#event_form h3{color: #3D9400}
+
+#collection_form .text_form textarea{ max-width: 99%;min-width: 99%;margin:10px auto;height:120px;padding: 5px;margin-top: 5px;}
+#collection_form label{float:left;width: 80px;font-weight:bold;margin-top:2px}
+#collection_form .item_type{padding:2px 5px;color:#3D9400;font-weight:bold;width: 60px}
+#collection_form h3{color: #3D9400}
+
+#user_form label{float:left;width: 100px;font-weight:bold;margin-top:2px}
+#user_form h3{color: #3D9400}
 /* forms */
 /* header */
 #header{
@@ -339,6 +353,18 @@ li.help_list{#FCFBB6
   margin: 6px 0;
   padding: 3px
 }
+
+/* events */
+
+#event{
+  width: 80%;
+  border: solid 1px #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin: auto;
+}
+#event .label{float:left; width: 100px;}
+/* events */
 /*items */
 #section_header {
   margin: 0 10px;
@@ -351,12 +377,13 @@ li.help_list{#FCFBB6
   float: left;
   margin-left: 20px;
 }
-.loading, .result {
+.result {
   width:15%;
-  margin: 5px auto;
-  text-align:left;
+  margin: 0px auto;
+  text-align:center;
 }
-.loading img{ margin: 3px 5px; float: left}
+.result img{ margin: 3px 5px; text-align:center;}
+
 
 #section_header #section_nav{
   float: right;
@@ -372,7 +399,7 @@ li.help_list{#FCFBB6
   float: left;
 }
 
-#items { margin: 20px 10px; width: 99%; }
+#items { margin: 10px; width: 99%; }
 #items  table{width: 100%;border-collapse: collapse;}
 #items  table th{ text-align: left;background: #26456D; color: #fff; padding: 5px;}
 #items  table tr{ line-height: 1.5em; border-bottom: 1px solid #ccc;}
@@ -538,11 +565,14 @@ li.help_list{#FCFBB6
 #collections  table tr    { line-height: 1.5em; border-bottom: 1px solid #ccc; }
 #collections  table tr td { padding: 5px; }
 
-#collection{
-  width: 90%;
+#collection_show{
+  width: 80%;
   margin: auto;
+  border: solid 1px #ccc;
+  padding: 10px;
+  border-radius: 10px;
 }
-#collection h2{
+#collection_show h2{
   color:#3D9400;
 }
 #collection_item_panel{
@@ -554,7 +584,7 @@ li.help_list{#FCFBB6
 }
 #collection_item_panel h3 {color:#3D9400;margin-left: 5px}
 .panel_item_photo{width: 20%; padding: 5px}
-.panel_item{width: 75%; padding: 5px; margin-left: 5px}
+.panel_item{width: 74%; padding: 5px; margin-left: 5px}
 
 #items_collection{
   width: 50%;
@@ -652,6 +682,27 @@ ul#alerts {
   float: right;
 }
 /* alerts */
+
+/* deeterioration */
+#deterioration{
+  width: 80%;
+  border: solid 1px #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin: auto;
+}
+
+/* deeterioration */
+
+/* tasks */
+#task{
+  width: 80%;
+  border: solid 1px #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin: auto;
+}
+/* tasks */
 .with_vcard{
   position:relative;
   cursor:pointer;

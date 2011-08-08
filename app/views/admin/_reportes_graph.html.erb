@@ -1,0 +1,48 @@
+<script>
+$(function(){
+  chart2 = new Highcharts.Chart({
+    chart: {
+       renderTo: 'report_container',
+       plotBackgroundColor: null,
+       plotBorderWidth: null,
+       plotShadow: false
+    },
+    title: {
+       text: 'Reportes creados: <%= @total_reports %>'
+    },
+    tooltip: {
+       formatter: function() {
+          return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat((this.y*100)/<%= @total_reports %>,0) +' %';
+       }
+    },
+    plotOptions: {
+       pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+             enabled: true,
+             color: '#000000',
+             connectorColor: '#000000',
+             formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ this.y;
+             }
+          }
+       }
+    },
+     series: [{
+        type: 'pie',
+        name: 'Estado',
+        data: [
+          <% @reports_by_status.each do |c| %>
+            ['<%= c[0] %>s',<%= c[1] %>],
+          <% end %>
+        ]
+     }]
+  });
+});
+</script>
+<div id="reportes" style="height:350px">
+  <div style="width:40%;height:100%;float:left" id="report_container"></div>
+  <div class="clear"></div>
+</div>
+

@@ -1,16 +1,6 @@
 <% title "Estadisticas Generales"%>
 <% content_for :head do %>
   <%= javascript_include_tag "highcharts" %>
-  <script>
-    $(function(){
-      $("#it").click(function(){
-        $("#items").html('<div style="text-align:center;padding-top:50px"><%= image_tag('loading2.gif')%><p> Buscando...</p></div>')
-      });
-      $("#det").click(function(){
-        $("#deteriorations").html('<div style="text-align:center;padding-top:50px"><%= image_tag('loading2.gif')%><p> Buscando...</p></div>')
-      });
-    });
-  </script>
 <% end %>
 <span class="button"> <%= link_to 'Volver', admin_path  %></span>
 <div class="clear"></div>
@@ -69,6 +59,35 @@
     <% end %>
   </div>
   <%= render "items_graph" %>
+</div>
+<div id="estadistica_reportes" style="border:solid 1px #ccc;padding: 15px;margin: 5px 0">
+  <div style="color: #fff; background: #26456D;padding: 10px; font-weight: bold;font-size: 20px">
+    Reportes
+  </div>
+  <div class="search">
+    <%= form_tag 'estadisticas', :method => 'get', :remote => true do %>
+      Buscar entre
+      <%= hidden_field_tag "estadisticas[type]", "reportes" %>
+      <select name="estadisticas[desde]" id="item_desde">
+        <% ApplicationHelper::MESES.each do |mes,n| %>
+          <option value="<%= n %>"><%= mes %></option>
+        <% end %>
+      </select>
+      y
+      <select name="estadisticas[hasta]" id="item_hasta">
+        <% ApplicationHelper::MESES.each do |mes,n| %>
+          <option value="<%= n %>"><%= mes %></option>
+        <% end %>
+      </select>
+      <select name="estadisticas[anio]">
+        <% Date.today.year.downto(1980) do |year| %>
+          <option><%= year %></option>
+        <% end %>
+      </select>
+      <%= submit_tag "Ok", :id =>"reportes" %>
+    <% end %>
+  </div>
+  <%= render "reportes_graph" %>
 </div>
 <div id="estadistica_colecciones" style="border:solid 1px #ccc;padding: 15px;margin: 5px 0">
   <div style="color: #fff; background: #26456D;padding: 10px; font-weight: bold;font-size: 20px"> Colecciones </div>

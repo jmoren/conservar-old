@@ -1,61 +1,16 @@
 <% title "Items" %>
-<% content_for :head do %>
-  <script>
-    $(function(){
-      $('#submit_button').click(function(){
-        $('.loading').show();
-        $('.result').html('');
-      });
-      $('.important').click(function(){
-        $("#items").html('<div style="text-align:center;margin-top:40px;"><img src="/images/loading2.gif"</div>');
-      });
-      $('#by_category').change(function(){
-        $('.loading').show();
-        $('.result').html('');
-        $.ajax({
-          url: 'items/?category='+ $(this).val(),
-          success: function(){
-            $('.loading').hide();
-          },
-          dataType: 'script'
-        });
-      });
-      $('#by_subcategory').change(function(){
-        $('.loading').show();
-        $('.result').html('');
-        $.ajax({
-          url: 'items/?subcategory='+ $(this).val(),
-          success: function(){
-            $('.loading').hide();
-          },
-          dataType: 'script'
-        });
-      });
-      $('#by_collection').change(function(){
-        $('.loading').show();
-        $('.result').html('');
-        $.ajax({
-          url: 'items/?collection='+ $(this).val(),
-          success: function(){
-            $('.loading').hide();
-          },
-          dataType: 'script'
-        });
-      })
-    })
-  </script>
-<% end %>
+
 <div id="section_header">
   <div id="items_search">
     <%= form_tag items_path, :method => 'get', :remote => true do %>
       Buscar por autor o codigo:
       <%= search_field_tag 'q' %>
-      <%= submit_tag "ok", :id => "submit_button"%>
+      <%= submit_tag "ok", :class => "remote_link"%>
     <% end %>
   </div>
   <div id="items_filter">
     Filtar por
-    <select id="by_category" title="Filtrar por Categoria">
+    <select class="selectable" id="category" title="Filtrar por Categoria">
       <option value="0" selected="selected"> Categoria </option>
       <% ItemCategory.categories.each do |category| %>
         <% if !category.empty?%>
@@ -63,7 +18,7 @@
         <% end %>
       <% end %>
     </select>
-    <select id="by_subcategory" title="filtar por Subcategoria">
+    <select class="selectable" id="subcategory" title="filtar por Subcategoria">
       <option value="0" selected="selected"> Subcategoria </option>
       <% ItemCategory.all_subcategories.each do |subcategory| %>
         <% if Item.where(:item_subcategory_id => subcategory).size > 0 %>
@@ -71,7 +26,7 @@
         <% end %>
       <% end %>
     </select>
-    <select id="by_collection" title="Filtrar por coleccion">
+    <select class="selectable" id="collection" title="Filtrar por coleccion">
       <option value="0" selected="selected"> Coleccion </option>
       <% Collection.all.each do |collection| %>
         <option value="<%= collection.id %>"> <%= collection.name.titleize %> </option>
@@ -82,19 +37,17 @@
     <span class=" button link_new"><%= link_to "Nuevo Item", new_item_path %></span>
   </div>
   <div class="clear"></div>
-  <div>
+  <div style="margin:5px;">
     <div class="left">
-      <small>
+      <div>
         <% if current_user.has_items_flagged?(:important) %>
-          <%= link_to 'Destacados', items_path(:flagged => 'important'), :remote => true, :class => "important"  %> -
+          <%= link_to 'Destacados', items_path(:flagged => 'important'), :remote => true, :class => "remote_link"  %> -
         <% end %>
-        <%= link_to 'Todos', items_path, :remote => true, :class => "important"  %>
-      </small>
+        <%= link_to 'Todos', items_path, :remote => true, :class => "remote_link"  %>
+      </div>
     </div>
-    <div class="loading" style="display:none;">
-      <%= image_tag('loading.gif') %> buscando...
-    </div>
-    <div class="result"><%= page_entries_info(@items) %></div>
+    <div class="result"><div style="float:left;margin:3px 8px"><%= page_entries_info(@items) %></div></div>
+    <div class="clear"></div>
   </div>
 </div>
 <div id="items">

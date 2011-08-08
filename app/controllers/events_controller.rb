@@ -5,6 +5,9 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    if !@event.report_id.nil?
+      @report = Report.find @event.report_id
+    end
   end
 
   def new
@@ -44,11 +47,16 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event.start_at = @event.start_at + params[:delta].to_i.day
     @event.end_at = @event.end_at + params[:delta].to_i.day
-    @event.save
-    if @event.start_at.day == @event.end_at.day
-      render :text => "Se actualizo la fecha de <b>#{@event.title}</b>: #{l @event.start_at, :format => '%d de %B'}"
-    else
-      render :text => "Se actualizaron las fechas de <b>#{@event.title}</b>: #{l @event.start_at, :format => '%d de %B'} al #{l @event.end_at, :format => '%d de %B'} "
+    if @event.save
+      if !@event.report_id.nil?
+        @report = Report.find(@event.report_id)
+        @report.update_dates(@event.end_at)
+      end
+      if @event.start_at.day == @event.end_at.day
+        render :text => "Se actualizo la fecha de <b>#{@event.title}</b>: #{l @event.start_at, :format => '%d de %B'}"
+      else
+        render :text => "Se actualizaron las fechas de <b>#{@event.title}</b>: #{l @event.start_at, :format => '%d de %B'} al #{l @event.end_at, :format => '%d de %B'} "
+      end
     end
   end
 end

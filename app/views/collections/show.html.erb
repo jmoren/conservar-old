@@ -1,7 +1,18 @@
-<% title Collection.model_name.human %>
-<div id="collection">
+<% title "#{Collection.model_name.human} #{@collection.name.titleize}" %>
+<div id="collection_show">
+  <div class="left">
+    <small>Creado por <span style="color:#DD4B39"><strong><%= @collection.user.full_name %></strong></span> el <strong><%= l @collection.created_at, :format => :short %></strong></small>
+  </div>
+  <div class="right">
+    <div class="button">
+      <%= link_to t('helpers.links.edit'), edit_collection_path(@collection) %>
+    </div>
+    <div class="button">
+      <%= link_to t('helpers.links.delete'), @collection, :confirm => 'Esta seguro que desea eliminar esta coleccion?', :method => :delete %>
+    </div>
+  </div>
+  <div class="clear"></div>
   <div id="colecction_info">
-    <small>Creado por <%= @collection.user.full_name %> el <%= l @collection.created_at, :format => :short %></small>
     <h2> Coleccion <%= @collection.name %></h2>
     <%= simple_format @collection.description, :class => "text_area" %>
   </div>
@@ -18,13 +29,5 @@
     <% end %>
   </div>
   <div class="clear"></div>
-  <p>
-    <div class="button">
-      <%= link_to t('helpers.links.edit'), edit_collection_path(@collection) %>
-    </div>
-    <div class="button">
-      <%= link_to t('helpers.links.delete'), @collection, :confirm => 'Esta seguro que desea eliminar esta coleccion?', :method => :delete %>
-    </div>
-  </p>
 </div>
 
