@@ -1,32 +1,40 @@
-<%= form_for [:admin,@user], :validate => true do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :lastname %><br />
-    <%= f.text_field :lastname %>
-  </p>
-  <p>
-    <%= f.label :username %><br />
-    <%= f.text_field :username %>
-  </p>
-  <p>
-    <%= f.label :email, "Email" %><br />
-    <%= f.text_field :email %>
-  </p>
-  <p>
-    <%= f.label :role %>
-    <%= f.select :role, ApplicationHelper::ROLES %>
-  <p>
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
-  </p>
-  <p>
-    <%= f.label :password_confirmation, "Confirmar contrasenia" %><br />
-    <%= f.password_field :password_confirmation %>
-  </p>
-  <p><%= f.submit %> or <%= link_to 'Cancelar', admin_users_path %></p>
-<% end %>
+<div class="form">
+  <%= form_for [:admin,@user], :validate => true do |f| %>
+    <%= f.error_messages %>
+    <div class="left col_left">
+      <div class="user_attr">
+        <%= f.label :name, :class => "attributes" %>
+        <%= f.text_field :name %>
+      </div>
+      <div class="user_attr">
+        <%= f.label :lastname, :class => "attributes" %>
+        <%= f.text_field :lastname %>
+      </div>
+      <div class="user_attr">
+        <%= f.label :username, :class => "attributes" %>
+        <%= f.text_field :username %>
+      </div>
+      <div class="user_attr">
+        <%= f.label :email, "Email", :class => "attributes" %>
+        <%= f.text_field :email %>
+      </div>
+    </div>
+    <div class="left col_left">
+      <div class="user_attr">
+        <%= f.label :role, :class => "attributes" %>
+        <%= f.select :role, ApplicationHelper::ROLES%>
+      </div>
+      <div class="user_attr">
+        <%= f.label :password, :class => "attributes" %>
+        <%= f.password_field :password %>
+      </div>
+      <div class="user_attr">
+        <%= f.label :password_confirmation, "Confirmar", :class => "attributes" %>
+        <%= f.password_field :password_confirmation %>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <p><%= f.submit %> or <%= link_to 'Cancelar', admin_users_path %></p>
+  <% end %>
+</div>
 

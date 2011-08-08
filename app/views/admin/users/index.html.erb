@@ -1,24 +1,22 @@
 <% title "Usuarios" %>
-<div style="margin: 20px 30px">
-  <span class="button link_new"><%= link_to 'Nuevo Usuario', new_admin_user_path  %></span>
-</div>
-<div class="clear"></div>
 <div id="users">
-<% @users.each do |user| %>
-  <div class="user" style="width:30%;float:left;margin:10px">
-    <p>
-      Nombre Completo: <%= user.full_name %>
-      <span style="float:left;margin-right: 10px">
-        <%= user.enabled? ? image_tag('closed.png') : image_tag('open.png') %>
-      </span>
-    </p>
-    <p style="margin-left: 25px">Email: <%= user.email %></p>
-    <p style="margin-left: 25px">Rol: <%= user.role %></p>
-    <div style="font-size:11px;float:left;margin-left: 25px">
-      <%= link_to 'Editar', edit_admin_user_path(user), :style=>"font-weight:bold;color:#36C"  %> |
-      <%= user.enabled? ? (link_to 'Deshabilitar', disable_admin_user_path(user), :style => "font-weight:bold;color:#36C") :  (link_to 'Habilitar', enable_admin_user_path(user), :style => "font-weight:bold;color:#36C")  %>
+  <span class="button link_new" style="margin: 5px 10px"><%= link_to 'Nuevo Usuario', new_admin_user_path  %></span>
+  <div class="clear"></div>
+  <% @users.each do |user| %>
+    <div class="user">
+      <div class="name">
+        Nombre: <%= user.full_name %>
+        <span style="float:left;margin-right: 10px">
+          <%= user.enabled? ? image_tag('closed.png') : image_tag('open.png') %>
+        </span>
+      </div>
+      <div class="row email">Email: <%= user.email %></div>
+      <div class="row  rol">Rol: <%= user.role %></div>
+      <div class="row links">
+        <%= link_to 'Editar', edit_admin_user_path(user), :style=>"font-weight:bold;color:#36C"  %> |
+        <%= user.enabled? ? (link_to 'Deshabilitar', disable_admin_user_path(user), :style => "font-weight:bold;color:#36C") :  (link_to 'Habilitar', enable_admin_user_path(user), :style => "font-weight:bold;color:#36C")  %>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
 </div>
 

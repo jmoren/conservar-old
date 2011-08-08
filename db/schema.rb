@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(:version => 20110808014021) do
 
   create_table "generic_select_fields", :force => true do |t|
     t.integer  "item_id"
-    t.string   "label_attribute"
+    t.string   "label"
     t.string   "content"
     t.string   "options"
     t.datetime "created_at"
