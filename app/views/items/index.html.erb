@@ -37,16 +37,19 @@
     <span class=" button link_new"><%= link_to "Nuevo Item", new_item_path %></span>
   </div>
   <div class="clear"></div>
-  <div style="margin:5px;">
-    <div class="left">
-      <div>
-        <% if current_user.has_items_flagged?(:important) %>
-          <%= link_to 'Destacados', items_path(:flagged => 'important'), :remote => true, :class => "remote_link"  %> -
-        <% end %>
-        <%= link_to 'Todos', items_path, :remote => true, :class => "remote_link"  %>
-      </div>
+  <div class="sub_menu">
+    <div class="pages left">
+      <%= paginate @items, :remote => true %>
     </div>
-    <div class="result"><div style="float:left;margin:3px 8px"><%= page_entries_info(@items) %></div></div>
+    <div class="result left">
+      <%= page_entries_info(@items) %>
+    </div>
+    <div class="destacados right">
+      <% if current_user.has_items_flagged?(:important) %>
+        <%= link_to 'Destacados', items_path(:flagged => 'important'), :remote => true, :class => "remote_link"  %> -
+      <% end %>
+      <%= link_to 'Todos', items_path, :remote => true, :class => "remote_link"  %>
+    </div>
     <div class="clear"></div>
   </div>
 </div>

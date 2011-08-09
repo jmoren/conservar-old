@@ -1,5 +1,17 @@
 $(function(){
-
+    $('.close_flash').live('click',function(){
+          $('.flash').html('').fadeOut('slow');
+          return false;
+        });
+        $(".with_vcard").hover(function(){
+          card = $(this).find('#vcard');
+          card.fadeIn("slow");//Show tooltip
+        }, function() {
+          //card.fadeOut('slow'); //Hide tooltip
+        })
+    $('nav.pagination a').live("click",function(){
+      $('.result').html('<div><img src="/images/loading.gif" style="float:left"> <span>buscando...</span></div>');
+    });
     // dinamic fields
     $('form a.add_child').click(function() {
       var assoc   = $(this).attr('data-association');

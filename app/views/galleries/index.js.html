@@ -1,0 +1,3 @@
+$("#galleries").html("<%= escape_javascript(render 'galleries', :collection => @galleries)%>");
+$('.result').html('<%= search_page_entries_info(@galleries) %>');
+

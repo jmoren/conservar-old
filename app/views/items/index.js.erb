@@ -1,4 +1,4 @@
 $("#items").html("<%= escape_javascript(render 'items', :collection => @items)%>");
-$('.result').html('<div style="float:left;margin:3px 8px"><%= search_page_entries_info(@items) %></div>');
+$('.result').html('<%= search_page_entries_info(@items) %>');
 $('#q').val('');
 

@@ -1,16 +1,17 @@
-<div style=" margin: 20px">
-<%= form_for [:admin,subcategory.generic_fields.new] do |f| %>
-  <%= f.error_messages %>
-  <%= f.hidden_field :item_category_id, :value => subcategory.id %>
-  <p>
-    <%= f.label :name, "Nombre" %>
-    <%= f.text_field :name, :size => 20 %>
-  </p>
-  <p>
-    <%= f.label :field_style, "Tipo" %>
-    <%= f.select :field_style, GenericField::STYLES %>
-  </p>
-  <p><%= f.submit "Agregar" %> o <%= link_to 'Cancelar', admin_configuration_path   %></p>
-<% end %>
+<h2> Nuevo campo </h2>
+<div class="form">
+  <%= form_for [:admin,subcategory.generic_fields.new], :remote => true, :validate => true do |f| %>
+    <%= f.error_messages %>
+    <%= f.hidden_field :item_category_id, :value => subcategory.id %>
+    <p>
+      <%= f.label :name, "Nombre" %>
+      <%= f.text_field :name, :maxlength => 20 %>
+    </p>
+    <p>
+      <%= f.label :field_style, "Tipo" %>
+      <%= f.select :field_style, GenericField::STYLES %>
+    </p>
+    <p><%= f.submit "Agregar" %> o <%= link_to_function 'Cancelar', "$('#new_generic_field')[0].reset();$('#new_generic_field label.message').hide()"%></p>
+  <% end %>
 </div>
 

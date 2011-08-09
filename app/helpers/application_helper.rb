@@ -107,7 +107,7 @@ module ApplicationHelper
       collection_name = collection.klass.model_name.human
       total = collection.klass.count
       if collection.count > 0
-        "#{collection.offset_value + 1} - #{collection.offset_value + collection.length} items"
+        "#{collection.offset_value + 1} - #{collection.offset_value + collection.length}  #{collection_name.pluralize.downcase}"
       end
     end
   end
@@ -117,7 +117,7 @@ module ApplicationHelper
       collection_name = collection.klass.model_name.human
       total = collection.offset_value + collection.length
       if collection.count > 0
-        "#{collection.offset_value + 1} - #{collection.offset_value + collection.length} items"
+        "#{collection.offset_value + 1} - #{collection.offset_value + collection.length} #{collection_name.pluralize.downcase}"
       end
     end
   end

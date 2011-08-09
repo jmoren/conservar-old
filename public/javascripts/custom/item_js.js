@@ -1,7 +1,4 @@
 $(function(){
-  $('nav.pagination a').live("click",function(){
-    $('.result').html('<div><img style="float:left;margin: 3px" src="/images/loading.gif"> <div style="float:left;margin: 1px 3px">buscando...</div></div>');
-  });
   $('.remote_link').click(function(){
     $('.result').html('<div><img style="float:left;margin: 3px" src="/images/loading.gif"> <div style="float:left;margin: 1px 3px">buscando...</div></div>');
   });
@@ -37,11 +34,11 @@ $(function(){
   });
   $('.close_vcard_report').click(function(){
     var id = $(this).attr('id');
-    $(".vcard_report_"+id).hide();
+    $(".vcard_report_"+id).fadeOut('slow');
     return false;
   })
   $('#close_vcard_collection').click(function(){
-    $(".vcard_collection").hide();
+    $(".vcard_collection").fadeOut('slow');
     return false;
   })
 });

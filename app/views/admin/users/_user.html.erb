@@ -1,0 +1,17 @@
+<div class="name">
+  Nombre: <%= user.full_name %>
+  <span style="float:left;margin-right: 10px">
+    <%= user.enabled? ? image_tag('closed.png') : image_tag('open.png') %>
+  </span>
+</div>
+<div class="row email">Email: <%= user.email %></div>
+<div class="row  rol">Rol: <%= user.role %></div>
+<div class="row links">
+  <%= link_to 'editar', edit_admin_user_path(user), :style=>"font-weight:bold;color:#36C"  %> -
+  <% if user.enabled? %>
+    <%= link_to 'deshabilitar', disable_admin_user_path(user),:remote => true, :class => "remote_link", :id => user.id %>
+   <% else %>
+    <%= link_to 'habilitar', enable_admin_user_path(user), :remote => true,:class => "remote_link", :id => user.id  %>
+   <% end %>
+</div>
+

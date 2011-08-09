@@ -324,17 +324,16 @@ input[type="submit"]{
   text-decoration: none;
 }
 
-#items .pagination .page{
-  margin: 2px;
+.pagination {
 }
-#items .pagination .current{
+.pagination .current{
   color: #666;
 }
-#items .pagination .page a{
+.pagination .page a{
   text-decoration: none;
   text-align:center;
 }
-#items .pagination .next a, .prev a, .first a, .last a {
+.pagination .next a, .prev a, .first a, .last a {
   text-decoration: none;
 }
 li.help_list:hover {
@@ -367,8 +366,7 @@ li.help_list{#FCFBB6
 /* events */
 /*items */
 #section_header {
-  margin: 0 10px;
-  padding: 10px;
+  padding: 0 10px;
 }
 #section_header #items_search{
   float: left;
@@ -377,25 +375,22 @@ li.help_list{#FCFBB6
   float: left;
   margin-left: 20px;
 }
-.result {
-  width:15%;
-  margin: 0px auto;
-  text-align:center;
+.sub_menu{margin:10px 0}
+.result, .pages {
+  width:40%;
 }
-.result img{ margin: 3px 5px; text-align:center;}
-
+.destacados{text-align: right;width:15%;}
 
 #section_header #section_nav{
   float: right;
 }
-
 #item_flags{
   width: 15%;
   margin: 0;
   cursor: pointer;
 }
 #item_flags img{
-  margin: -5px 10px;
+
   float: left;
 }
 
@@ -758,8 +753,9 @@ ul#alerts {
    margin: auto;
  }
 #users .user{
-  width:30%;
+  width:29%;
   float:left;
+  height: 100px;
   margin:10px;
   border: solid 1px #ccc;
   padding: 10px;
@@ -767,4 +763,21 @@ ul#alerts {
 }
 #users .user .row{ margin: 5px 25px;}
 #users .user .links{ font-size:11px;float:left}
+#new_fields{width: 90%;margin:auto}
+#new_fields_table{
+  width: 70%;
+  margin: 10px auto;
+  float:left;
+  margin:auto;
+}
+#new_fields_table table{width: 100%;border-collapse: collapse}
+#new_fields_table table tr th{line-height: 1.5em; text-align: left;background: #26456D; color: #fff; padding: 5px;}
+#new_fields_table table tr{ line-height: 1.7em;}
+#new_fields_table table td{text-align:left;padding-left: 5px;}
+#new_fields_table table td.link_delete, #new_fields table th.link_delete{width: 13%;text-align:center}
+#new_fields_table table td.field_name, #new_fields_table table td.field_type{font-weight:bold}
+#new_fields_table table td.field_name,#new_fields table th.field_name{text-align:left;width:60%;}
+#new_fields_table table td.field_type,#new_fields table th.field_type{text-align:left;width:12%;}
+#new_fields h2{color: #3D9400;margin-left:15px}
+#new_fields_form{width: 30%;margin: 10px auto;float:left;margin:auto;}
 

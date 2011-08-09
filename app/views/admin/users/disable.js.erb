@@ -1,0 +1,3 @@
+$("#user_<%= @user.id %>").html("<%= escape_javascript(render @user )%>");
+setTimeout(function(){ $("#user_<%= @user.id %>").effect("highlight",{}, 5000)});
+

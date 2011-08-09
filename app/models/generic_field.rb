@@ -5,7 +5,7 @@ class GenericField < ActiveRecord::Base
   STYLES = [['string'],['texto'],['entero'],['boolean'],['float']]
 
   validate :field_taken
-
+  validates_presence_of :name
   def field_taken
     item_category = ItemCategory.find(self.item_category_id)
     if item_category.generic_fields.find_by_name(self.name)

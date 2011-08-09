@@ -33,13 +33,11 @@ class Admin::UsersController < AdminController
   def enable
     @user = User.find(params[:id])
     @user.enable
-    redirect_to admin_users_path, :notice => "El usuario #{@user.full_name} fue habilitado."
   end
 
   def disable
     @user = User.find(params[:id])
     @user.disable
-    redirect_to admin_users_path, :notice => "El usuario #{@user.full_name} fue deshabilitado."
   end
 
 end

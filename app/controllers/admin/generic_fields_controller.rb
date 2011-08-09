@@ -6,9 +6,9 @@ class Admin::GenericFieldsController < AdminController
   def create
     @generic_field = GenericField.new(params[:generic_field])
     if @generic_field.save
-      redirect_to admin_item_category_path(@generic_field.item_category)
+
     else
-      redirect_to admin_item_category_path(@generic_field.item_category),:alert => "El nombre " + @generic_field.errors[:name].to_sentence
+      notice = "El nombre " + @generic_field.errors[:name].to_sentence
     end
   end
 
@@ -23,11 +23,12 @@ class Admin::GenericFieldsController < AdminController
   end
   # name and field_style
   def destroy
+    sleep 2
     @generic_field = GenericField.find(params[:id])
+    name = @generic_field.name
     category = @generic_field.item_category
     if params[:delete_fields]
       @items = Item.where(:item_subcategory_id => category)
-      puts @items.first
       case @generic_field.field_style
       when "entero"
         @items.each do |item|

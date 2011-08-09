@@ -3,14 +3,19 @@
     $('.loading').click(function(){
       $('#flag').html('<span id="loading" style="color:#fff;font-weight:bold;margin: 15px 5px 0 0px">Espere...</span>');
     });
-    $('#item_flags').hover(
-      function(){$('.show_button').show()},
-      function(){$('.show_button').hide()}
-      )
+    //$('#item_flags').hover(
+    //  function(){$('.show_button').show()},
+    //  function(){$('.show_button').hide()}
+    //  )
   })
 </script>
 <% if @item.flagged_by?(current_user,:important) %>
-  <%= image_tag('important.png') %> <span id="flag" class="show_button button" style="display:none"><%= link_to "Eliminar marca", unflag_item_path(@item), :remote => true, :class => "loading" %></span>
+  <%= image_tag('important.png') %>
+  <div id="flag" class="show_button button" style="margin-top:3px">
+    <span>
+      <%= link_to "Eliminar marca", unflag_item_path(@item), :remote => true, :class => "loading"%>
+    </span>
+  </div>
 <% else %>
   <span id="flag" class="button"><%= link_to "Agregar marca", flag_item_path(@item), :remote => true, :class => "loading" %></span>
 <% end %>

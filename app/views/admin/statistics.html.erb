@@ -2,7 +2,9 @@
 <% content_for :head do %>
   <%= javascript_include_tag "highcharts" %>
 <% end %>
-<span class="button"> <%= link_to 'Volver', admin_path  %></span>
+<div class="right">
+  <span class="button"> <%= link_to 'Volver', admin_path  %></span>
+</div>
 <div class="clear"></div>
 <div id="estadistica_deterioros" style="border:solid 1px #ccc;padding: 15px;margin: 5px 0">
   <div style="color: #fff; background: #26456D;padding: 10px; font-weight: bold;font-size: 20px"> Problemas encontrados </div>

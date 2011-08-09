@@ -9,20 +9,6 @@
     <%= javascript_include_tag "custom/#{controller_name.singularize}_js" %>
     <%= csrf_meta_tag %>
     <%= yield(:head) %>
-    <script>
-      $(function(){
-        $('.close_flash').live('click',function(){
-          $('.flash').html('').fadeOut('slow');
-          return false;
-        });
-        $(".with_vcard").hover(function(){
-          card = $(this).find('#vcard');
-          card.fadeIn('slow').wait(2000); //Show tooltip
-        }, function() {
-          //card.fadeOut('slow'); //Hide tooltip
-        })
-      });
-    </script>
   </head>
   <body>
     <div id="header">
@@ -47,7 +33,7 @@
       <div class="clear"></div>
       <div id="sub_header">
         <div id="title">
-          <%= yield(:title) if show_title? %>
+          <%= yield(:title) %>
         </div>
         <div id="user_menu" class="with_vcard">
           <div class="vcard-left" id="vcard" style="display:none">

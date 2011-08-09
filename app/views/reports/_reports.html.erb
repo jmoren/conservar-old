@@ -1,0 +1,27 @@
+<table>
+  <tr>
+    <th><%=Report.human_attribute_name(:status)%></th>
+    <th><%=Report.human_attribute_name(:code)%></th>
+    <th><%=Report.human_attribute_name(:comments)%></th>
+    <th><%=Report.human_attribute_name(:treatment)%></th>
+    <th><%=Report.human_attribute_name(:user)%></th>
+    <th></th>
+  </tr>
+  <% for report in @reports %>
+    <tr>
+      <td><%= report.closed? ? image_tag('closed.png', :title => "Reporte #{report.status}") : image_tag('open.png', :title => "Reporte #{report.status}") %></td>
+      <td><%= report.code %></td>
+      <td><%= report.comments %></td>
+      <td><%= truncate(report.treatment, :lenght => 40) %></td>
+      <td><%= report.user.email %></th>
+      <td>
+        <%= link_to "Ver", report %>
+        <%= link_to "Editar", edit_report_path(report) %>
+        <% if current_user.admin? %>
+          <%= link_to "Eliminar", report, :confirm => 'Are you sure?', :method => :delete %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+

@@ -1,31 +1,14 @@
 <% title "Tareas" %>
-<div id="tasks">
-  <table>
-    <tr>
-      <th>Reporte</th>
-      <th>Deterioro</th>
-      <th>Descripcion</th>
-      <th>Creado por</th>
-      <th></th>
-    </tr>
-    <% for task in @tasks %>
-      <tr>
-        <td><%= link_to task.report.code, task.report %></td>
-        <td><%= link_to "Det. ##{task.deterioration.id}", task.deterioration %></td>
-        <td><%= task.description %></td>
-        <td><%= task.user.full_name %></td>
-        <td>
-          <%= link_to t('helpers.links.show'), task %>
-          <%= link_to t('helpers.links.edit'), edit_task_path(task) %>
-          <% if current_user.admin? %>
-            <%= link_to t('helpers.links.delete'), task, :confirm => 'Are you sure?', :method => :delete %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+<div id="section_header">
+  <div class="pages left">
+    <%= paginate @tasks, :remote => true %>
+  </div>
+  <div class="result left">
+    <%= page_entries_info(@tasks) %>
+  </div>
+  <div class="clear"></div>
 </div>
-<p>
- <%= paginate @tasks %>
-</p>
+<div id="tasks">
+  <%= render :partial => "tasks" %>
+</div>
 

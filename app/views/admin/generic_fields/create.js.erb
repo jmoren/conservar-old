@@ -1,0 +1,4 @@
+$('#new_fields_table table').append("<%= escape_javascript(render :partial => "admin/item_categories/field", :locals => {:generic_field => @generic_field})%>");
+$('#new_generic_field')[0].reset();
+$('#new_generic_field label.message').hide();
+

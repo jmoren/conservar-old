@@ -1,27 +1,36 @@
 <% title "Subcategoria #{@subcategory.name} "%>
 <script>
   $(function(){
-    $('.generic_field').click(function(){
+    $('.remote_link').click(function(){
+      var id = $(this).attr('id');
       $('#loading').show();
     })
   })
 </script>
-<div>
-  <ul>
-    <% @subcategory.generic_fields.each do |generic_field| %>
-      <li id="generic_<%= generic_field.id%>">
-        <%= generic_field.name %> : <%= generic_field.field_style %>
-        <small>
-          <%= link_to 'Eliminar', admin_generic_field_path(generic_field), :method => :delete, :remote => true, :class => "generic_field" %>
-          <%= link_to 'Eliminar y eliminar campo de los objetos', admin_generic_field_path(generic_field, :delete_fields => true), :method => :delete, :remote => true, :class => "generic_field" %>
-        </small>
-      </li>
-    <% end %>
-  </ul>
-
-  <div class="generic_field_form">
+<div id="new_fields">
+  <div class="right" style="margin-right:20px">
+    <div class="button"> <%= link_to 'Volver', admin_configuration_path  %></div>
+  </div>
+  <div class="clear"></div>
+  <div id="new_fields_table">
+    <h2> Campos adicionales </h2>
+    <table>
+      <tr>
+        <th class="field_name"> Nombre </th>
+        <th class="field_type"> Tipo </th>
+        <th class="link_delete" title="Se eliminara este campo para los futuros objetos"> Eliminar I </th>
+        <th class="link_delete" title="Se eliminara de todos los objetos que posean este campo"> Eliminar II</th>
+      </tr>
+      <% @subcategory.generic_fields.each do |generic_field| %>
+        <tr id="generic_<%= generic_field.id%>">
+          <%= render :partial => "field", :locals => {:generic_field => generic_field}  %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div id="new_fields_form">
     <%= render :partial => 'admin/generic_fields/form', :locals => {:subcategory => @subcategory } %>
   </div>
+  <div class="clear"></div>
 </div>
-<div id="loading" style="border-radius: 3px;background: #fff;box-shadow: 0px 0px 10px 5px #666666;position:absolute;top:10%;left:40%;text-align:center;display:none;width:10%"><p><%= image_tag('loading2.gif') %></p><p> eliminando... </p></div>
 
