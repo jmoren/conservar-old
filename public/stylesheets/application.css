@@ -600,31 +600,34 @@ li.help_list{#FCFBB6
 /* collections */
 /*admin */
 #admin_index {
-  width: 70%;
+  width: 80%;
   margin: auto;
 }
 ul.conf_list{
   text-align:center;
   display: inline;
   list-style: none;
+
 }
 ul.conf_list li{
   float: left;
   margin: 30px 10px;
   width: 30%;
+  border: solid 2px #999;
+  color: #666;
+  border-radius: 6px;
 }
 ul.conf_list li a.conf_option{
-  border: solid 2px #999;
   color: #666;
   padding: 15px;
   margin: 10px;
-  border-radius: 6px;
-  width: 100%;
+
 }
 ul.conf_list li:hover a.conf_option{
   color: #fff;
   background: #666;
   border: solid 2px #666;
+  border-radius: 6px;
 }
 ul.conf_list li .conf_explanation{
   display:none;
@@ -636,7 +639,6 @@ ul.conf_list li:hover .conf_explanation{
   font-size: 12px;
   padding: 5px;
   margin: 10px auto;
-  width: 60%;
 }
 /* admin*/
 /* alerts */

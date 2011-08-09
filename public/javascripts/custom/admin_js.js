@@ -1,4 +1,5 @@
 $(function(){
+
   $("#it").click(function(){
     $("#items").html('<div style="text-align:center;padding-top:50px"><img src="/images/loading2.gif"><p> Buscando...</p></div>')
   });
