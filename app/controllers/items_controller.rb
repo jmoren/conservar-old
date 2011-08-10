@@ -113,6 +113,10 @@ class ItemsController < ApplicationController
   def unflag
     @item = Item.find(params[:id])
     current_user.unflag(@item, :important)
+    @respond_to = params[:user]
+    respond_to do |format|
+      format.js
+    end
   end
 end
 

@@ -13,5 +13,10 @@ class UsersController < ApplicationController
       render :action => 'edit'
     end
   end
+  def profile
+    @items = Item.important(current_user,:important).page(params[:page])
+    @reports = Report.where(:assigned_to => current_user.id)
+    @recent_activity
+  end
 end
 

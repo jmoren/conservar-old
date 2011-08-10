@@ -1,2 +1,7 @@
-$('#item_flags').html("<%= escape_javascript(render 'item_flag') %>");
+<% if @respond_to %>
+  $("#item_<%= @item.id%>").fadeOut('slow');
+  $("#item_<%= @item.id%>").remove();
+<% else %>
+  $('#item_flags').html("<%= escape_javascript(render 'item_flag') %>");
+<% end %>
 

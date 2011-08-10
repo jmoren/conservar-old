@@ -2,6 +2,7 @@ Conservar::Application.routes.draw do
 
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login
+  match 'profile' => 'users#profile', :as => :profile
   #admin routes
   match 'admin' => "admin#index", :as => :admin
   match 'admin/estadisticas' => "admin#statistics", :as => "admin_statistics"

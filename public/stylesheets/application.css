@@ -783,3 +783,8 @@ ul#alerts {
 #new_fields h2{color: #3D9400;margin-left:15px}
 #new_fields_form{width: 30%;margin: 10px auto;float:left;margin:auto;}
 
+
+.user_item{border: solid 1px #ccc;padding: 10px; border-radius: 5px;float:left; margin: 5px;width: 30%}
+#user_item_photo{width: 20%; padding: 5px}
+#user_item_info{width: 70%; padding: 5px}
+
