@@ -23,6 +23,11 @@ gem 'rack-raw-upload'
 gem 'nifty-generators'
 gem 'friendly_id'
 gem 'make_flaggable', :git => 'git://github.com/cavneb/make_flaggable.git'
+gem 'paper_trail'
+
+# cron tasks
+gem 'whenever'
+
 
 gem "mocha", :group => :test
 gem "bcrypt-ruby", :require => "bcrypt"
