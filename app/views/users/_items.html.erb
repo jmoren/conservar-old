@@ -1,35 +1,28 @@
-<script>
-  $(function(){
-    $(".remove_item").click(function(){
-      var id = $(this).attr('id');
-      $('#item_'+id).html("<div style='text-align:center;margin-top: 10px;min-height:90px'><img src='/images/loading.gif'> Eliminando</div>");
-    });
-    $(".item_info_link").click(function(){
-      $('#collection_item_panel').html("<div style='text-align:center;margin-top: 40px'><img src='/images/loading2.gif'></div>");
-    });
-    $('nav.pagination a').live("click",function(){
-      $("#items_collection").html('<div style="text-align:center;margin-top:40px;"><img src="/images/loading2.gif"</div>');
-    });
-  });
-</script>
-<div id="pag_items_collection" class="right"><%= paginate @items, :remote => true %></div>
+<div id="items_profile">
+  <div id="pag_items_collection" class="right"><%= paginate @items, :remote => true %></div>
+  <div class="clear"></div>
+  <% @items.each do |item| %>
+    <div id="item_<%= item.id%>" class="user_item">
+      <div class="user_item_photo left">
+        <%= image_tag(item.photo.url(:small)) %>
+      </div>
+      <div class="user_item_info">
+        <table style="width:100%">
+          <tr>
+            <td><strong> Codigo:</strong></td>
+            <td class="code"><%= item.code %></td>
+            <td><%= image_tag('important16.png')%></td></tr>
+          <tr><td><strong> Titulo:</strong></td><td><%= item.title %></td></tr>
+          <tr><td><strong> Tipo:</strong></td><td><%= item.subcategory.name %> (<%= item.category.name %>)</td></tr>
+          <tr><td><strong> Autor:</strong></td><td><%= item.author %></td></tr>
+        </table>
+        <div class="user_item_links">
+          <%= link_to 'ver',item %> |
+          <%= link_to 'desmarcar', unflag_item_path(item, :user => true), :remote => true, :id => item.id, :class => "remove_item"%>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
 <div class="clear"></div>
-<% @items.each do |item| %>
-  <div id="item_<%= item.id%>" class="user_item">
-    <div id="user_item_photo" class="left">
-      <%= image_tag(item.photo.url(:small)) %>
-    </div>
-    <div><span class="left"><%= image_tag('important16.png')%></span><span class="right"> Codigo:<%= item.code %></span></div>
-    <div class="clear"></div>
-    <p>
-      <div> Titulo:<%= item.title %></div>
-      <div> Subcategoria: <%= item.subcategory.name %> (<%= item.category.name %>)</div>
-      <div> Autor: <%= item.author %></div>
-    </p>
-    <div>
-      <%= link_to 'ver',item %> -
-      <%= link_to 'desmarcar', unflag_item_path(item, :user => true), :remote => true, :id => item.id, :class => "remove_item"%>
-    </div>
-  </div>
-<% end %>
 
