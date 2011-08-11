@@ -1,24 +1,11 @@
 <div class="observation"  id="observation_<%=observation.id%>">
-  <script>
-    $(function(){
-      $(".observation_body").editInPlace({
-          url: '/observations/update_in_place',
-          saving_image: '/images/loading.gif',
-          params: 'field=body',
-          field_type: "textarea",
-      		textarea_rows: "3",
-	      	textarea_cols: "59",
-	      	bg_out: "#f1f1f1"
-      });
-      $('.remove_obs').click(function(){
-        var id = $(this).attr('id');
-        $('#observation_'+id).html('<div style="margin-top: 25px;height:60px"><img src="/images/loading.gif"> eliminando... </div>');
-      })
-    });
- </script>
-  <div class="observation_header">
+  <div class="observation_header left">
     <%= Observation.human_attribute_name(:category)%> <strong><%= observation.category.titleize %></strong>
   </div>
+  <div class="link_to_delete right" >
+      <%= link_to image_tag('remove.png', :title => "Eliminar observacion"), observation, :method => :delete, :remote => true, :class => "remove_obs", :id => observation.id  %>
+  </div>
+  <div class="clear"></div>
   <div>
     <p class="observation_body" id="<%= observation.id %>">
     <%= observation.body %>
@@ -26,11 +13,9 @@
   <div class="observation_footer">
     <div class="user_info left">
       <%= Observation.human_attribute_name(:user)%>: <strong><%= observation.user.full_name %></strong>
-      -
-      <%= Observation.human_attribute_name(:created_at)%>: <strong><%= l observation.created_at, :format=> :short %></strong>
     </div>
-    <div class="link_to_delete right" >
-        <%= link_to t('helpers.links.delete'), observation, :method => :delete, :remote => true, :class => "remove_obs", :id => observation.id  %>
+    <div class="user_info right">
+      <%= Observation.human_attribute_name(:created_at)%>: <strong><%= l observation.created_at, :format=> :short %></strong>
     </div>
   </div>
   <div class="clear"></div>

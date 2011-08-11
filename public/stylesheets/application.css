@@ -108,6 +108,18 @@ label.message{
     padding: 5px;
 
 }
+.status-check{
+  padding-left: 10px;
+  background: url(/images/status-check.png) 0 50% no-repeat;
+}
+.status-info{
+  padding-left: 10px;
+  background: url(/images/status-info.png) 0 50% no-repeat;
+}
+.status-alert{
+  padding-left: 10px;
+  background: url(/images/status-alert.png) 0 50% no-repeat;
+}
 /* forms */
 
 textarea, input[type="text"],input[type="password"] {
@@ -247,6 +259,9 @@ input[type="submit"]{
   padding: 3px 8px;
   background: #f1f1f1;
 }
+#header #menu_bar ul li div{
+  padding-left: 15px;
+}
 #header #menu_bar ul li:hover{
   padding: 3px 8px;
   border: solid #666 1px;
@@ -264,6 +279,13 @@ input[type="submit"]{
   padding: 5px;
   text-decoration: none;
 }
+.reports_img{background: url(/images/menu_images/reports.png) 0 50% no-repeat}
+.home_img{background: url(/images/menu_images/home.png) 0 50% no-repeat}
+.calendar_img{background: url(/images/menu_images/calendar.png) 0 50% no-repeat}
+.galleries_img{background: url(/images/menu_images/galleries.png) 0 50% no-repeat}
+.collections_img{background: url(/images/menu_images/collections.png) 0 50% no-repeat}
+.tasks_img{background: url(/images/menu_images/tasks.png) 0 50% no-repeat}
+.admin_img{background: url(/images/menu_images/admin.png) 0 50% no-repeat}
 #header #sub_header{
   margin: 10px;
 }

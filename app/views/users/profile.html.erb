@@ -2,7 +2,7 @@
   <div id="user_header">
     <h1><%= current_user.full_name %></h1>
     <div class="profile">
-      <h2> Informacion <span class="right"><a href="#" data="user_table" class="minus close_info"></a></h2>
+      <h2> Informacion <span class="right"><a href="#" title="cleckea para abrir o cerrar esta pestana" data="user_table" class="minus close_info"></a></h2>
       <div id="user_table">
         <table class="user_information" style="width:50%">
           <tr><td class="label"><strong>Nombre</strong></td><td><%= current_user.full_name %></td></tr>
@@ -14,13 +14,13 @@
   </div>
   <div class="profile">
     <div id="my_items">
-      <h2> Objetos <span class="right"><a href="#" data="items_profile" class="minus close_info"></a></h2>
+      <h2> Objetos <span class="right"><a href="#" title="cleckea para abrir o cerrar esta pestana" data="items_profile" class="minus close_info"></a></h2>
       <%= render 'items' %>
     </div>
   </div>
   <div class="profile">
     <div id="my_reports">
-      <h2> Reportes <span class="right"><a href="#" data="reports_profile" class="minus close_info"></a></h2>
+      <h2> Reportes <span class="right"><a href="#" title="cleckea para abrir o cerrar esta pestana" data="reports_profile" class="minus close_info"></a></h2>
       <div id="reports_profile">
         <%= render 'reports' %>
       </div>
@@ -28,7 +28,7 @@
   </div>
   <div class="profile">
     <div id="my_activity">
-      <h2> Actividad <span class="right"><a href="#" data="activity_profile" class="minus close_info"></a></h2>
+      <h2> Actividad <span class="right"><a href="#" title="cleckea para abrir o cerrar esta pestana" data="activity_profile" class="minus close_info"></a></h2>
       <div id="activity_profile">
         <table class="user_information">
           <tr>

@@ -34,11 +34,11 @@ module ApplicationHelper
       remaining = (report.end_date.to_date - Time.now.to_date).to_i
       css_class = nil
       if remaining <= 0
-        css_class = "alert"
+        css_class = "status-alert"
       elsif 0 < remaining && remaining < 3
-        css_class = "info"
+        css_class = "status-info"
       else
-        css_class = "circle-check"
+        css_class = "status-check"
       end
       if report.closed?
         content_tag(:div,"#{Report.human_attribute_name(:status)}: <strong>#{report.status.titleize}</strong>".html_safe, :class=> "#{report.status.downcase}",:style => "float:left")+
@@ -51,7 +51,7 @@ module ApplicationHelper
         end
 
         text1 =  content_tag(:div,:class => css_class) do
-                  content_tag(:span,nil,:style=>"float:left; margin: 2px 3px 2px 0;", :class =>"ui-icon ui-icon-#{css_class}") +
+                  content_tag(:span,nil,:style=>"float:left; margin: 2px 3px 2px 0;", :class =>"#{css_class}") +
                   content_tag(:span,"#{Report.human_attribute_name(:status)}: #{report.status.titleize}", :style =>"float: left;margin: 2px 0") +  content_tag(:div, nil, :class=>"clear")
         end
         text2 = content_tag(:span,"<br><strong>#{remaining <= 0 ? 'Se paso ' + distance_of_time_in_words(report.start_date,Time.now) : 'Tiempo restante: ' + days}</strong><br> <small>#{l (report.start_date.nil? ? Time.now.to_date : report.start_date),:format => :short } - #{ l report.end_date,:format => :short }</small>".html_safe,:style =>"float:left;margin: 0") + content_tag(:div, nil, :class=>"clear")

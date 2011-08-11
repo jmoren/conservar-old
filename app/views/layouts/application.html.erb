@@ -18,14 +18,14 @@
       <% if current_user %>
       <div id="menu_bar">
         <ul>
-          <li><%= link_to("Objetos", items_path)  %></li>
-          <li><%= link_to('Reportes', reports_path)  %></li>
-          <li><%= link_to('Galerias', galleries_path)  %></li>
-          <li><%= link_to('Tareas', tasks_path)  %></li>
-          <li><%= link_to('Colecciones', collections_path)  %></li>
-          <li><%= link_to('Calendario', events_path)  %></li>
+          <li><div class="home_img"><%= link_to("Objetos", items_path)%></div></li>
+          <li><div class="reports_img"><%= link_to('Reportes', reports_path)%></div></li>
+          <li><div class="galleries_img"><%= link_to('Galerias', galleries_path)%></div></li>
+          <li><div class="tasks_img"><%= link_to('Tareas', tasks_path)%></div></li>
+          <li><div class="collections_img"><%= link_to('Colecciones', collections_path)%></div></li>
+          <li><div class="calendar_img"><%= link_to('Calendario', events_path)%></div></li>
           <% if current_user && current_user.admin? %>
-            <li><%= link_to 'Admin', admin_path %></li>
+            <li><div class="admin_img"><%= link_to 'Admin', admin_path %></div></li>
           <% end %>
         </ul>
       </div>

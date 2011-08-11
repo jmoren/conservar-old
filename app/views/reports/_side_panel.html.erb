@@ -59,9 +59,11 @@
 </p>
 <br>
 <hr>
-<p style="color:#26456D">
-  <strong>Ayuda</strong>
-  <ol style="margin-left:-20px;">
+<p >
+  <div class="left" style="color:#26456D"><strong>Ayuda</strong></div>
+  <div class="right"><%= image_tag('help-contents.png') %></div>
+  <div class="clear"></div>
+  <ol style="margin-left:-20px;color:#26456D">
     <li class="help_list">
       <%= link_to "El reporte de conservacion","#",:id => "help_report", :class => "help" %>
       <div id="help_report_text" style="display:none">
