@@ -1,4 +1,5 @@
 class Alert < ActiveRecord::Base
+  has_paper_trail :only => [:message]
   belongs_to :alertable, :polymorphic => true
   belongs_to :user
   attr_accessible :alertable_type, :alertable_id, :message, :frequency, :custom, :user_id, :day

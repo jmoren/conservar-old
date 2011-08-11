@@ -783,18 +783,30 @@ ul#alerts {
 #new_fields h2{color: #3D9400;margin-left:15px}
 #new_fields_form{width: 30%;margin: 10px auto;float:left;margin:auto;}
 
-#profile{width:80%;margin:auto;}
+#profile{width:85%;margin:auto;}
 .profile{padding: 10px;border:solid 1px #ccc;border-radius: 10px;margin: 5px 0}
+.profile:hover{background: #fafafa}
 #profile_header{width:80%;margin:auto;}
 #profile h2{color:#3d9400;margin-left: 5px}
 #items_profile{margin:auto;width: 100%}
-.user_item{border: solid 1px #ccc;padding: 10px; border-radius: 5px;float:left; margin: 5px;width: 45%}
-.user_item_photo{width: 25%; padding: 5px;float:left}
+.user_item{border: solid 1px #ccc;padding: 5px; border-radius: 5px;float:left; margin: 5px;width:30%;background:#fff}
+.user_item_photo{width: 30%; padding: 5px;float:left}
 .user_item_info{width: 60%; padding: 5px;margin-left: 5px;float:left;margin:auto}
 .user_item_title{font-weight:bold}
-.user_item_info table td.code{color:#DD4B39;}
+
+#user_items_table {width: 100%}
+#user_items_table td.label{width:30%}
+#user_items_table td.content{width:65%}
+#user_items_table td.code{color:#DD4B39;}
 .user_item_links{font-size:11px;float:left}
 .close_info{padding-left: 20px}
 .minus {background: url(/images/cross.png) 0 70% no-repeat}
 .plus {background: url(/images/plus.png) 0 70% no-repeat;-webkit-transform: rotate(-45deg);}
+#profile table.user_information{width: 100%;border-collapse: collapse}
+#profile table.user_information th{color:#666;text-align:left;}
+#profile table.user_information td {margin: 5px}
+#profile table.user_information td.first{width: 10%;margin-left: 5px}
+#profile table.user_information td.second{width: 20%}
+#profile table.user_information tr{padding: 3px;line-height: 1.5em}
+#profile table.user_information tr.row:hover{background: #FCFBB6; padding: 2px }
 

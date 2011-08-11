@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_friendly_id :full_name, :use_slug => true
+  has_paper_trail :only => [:username, :name, :lastname, :email]
   make_flagger
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :username, :email, :password, :password_confirmation, :name, :lastname,:enabled,:role

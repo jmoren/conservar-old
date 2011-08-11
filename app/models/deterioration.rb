@@ -1,4 +1,5 @@
 class Deterioration < ActiveRecord::Base
+  has_paper_trail :only => [:place, :det_category_id, :description,:fixed]
   belongs_to :report
   belongs_to :det_category
   has_many :tasks

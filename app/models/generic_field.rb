@@ -1,4 +1,5 @@
 class GenericField < ActiveRecord::Base
+  has_paper_trail :only => [:name, :field_style]
   belongs_to :item_category
   attr_accessible :item_category_id, :name, :field_style
   validates_presence_of :name

@@ -1,0 +1,19 @@
+<table class="user_information">
+  <tr>
+    <th>Estado</th>
+    <th>Codigo</th>
+    <th>Progreso</th>
+    <th>Tareas</th>
+    <th>Horas</th>
+  </tr>
+  <% @reports.each do |report| %>
+    <tr class="row">
+      <td class="first"><%= report.status %></td>
+      <td class="second"><%= link_to report.code, report %></td>
+      <td><%= deteriorations_complete(report) %></td>
+      <td><%= tasks_complete(report) %></td>
+      <td><%= hours_complete(report) %></td>
+    </tr>
+  <% end %>
+</table>
+

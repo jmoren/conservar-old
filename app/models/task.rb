@@ -1,4 +1,5 @@
 class Task < ActiveRecord::Base
+  has_paper_trail :only => [:description, :hours]
   belongs_to :user
   belongs_to :report
   belongs_to :deterioration

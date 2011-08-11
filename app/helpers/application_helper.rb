@@ -121,5 +121,8 @@ module ApplicationHelper
       end
     end
   end
+  def version_item(v)
+    "#{v.item_type.classify.constantize.model_name.human} - ID ##{v.item_id}"
+  end
 end
 

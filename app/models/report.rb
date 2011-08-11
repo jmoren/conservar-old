@@ -1,5 +1,6 @@
 class Report < ActiveRecord::Base
   has_friendly_id :code, :use_slug => true
+  has_paper_trail :only => [:code, :conclusion, :budget_tools, :budget_work, :treatment, :comments]
   belongs_to :user
   belongs_to :assigned, :class_name => "User", :foreign_key => :assigned_to
   belongs_to :item

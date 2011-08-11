@@ -1,4 +1,5 @@
 class Gallery < ActiveRecord::Base
+  has_paper_trail :only => [:description]
   belongs_to :user
   belongs_to :galleryable, :polymorphic => true
   has_many :photos, :dependent => :destroy

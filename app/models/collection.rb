@@ -1,5 +1,6 @@
 class Collection < ActiveRecord::Base
   has_friendly_id :name, :use_slug => true
+  has_paper_trail :only => [:name, :description]
   belongs_to :user
   has_many :items
   attr_accessible :name, :description, :user_id

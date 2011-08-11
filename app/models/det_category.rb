@@ -1,4 +1,5 @@
 class DetCategory < ActiveRecord::Base
+  has_paper_trail :only => [:name]
   has_many :deteriorations
   scope :actives, where(:active => true )
   validates_presence_of :name

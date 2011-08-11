@@ -1,6 +1,7 @@
 class Item < ActiveRecord::Base
   has_friendly_id :title, :use_slug => true
   make_flaggable :important
+  has_paper_trail :only => [:title, :author, :description, :featured, :remote_site, :photo]
   belongs_to :user
   belongs_to :collection
   belongs_to :category, :class_name => "ItemCategory", :foreign_key => :item_category_id

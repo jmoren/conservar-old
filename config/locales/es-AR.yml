@@ -2,6 +2,10 @@
 
 es-AR:
   views:
+    profile:
+      update: "Actualizado"
+      create: "Creado"
+      destroy: "Eliminado"
     flash:
       edit: "Fue actualizado con exito"
       create: "Fue creado con exito"
