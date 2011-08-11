@@ -3,6 +3,9 @@ class ReportsController < ApplicationController
 
   def index
     @reports = Report.page params[:page]
+    if params[:status] && !params[:status].blank?
+      @reports = Report.where(:status => params[:status]).page params[:page]
+    end
   end
 
   def show

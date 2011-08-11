@@ -1,13 +1,4 @@
 <% title "Tareas" %>
-<div id="section_header">
-  <div class="pages left">
-    <%= paginate @tasks, :remote => true %>
-  </div>
-  <div class="result left">
-    <%= page_entries_info(@tasks) %>
-  </div>
-  <div class="clear"></div>
-</div>
 <div id="tasks">
   <%= render :partial => "tasks" %>
 </div>

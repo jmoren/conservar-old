@@ -1,13 +1,4 @@
 <% title "Reportes" %>
-<div id="section_header">
-  <div class="pages left">
-    <%= paginate @reports, :remote => true %>
-  </div>
-  <div class="result left">
-    <%= page_entries_info(@reports) %>
-  </div>
-  <div class="clear"></div>
-</div>
 <div id="reports">
   <%= render :partial => "reports" %>
 </div>

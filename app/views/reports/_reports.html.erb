@@ -1,3 +1,20 @@
+<p>
+  <div id="section_header">
+    <div class="pages left">
+      <%= paginate @reports, :remote => true %>
+    </div>
+    <div class="result left">
+      <%= page_entries_info(@reports) %>
+    </div>
+    <div class="destacados right">
+      <%= link_to 'Todos', reports_path  %> -
+      <%= link_to 'Cerrados', reports_path(:status => 'cerrado')  %> -
+      <%= link_to 'Abiertos', reports_path(:status => 'abierto')  %>
+    </div>
+    <div class="clear"></div>
+  </div>
+</p>
+<div class="clear"></div>
 <table>
   <tr>
     <th><%=Report.human_attribute_name(:status)%></th>

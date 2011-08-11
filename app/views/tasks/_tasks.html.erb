@@ -1,3 +1,19 @@
+<p>
+  <div id="section_header">
+    <div class="pages left">
+      <%= paginate @tasks, :remote => true %>
+    </div>
+    <div class="result left">
+      <%= page_entries_info(@tasks) %>
+    </div>
+    <div class="destacados right">
+      <%= link_to 'Todas', tasks_path %> -
+      <%= link_to 'Mis Tareas', tasks_path(:user => current_user.id)  %>
+    </div>
+    <div class="clear"></div>
+  </div>
+</p>
+<div class="clear"></div>
 <table>
   <tr>
     <th>Reporte</th>

@@ -13,6 +13,9 @@ class TasksController < ApplicationController
   end
   def index
     @tasks = Task.page params[:page]
+    if params[:user] && !params[:user].blank?
+      @tasks = Task.where(:user_id => params[:user]).page params[:page]
+    end
   end
 
   def show
