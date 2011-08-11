@@ -38,6 +38,8 @@ class ReportsController < ApplicationController
     @report = Report.find(params[:id])
     if (@report.closed? && !current_user.admin?)
       redirect_to @report, :notice => "El reporte ya esta cerrado, no puede editarlo"
+    else
+      @budget_work = @report.hours * CONFIG['price_per_hour'].to_f
     end
   end
 

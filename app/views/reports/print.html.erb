@@ -159,12 +159,13 @@
   <span><strong><%= Report.human_attribute_name(:treatment)%>: </strong></span>
   <%= simple_format @report.treatment, :class => "text_area"%>
 </p>
-<p>
-  <span><strong><%= Report.human_attribute_name(:conclusion) %>: </strong></span>
-  <%= simple_format @report.conclusion, :class => "text_area" %>
-</p>
+
 <% if @report.closed? %>
   <h2> Conclusion </h2>
+  <p>
+    <span><strong><%= Report.human_attribute_name(:conclusion) %>: </strong></span>
+    <%= simple_format @report.conclusion, :class => "text_area" %>
+  </p>
   <p>
     <div class="left col_left">
       <p><strong>Costo horas de trabajo (aproximado)</strong></p>

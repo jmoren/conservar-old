@@ -38,11 +38,11 @@
 <hr>
 <p>
   <span class="side_title">Creacion:</span>
-  <div style="text-align:left;width:40%;float:left">Creado:</div>
-  <div style="text-align:right;width:60%;float:right"> <strong><%= l @report.created_at, :format => :short %></strong></div>
+  <div style="text-align:left;width:30%;float:left">Creado:</div>
+  <div style="text-align:right;width:65%;float:right"> <strong><%= l @report.created_at, :format => "%d de %B" %></strong></div>
   <div class="clear"></div>
-  <div style="text-align:left;width:40%;float:left">Actualizado:</div>
-  <div style="text-align:right;width:60%;float:right"><strong><%= l @report.updated_at, :format => :short%></strong></div>
+  <div style="text-align:left;width:30%;float:left">Actualizado:</div>
+  <div style="text-align:right;width:65%;float:right"><strong><%= l @report.updated_at, :format => "%d de %B"%></strong></div>
 </p>
 <br>
 <hr>

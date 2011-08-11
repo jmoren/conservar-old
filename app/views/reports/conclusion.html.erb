@@ -15,7 +15,7 @@
   <div>
     <p>
       <%= f.label :status %>
-      <%= @report.status %>
+      <%= @report.status %> ( <em><%= l @report.closed_at, :format => :long %></em> )
       <%= f.hidden_field :status,:value => @report.status %>
     </p>
   </div>

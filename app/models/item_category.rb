@@ -1,5 +1,6 @@
 class ItemCategory < ActiveRecord::Base
   has_friendly_id :name, :use_slug => true
+  has_paper_trail :only => [:name]
   has_many :items
   has_many :item_categories
   belongs_to :item_category

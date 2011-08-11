@@ -1,6 +1,6 @@
 class Report < ActiveRecord::Base
   has_friendly_id :code, :use_slug => true
-  has_paper_trail :only => [:code, :conclusion, :budget_tools, :budget_work, :treatment, :comments]
+  has_paper_trail :only => [:code, :conclusion,:closed_at, :budget_tools, :budget_work, :treatment, :comments]
   belongs_to :user
   belongs_to :assigned, :class_name => "User", :foreign_key => :assigned_to
   belongs_to :item
@@ -13,8 +13,10 @@ class Report < ActiveRecord::Base
 
   attr_accessible :code, :comments, :treatment, :deteriorations_attributes,
                   :start_date, :end_date, :status,:user_id,:hours,:archived,
-                  :item_id, :assigned_to,:conclusion, :budget_work, :budget_tools
+                  :item_id, :assigned_to,:conclusion, :budget_work, :budget_tools,
+                  :closed_at
   before_save :sanitize_dates
+  before_save :check_budgets
   after_create  :report_event
   #scopes
   scope :not_archivied, where(:archived => false)
@@ -38,11 +40,11 @@ class Report < ActiveRecord::Base
   end
 
   def close
-    self.update_attributes!(:status => "Cerrado", :closed_at => Date.today)
+    self.update_attributes({:closed_at => Date.today, :status => "Cerrado"})
   end
 
   def open
-    self.update_attributes!(:status => "Abierto", :closed_at => nil)
+    self.update_attributes({:closed_at => nil, :status => "Abierto"})
   end
   def update_hours(hours)
     self.hours += hours
@@ -72,6 +74,10 @@ protected
   def sanitize_dates
     self.start_date = start_date.to_date if self.start_date
     self.end_date = end_date.to_date if self.end_date
+  end
+  def check_budgets
+    self.budget_work = 0 if self.budget_work.nil? || self.budget_work.blank?
+    self.budget_tools = 0 if self.budget_tools.nil? || self.budget_tools.blank?
   end
 end
 

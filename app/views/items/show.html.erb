@@ -138,7 +138,7 @@
                 <span style="float:right;margin: 10px 20px;"> <%= link_to 'Close', "#", :id => "#{report.id}", :class => "close_vcard_report"  %></span>
                 <p>Estado:<strong> <%= report.status %> </strong></p>
                 <p>Cerrado el: <strong><%= report.closed_at.nil? ? ("Sin Fecha") : (l report.closed_at :format => :long) %></strong></p>
-                <p>Asignado a:<strong> <%= report.assigned.nil? ? "desconocido" : report.assigned.full_name %></p>
+                <p>Asignado a:<strong> <%= report.assigned.nil? ? "desconocido" : report.assigned.full_name %></strong></p>
               </div>
             </div>
           </span>

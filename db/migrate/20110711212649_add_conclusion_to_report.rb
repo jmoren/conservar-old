@@ -1,8 +1,8 @@
 class AddConclusionToReport < ActiveRecord::Migration
   def self.up
     add_column :reports, :conclusion, :text
-    add_column :reports, :budget_tools, :float
-    add_column :reports, :budget_work, :float
+    add_column :reports, :budget_tools, :float, :default => 0
+    add_column :reports, :budget_work, :float, :default => 0
     add_column :reports, :assigned_to, :integer
   end
 
@@ -13,3 +13,4 @@ class AddConclusionToReport < ActiveRecord::Migration
     remove_column :reports, :assigned_to
   end
 end
+
