@@ -18,6 +18,7 @@ class Report < ActiveRecord::Base
   before_save :sanitize_dates
   before_save :check_budgets
   after_create  :report_event
+  before_save :update_event
   #scopes
   scope :not_archivied, where(:archived => false)
   scope :archived, where(:archived => true)
@@ -63,8 +64,15 @@ class Report < ActiveRecord::Base
     self.code = "RC" + s + " " + self.item.code
   end
   def report_event
-    if !self.end_date.nil?  && self.end_date_changed?
+    if !self.end_date.nil?
       Event.create(:title => "Finalizacion del reporte #{self.code}", :activity => "cierre del reporte de conservacion", :start_at => self.end_date.to_time + 8.hours, :end_at => self.end_date.to_time + 17.hours, :user_id => self.user_id, :report_id => self.id)
+    end
+  end
+  def update_event
+    if self.changed.include?("end_date")
+      if e = Event.find_by_report_id(self.id)
+        e.update_dates(self.end_date) if !self.end_date.nil
+      end
     end
   end
 protected

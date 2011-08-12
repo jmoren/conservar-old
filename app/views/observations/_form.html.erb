@@ -7,7 +7,7 @@
     <%= f.text_area :body,:rows => 5 %>
   </p>
 
-  <p><%= f.submit %> o <%= link_to_function 'Cancelar', "$('#new_observation_form form')[0].reset();$('#new_observation_form label.message').hide()"   %></p>
+  <p><%= f.submit :disable_with => "Guardando..." %> o <%= link_to_function 'Cancelar', "$('#new_observation_form form')[0].reset();$('#new_observation_form label.message').hide()"   %></p>
 <% end %>
 </div>
 

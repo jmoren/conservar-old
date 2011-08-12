@@ -16,7 +16,11 @@ class UsersController < ApplicationController
   def profile
     @items = Item.important(current_user,:important).page(params[:page])
     @reports = Report.where(:assigned_to => current_user.id)
-    @activity = Version.where(:whodunnit => current_user.id)
+    activity = Version.where(:whodunnit => current_user.id).group(:item_type, :item_id).order(:created_at).size
+    @my_activity = []
+    activity.each do |a,b|
+      @my_activity << Version.find_all_by_item_id_and_item_type(a[1],a[0])
+    end
   end
 end
 

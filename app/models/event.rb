@@ -3,5 +3,8 @@ class Event < ActiveRecord::Base
   belongs_to :user
   attr_accessible :user_id, :title, :activity, :start_at, :end_at, :all_day, :report_id
 
+  def update_dates(new_date)
+    self.update_attributes(:end_at => new_date, :start_at => new_date)
+  end
 end
 

@@ -64,7 +64,7 @@ $(function () {
       <%= link_to t('helpers.links.pdf'),print_pdf_report_path(@report,@report.closed? ? Date.today.strftime('%d%m%Y') :  @report.updated_at.strftime('%d%m%Y') , :format => "pdf")%>
     </div>
   </div>
-  <div id="tabs" style="margin:0; padding: 0;width:82%;float:left">
+  <div id="tabs" style="margin:0; padding: 0;width:80%;float:left">
     <ul>
 		  <li><a href="#report"><%= Report.model_name.human%></a></li>
 		  <li><a href="#images"><%= Report.human_attribute_name(:galleries)%></a></li>

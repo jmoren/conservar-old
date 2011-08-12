@@ -13,5 +13,10 @@ $(function(){
     $(this).toggleClass('minus plus');
     return false;
   })
+  $('.close_table').click(function(){
+    var data = $(this).attr('data');
+    $('#'+data).fadeToggle();
+    return false;
+  })
 });
 

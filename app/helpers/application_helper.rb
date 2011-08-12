@@ -72,7 +72,7 @@ module ApplicationHelper
   end
 
   def hours_complete(report)
-    if report.tasks.size > 0
+    if report.tasks.size > 0 && report.hours > 0
       left = report.remaining_hours
       total = report.hours
       cumplidas = total - left

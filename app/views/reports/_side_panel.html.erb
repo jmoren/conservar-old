@@ -24,32 +24,38 @@
 <hr>
 <p>
   <span class="side_title">Progreso:</span>
-  <div style="text-align:left;width:25%;float:left">Diagnosticos:</div>
-  <div style="text-align:right;width:70%;float:right"><strong><%= deteriorations_complete(@report) %></strong></div>
+  <div style="text-align:right;width:40%;float:left">Diagnosticos:</div>
+  <div style="text-align:right;width:60%;float:right"><strong><%= deteriorations_complete(@report) %></strong></div>
   <div class="clear"></div>
-  <div style="text-align:left;width:25%;float:left">Tareas:</div>
-  <div style="text-align:right;width:70%;float:right"><strong><%= tasks_complete(@report) %></strong></div>
+  <div style="text-align:right;width:40%;float:left">Tareas:</div>
+  <div style="text-align:right;width:60%;float:right"><strong><%= tasks_complete(@report) %></strong></div>
   <div class="clear"></div>
-  <div style="text-align:left;width:25%;float:left">Horas:</div>
-  <div style="text-align:right;width:70%;float:right"><strong><%= hours_complete(@report) %></strong></div>
+  <div style="text-align:right;width:40%;float:left">Horas:</div>
+  <div style="text-align:right;width:60%;float:right"><strong><%= hours_complete(@report) %></strong></div>
 </p>
 <br>
 <div class="clear"></div>
 <hr>
 <p>
-  <span class="side_title">Creacion:</span>
-  <div style="text-align:left;width:30%;float:left">Creado:</div>
-  <div style="text-align:right;width:65%;float:right"> <strong><%= l @report.created_at, :format => "%d de %B" %></strong></div>
+  <span class="side_title">Fechas:</span>
+  <div style="text-align:right;width:40%;float:left">Creado:</div>
+  <div style="text-align:right;width:60%;float:right"> <strong><%= l @report.created_at, :format => "%d de %B" %></strong></div>
   <div class="clear"></div>
-  <div style="text-align:left;width:30%;float:left">Actualizado:</div>
-  <div style="text-align:right;width:65%;float:right"><strong><%= l @report.updated_at, :format => "%d de %B"%></strong></div>
+  <div style="text-align:right;width:40%;float:left">Actualizado:</div>
+  <div style="text-align:right;width:60%;float:right"><strong><%= l @report.updated_at, :format => "%d de %B"%></strong></div>
+  <div class="clear"></div>
+  <% if @report.closed? %>
+    <div style="text-align:right;width:40%;float:left">Cerrado:</div>
+    <div style="text-align:right;width:60%;float:right">
+      <strong><%= @report.closed_at.nil? ? ("Sin datos") : (l @report.closed_at, :format => "%d de %B") %></strong></div>
+    <div class="clear"></div>
+  <% end %>
 </p>
-<br>
 <hr>
 <p>
-  <span class="side_title"><%= truncate(@report.item.title.titleize,:length => 30) %></span>
+  <span class="side_title">Objeto:</span>
   <div style="text-align:right;width:40%;float:left">Codigo: </div>
-  <div style="text-align:right;width:60%;float:right;font-weight:bold"><%= link_to @report.item.code, @report.item  %></div>
+  <div style="text-align:right;width:60%;float:right;font-weight:bold"><%= link_to truncate(@report.item.title.titleize,:length => 15), @report.item  %></div>
   <div class="clear"></div>
   <div style="text-align:right;width:40%;float:left">Categoria:</div>
   <div style="text-align:right;width:60%;float:right"> <strong><%= @report.item.category.name %></strong></div>

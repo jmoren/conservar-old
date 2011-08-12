@@ -30,22 +30,28 @@
     <div id="my_activity">
       <h2> Actividad <span class="right"><a href="#" title="cleckea para abrir o cerrar esta pestana" data="activity_profile" class="minus close_info"></a></h2>
       <div id="activity_profile">
-        <table class="user_information">
-          <tr>
-            <th class="first">Evento</th>
-            <th>Objeto</th>
-            <th>Realizado el</th>
-            <th title="Es la cantidad de veces que fue modificado el objeto">Numero de version</th>
-          </tr>
-          <% @activity.each do |activity|%>
-            <tr class="row">
-              <td class="first"><%= t("views.profile.#{activity.event}") %></td>
-              <td class="second"><%= version_item(activity)%></td>
-              <td><%= l activity.created_at, :format => :short %></td>
-              <td><%= activity.index == 0 ? "Original" : activity.index %></td>
+        <% @my_activity.each do |activities|%>
+          <table class="user_information version">
+            <tr class="table_header_item">
+              <td class="table_object">
+                <%= activities.first.item_type.classify.constantize.model_name.human %> ID #<%= activities.first.item_id %>
+              </td>
+              <td class="table_editions"><%= pluralize(activities.size,'edicion') %> </td>
+              <td class="close_table">
+                <a href="#" title="clickea para abrir o cerrar esta pestana" data="table_<%= activities.first.id%>" class="close_table"><%= image_tag('window-close.png')%></a>
+              </td>
             </tr>
-          <% end %>
-        </table>
+          </table>
+          <table class="user_information versions" id="table_<%= activities.first.id%>">
+            <% activities.each do |activity| %>
+              <tr class="row">
+                <td class="version_event"><%= t("views.profile.#{activity.event}") %></td>
+                <td class="version_date"><%= l activity.created_at, :format => :short %></td>
+                <td class="veersion_index"><%= activity.index == 0 ? "Original" : activity.index %></td>
+              </tr>
+            <% end %>
+          </table>
+        <% end %>
       </div>
     </div>
   </div>
