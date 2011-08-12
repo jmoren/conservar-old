@@ -1,38 +1,45 @@
+<div class="form" id="institution_form">
+<h3> Informacion de la Institucion </h3>
 <%= form_for [:admin, @institution],:html => {:multipart => true }, :validate => true do |f| %>
+  <div class="col_left left">
+    <p>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :address %>
+      <%= f.text_field :address %>
+    </p>
+    <p>
+      <%= f.label :city %>
+      <%= f.text_field :city %>
+    </p>
+    <p>
+      <%= f.label :zip %>
+      <%= f.text_field :zip %>
+    </p>
+  </div>
+  <div class="left col_left">
+    <p>
+      <%= f.label :country %>
+      <%= f.text_field :country %>
+    </p>
+    <p>
+      <%= f.label :phone %>
+      <%= f.text_field :phone %>
+    </p>
+    <p>
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </p>
+    <p>
+      <%= f.label :image %>
+      <%= f.file_field :image %>
+    </p>
+  </div>
+  <div class="clear"></div>
   <p>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :address %>
-    <%= f.text_field :address %>
-  </p>
-  <p>
-    <%= f.label :city %>
-    <%= f.text_field :city %>
-  </p>
-  <p>
-    <%= f.label :zip %>
-    <%= f.text_field :zip %>
-  </p>
-  <p>
-    <%= f.label :country %>
-    <%= f.text_field :country %>
-  </p>
-  <p>
-    <%= f.label :phone %>
-    <%= f.text_field :phone %>
-  </p>
-  <p>
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-  </p>
-  <p>
-    <%= f.label :image %>
-    <%= f.file_field :image %>
-  </p>
-  <p>
-    <%= f.submit %>
+    <%= f.submit :disaable_with => "Guardando..."%> o <%= link_to "Cancelar", admin_configuration_path %>
   </p>
 <% end %>
-
+</div>

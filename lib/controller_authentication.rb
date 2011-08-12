@@ -44,7 +44,7 @@ module ControllerAuthentication
     end
   end
 
-  def is_admin
+  def is_admin?
     current_user.admin?
   end
   def redirect_to_target_or_default(default, *args)

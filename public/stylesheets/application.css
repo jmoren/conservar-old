@@ -181,6 +181,8 @@ input[type="submit"]{
 .fields{
   padding: 5px 0;
   }
+#institution_form label{float:left;width: 100px;font-weight:bold;margin-top:2px}
+#institution_form h3{color: #3D9400}
 .left{float: left;}
 .right{float:right}
 .col_left{width:48%;margin-right:10px}
