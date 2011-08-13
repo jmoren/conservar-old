@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110810213851) do
+ActiveRecord::Schema.define(:version => 20110812215934) do
 
   create_table "alerts", :force => true do |t|
     t.string   "alertable_type"
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(:version => 20110810213851) do
 
   create_table "generic_select_fields", :force => true do |t|
     t.integer  "item_id"
-    t.string   "label"
+    t.string   "label_attribute"
     t.string   "content"
     t.string   "options"
     t.datetime "created_at"
@@ -202,6 +202,7 @@ ActiveRecord::Schema.define(:version => 20110810213851) do
     t.datetime "photo_updated_at"
     t.boolean  "featured",            :default => false
     t.string   "remote_site"
+    t.string   "remote_image"
   end
 
   create_table "observations", :force => true do |t|
@@ -238,8 +239,8 @@ ActiveRecord::Schema.define(:version => 20110810213851) do
     t.boolean  "archived"
     t.integer  "item_id"
     t.text     "conclusion"
-    t.float    "budget_tools"
-    t.float    "budget_work"
+    t.float    "budget_tools", :default => 0.0
+    t.float    "budget_work",  :default => 0.0
     t.integer  "assigned_to"
     t.date     "closed_at"
   end

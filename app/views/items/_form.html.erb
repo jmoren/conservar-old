@@ -52,8 +52,14 @@
         <%= f.text_field :author %>
       </p>
       <p>
-        <%= f.label :featured, "Importante" %>
-        <%= f.check_box :featured %>
+        <%= f.label :photo, "Foto"%>
+        <%= !@item.new_record? && @item.photo.exists? ? image_tag(@item.photo.url(:small),:style => "float:left;margin-right:10px") : nil %>
+        <%= f.file_field :photo %>
+      </p>
+      <div class="clear"></div>
+      <p>
+        <%= f.label :remote_image, "Link foto"%>
+        <%= f.text_field :remote_image %>
       </p>
     </div>
     <div class="clear"></div>
@@ -61,9 +67,8 @@
       <strong>Descripcion</strong>
       <%= f.text_area :description %>
       <p>
-        <%= f.label :photo, "Foto"%>
-        <%= !@item.new_record? && @item.photo.exists? ? image_tag(@item.photo.url(:small),:style => "float:left;margin-right:10px") : nil %>
-        <%= f.file_field :photo %>
+        <%= f.label :featured, "Importante" %>
+        <%= f.check_box :featured %>
       </p>
     </div>
     <div class="clear"></div>
@@ -152,7 +157,7 @@
             <% end %>
           </div>
         <% end %>
-      <% end %>  
+      <% end %>
       <div class="clear"></div>
     </div>
     <p id="submit_buttons"><%= f.submit :disable_with => "Guardando..." %><span class="separator"> o </span> <%= link_to t('helpers.links.cancel'), @item.new_record? ? items_path : @item  %></p>

@@ -1,7 +1,8 @@
+require "open-uri"
 class Item < ActiveRecord::Base
   has_friendly_id :title, :use_slug => true
   make_flaggable :important
-  has_paper_trail :only => [:title, :author, :description, :featured, :remote_site, :photo]
+  has_paper_trail :only => [:title, :author, :description, :featured, :remote_site, :photo, :remote_image]
   belongs_to :user
   belongs_to :collection
   belongs_to :category, :class_name => "ItemCategory", :foreign_key => :item_category_id
@@ -18,13 +19,12 @@ class Item < ActiveRecord::Base
   has_many :generic_select_fields, :dependent => :destroy
   accepts_nested_attributes_for :generic_text_fields,:generic_text_areas,:generic_boolean_fields,
                                 :generic_integer_fields, :generic_float_fields, :allow_destroy => true
-
   attr_accessible :collection_id,:user_id, :code,
                   :title, :author, :description,:photo,
                   :item_category_id, :item_subcategory_id,
                   :status, :generic_text_fields_attributes,:generic_text_areas_attributes,
                   :generic_boolean_fields_attributes,:generic_integer_fields_attributes,
-                  :generic_float_fields_attributes, :featured, :remote_site
+                  :generic_float_fields_attributes, :featured, :remote_site, :remote_image
   has_attached_file :photo, :styles => {:small => "90x90#",:medium => "150x130#",  :normal => "600x400#"},
                             :path => ":rails_root/public/fotos/items/:code/:style/:basename.:extension",
                             :url => "/fotos/items/:code/:style/:basename.:extension"
@@ -42,7 +42,7 @@ class Item < ActiveRecord::Base
   scope :important, lambda{|user,flag| joins(:flaggings).where('flaggings.flagger_id = ? ',user.id) }
   validates_presence_of :code, :title, :description, :status
   validates_uniqueness_of :code
-
+  before_save :download_image, :if => lambda{|item| !item.remote_image.blank? }
   def remove_from_collection
     self.update_attributes(:collection_id => nil )
   end
@@ -58,5 +58,9 @@ class Item < ActiveRecord::Base
     !self.generic_text_fields.empty? || !self.generic_text_areas.empty? || !self.generic_text_fields.empty? || !self.generic_float_fields.empty? || !self.generic_boolean_fields.empty? || !self.generic_select_fields.empty?
   end
 
+  def download_image
+    return if self.remote_image.nil?
+    self.photo = open(self.remote_image)
+  end
 end
 
