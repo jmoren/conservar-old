@@ -1,5 +1,5 @@
 set :deploy_to, "/var/www/conservar"
-set :user, "deploy"
+set :user, "jmoren"
 
 set :rvm_ruby_string, 'ruby-1.9.2-p290'
 
