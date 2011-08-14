@@ -71,7 +71,7 @@ class Report < ActiveRecord::Base
   def update_event
     if self.changed.include?("end_date")
       if e = Event.find_by_report_id(self.id)
-        e.update_dates(self.end_date) if !self.end_date.nil
+        e.update_dates(self.end_date) if !self.end_date.nil?
       end
     end
   end
