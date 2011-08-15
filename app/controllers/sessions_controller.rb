@@ -6,12 +6,12 @@ class SessionsController < ApplicationController
 
   def create
     user = User.authenticate(params[:login], params[:password])
-    if user
+    if user && user.enabled?
       session[:user_id] = user.id
       redirect_to profile_path, :notice => "Bienvenido #{user.full_name}"
       #redirect_to_target_or_default root_url, :notice => "Bienvenido #{user.full_name}"
     else
-      flash.now[:alert] = "Nombre o email invalido"
+      flash.now[:notice] = "Nombre o email invalido"
       render :action => 'new'
     end
   end

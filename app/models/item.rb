@@ -40,7 +40,7 @@ class Item < ActiveRecord::Base
   scope :with_deterioration_detected, lambda{|det| joins(:deteriorations,:det_category).where(:name => det)}
   scope :search_by, lambda{|sm,em,y| where('MONTH(created_at) >= ? AND MONTH(created_at) <= ? AND YEAR(created_at) = ?', sm,em,y)}
   scope :important, lambda{|user,flag| joins(:flaggings).where('flaggings.flagger_id = ? ',user.id) }
-  validates_presence_of :code, :title, :description, :status
+  validates_presence_of :code, :title, :description, :status, :item_category_id, :item_subcategory_id
   validates_uniqueness_of :code
   before_save :download_image, :if => lambda{|item| !item.remote_image.blank? }
   def remove_from_collection
@@ -59,7 +59,7 @@ class Item < ActiveRecord::Base
   end
 
   def download_image
-    return if self.remote_image.nil?
+    return if self.remote_image.nil? || !self.photo.nil?
     self.photo = open(self.remote_image)
   end
 end

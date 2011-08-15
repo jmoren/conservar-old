@@ -16,10 +16,12 @@
     </div>
     <div class="clear"></div>
     <div id="sub_header">
-      <div id="title">
-        <%= yield(:title) if show_title? %>
-      </div>
-      <div class="clear"></div>
+      <% if flash[:notice]  %>
+        <div id="flash_notice" class="flash" >
+          <%= flash[:notice]%>
+        </div>
+        <div class="clear"></div>
+      <% end %>
     </div>
     <div id="content">
       <%= yield %>

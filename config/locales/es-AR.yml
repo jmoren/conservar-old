@@ -322,7 +322,17 @@ es-AR:
           one: "%{model} no pudo guardarse debido a 1 error"
           other: "%{model} no pudo guardarse debido a %{count} errores"
         body: "Revise que los siguientes campos sean válidos:"
-
+      models:
+        item:
+          attributes:
+            code:
+              taken: "ya ha sido tomado"
+        user:
+          attributes:
+            username:
+              taken: "ya ha sido tomado"
+            email:
+              taken: "ya ha sido tomado"
       messages:
         taken: "ya ha sido tomado"
         record_invalid: "La validación falló: %{errors}"

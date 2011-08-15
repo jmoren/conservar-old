@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates_length_of :password, :minimum => 4, :allow_blank => true
 
+  scope :enabled, where(:enabled => true)
+
   def has_items_flagged?(flag)
     Item.important(self,flag).size > 0
   end

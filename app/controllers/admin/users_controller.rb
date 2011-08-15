@@ -37,7 +37,7 @@ class Admin::UsersController < AdminController
 
   def disable
     @user = User.find(params[:id])
-    @user.disable
+    @user.disable unless @user.id == current_user.id
   end
 
 end

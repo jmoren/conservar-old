@@ -152,12 +152,13 @@ select, input[type="search"]{
 	-webkit-transition: .3s ease-in-out;
   -moz-transition: .3s ease-in-out;
   padding: 2px;
+  display: block;
 }
 select:focus{
   border: solid 1px #fafafa;
   outline: 3px auto #007eff;
 }
-
+select.selectable, input#q  {display:inline}
 
 input[type="submit"]{
   border-radius: 5px;
@@ -193,7 +194,7 @@ input[type="submit"]{
 .col_img img{padding:5px;}
 .form {width: 80%;margin:auto; background: #fafafa; border: solid 1px #E4E4E4; padding: 15px; border-radius: 10px;color:#222}
 #item_form .text_form textarea{ max-width: 99%;min-width: 99%;margin:10px auto;height:120px;padding: 5px;margin-top: 5px;}
-#item_form label{float:left;width: 80px;font-weight:bold;margin-top:2px}
+#item_form label{float:left;width: 80px;font-weight:bold;margin-top:0px}
 #item_form .item_type{padding:2px 5px;color:#3D9400;font-weight:bold;width: 60px}
 #item_form h3{color: #3D9400}
 #item_form .item_type_form{margin: 17px 0;}
