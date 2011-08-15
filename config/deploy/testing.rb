@@ -1,8 +1,10 @@
 set :deploy_to, "/var/www/conservar"
+
 set :user, "jmoren"
 
-set :rvm_ruby_string, 'ruby-1.9.2-p290'
-
+set :rvm_ruby_string, '1.9.2'
+set :rvm_type, :user
+set :rvm_bin_path, "/home/jmoren/.rvm/bin"
 set :rails_env, "production"
 set :branch, "testing"
 

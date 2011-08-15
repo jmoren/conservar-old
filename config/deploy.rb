@@ -1,10 +1,10 @@
-$:.unshift(File.expand_path("~/.rvm/lib"))
+$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 require 'rvm/capistrano'
-
+require 'capistrano/ext/multistage'
 set :stages, %w(testing)
 set :default_stage, "testing"
 set :application, "conservar"
-set :repository,  "git@banzai.dyndns-web.com:conservar.git"
+set :repository,  "git@github.com:jmoren/conservar.git"
 set :scm, :git
 
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
@@ -14,15 +14,21 @@ ssh_options[:compression] = "none"
 
 set :use_sudo, false
 set :deploy_via, :remote_cache
-set :branch, "master"
+set :branch, "testing"
 
 namespace :deploy do
+  
+  task :install do
+    run "cd #{current_path} && bundle install  --without=test --no-update-sources"
+  end
+
   task :start do ; end
   task :stop do ; end
   task :restart, :roles => :web, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
-
+  
+  
   desc "Update the crontab file"
   task :update_crontab, :roles => :single do
     run "cd #{release_path} && whenever --update-crontab #{application}"
