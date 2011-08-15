@@ -12,3 +12,6 @@ role :single, "banzai.dyndns-web.com"
 role :app, "banzai.dyndns-web.com"
 role :web, "banzai.dyndns-web.com"
 role :db,  "banzai.dyndns-web.com", :primary => true
+
+after "deploy:symlink", "deploy:update_crontab"
+
