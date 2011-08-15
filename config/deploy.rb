@@ -47,6 +47,7 @@ namespace :deploy do
   task :symlinks do
     %w(database.yml app_config.yml).each do|yaml|
       run "ln -sf #{deploy_to}/shared/config/#{yaml} #{release_path}/config/#{yaml}"
+    end
   end
 end
 
