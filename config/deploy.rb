@@ -25,7 +25,7 @@ namespace :deploy do
 
   desc "Update the crontab file"
   task :update_crontab, :roles => :single do
-    run "cd #{release_path} && whenever --set #{whenever_config} --update-crontab #{application}"
+    run "cd #{release_path} && whenever  --update-crontab #{application}"
   end
 
   after 'deploy:finalize_update' do
