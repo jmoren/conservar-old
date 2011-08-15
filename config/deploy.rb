@@ -6,7 +6,7 @@ set :default_stage, "testing"
 set :application, "conservar"
 set :repository,  "git@github.com:jmoren/conservar.git"
 set :scm, :git
-
+set :git_enable_submodules, 1
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
 ssh_options[:forward_agent] = true
