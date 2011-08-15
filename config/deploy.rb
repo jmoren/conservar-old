@@ -43,10 +43,10 @@ namespace :deploy do
     CMD
   end
 
-  def symlinks
+  desc "Apunta los archivos de configuracion"
+  task :symlinks do
     %w(database.yml app_config.yml).each do|yaml|
       run "ln -sf #{deploy_to}/shared/config/#{yaml} #{release_path}/config/#{yaml}"
-    end
   end
 end
 

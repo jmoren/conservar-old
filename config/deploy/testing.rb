@@ -13,5 +13,6 @@ role :app, "banzai.dyndns-web.com"
 role :web, "banzai.dyndns-web.com"
 role :db,  "banzai.dyndns-web.com", :primary => true
 
-after "deploy:symlink", "deploy:update_crontab"
+after "deploy:finalize_update", "deploy:symlinks"
+afet "deploy:finalize_update", "deploy:update_crontab"
 
