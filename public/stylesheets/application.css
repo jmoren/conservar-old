@@ -424,7 +424,7 @@ li.help_list{#FCFBB6
 #items  table tr{ line-height: 1.5em; border-bottom: 1px solid #ccc;}
 #items  table tr td{ padding: 5px;}
 
-#item    {padding:15px;border: solid #ccc 1px; border-radius: 10px;width:90%;margin:20px auto}
+#item    {width:90%;margin:10px auto}
 #item  h3 {color:#3D9400}
 #item .item_info {margin: 10px 0;padding: 3px 5px}
 #item .item_info .title {width: 100px;float:left;font-weight:bold}
