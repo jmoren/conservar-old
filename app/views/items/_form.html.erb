@@ -38,7 +38,7 @@
       <p>
         <%= f.label :item_category_id, "Categoria" %>
         <% if @item.new_record? %>
-          <%= f.select :item_category_id, ItemCategory.categories.collect{|c| [c.name,c.id]},:prompt => "categoria" %>
+          <%= f.select :item_category_id, ItemCategory.categories.collect{|c| [c.name,c.id]},:prompt => "categoria", :class => "item_select" %>
         <% else %>
           <%= f.hidden_field :item_category_id, :value => @item.category.id %>
           <span class="item_type"><%= @item.category.name %></span>
@@ -60,7 +60,7 @@
       <p>
         <%= f.label :remote_image, "Link foto"%>
         <%= f.text_field :remote_image %>
-        <div style="margin:-20px 0 0 85px"><small style="color:#999"> Esta opcion es optativa, si conoce la url de foto</small></div>
+        <div style="margin:-20px 0 0 85px;color:#999;font-size:11px">Esta opcion es optativa, si conoce la url de foto</div>
       </p>
     </div>
 

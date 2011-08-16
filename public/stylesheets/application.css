@@ -152,13 +152,12 @@ select, input[type="search"]{
 	-webkit-transition: .3s ease-in-out;
   -moz-transition: .3s ease-in-out;
   padding: 2px;
-  display: block;
 }
 select:focus{
   border: solid 1px #fafafa;
   outline: 3px auto #007eff;
 }
-select.selectable, input#q  {display:inline}
+#item_form select {display:block}
 
 input[type="submit"]{
   border-radius: 5px;
