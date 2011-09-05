@@ -1,0 +1,3 @@
+$("#special_tasks").html("<%= escape_javascript(render 'special_tasks', :collection => @special_tasks)%>");
+$('.result').html('<%= search_page_entries_info(@special_tasks) %>');
+

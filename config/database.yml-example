@@ -1,0 +1,36 @@
+development:
+  adapter: mysql2
+  database: DATABASE
+  host: HOST
+  username: USERNAME
+  password: PASSWORD
+  encoding: utf8
+
+test: &TEST
+  adapter: mysql2
+  database: DATABASE_test
+  host: HOST
+  username: USERNAME
+  password: PASSWORD
+  encoding: utf8
+
+production:
+  adapter: mysql2
+  database: DATABASE
+  host: HOST
+  username: USERNAME
+  password: PASSWORD
+  encoding: utf8
+
+cucumber:
+  <<: *TEST
+selenium:
+  <<: *TEST
+
+staging:
+  adapter: mysql2
+  database: DATABASE
+  host: HOST
+  username: USERNAME
+  password: PASSWORD
+  encoding: utf8

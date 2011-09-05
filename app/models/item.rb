@@ -55,7 +55,7 @@ class Item < ActiveRecord::Base
     end
   end
   def has_additional_info?
-    self.generic_integer_fields.empty? && self.generic_text_fields.empty? && self.generic_text_areas.empty? && self.generic_text_fields.empty? && self.generic_float_fields.empty? && self.generic_boolean_fields.empty? && self.generic_select_fields.empty?
+    self.generic_integer_fields.empty? && self.generic_text_fields.empty? && self.generic_text_areas.empty? && self.generic_text_fields.empty? && self.generic_float_fields.empty? && self.generic_boolean_fields.empty?
   end
 
   def download_image

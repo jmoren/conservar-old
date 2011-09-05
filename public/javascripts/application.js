@@ -33,7 +33,10 @@ $(function(){
       $(this).parents('.fields').hide();
       return false;
     });
-
+    $("#task_date" ).datepicker({
+        showOtherMonths: true,
+  			selectOtherMonths: true
+			});
 	  $("#report_start_date" ).datepicker({
         minDate: -2,
 			  //dateFormat:"DD, d MM yy",

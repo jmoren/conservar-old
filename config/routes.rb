@@ -1,5 +1,7 @@
 Conservar::Application.routes.draw do
 
+  resources :special_tasks
+
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login
   match 'profile' => 'users#profile', :as => :profile

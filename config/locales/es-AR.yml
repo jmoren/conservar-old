@@ -216,7 +216,13 @@ es-AR:
       observation: 'Observacion'
       collection: 'Coleccion'
       event: "Evento"
+      special_task: "Tarea especial"
     attributes:
+      special_task:
+        collection_id: "Coleccion"
+        user_id: "Usuario"
+        description: "Descripcion"
+        date: "Realizada el"
       event:
         title: "Titulo"
         start_at: "Comienza el"
