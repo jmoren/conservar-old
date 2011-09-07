@@ -152,8 +152,8 @@ label.message{
 #profile table.user_information tr.row:hover{background: #ccc; padding: 2px }
 #profile table.versions {margin: 15px;}
 #profile table.version {margin: 10px 5px ;}
-#profile table.user_information td.version_event{width: 40%}
-#profile table.user_information td.version_date{width: 30%}
+#profile table.user_information td.version_event{width: 25%}
+#profile table.user_information td.version_date{width: 40%}
 #profile table.user_information td.version_index{width: 20%}
 #activity_profile{width:90%;margin:auto}
 

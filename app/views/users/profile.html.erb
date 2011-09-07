@@ -37,18 +37,17 @@
               <td class="table_object">
                 <%= activities.first.item_type.classify.constantize.model_name.human %> ID #<%= activities.first.item_id %>
               </td>
-              <td class="table_editions"><%= pluralize(activities.size,'edicion') %> </td>
+              <td class="table_editions"><%= pluralize(activities.size,'edicion', 'ediciones') %> </td>
               <td class="close_table">
-                <a href="#" title="clickea para abrir o cerrar esta pestana" data="table_<%= activities.first.id%>" class="close_table"><%= image_tag('window-close.png')%></a>
-              </td>
+                <a href="#" title="clickea para abrir o cerrar esta pestana" data="table_<%= activities.first.id%>" class="close_table">mas info</a> </td>
             </tr>
           </table>
-          <table class="user_information versions" id="table_<%= activities.first.id%>">
+          <table style="display:none" class="user_information versions" id="table_<%= activities.first.id%>">
             <% activities.each do |activity| %>
               <tr class="row">
                 <td class="version_event"><%= t("views.profile.#{activity.event}") %></td>
-                <td class="version_date"><%= l activity.created_at, :format => :short %></td>
-                <td class="veersion_index"><%= activity.index == 0 ? "Original" : activity.index %></td>
+                <td class="version_date"><%= l activity.created_at, :format => :long %></td>
+                <td class="veersion_index"><%= activity.index + 1 %></td>
               </tr>
             <% end %>
           </table>
