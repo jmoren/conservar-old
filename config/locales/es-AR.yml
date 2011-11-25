@@ -164,6 +164,8 @@ es-AR:
       cancel: "Cancelar"
       new_report: "Nuevo Reporte"
       manage_images: "Adm. Imagenes"
+      new_task: "Nueva tarea"
+      tasks: "Tareas"
     text:
       before_upload: 'Puedes seleccionar hasta 5 fotos a la vez para subir. Antes de eso, asegurate que los nombres de las fotos no contengan espacios ni caracteres raros (%,$,/, etc. Reemplazalos por guiones bajos o medios).'
       add_zoom: 'Haz click en cada foto que quieras activar el zoom'
@@ -205,7 +207,7 @@ es-AR:
     models:
       alert: "Alertas"
       item: "Item"
-      report: "Reporte"
+      report: "Informe"
       task: "Tarea"
       tool: 'Herramienta'
       deterioration: 'Deterioro'
@@ -242,8 +244,8 @@ es-AR:
         title: "Titulo"
         author: "Autor"
         description: "Descripcion"
-        category: "Categoria"
-        subcategory: "Subcategoria"
+        category: "Soporte"
+        subcategory: "Categoria"
         status: "Estado"
         user: "Creado por"
       collection:
@@ -259,7 +261,7 @@ es-AR:
         status: 'Estado'
         created_at: 'Creado'
       report:
-        item: 'Objeto'
+        item: 'Item'
         start_date: "Inicio"
         end_date: "Fin"
         comments: "Comentarios"
