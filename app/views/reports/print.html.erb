@@ -1,3 +1,4 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <%= stylesheet_link_tag 'application',:media => "print" %>
 <div id="header_pdf">
   <div style="float:left;padding: 5px 0;width: 20%">
@@ -33,7 +34,7 @@
 </h1>
 <div style="width:100%;margin:auto;">
   <div style="float:left;width:59%">
-    <h2> Informacion General </h2>
+    <h2> Informacioón General </h2>
     <p>
       <strong><%= Report.human_attribute_name(:user) %>:</strong>
       <%= @report.user.full_name %>
@@ -64,12 +65,13 @@
     </p>
   </div>
   <div style="float:left;width:40%">
-    <h2> Estado del Reporte </h2>
+    <h2> Estado del Informe </h2>
     <strong><%= Report.human_attribute_name(:status) %>: </strong>
     <%= @report.status %>
     <% if @report.closed? %>
     <p>
       <strong>Cerrado el:</strong>
+      <br>
       <%= l @report.updated_at, :format => :long %>
     </p>
     <% end %>
@@ -84,8 +86,8 @@
 </div>
 
 <div>
-  <h2> Problemas encontrados:</h2>
   <% unless @report.deteriorations.empty? %>
+    <h2> Diágnosticos realizados:</h2>
     <% @report.deteriorations.each do |deterioration| %>
       <div style="border: solid 2px #666;border-radius: 3px; padding: 5px;margin: 5px 0">
         <div class="deterioration_header">
@@ -102,8 +104,8 @@
         <div class="description">
           <%= simple_format deterioration.description%>
         </div>
-        <h3> Tareas </h3>
         <% unless deterioration.tasks.empty? %>
+          <h3> Tareas </h3>
           <table style="width:100%">
             <tr>
               <th style="width:10%;text-align:left;padding: 0 5px"> Horas </th>
@@ -118,20 +120,14 @@
               </tr>
             <% end %>
           </table>
-        <% else %>
-         <h3> No hay tareas </h3>
         <% end %>
       </div>
     <% end %>
-  <% else %>
-    <div class="deterioration_message">
-      <h3>No hay problemas anotados </h3>
-    </div>
   <% end %>
 </div>
 <div>
-  <h2> Observaciones </h2>
   <% unless @report.observations.empty? %>
+    <h2> Observaciones </h2>
     <table  style="width:100%">
       <tr>
         <th style="width:10%;text-align:left;padding: 0 5px"><%= Observation.human_attribute_name(:category)%></th>
@@ -147,24 +143,23 @@
         </tr>
       <% end %>
     </table>
-  <% else %>
-    <h3> No hay observaciones </h3>
   <% end %>
 </div>
+<h2> Información del Informe </h2>
 <p>
   <span><strong><%= Report.human_attribute_name(:comments)%>: </strong></span>
-    <%= simple_format @report.comments, :class => "text_area" %>
+  <div class="text_area"><%= simple_format @report.comments %></div>
 </p>
 <p>
   <span><strong><%= Report.human_attribute_name(:treatment)%>: </strong></span>
-  <%= simple_format @report.treatment, :class => "text_area"%>
+  <div class="text_area"><%= simple_format @report.treatment %></div>
 </p>
 
 <% if @report.closed? %>
   <h2> Conclusion </h2>
   <p>
     <span><strong><%= Report.human_attribute_name(:conclusion) %>: </strong></span>
-    <%= simple_format @report.conclusion, :class => "text_area" %>
+    <div class="text_area"><%= simple_format @report.conclusion %></div>
   </p>
   <p>
     <div class="left col_left">
