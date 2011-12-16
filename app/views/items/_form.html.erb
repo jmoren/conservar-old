@@ -82,11 +82,11 @@
           <div class="left col_left">
             <%= f.fields_for :generic_text_fields do |a| %>
               <div class="addicional_field">
-                <label><%= a.object.label_attribute.titleize %></label>
-                <%= a.hidden_field :label_attribute, :value => a.object.label_attribute %>
+                <label><%= a.object.generic_field.try(:name) || a.object.label_attribute %></label>
+                <%= a.hidden_field :label_attribute, :value => a.object.generic_field.try(:name) %>
                 <%= a.text_field :content %>
                 <div class="delete_message_option">
-                  <% unless @item.subcategory.generic_fields.find_by_name(a.object.label_attribute) %>
+                  <% unless a.object.generic_field %>
                     <small class="can_delete_field">
                       <%= a.check_box :_destroy %>
                       <strong>Este campo ya no se utiliza mas, puede eliminarse. </strong>
@@ -97,11 +97,11 @@
             <% end %>
             <%= f.fields_for :generic_integer_fields do |b| %>
               <div class="addicional_field">
-                <label><%= b.object.label_attribute.titleize %></label>
-                <%= b.hidden_field :label_attribute, :value => b.object.label_attribute %>
+                <label><%= b.object.generic_field.try(:name) || b.object.label_attribute%></label>
+                <%= b.hidden_field :label_attribute, :value => b.object.generic_field.try(:name) %>
                 <%= b.text_field :content, :size => 10 %>
                 <div class="delete_message_option">
-                  <% unless @item.subcategory.generic_fields.find_by_name(b.object.label_attribute) %>
+                  <% unless b.object.generic_field %>
                     <small class="can_delete_field">
                       <%= b.check_box :_destroy %>
                       <strong>Este campo ya no se utiliza mas, puede eliminarse. </strong>
@@ -112,11 +112,11 @@
             <% end %>
             <%= f.fields_for :generic_float_fields do |c| %>
               <div class="addicional_field">
-                <label><%= c.object.label_attribute.titleize %></label>
-                <%= c.hidden_field :label_attribute, :value => c.object.label_attribute %>
+                <label><%= c.object.generic_field.try(:name) || c.object.label_attribute %></label>
+                <%= c.hidden_field :label_attribute, :value => c.object.generic_field.try(:name) %>
                 <%= c.text_field :content, :size => 10 %>
                 <div class="delete_message_option">
-                  <% unless @item.subcategory.generic_fields.find_by_name(c.object.label_attribute) %>
+                  <% unless c.object.generic_field %>
                     <small class="can_delete_field">
                       <%= c.check_box :_destroy %>
                       <strong>Este campo ya no se utiliza mas, puede eliminarse. </strong>
@@ -127,11 +127,11 @@
             <% end %>
             <%= f.fields_for :generic_boolean_fields do |d| %>
               <div class="addicional_field">
-                <label><%= d.object.label_attribute.titleize %></label>
-                <%= d.hidden_field :label_attribute, :value => d.object.label_attribute %>
+                <label><%= d.object.generic_field.try(:name) || d.object.label_attribute %></label>
+                <%= d.hidden_field :label_attribute, :value => d.object.generic_field.try(:name) %>
                 <%= d.check_box :content %>
                 <div class="delete_message_option">
-                  <% unless @item.subcategory.generic_fields.find_by_name(d.object.label_attribute) %>
+                  <% unless d.object.generic_field %>
                     <small class="can_delete_field">
                       <%= d.check_box :_destroy %>
                       <strong>Este campo ya no se utiliza mas, puede eliminarse. </strong>
@@ -144,12 +144,12 @@
           <div class="added_attributes_text col_right right">
             <%= f.fields_for :generic_text_areas do |e| %>
               <div class="addicional_field">
-                <strong><%= e.object.label_attribute.titleize %></strong>
+                <strong><%= e.object.generic_field.try(:name) || e.object.label_attribute %></strong>
                 <br>
-                <%= e.hidden_field :label_attribute, :value => e.object.label_attribute %>
+                <%= e.hidden_field :label_attribute, :value => e.object.generic_field.try(:name) %>
                 <%= e.text_area :content, :cols => 50, :rows => 5 %>
                 <div class="delete_message_option">
-                  <% unless @item.subcategory.generic_fields.find_by_name(e.object.label_attribute) %>
+                  <% unless e.object.generic_field %>
                     <small class="can_delete_field">
                       <%= e.check_box :_destroy %>
                       <strong>Este campo ya no se utiliza mas, puede eliminarse. </strong>

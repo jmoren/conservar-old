@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110903222144) do
+ActiveRecord::Schema.define(:version => 20111216172617) do
 
   create_table "alerts", :force => true do |t|
     t.string   "alertable_type"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20110903222144) do
     t.boolean  "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "generic_field_id"
   end
 
   create_table "generic_fields", :force => true do |t|
@@ -109,6 +110,7 @@ ActiveRecord::Schema.define(:version => 20110903222144) do
     t.float    "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "generic_field_id"
   end
 
   create_table "generic_integer_fields", :force => true do |t|
@@ -117,6 +119,7 @@ ActiveRecord::Schema.define(:version => 20110903222144) do
     t.integer  "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "generic_field_id"
   end
 
   create_table "generic_select_fields", :force => true do |t|
@@ -134,6 +137,7 @@ ActiveRecord::Schema.define(:version => 20110903222144) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "generic_field_id"
   end
 
   create_table "generic_text_fields", :force => true do |t|
@@ -142,6 +146,7 @@ ActiveRecord::Schema.define(:version => 20110903222144) do
     t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "generic_field_id"
   end
 
   create_table "histories", :force => true do |t|

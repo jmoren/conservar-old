@@ -5,9 +5,7 @@ class Admin::GenericFieldsController < AdminController
 
   def create
     @generic_field = GenericField.new(params[:generic_field])
-    if @generic_field.save
-
-    else
+    unless @generic_field.save
       notice = "El nombre " + @generic_field.errors[:name].to_sentence
     end
   end
@@ -21,12 +19,17 @@ class Admin::GenericFieldsController < AdminController
     @generic_field.update_attributes(params[:generic_field])
     redirect_to admin_item_category_path(@generic_field.item_category)
   end
+
+  def update_in_place
+    @generic_field = GenericField.find(params[:element_id])
+    @generic_field.update_attributes(params[:field].to_sym => params[:update_value])
+    render :text => @generic_field.send(params[:field])
+  end
   # name and field_style
   def destroy
-    sleep 2
     @generic_field = GenericField.find(params[:id])
     name = @generic_field.name
-    category = @generic_field.item_category
+    category = @generic_field.item_category_id
     if params[:delete_fields]
       @items = Item.where(:item_subcategory_id => category)
       case @generic_field.field_style

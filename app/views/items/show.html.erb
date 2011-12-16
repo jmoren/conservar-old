@@ -82,33 +82,33 @@
     <%= simple_format @item.description, :class=> "text_area" %>
   </p>
   <div class="item_addicional_info">
-    <% unless @item.has_additional_info? %>
+    <% if @item.has_additional_info? %>
     <h3> Informacion Adicional </h3>
     <div class="left col_left">
       <% @item.generic_text_fields.each do |field| %>
         <div class="item_info">
-          <div class="title"><%= field.label_attribute.titleize %></div>
+          <div class="title"><%= field.generic_field.try(:name) || field.label_attribute %></div>
           <%= field.content.blank? ? "sin datos" : field.content %>
         </div>
         <div class="clear"></div>
       <% end %>
       <% @item.generic_integer_fields.each do |field| %>
         <div class="item_info">
-          <div class="title"><%= field.label_attribute.titleize %></div>
+          <div class="title"><%= field.generic_field.try(:name) || field.label_attribute %></div>
           <%= field.content.blank? ? "sin datos" : field.content %>
         </div>
         <div class="clear"></div>
       <% end %>
       <% @item.generic_float_fields.each do |field| %>
         <div class="item_info">
-          <div class="title"><%= field.label_attribute.titleize %></div>
+          <div class="title"><%= field.generic_field.try(:name) || field.label_attribute %></div>
           <%= field.content.blank? ? "sin datos" : field.content %>
         </div>
         <div class="clear"></div>
       <% end %>
       <% @item.generic_boolean_fields.each do |field| %>
         <div class="item_info">
-          <div class="title"><%= field.label_attribute.titleize %></div>
+          <div class="title"><%= field.generic_field.try(:name) || field.label_attribute %></div>
           <%= field.content.blank? ? "sin datos" : field.content %>
         </div>
         <div class="clear"></div>
@@ -117,7 +117,7 @@
     <div class="right col_right">
       <% @item.generic_text_areas.each do |field| %>
         <div class="item_info">
-          <div class="title"><%= field.label_attribute.titleize %></div>
+          <div class="title"><%= field.generic_field.try(:name) || field.label_attribute %></div>
           <br>
           <%= simple_format field.content.blank? ? "sin datos" : field.content, :class=> "text_area" %>
         </div>
