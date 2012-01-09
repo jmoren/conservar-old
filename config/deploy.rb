@@ -33,6 +33,7 @@ namespace :deploy do
   end
 
   before 'deploy:migrate', :roles => :app do
+    run "cd #{release_path} && rake db:migrate"
     symlinks
   end
 
@@ -47,6 +48,7 @@ namespace :deploy do
   task :symlinks do
     %w(database.yml app_config.yml).each do|yaml|
       run "ln -sf #{deploy_to}/shared/config/#{yaml} #{release_path}/config/#{yaml}"
+      run "ln -sf #{deploy_to}/shared/public/fotos #{release_path}/public/fotos"
     end
   end
 end
