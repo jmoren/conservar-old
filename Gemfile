@@ -21,7 +21,7 @@ gem 'rack-raw-upload'
 
 #nice things
 gem 'nifty-generators'
-gem 'friendly_id'
+gem 'friendly_id', "3.2.1.1"
 gem 'make_flaggable', :git => 'git://github.com/cavneb/make_flaggable.git'
 gem 'paper_trail'
 

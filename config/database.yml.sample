@@ -32,7 +32,7 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: conservar_production
+  database: conservar
   pool: 5
   username: root
   password:
