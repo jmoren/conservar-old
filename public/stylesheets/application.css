@@ -748,9 +748,9 @@ ul#alerts {
 .alert .custom:hover, .alert .frequency:hover, .alert .message:hover, .alert .day:hover{
   cursor: pointer;
 }
-#form_buttons{
+/*#form_buttons{
   float: right;
-}
+}*/
 /* tasks */
 /*collections */
 
