@@ -22,7 +22,8 @@
       <%= f.text_area :message, :cols => 50, :rows => 5 %>
     </p>
     <div id="form_buttons">
-      <p><%= f.submit "Crear Alerta", :disable_with => "guardando..."%> o  <%= link_to 'Cancelar', "#",:id => "cancel_link"  %></p>
+      <div class="left"> <%= link_to "Volver", @parent %> </div>
+      <div class="right"><%= f.submit "Crear Alerta", :disable_with => "guardando..."%> o  <%= link_to 'Cancelar', "#",:id => "cancel_link"  %></div>
     </div>
   <% end %>
 </div>
