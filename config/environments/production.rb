@@ -42,10 +42,10 @@ Conservar::Application.configure do
     :address              => CONFIG['smtp_server'], #"smtp.gmail.com",
     :port                 => CONFIG['smtp_port'],   #587,
     :domain               => CONFIG['domain'],      #'example.com',
-    :user_name            => CONFIG['mail_user'],
-    :password             => CONFIG['mail_pass'],
-    :authentication       => CONFIG['mail_auth'],   #'plain',
-    :enable_starttls_auto => true
+    #:user_name            => CONFIG['mail_user'],
+    #:password             => CONFIG['mail_pass'],
+    #:authentication       => CONFIG['mail_auth'],   #'plain',
+    #:enable_starttls_auto => true
   }
   # Enable threaded mode
   # config.threadsafe!

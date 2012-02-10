@@ -90,6 +90,7 @@ class ReportsController < ApplicationController
   def print
     @report = Report.find(params[:id])
     @institution = Institution.first
+    render :layout => false
   end
 #  def deteriorations_to_gantt
 #    @report = Report.find(params[:id])
