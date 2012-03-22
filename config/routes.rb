@@ -47,12 +47,8 @@ Conservar::Application.routes.draw do
   end
 
   resources :galleries, :except => [:new, :create] do
-    collection do
-      post :upload
-    end
-    member do
-      get :uploader
-    end
+    post :upload, :on => :collection
+    get :uploader, :on => :member
   end
 
   resources :tasks, :except => [:new, :create] do
@@ -94,7 +90,9 @@ Conservar::Application.routes.draw do
   resources :observations, :only => [:destroy]
   resources :alerts
   resources :events
-  resources :collections
+  resources :collections do
+    get :list, :on => :member
+  end  
   resources :sessions
   resources :users, :only => [:edit, :update]
   root :to => "items#index"

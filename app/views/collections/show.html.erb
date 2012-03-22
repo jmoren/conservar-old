@@ -16,6 +16,9 @@
       <%= link_to t('helpers.links.edit'), edit_collection_path(@collection) %>
     </div>
     <div class="button">
+      <%= link_to "Listado", list_collection_path(@collection) %>
+    </div>
+    <div class="button">
       <%= link_to t('helpers.links.delete'), @collection, :confirm => 'Esta seguro que desea eliminar esta coleccion?', :method => :delete %>
     </div>
   </div>

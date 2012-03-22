@@ -47,6 +47,16 @@ class CollectionsController < ApplicationController
     end
     redirect_to collections_url, :notice => t("views.flash.delete")
   end
-
+  
+  def list
+    @collection = Collection.find(params[:id])
+    
+    if params[:option].present? && params[:option] == "unresolved"
+      @items = @collection.get_items_unresolved
+    else
+      @items = @collection.get_all_items
+    end
+    render :layout => false
+  end
 end
 

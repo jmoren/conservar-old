@@ -18,5 +18,13 @@ class Collection < ActiveRecord::Base
   def gral_status
     items = self.items.group(:status).size
   end
+  
+  def get_all_items
+    items
+  end
+  
+  def get_all_items_unresolved
+    items.map{|item| item unless item.reports.empty? }
+  end
 end
 
