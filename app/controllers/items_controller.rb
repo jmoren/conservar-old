@@ -1,6 +1,5 @@
 class ItemsController < ApplicationController
   def index
-    sleep 1
     if params[:q]
       @q = params[:q]
       @items = Item.search(@q).page params[:page]
@@ -40,15 +39,15 @@ class ItemsController < ApplicationController
     subcategory.generic_fields.each do |field|
       case field.field_style
       when 'entero'
-        @item.generic_integer_fields.build(:label_attribute => field.name)
+        @item.generic_integer_fields.build(:generic_field_id => field.id)
       when 'float'
-        @item.generic_float_fields.build(:label_attribute => field.name)
+        @item.generic_float_fields.build(:generic_field_id => field.id)
       when 'string'
-        @item.generic_text_fields.build(:label_attribute => field.name)
+        @item.generic_text_fields.build(:generic_field_id => field.id)
       when 'texto'
-        @item.generic_text_areas.build(:label_attribute => field.name)
+        @item.generic_text_areas.build(:generic_field_id => field.id)
       when 'boolean'
-        @item.generic_boolean_fields.build(:label_attribute => field.name)
+        @item.generic_boolean_fields.build(:generic_field_id => field.id)
       end
     end
   end
@@ -59,15 +58,15 @@ class ItemsController < ApplicationController
     subcategory.generic_fields.each do |field|
       case field.field_style
       when 'entero'
-        @item.generic_integer_fields.create(:label_attribute => field.name) unless @item.generic_integer_fields.find_by_label_attribute(field.name)
+        @item.generic_integer_fields.create(:generic_field_id => field.id) unless @item.generic_integer_fields.find_by_generic_field_id(field.id)
       when 'float'
-        @item.generic_float_fields.create(:label_attribute => field.name) unless @item.generic_float_fields.find_by_label_attribute(field.name)
+        @item.generic_float_fields.create(:generic_field_id => field.id) unless @item.generic_float_fields.find_by_generic_field_id(field.id)
       when 'string'
-        @item.generic_text_fields.create(:label_attribute => field.name) unless @item.generic_text_fields.find_by_label_attribute(field.name)
+        @item.generic_text_fields.create(:generic_field_id => field.id) unless @item.generic_text_fields.find_by_generic_field_id(field.id)
       when 'texto'
-        @item.generic_text_areas.create(:label_attribute => field.name) unless @item.generic_text_areas.find_by_label_attribute(field.name)
+        @item.generic_text_areas.create(:generic_field_id => field.id) unless @item.generic_text_areas.find_by_generic_field_id(field.id)
       when 'boolean'
-        @item.generic_boolean_fields.create(:label_attribute => field.name) unless @item.generic_boolean_fields.find_by_label_attribute(field.name)
+        @item.generic_boolean_fields.create(:generic_field_id => field.id) unless @item.generic_boolean_fields.find_by_generic_field_id(field.id)
       end
     end
   end

@@ -7,20 +7,20 @@ es-AR:
       create: "Creado"
       destroy: "Eliminado"
     flash:
-      edit: "Fue actualizado con exito"
-      create: "Fue creado con exito"
-      delete: "Se elimino con exito"
+      edit: "Fue actualizado con éxito"
+      create: "Fue creado con éxito"
+      delete: "Se elimino con éxito"
       closed:
-        deterioration: "Se cerro con exito el problema detectado"
-        report: "Se cerro con exito el reporte %{code}"
+        deterioration: "Se cerró con éxito el problema detectado"
+        report: "Se cerró con éxito el reporte %{code}"
       open:
-        deterioration: "Se abrio el problema detectado"
-        report: "Se abrio el reporte %{code}"
+        deterioration: "Se reabrió el problema detectado"
+        report: "Se reabrió el reporte %{code}"
     pagination:
       previous: "&laquo; Ant"
       next: "Prox &raquo;"
       truncate: "..."
-      last: "Ultima"
+      last: "Última"
       first: "Primera"
   number:
     percentage:
@@ -145,7 +145,7 @@ es-AR:
       second: 'Segundos'
 
   helpers:
-    confirm_message: 'Esta seguro que quiere eliminarlo?'
+    confirm_message: 'Está seguro que quiere eliminarlo?'
     select:
       prompt: "Por favor selecciona"
     links:
@@ -155,17 +155,19 @@ es-AR:
       back: 'Volver'
       pdf: 'PDF'
       all: "Ver todos"
-      close_report: 'Cerrar Reporte'
-      open_report: 'Abrir Reporte'
+      close_report: 'Cerrar Informe'
+      open_report: 'Abrir Informe'
       add_task: 'Crear Tarea'
       add_gallery: 'Crear Galeria'
-      compare_gallery: 'Comparar imagenes'
-      add_observation: 'Crear Observacion'
+      compare_gallery: 'Comparar imágenes'
+      add_observation: 'Crear Observación'
       cancel: "Cancelar"
-      new_report: "Nuevo Reporte"
-      manage_images: "Adm. Imagenes"
+      new_report: "Nuevo Informe"
+      manage_images: "Adm. Imágenes"
+      new_task: "Nueva tarea"
+      tasks: "Tareas"
     text:
-      before_upload: 'Puedes seleccionar hasta 5 fotos a la vez para subir. Antes de eso, asegurate que los nombres de las fotos no contengan espacios ni caracteres raros (%,$,/, etc. Reemplazalos por guiones bajos o medios).'
+      before_upload: 'Puedes seleccionar hasta 5 fotos a la vez para subir. Antes de eso, asegúrate que los nombres de las fotos no contengan espacios ni caracteres raros (%,$,/, etc. Reemplazalos por guiones bajos o medios).'
       add_zoom: 'Haz click en cada foto que quieras activar el zoom'
     submit:
       create: 'Crear %{model}'
@@ -205,70 +207,77 @@ es-AR:
     models:
       alert: "Alertas"
       item: "Item"
-      report: "Reporte"
+      report: "Informe"
       task: "Tarea"
       tool: 'Herramienta'
       deterioration: 'Deterioro'
       user: 'Usuario'
-      gallery: 'Galeria de imagenes'
+      gallery: 'Galeria de imágenes'
       photo: 'Foto'
       image: 'Imagen'
-      observation: 'Observacion'
-      collection: 'Coleccion'
+      observation: 'Observación'
+      collection: 'Colección'
       event: "Evento"
+      special_task: "Tarea especial"
     attributes:
+      special_task:
+        collection_id: "Colección"
+        user_id: "Usuario"
+        description: "Descripción"
+        date: "Realizada el"
       event:
-        title: "Titulo"
+        title: "Título"
         start_at: "Comienza el"
         end_at: "Termina el"
         activity: "Actividad"
       alert:
-        day: "dia"
+        day: "día"
         frequency: "Frecuencia"
         custom: "Personalizado"
         user: "Creado por"
         message: "Mensaje"
         parent: "Pertenece a"
       item:
-        collection_id: "Coleccion"
-        collection: "Coleccion"
-        code: "Codigo"
-        title: "Titulo"
+        collection_id: "Colección"
+        collection: "Colección"
+        code: "Código"
+        title: "Título"
         author: "Autor"
-        description: "Descripcion"
-        category: "Categoria"
-        subcategory: "Subcategoria"
+        description: "Descripción"
+        category: "Soporte"
+        subcategory: "Categoría"
         status: "Estado"
         user: "Creado por"
       collection:
-        description: 'Descripcion'
+        description: 'Descripción'
         name: 'Nombre'
         user: 'usuario'
       task:
         closed_at: 'Cerrado'
         hours: 'Horas'
         tools: 'Materiales'
-        galleries: 'Imagenes'
+        galleries: 'Imágenes'
         user: 'Usuario'
         status: 'Estado'
         created_at: 'Creado'
       report:
-        item: 'Objeto'
+        item: 'Item'
         start_date: "Inicio"
         end_date: "Fin"
-        comments: "Comentarios"
+        comments: "Descripción"
         treatment: "Tratamiento"
         user: 'Usuario'
         created_at: 'Creado'
-        information: 'Informacion adicional'
-        galleries: 'Imagenes'
-        graphics: 'Graficos'
+        information: 'Información adicional'
+        galleries: 'Imágenes'
+        graphics: 'Gráficos'
         status: 'Estado'
-        code: "Codigo"
+        code: "Código"
+        conclusion: "Conclusión"
       deterioration:
-        place: "Lugar"
-        description: "Descripcion"
-        category: "Categoria"
+        place: "Zona afectada"
+        description: "Descripción"
+        category: "Diagnóstico"
         tasks: "Tareas"
         user: 'Usuario'
         created_at: 'Creado'
@@ -278,22 +287,22 @@ es-AR:
         name: "Nombre"
         lastname: "Apellido"
         email: "Email"
-        password: "Contrasena"
-        password_confirmation: "Confirmar contrasena"
+        password: "Contraseña"
+        password_confirmation: "Confirmar contraseña"
         enabled: "Habilidado"
         username: "usuario"
         created_at: 'Creado'
       gallery:
-        description: "Descripcion"
+        description: "Descripción"
         user: 'Usuario'
         created_at: 'Creado'
-        upload: 'Cargar imagenes'
+        upload: 'Cargar imágenes'
         delete: 'Eliminar'
-        size: 'Tamano'
+        size: 'Tamaño'
         image: 'Imagen'
-        photos: 'Imagenes'
+        photos: 'Imágenes'
       photo:
-        title: 'Titulo'
+        title: 'Título'
         image: 'Imagen'
         user: 'Usuario'
         created_at: 'Creado'
@@ -304,16 +313,16 @@ es-AR:
       observation:
         user: 'Usuario'
         email: 'Email'
-        category: 'Categoria'
-        body: 'Observacion'
+        category: 'Categoría'
+        body: 'Observación'
         created_at: 'Creado'
       institution:
         name: 'Nombre'
-        address: 'Direccion'
+        address: 'Dirección'
         city: 'Ciudad'
         zip: 'C.P.'
-        country: 'Pais'
-        phone: 'Telefono'
+        country: 'País'
+        phone: 'Teléfono'
         email: 'Email'
         image: 'Foto'
     errors:

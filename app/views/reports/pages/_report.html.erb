@@ -3,11 +3,11 @@
 </p>
 <p>
   <span><strong><%= Report.human_attribute_name(:comments)%>: </strong></span>
-    <%= simple_format @report.comments, :class => "text_area" %>
+  <div class="text_area"><%=simple_format @report.comments %></div>
 </p>
 <p>
   <span><strong><%= Report.human_attribute_name(:treatment)%>: </strong></span>
-  <%= simple_format @report.treatment, :class => "text_area"%>
+  <div class="text_area"><%= simple_format @report.treatment %></div>
 </p>
 <% if @report.closed? %>
   <p>
@@ -23,7 +23,7 @@
   </p>
   <p>
   <span><strong><%= Report.human_attribute_name(:conclusion) %>: </strong></span>
-    <%= simple_format @report.conclusion, :class => "text_area" %>
+  <div class="text_area"><%= simple_format @report.conclusion %></div>
   </p>
 <% end %>
 

@@ -1,0 +1,34 @@
+<div class="sub_menu">
+  <div class="pages left">
+    <%= paginate @special_tasks, :remote => true %>
+  </div>
+  <div class="result left">
+    <%= page_entries_info(@special_tasks) %>
+  </div>
+  <div class="destacados right">
+    <%= link_to 'Todas', special_tasks_path, :remote => true, :class => "remote_link" %>
+  </div>
+  <div class="clear"></div>
+</div>
+<table>
+  <tr>
+    <th><%= SpecialTask.human_attribute_name(:collection_id)%></th>
+    <th><%= SpecialTask.human_attribute_name(:user_id)%></th>
+    <th><%= SpecialTask.human_attribute_name(:description)%></th>
+    <th><%= SpecialTask.human_attribute_name(:date)%></th>
+    <th></th>
+  </tr>
+  <% @special_tasks.each do |special_task| %>
+    <tr>
+      <td><%= link_to special_task.collection.name, special_task.collection %></td>
+      <td><%= special_task.user.full_name %></td>
+      <td><%= special_task.description %></td>
+      <td><%= special_task.date %></td>
+      <td>
+        <%= link_to t('helpers.links.edit'), edit_special_task_path(special_task) %>
+        <%= link_to t('helpers.links.delete'), special_task, :confirm => 'Are you sure?', :method => :delete %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+

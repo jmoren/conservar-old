@@ -1,0 +1,24 @@
+<% title "Special Task" %>
+
+<p>
+  <strong>Collection:</strong>
+  <%= @special_task.collection_id %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%= @special_task.user_id %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%= @special_task.description %>
+</p>
+<p>
+  <strong>Date:</strong>
+  <%= @special_task.date %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_special_task_path(@special_task) %> |
+  <%= link_to "Destroy", @special_task, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", special_tasks_path %>
+</p>

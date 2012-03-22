@@ -73,7 +73,7 @@
       <strong><%= f.label :treatment %></strong>
       <%= f.text_area :treatment%>
     </p>
-    <% unless @report.new_record? && @report.closed_at.nil? %>
+    <% if !@report.new_record? && !@report.closed_at.nil? %>
       <p>
         <%= f.label :conclusion %>
         <%= f.text_area :conclusion %>

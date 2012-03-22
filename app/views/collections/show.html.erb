@@ -5,7 +5,18 @@
   </div>
   <div class="right">
     <div class="button">
+      <%= link_to t('helpers.links.new_task'), new_special_task_path(:collection => @collection.id) %>
+    </div>
+    <% unless @collection.special_tasks.empty? %>
+      <div class="button">
+        <%= link_to t('helpers.links.tasks'), special_tasks_path("q[collection]" => @collection.id) %>
+      </div>
+    <% end %>
+    <div class="button">
       <%= link_to t('helpers.links.edit'), edit_collection_path(@collection) %>
+    </div>
+    <div class="button">
+      <%= link_to "Listado", list_collection_path(@collection) %>
     </div>
     <div class="button">
       <%= link_to t('helpers.links.delete'), @collection, :confirm => 'Esta seguro que desea eliminar esta coleccion?', :method => :delete %>

@@ -1,0 +1,45 @@
+<div style="padding: 10px">  
+  Generado el dia <b><%= Time.now.strftime("%d/%m/%Y  %H:%M %p") %></b>  por  <b><%= current_user.full_name %></b>
+  <div style="border-top: dotted 1px #000;with:100%;margin-top: 15px;">
+  </div>
+  <h2> Coleccion <%= @collection.name.capitalize %> </h2>
+
+  <% if @items.empty? %>
+    Esta coleccion no tiene items todavia
+  <% else %>
+    <table style="border: solid 1px #ccc;width:100%; padding: 10px;margin: 20px 0;text-align: left">
+      <tr style="background: #f1f1f1;color: #333">
+        <td style="padding: 5px;font-weight:bold"> Codigo Objeto </td>
+        <td style="padding: 5px;font-weight:bold"> Nombre Objeto </td>
+        <td style="padding: 5px;font-weight:bold"> Codigo Reporte</td>
+        <td style="padding: 5px;font-weight:bold"> Estado Reporte</td>
+        <td style="padding: 5px;font-weight:bold"> Diagnostico   </td>
+        <td style="padding: 5px;font-weight:bold"> Zona Afectada </td>
+        <td style="padding: 5px;font-weight:bold"> Terminado    </td>
+      </tr>  
+      <tr>  
+        <% @items.each do |item| %>
+          <% unless item.reports.empty? %>
+            <% item.reports.each do |report| %>
+              <% report.deteriorations.each do |det| %>
+                <% unless det.fixed? %>
+                  <tr>
+                    <td style="padding: 10px;"><%= det.report.item.code %> </td>
+                    <td style="padding: 10px;"><%= det.report.item.title %> </td>
+                    <td style="padding: 10px;"><%= det.report.code %> </td>
+                    <td style="padding: 10px;"><%= det.report.status %></td>
+                    <td style="padding: 10px;"><%= det.det_category.name %></td>
+                    <td style="padding: 10px;"><%= det.place %></td>
+                    <td style="padding: 10px;">
+                      <input type="checkbox" "<%= det.fixed? ? 'checked' : nil %>"/>
+                    </td>
+                  </tr>
+                <% end %>  
+              <% end %>    
+            <% end %>  
+          <% end %>
+        <% end %>
+      </tr>
+    </table>    
+  <% end %>
+</div>

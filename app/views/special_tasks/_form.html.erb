@@ -1,0 +1,17 @@
+<div class="form" id="special_task_form">
+<%= form_for @special_task do |f| %>
+  <%= f.error_messages %>
+  <%= f.hidden_field :collection_id, :value => @collection.id %>
+  <p>
+    <%= f.label :date %>
+    <%= f.text_field :date, :id => "task_date" %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+
+  <p><%= f.submit %> o <%= link_to 'Cancelar', @collection %></p>
+<% end %>
+</div>
+

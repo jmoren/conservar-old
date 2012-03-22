@@ -1,13 +1,14 @@
-<td class="field_name">
-  <%= generic_field.name %>
-</td>
-<td class="field_type">
-  <%= generic_field.field_style %>
-</td>
-<td class="link_delete">
-  <%= link_to image_tag('open.png', :title => "Se eliminara este campo para los futuros objeetos"), admin_generic_field_path(generic_field), :method => :delete, :remote => true, :class => "remote_link", :id => generic_field.id %>
-</td>
-<td class="link_delete">
-  <%= link_to image_tag('open.png', :title => "Se eliminara de todos los objetos que posean este campo"), admin_generic_field_path(generic_field, :delete_fields => true), :method => :delete, :remote => true, :class => "remote_link", :id => generic_field.id %>
-</td>
-
+<tr id="generic_<%= generic_field.id%>">
+  <td class="field_name" id="<%= generic_field.id %>">
+    <%= generic_field.name %>
+  </td>
+  <td class="field_type">
+    <%= generic_field.field_style %>
+  </td>
+  <td class="link_delete">
+    <%= link_to image_tag('open.png', :title => "Se eliminara este campo para los futuros objeetos"), admin_generic_field_path(generic_field), :method => :delete, :remote => true, :class => "remote_link", :id => generic_field.id %>
+  </td>
+  <td class="link_delete">
+    <%= link_to image_tag('open.png', :title => "Se eliminara de todos los objetos que posean este campo"), admin_generic_field_path(generic_field, :delete_fields => true), :method => :delete, :remote => true, :class => "remote_link", :id => generic_field.id %>
+  </td>
+</tr>

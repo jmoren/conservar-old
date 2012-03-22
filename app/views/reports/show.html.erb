@@ -16,16 +16,16 @@ $(function () {
       saving_image: '/images/loading.gif',
       params: 'field=det_category_id',
       field_type: "select",
-  		select_options: '<%= DetCategory.actives.collect{|c| [c.name]}.join(", ")%>',
-  		select_text: 'seleccione'
+      select_options: '<%= DetCategory.actives.collect{|c| [c.name]}.join(", ")%>',
+      select_text: 'seleccione'
     }),
     $(".description").editInPlace({
       url: '/deteriorations/update_in_place',
       saving_image: '/images/loading.gif',
       params: 'field=description',
       field_type: "textarea",
-  		textarea_rows: "3",
-	  	textarea_cols: "50"
+      textarea_rows: "3",
+      textarea_cols: "50"
     });
     $('.category').change(function(){ console.log(this)});
 

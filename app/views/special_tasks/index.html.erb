@@ -1,0 +1,21 @@
+<% title SpecialTask.model_name.human %>
+<div id="section_header">
+  <%= form_tag special_tasks_path, :method => :get, :remote => true do %>
+    <strong> Filtrar: </strong>
+    <select name="q[collection]" id="q[collection]" title="Por coleccion">
+      <% @collections.each do |c| %>
+        <option value="<%= c.id %>"><%= c.name %></option>
+      <% end %>
+    </select>
+    <select name="q[user]" id="q[user]" title="Por usuario">
+      <% @users.each do |u| %>
+        <option value="<%= u.id %>"><%= u.name %></option>
+      <% end %>
+    </select>
+    <%= submit_tag "Ok", :class => "remote_link" %>
+  <% end %>
+</div>
+<div id="special_tasks">
+  <%= render :partial => "special_tasks" %>
+</div>
+

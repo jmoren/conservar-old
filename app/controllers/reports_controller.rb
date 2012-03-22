@@ -1,3 +1,4 @@
+# encoding: utf-8
 class ReportsController < ApplicationController
   respond_to :html, :json
 
@@ -89,6 +90,7 @@ class ReportsController < ApplicationController
   def print
     @report = Report.find(params[:id])
     @institution = Institution.first
+    render :layout => false
   end
 #  def deteriorations_to_gantt
 #    @report = Report.find(params[:id])

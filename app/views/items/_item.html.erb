@@ -4,12 +4,12 @@
     <%= image_tag @item.photo.url(:small) %>
   </div>
   <div class="left panel_item">
-    Code:<strong> <%= @item.code %></strong>
+    Codigo:<strong> <%= @item.code %></strong>
     <p>
       Categoria: <%= link_to @item.subcategory.name, items_path(:subcategory => @item.subcategory.id) %> (<%= link_to @item.category.name, items_path(:category => @item.category.id) %>)
     </p>
     <p>
-      Este item tiene <%= @item.reports.count %> reporte(s)
+      Este item tiene <%= pluralize(@item.reports.count,'informe') %> 
     </p>
   </div>
   <div class="clear"></div>
@@ -19,35 +19,35 @@
     <div>
       <% @item.generic_text_fields.each do |field| %>
         <div class="item_info">
-          <div class="title"><%= field.label_attribute.titleize %></div>
+          <div class="title"><%= field.generic_field.try(:name) || field.label_attribute %></div>
           <%= field.content.blank? ? "sin datos" : field.content %>
         </div>
         <div class="clear"></div>
       <% end %>
       <% @item.generic_integer_fields.each do |field| %>
         <div class="item_info">
-          <div class="title"><%= field.label_attribute.titleize %></div>
+          <div class="title"><%= field.generic_field.try(:name) || field.label_attribute %></div>
           <%= field.content.blank? ? "sin datos" : field.content %>
         </div>
         <div class="clear"></div>
       <% end %>
       <% @item.generic_float_fields.each do |field| %>
         <div class="item_info">
-          <div class="title"><%= field.label_attribute.titleize %></div>
+          <div class="title"><%= field.generic_field.try(:name) || field.label_attribute %></div>
           <%= field.content.blank? ? "sin datos" : field.content %>
         </div>
         <div class="clear"></div>
       <% end %>
       <% @item.generic_boolean_fields.each do |field| %>
         <div class="item_info">
-          <div class="title"><%= field.label_attribute.titleize %></div>
+          <div class="title"><%= field.generic_field.try(:name) || field.label_attribute %></div>
           <%= field.content? ? "Si" : "No" %>
         </div>
         <div class="clear"></div>
       <% end %>
       <% @item.generic_text_areas.each do |field| %>
         <div class="item_info">
-          <div class="title"><%= field.label_attribute.titleize %></div>
+          <div class="title"><%= field.generic_field.try(:name) || field.label_attribute %></div>
           <div class="clear"></div>
           <%= simple_format field.content.blank? ? "sin datos" : field.content, :class=>"text_area" %>
         </div>
@@ -56,3 +56,4 @@
     <% end %>
   </div>
 </div>
+

@@ -1,5 +1,7 @@
 Conservar::Application.routes.draw do
 
+  resources :special_tasks
+
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login
   match 'profile' => 'users#profile', :as => :profile
@@ -13,6 +15,7 @@ Conservar::Application.routes.draw do
   get  'admin/det_categories/:id/enable' => "admin::DetCategories#enable_category", :as => "admin_enable_category"
   get  'admin/det_categories/:id/disable' => "admin::DetCategories#disable_category", :as => "admin_disable_category"
   post 'admin/det_categories/update_in_place'  => "admin::DetCategories#update_in_place"
+  post 'admin/generic_fields/update_in_place'  => "admin::GenericFields#update_in_place"
   #items_categories
   get  'admin/item_categories/:id/enable' => "admin::ItemCategories#enable_category", :as => "admin_enable_item_category"
   get  'admin/item_categories/:id/disable' => "admin::ItemCategories#disable_category", :as => "admin_disable_item_category"
@@ -44,12 +47,8 @@ Conservar::Application.routes.draw do
   end
 
   resources :galleries, :except => [:new, :create] do
-    collection do
-      post :upload
-    end
-    member do
-      get :uploader
-    end
+    post :upload, :on => :collection
+    get :uploader, :on => :member
   end
 
   resources :tasks, :except => [:new, :create] do
@@ -91,7 +90,9 @@ Conservar::Application.routes.draw do
   resources :observations, :only => [:destroy]
   resources :alerts
   resources :events
-  resources :collections
+  resources :collections do
+    get :list, :on => :member
+  end  
   resources :sessions
   resources :users, :only => [:edit, :update]
   root :to => "items#index"

@@ -4,7 +4,15 @@
     $('.remote_link').click(function(){
       var id = $(this).attr('id');
       $('#loading').show();
-    })
+    });
+    $(".field_name").live('mouseover',function(){
+      $(this).editInPlace({
+        url: '/admin/generic_fields/update_in_place',
+        saving_image: '/images/loading.gif',
+        params: 'field=name'
+      });
+    });
+  
   })
 </script>
 <div id="new_fields">
@@ -16,15 +24,13 @@
     <h2> Campos adicionales </h2>
     <table>
       <tr>
-        <th class="field_name"> Nombre </th>
+        <th> Nombre </th>
         <th class="field_type"> Tipo </th>
         <th class="link_delete" title="Se eliminara este campo para los futuros objetos"> Eliminar I </th>
         <th class="link_delete" title="Se eliminara de todos los objetos que posean este campo"> Eliminar II</th>
       </tr>
       <% @subcategory.generic_fields.each do |generic_field| %>
-        <tr id="generic_<%= generic_field.id%>">
-          <%= render :partial => "field", :locals => {:generic_field => generic_field}  %>
-        </tr>
+        <%= render :partial => "field", :locals => {:generic_field => generic_field}  %>
       <% end %>
     </table>
   </div>

@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :items
   has_many :events
   has_many :alerts
+  has_many :special_tasks
   attr_accessor :password
   before_save :prepare_password
 

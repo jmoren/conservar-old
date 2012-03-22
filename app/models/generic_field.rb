@@ -1,6 +1,11 @@
 class GenericField < ActiveRecord::Base
   has_paper_trail :only => [:name, :field_style]
   belongs_to :item_category
+  has_many :generic_text_field
+  has_many :generic_text_area
+  has_many :generic_boolean_field
+  has_many :generic_integer_field
+  has_many :generic_float_field
   attr_accessible :item_category_id, :name, :field_style
   validates_presence_of :name
   STYLES = [['string'],['texto'],['entero'],['boolean'],['float']]

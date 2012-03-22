@@ -139,7 +139,7 @@ puts
 puts "Creando config/database.yml"
 
 db_config = []
-File.open("config/database.yml.sample") do |file|
+File.open("config/database.yml-example") do |file|
   while line = file.gets
     db_config << line
   end
