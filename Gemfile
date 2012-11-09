@@ -32,3 +32,6 @@ gem 'whenever'
 gem "mocha", :group => :test
 gem "bcrypt-ruby", :require => "bcrypt"
 
+#new relic
+gem 'newrelic_rpm'
+

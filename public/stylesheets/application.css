@@ -185,7 +185,7 @@ ul.conf_list li:hover .conf_explanation{display: block;color: #666;font-weight: 
 }
 #collection_item_panel{
   width: 46%;
-  min-height: 180px;
+  min-height: 200px;
   border: solid 1px #ccc;
   padding: 15px;
   border-radius: 5px;
