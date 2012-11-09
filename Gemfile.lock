@@ -61,6 +61,7 @@ GEM
     mime-types (1.16)
     mocha (0.9.12)
     mysql2 (0.2.7)
+    newrelic_rpm (3.5.0.1)
     nifty-generators (0.4.6)
     paper_trail (2.2.9)
       rails (~> 3)
@@ -110,6 +111,7 @@ DEPENDENCIES
   make_flaggable!
   mocha
   mysql2 (~> 0.2.1)
+  newrelic_rpm
   nifty-generators
   paper_trail
   paperclip
